@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 part of 'app_pages.dart';
 
 abstract class Routes {
@@ -43,7 +45,6 @@ abstract class Routes {
   static const COLLABORATOR = _Paths.COLLABORATOR;
   static const SALES = _Paths.SALES;
   static const PURCHASES = _Paths.PURCHASES;
-  static const WALLATE = _Paths.WALLATE;
   static const SUBSCRIPTION = _Paths.SUBSCRIPTION;
   static const PROFILE_PUBLIC = _Paths.PROFILE_PUBLIC;
   static const SOMETHING_WENT_WRONG = _Paths.SOMETHING_WENT_WRONG;
@@ -60,6 +61,7 @@ abstract class Routes {
   static const ADD_NEW_BANK = _Paths.ADD_NEW_BANK;
   static const TWO_STEP_VERIFICATION_TWO = _Paths.TWO_STEP_VERIFICATION_TWO;
   static const TWO_STEP_VERIFICATION_OTP = _Paths.TWO_STEP_VERIFICATION_OTP;
+  static const WALLET = _Paths.WALLET;
 }
 
 abstract class _Paths {
@@ -105,7 +107,6 @@ abstract class _Paths {
   static const COLLABORATOR = '/collaborator';
   static const SALES = '/sales';
   static const PURCHASES = '/purchases';
-  static const WALLATE = '/wallate';
   static const SUBSCRIPTION = '/subscription';
   static const PROFILE_PUBLIC = '/profile-public';
   static const SOMETHING_WENT_WRONG = '/something-went-wrong';
@@ -122,4 +123,5 @@ abstract class _Paths {
   static const ADD_NEW_BANK = '/add-new-bank';
   static const TWO_STEP_VERIFICATION_TWO = '/two-step-verification-two';
   static const TWO_STEP_VERIFICATION_OTP = '/two-step-verification-otp';
+  static const WALLET = '/wallet';
 }

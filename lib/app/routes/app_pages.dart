@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-
 import '../modules/add_new_account/bindings/add_new_account_binding.dart';
 import '../modules/add_new_account/views/add_new_account_view.dart';
 import '../modules/add_new_bank/bindings/add_new_bank_binding.dart';
@@ -106,8 +105,8 @@ import '../modules/two_step_verification_two/bindings/two_step_verification_two_
 import '../modules/two_step_verification_two/views/two_step_verification_two_view.dart';
 import '../modules/upload/bindings/upload_binding.dart';
 import '../modules/upload/views/upload_view.dart';
-import '../modules/wallate/bindings/wallate_binding.dart';
-import '../modules/wallate/views/wallate_view.dart';
+import '../modules/wallet/bindings/wallet_binding.dart';
+import '../modules/wallet/views/wallet_view.dart';
 
 part 'app_routes.dart';
 
@@ -318,11 +317,6 @@ class AppPages {
       binding: PurchasesBinding(),
     ),
     GetPage(
-      name: _Paths.WALLATE,
-      page: () => const WallateView(),
-      binding: WallateBinding(),
-    ),
-    GetPage(
       name: _Paths.SUBSCRIPTION,
       page: () => const SubscriptionView(),
       binding: SubscriptionBinding(),
@@ -386,6 +380,11 @@ class AppPages {
       name: _Paths.TWO_STEP_VERIFICATION_OTP,
       page: () => const TwoStepVerificationOtpView(),
       binding: TwoStepVerificationOtpBinding(),
+    ),
+    GetPage(
+      name: _Paths.WALLET,
+      page: () => const WalletView(),
+      binding: WalletBinding(),
     ),
   ];
 }
