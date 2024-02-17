@@ -128,6 +128,19 @@ class IconConstants {
   static const String icPockets = 'assets/icons/ic_pockets.png';
   static const String icProAccount = 'assets/icons/ic_pro_account.png';
   static const String icVerifyProfile = 'assets/icons/ic_verify_profile.png';
+  static const String icAddNewAccount = 'assets/icons/ic_add_new_account.png';
+  static const String icBankInformation = 'assets/icons/ic_bank_information.png';
+  static const String icCharge = 'assets/icons/ic_charge.png';
+  static const String icConverter = 'assets/icons/ic_converter.png';
+  static const String icHistoryOfMovements = 'assets/icons/ic_history_of_movements.png';
+  static const String icPay = 'assets/icons/ic_pay.png';
+  static const String icRecharge = 'assets/icons/ic_recharge.png';
+  static const String icSendMoney = 'assets/icons/ic_send_money.png';
+  static const String icWithdraw = 'assets/icons/ic_withdraw.png';
+  static const String icElectricity = 'assets/icons/ic_electricity.png';
+  static const String icEmptyWallet = 'assets/icons/ic_empty_wallet.png';
+  static const String icOut = 'assets/icons/ic_out.png';
+  static const String icIn = 'assets/icons/ic_in.png';
 
   static const String icIntimacyManagement =
       'assets/icons/ic_intimacy_management.png';

@@ -81,6 +81,7 @@ class CommonWidgets {
     Widget? child,
     Widget? childText,
     Decoration? decoration,
+    BoxBorder? border,
   }) {
     return Container(
       height: wantContentSizeButton ? height : 60.px,
@@ -88,7 +89,7 @@ class CommonWidgets {
       margin: buttonMargin,
       decoration: decoration ?? BoxDecoration(
         borderRadius: BorderRadius.circular(borderRadius ?? 14.px),
-        border: Border.all(
+        border: border ?? Border.all(
           color: Theme.of(Get.context!).colorScheme.onSecondaryContainer,
           width: 1.px,
         ),

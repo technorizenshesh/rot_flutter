@@ -1,6 +1,5 @@
 class StringConstants {
-  static const String chooseTheLanguageFamiliarToYou =
-      'Choose the language\nfamiliar to you.';
+  static const String chooseTheLanguageFamiliarToYou = 'Choose the language\nfamiliar to you.';
   static const String english = 'English';
   static const String rot = 'ROT';
   static const String spanish = 'Spanish ';
@@ -20,8 +19,7 @@ class StringConstants {
   static const String enterYourGender = 'Enter your gender';
   static const String gender = 'Gender';
   static const String enterYourDob = 'Enter your dob';
-  static const String enterYourEmailAndPassword =
-      'Enter your email and password';
+  static const String enterYourEmailAndPassword = 'Enter your email and password';
   static const String pleaseEnterPassword = 'Enter Enter Password';
   static const String enterYourFirstName = 'Enter Your First Name';
   static const String enterYourLastName = 'Enter Your Last Name';
@@ -33,10 +31,8 @@ class StringConstants {
   static const String resetPassword = 'Reset Password ?';
   static const String checkYourSms = 'Check your sms';
   static const String checkYourMail = 'Check your mail';
-  static const String pleasePutYourMobileNumberToResetYourPassword =
-      'Please put your mobile number to reset your password';
-  static const String pleasePutYourEmailToResetYourPassword =
-      'Please put your email to reset your password';
+  static const String pleasePutYourMobileNumberToResetYourPassword = 'Please put your mobile number to reset your password';
+  static const String pleasePutYourEmailToResetYourPassword = 'Please put your email to reset your password';
   static const String profile = 'Profile';
   static const String publicInformation = 'Public Information';
   static const String personalInformation = 'Personal Information';
@@ -54,6 +50,7 @@ class StringConstants {
   static const String help = 'Help';
   static const String myQRCode = 'My QR Code';
   static const String user = 'User';
+  static const String following = 'Following';
   static const String logOut = 'Log Out';
   static const String signUp = 'Sign up';
   static const String password = 'Password';
@@ -65,14 +62,11 @@ class StringConstants {
   static const String or = 'Or';
   static const String next = 'Next';
   static const String profilePublic = 'Profile Public';
-  static const String pleasePutTheSixDigitsSentToYou =
-      'Please put the 6 digits sent to you';
+  static const String pleasePutTheSixDigitsSentToYou = 'Please put the 6 digits sent to you';
   static const String createNewPassword = 'Create New Password';
-  static const String yourNewPasswordMustBeDifferentFromPreviousUsedPasswords =
-      'Your new password must be different from previous used passwords.';
+  static const String yourNewPasswordMustBeDifferentFromPreviousUsedPasswords = 'Your new password must be different from previous used passwords.';
   static const String pleaseEnterNewPassword = 'Please enter new password';
-  static const String pleaseEnterConfirmPassword =
-      'Please enter confirm password';
+  static const String pleaseEnterConfirmPassword = 'Please enter confirm password';
   static const String currentPassword = 'Current Password';
   static const String newPassword = 'New Password';
   static const String confirmPassword = 'Confirm password';
@@ -81,6 +75,7 @@ class StringConstants {
   static const String rateUs = 'Rate Us';
   static const String welcome = 'Welcome,';
   static const String message = 'Message';
+  static const String total = 'Total';
   static const String productsStatus = 'Products Status';
   static const String notification = 'Notification';
   static const String upload = 'Upload';
@@ -89,14 +84,11 @@ class StringConstants {
   static const String search = 'Search';
   static const String cart = 'Cart';
   static const String welcomeToFertileMate = 'Welcome to Fertilemate';
-  static const String aIDrivenFertilityAnalysis =
-      'AI-driven fertility analysis';
-  static const String comprehensiveHealthAssessments =
-      'Comprehensive health assessments';
+  static const String aIDrivenFertilityAnalysis = 'AI-driven fertility analysis';
+  static const String comprehensiveHealthAssessments = 'Comprehensive health assessments';
   static const String boostYourFertilityToday = 'Boost your fertility today!';
   static const String getStarted = 'Get Started';
-  static const String yourReproductiveHealthJourney =
-      'Your reproductive health journey';
+  static const String yourReproductiveHealthJourney = 'Your reproductive health journey';
   static const String support = '24/7 support';
   static const String supportText = 'Support';
   static const String availableNow = 'Available now';
@@ -114,12 +106,10 @@ class StringConstants {
   static const String usCitizen = 'U.S Citizen';
   static const String contactInfo = 'Contact Info';
   static const String rotProtection = 'ROT Protection';
-  static const String buyWithoutWorries =
-      'Buy without worries through our shipping service. Transaction protected with refunds, secure payments and help whenever you need it.';
+  static const String buyWithoutWorries = 'Buy without worries through our shipping service. Transaction protected with refunds, secure payments and help whenever you need it.';
   static const String edit = 'Edit';
   static const String shareYourOpinion = 'Share your opinion';
-  static const String yourRatingForThisProductGood =
-      'Your rating for this product: Good';
+  static const String yourRatingForThisProductGood = 'Your rating for this product: Good';
   static const String typeHere = 'Type Here';
   static const String send = 'Send';
   static const String categories = 'Categories';
@@ -142,7 +132,6 @@ class StringConstants {
   static const String helpCenter = 'Help Center';
   static const String medium = 'Medium';
   static const String addNewAccount = 'Add New Account';
-
   static const String cars = 'Cars';
   static const String motorcycle = 'motorcycle';
   static const String realEstate = 'Real Estate';
@@ -198,27 +187,21 @@ class StringConstants {
   static const String searches = 'Searches';
   static const String friend = 'Friend';
   static const String editPrice = 'Edit price';
-  static const String forSecurity =
-      'For security reasons,\nnever share private data';
+  static const String forSecurity = 'For security reasons,\nnever share private data';
   static const String getPaid = 'Get paid in person';
   static const String purchasesStatus = 'Purchases Status';
   static const String twoStepVerification = 'Two step verification';
-  static const String useVerificationMethods =
-      'Use verification methods to confirm that the account belongs to you, for example by signing in from an unknown device or changing your personal information.';
-  static const String verifyThatThisAccount =
-      'Verify that this account belongs to you';
-  static const String chooseHowToReceive =
-      'Choose how to receive the verification code.';
+  static const String useVerificationMethods = 'Use verification methods to confirm that the account belongs to you, for example by signing in from an unknown device or changing your personal information.';
+  static const String verifyThatThisAccount = 'Verify that this account belongs to you';
+  static const String chooseHowToReceive = 'Choose how to receive the verification code.';
   static const String appUnlock = 'App unlock';
   static const String linkedDevices = 'Linked devices';
   static const String collaborator = 'Collaborator';
   static const String unlockingTheApp = 'Unlocking the app';
-  static const String youUseTouchId =
-      'You use Touch ID to access your account.';
+  static const String youUseTouchId = 'You use Touch ID to access your account.';
   static const String myProducts = 'My products';
   static const String addNewCard = 'Add new card';
-  static const String getNotifiedIfAnyOfYourProductsExpire =
-      'Get notified if any of your products expire. You can republish it!';
+  static const String getNotifiedIfAnyOfYourProductsExpire = 'Get notified if any of your products expire. You can republish it!';
   static const String expiredProducts = 'Expired products';
   static const String mySearches = 'My searches';
   static const String myFavorites = 'My favorites';
@@ -233,83 +216,103 @@ class StringConstants {
   static const String collaborators = 'Collaborators';
   static const String somethingWentWrong = 'Something went wrong';
   static const String weAreWorkingToSolveIt = 'We are working to solve it.';
-  static const String ifTheProblemPersists =
-      'If the problem persists, you can report it in the Help section with the following code:';
+  static const String ifTheProblemPersists = 'If the problem persists, you can report it in the Help section with the following code:';
   static const String code = 'Code: ';
   static const String retry = 'Retry';
   static const String useAnotherMethod = 'Use another method';
   static const String eliminate = 'Eliminate';
   static const String readyWeSendYour = 'Ready! We send your invitation to';
-  static const String theInvitationIsValidUntilSunday =
-      'The invitation is valid until Sunday, February 4. Once you accept it, you can start collaborating on your account.';
+  static const String theInvitationIsValidUntilSunday = 'The invitation is valid until Sunday, February 4. Once you accept it, you can start collaborating on your account.';
   static const String resendInvitation = 'Resend invitation';
   static const String createAnotherInvitation = 'Create another invitation';
   static const String seeYourCollaborators = 'See your collaborators';
   static const String seeDetails = 'See details';
   static const String inviteCollaborator = 'Invite collaborator';
   static const String manageRoles = 'Manage roles';
-  static const String enterTheEmailOfTheCollaborator =
-      'Enter the email of the collaborator you want to invite';
-  static const String keepInMindThatYourEmailMust =
-      'Keep in mind that your email must not be registered in Mercado Pago or Mercado Libre, because you will use it exclusively for your business.';
+  static const String enterTheEmailOfTheCollaborator = 'Enter the email of the collaborator you want to invite';
+  static const String keepInMindThatYourEmailMust = 'Keep in mind that your email must not be registered in Mercado Pago or Mercado Libre, because you will use it exclusively for your business.';
   static const String continueText = 'Continue';
   static const String protectedByReCAPTCHA = 'Protected by reCAPTCHA-';
   static const String privacy = 'Privacy';
   static const String chooseARole = 'Choose a role';
   static const String enterTheVerificationCode = 'Enter the verification code';
-  static const String youReceived =
-      'You received a 6-digit number via WhatsApp.';
+  static const String youReceived = 'You received a 6-digit number via WhatsApp.';
   static const String resendCode = 'Resend code';
   static const String administrator = 'Administrator';
   static const String supervisor = 'Supervisor';
   static const String createNewRole = 'Create new role';
   static const String goBack = 'Go back';
+  static const String accounts = 'Accounts';
+  static const String recharge = 'Recharge';
+  static const String charge = 'Charge';
+  static const String sendMoney = 'Send Money';
+  static const String pay = 'Pay';
+  static const String withdraw = 'Withdraw';
+  static const String historyOfMovements = 'History of movements';
+  static const String bankInformation = 'Bank information';
   static const String confirm = 'Confirm';
   static const String editRolePermissions = 'Edit role permissions';
   static const String changeEmail = 'Change email';
   static const String changeRole = 'Change role';
   static const String iAcceptThe = 'I accept the ';
-  static const String bankInformation = 'Bank Information';
-  static const String forTheUseOfTheCollaboratorsTool =
-      ' for the use of the Collaborators tool.';
+  static const String converter = 'Converter';
+  static const String forTheUseOfTheCollaboratorsTool = ' for the use of the Collaborators tool.';
   static const String cancel = 'Cancel';
+  static const String keepInWallet = 'Keep in wallet';
+  static const String withdrawBalance = 'Withdraw balance';
+  static const String useTheConverter= 'Use the converter to compare current values';
   static const String conditions = 'Conditions';
   static const String sendInvitation = 'Send invitation';
   static const String rotPro = 'ROTPRO';
   static const String addNew = 'Add new';
+  static const String departures = 'Departures';
+  static const String appetizer = 'Appetizer';
+  static const String all = 'All';
+  static const String local = 'Local';
+  static const String swift = 'Swift';
+  static const String bicSwiftCode = 'WERE';
+  static const String bankNameAndAddress = 'Bank name and address';
+  static const String recipient = 'Recipient';
+  static const String useThisData = 'Use this data to receive your salary and transfers from a bank account in euros.';
+  static const String provideThisData = 'Provide this data to businesses to set up direct debits and automatically settle recurring invoices';
+  static const String ifTheIssuingBank = 'If the issuing bank supports instant payments, the payment will arrive within seconds. If not, it will take up to 2 business days.';
+  static const String ifYourEmployer = 'If your employer or a business rejects your IBAN because it is not "local", it is illegal. Find out what you can do on our blog.';
+  static const String documents = 'Documents';
+  static const String bankStatement = 'Bank statement';
+  static const String accountConfirmation = 'Account confirmation';
+  static const String onlyForInternationalTransfers = 'Only for international transfers';
+  static const String were = 'WERE';
+  static const String onlyForLocalTransfers = 'Only for local transfers';
   static const String currencyAccount = 'Currency Account';
   static const String flexibleAccount = 'Flexible Account';
   static const String pockets = 'Pockets';
-  static const String saveMoneyAndManage =
-      'Save money and manage it on your own > or with friends';
+  static const String saveMoneyAndManage = 'Save money and manage it on your own > or with friends';
   static const String jointAccount = 'Joint Account';
-  static const String anAccountForAllTypes =
-      'An account for all types of duos, with IBAN and cards';
-  static const String getUpTo =
-      'Get up to 5.39%. Revolut Securities Europe UAB provides this service';
+  static const String anAccountForAllTypes = 'An account for all types of duos, with IBAN and cards';
+  static const String getUpTo = 'Get up to 5.39%. Revolut Securities Europe UAB provides this service';
   static const String proAccount = 'Pro Account';
-  static const String aReadyToUse =
-      'A ready-to-use business account with up to 1.2% cashback';
+  static const String howMuchMoneyDoYouWantToRecharge = 'How much money do you want to recharge?';
+  static const String rateAccordingToTheAmountOfTheRecharge = 'Rate according to the amount of the recharge';
+  static const String reloadWallet = 'Reload wallet';
+  static const String transferToBank = 'Transfer to bank';
+  static const String howMuchMoney = 'How much money do you want to transfer?';
+  static const String rechargeSummary = 'Recharge Summary';
+  static const String rechargeFee = 'Recharge fee';
+  static const String rechargeCarriedOut = 'Recharge carried out';
+  static const String goToWallet = 'Go to wallet';
+  static const String theMoneyIsAlready = 'The money is already in your wallet. Enjoy your next purchases at ROT.';
+  static const String aReadyToUse = 'A ready-to-use business account with up to 1.2% cashback';
   static const String credit = 'Credit';
-  static const String discoverLoansAndCreditCards =
-      'Discover loans and credit cards';
+  static const String discoverLoansAndCreditCards = 'Discover loans and credit cards';
   static const String accountGreaterThanEighteen = 'Account <18';
   static const String linkedAccount = 'Linked account';
-  static const String checkAllYourBankAccountsInOnePlace =
-      'Check all your bank accounts in one place';
-  static const String accountsForChildren =
-      'Accounts for children and adolescents between 6 and 17 years old';
-  static const String moreThanThirtyCurrencies =
-      'More than 30 currencies so you can pay at home even abroad';
-  static const String itOffersYouSolutions =
-      'It offers you solutions to sell more, invoice, track inventory, all in a single application and many more advantages.';
-  static const String findTheBestSubscription =
-      'Find the best subscription plan that best suits your goals!';
+  static const String checkAllYourBankAccountsInOnePlace = 'Check all your bank accounts in one place';
+  static const String accountsForChildren = 'Accounts for children and adolescents between 6 and 17 years old';
+  static const String moreThanThirtyCurrencies = 'More than 30 currencies so you can pay at home even abroad';
+  static const String itOffersYouSolutions = 'It offers you solutions to sell more, invoice, track inventory, all in a single application and many more advantages.';
+  static const String findTheBestSubscription = 'Find the best subscription plan that best suits your goals!';
   static const String searchForCollaborator = 'Search for collaborator';
-  static const String getNotifiedWhenNewProductsFit =
-      'Get notified when new products fit your search criteria';
-  static const String getNotifiedAboutAnyNewsRegarding =
-      'Get notified about any news regarding your favorite products and sellers.';
-  static const String getNotifiedAboutPromotionsAndOther =
-      'Get notified about promotions and other contents of your interest';
+  static const String getNotifiedWhenNewProductsFit = 'Get notified when new products fit your search criteria';
+  static const String getNotifiedAboutAnyNewsRegarding = 'Get notified about any news regarding your favorite products and sellers.';
+  static const String getNotifiedAboutPromotionsAndOther = 'Get notified about promotions and other contents of your interest';
 }

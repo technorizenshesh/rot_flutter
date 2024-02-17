@@ -24,4 +24,15 @@ class ImageConstants {
       'assets/images/image_background_card_green.png';
   static const String imageSomethingWentWrong =
       'assets/images/image_something_went_wrong.png';
+  static const String imageRechargeCarriedOut =
+      'assets/images/image_recharge_carried_out.png';
+  static const String imageYouCanNow = 'assets/images/image_you_can_now.png';
+  static const String imageWithAFullWallet =
+      'assets/images/image_with_a_full_wallet.png';
+  static const String imageCardOrPayPal =
+      'assets/images/image_card_or_pay_pal.png';
+  static const String imageWalletToYourBankAccount =
+      'assets/images/image_wallet_to_your_bank_account.png';
+  static const String imageUsingTheWallet =
+      'assets/images/image_using_the_wallet.png';
 }

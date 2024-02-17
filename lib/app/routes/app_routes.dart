@@ -62,6 +62,14 @@ abstract class Routes {
   static const TWO_STEP_VERIFICATION_TWO = _Paths.TWO_STEP_VERIFICATION_TWO;
   static const TWO_STEP_VERIFICATION_OTP = _Paths.TWO_STEP_VERIFICATION_OTP;
   static const WALLET = _Paths.WALLET;
+  static const RECHARGE = _Paths.RECHARGE;
+  static const RECHARGE_SUMMARY = _Paths.RECHARGE_SUMMARY;
+  static const RECHARGE_DONE = _Paths.RECHARGE_DONE;
+  static const WITHDRAW = _Paths.WITHDRAW;
+  static const CONVERTER = _Paths.CONVERTER;
+  static const HISTORY_OF_MOVEMENTS = _Paths.HISTORY_OF_MOVEMENTS;
+  static const ACCOUNTS = _Paths.ACCOUNTS;
+  static const CHANGE = _Paths.CHANGE;
 }
 
 abstract class _Paths {
@@ -124,4 +132,12 @@ abstract class _Paths {
   static const TWO_STEP_VERIFICATION_TWO = '/two-step-verification-two';
   static const TWO_STEP_VERIFICATION_OTP = '/two-step-verification-otp';
   static const WALLET = '/wallet';
+  static const RECHARGE = '/recharge';
+  static const RECHARGE_SUMMARY = '/recharge-summary';
+  static const RECHARGE_DONE = '/recharge-done';
+  static const WITHDRAW = '/withdraw';
+  static const CONVERTER = '/converter';
+  static const HISTORY_OF_MOVEMENTS = '/history-of-movements';
+  static const ACCOUNTS = '/accounts';
+  static const CHANGE = '/change';
 }

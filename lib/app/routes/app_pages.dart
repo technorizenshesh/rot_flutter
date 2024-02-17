@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+
+import '../modules/accounts/bindings/accounts_binding.dart';
+import '../modules/accounts/views/accounts_view.dart';
 import '../modules/add_new_account/bindings/add_new_account_binding.dart';
 import '../modules/add_new_account/views/add_new_account_view.dart';
 import '../modules/add_new_bank/bindings/add_new_bank_binding.dart';
@@ -9,6 +12,8 @@ import '../modules/bank_information/bindings/bank_information_binding.dart';
 import '../modules/bank_information/views/bank_information_view.dart';
 import '../modules/categories/bindings/categories_binding.dart';
 import '../modules/categories/views/categories_view.dart';
+import '../modules/change/bindings/change_binding.dart';
+import '../modules/change/views/change_view.dart';
 import '../modules/change_password/bindings/change_password_binding.dart';
 import '../modules/change_password/views/change_password_view.dart';
 import '../modules/chat_detail/bindings/chat_detail_binding.dart';
@@ -21,6 +26,8 @@ import '../modules/collaborator/bindings/collaborator_binding.dart';
 import '../modules/collaborator/views/collaborator_view.dart';
 import '../modules/collaborators_ready_to_send/bindings/collaborators_ready_to_send_binding.dart';
 import '../modules/collaborators_ready_to_send/views/collaborators_ready_to_send_view.dart';
+import '../modules/converter/bindings/converter_binding.dart';
+import '../modules/converter/views/converter_view.dart';
 import '../modules/create_new_password/bindings/create_new_password_binding.dart';
 import '../modules/create_new_password/views/create_new_password_view.dart';
 import '../modules/favorites/bindings/favorites_binding.dart';
@@ -35,6 +42,8 @@ import '../modules/help_center/bindings/help_center_binding.dart';
 import '../modules/help_center/views/help_center_view.dart';
 import '../modules/help_chat/bindings/help_chat_binding.dart';
 import '../modules/help_chat/views/help_chat_view.dart';
+import '../modules/history_of_movements/bindings/history_of_movements_binding.dart';
+import '../modules/history_of_movements/views/history_of_movements_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/invite_collaborator/bindings/invite_collaborator_binding.dart';
@@ -79,6 +88,12 @@ import '../modules/purchases_status/bindings/purchases_status_binding.dart';
 import '../modules/purchases_status/views/purchases_status_view.dart';
 import '../modules/rate_us/bindings/rate_us_binding.dart';
 import '../modules/rate_us/views/rate_us_view.dart';
+import '../modules/recharge/bindings/recharge_binding.dart';
+import '../modules/recharge/views/recharge_view.dart';
+import '../modules/recharge_done/bindings/recharge_done_binding.dart';
+import '../modules/recharge_done/views/recharge_done_view.dart';
+import '../modules/recharge_summary/bindings/recharge_summary_binding.dart';
+import '../modules/recharge_summary/views/recharge_summary_view.dart';
 import '../modules/reset_password/bindings/reset_password_binding.dart';
 import '../modules/reset_password/views/reset_password_view.dart';
 import '../modules/reset_password_mail/bindings/reset_password_mail_binding.dart';
@@ -107,6 +122,8 @@ import '../modules/upload/bindings/upload_binding.dart';
 import '../modules/upload/views/upload_view.dart';
 import '../modules/wallet/bindings/wallet_binding.dart';
 import '../modules/wallet/views/wallet_view.dart';
+import '../modules/withdraw/bindings/withdraw_binding.dart';
+import '../modules/withdraw/views/withdraw_view.dart';
 
 part 'app_routes.dart';
 
@@ -385,6 +402,46 @@ class AppPages {
       name: _Paths.WALLET,
       page: () => const WalletView(),
       binding: WalletBinding(),
+    ),
+    GetPage(
+      name: _Paths.RECHARGE,
+      page: () => const RechargeView(),
+      binding: RechargeBinding(),
+    ),
+    GetPage(
+      name: _Paths.RECHARGE_SUMMARY,
+      page: () => const RechargeSummaryView(),
+      binding: RechargeSummaryBinding(),
+    ),
+    GetPage(
+      name: _Paths.RECHARGE_DONE,
+      page: () => const RechargeDoneView(),
+      binding: RechargeDoneBinding(),
+    ),
+    GetPage(
+      name: _Paths.WITHDRAW,
+      page: () => const WithdrawView(),
+      binding: WithdrawBinding(),
+    ),
+    GetPage(
+      name: _Paths.CONVERTER,
+      page: () => const ConverterView(),
+      binding: ConverterBinding(),
+    ),
+    GetPage(
+      name: _Paths.HISTORY_OF_MOVEMENTS,
+      page: () => const HistoryOfMovementsView(),
+      binding: HistoryOfMovementsBinding(),
+    ),
+    GetPage(
+      name: _Paths.ACCOUNTS,
+      page: () => const AccountsView(),
+      binding: AccountsBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHANGE,
+      page: () => const ChangeView(),
+      binding: ChangeBinding(),
     ),
   ];
 }

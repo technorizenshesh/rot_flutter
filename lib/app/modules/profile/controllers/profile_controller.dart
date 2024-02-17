@@ -53,6 +53,9 @@ class ProfileController extends GetxController {
       case 1:
         Get.toNamed(Routes.PURCHASES);
         break;
+      case 2:
+        Get.toNamed(Routes.WALLET);
+        break;
       case 3:
         Get.toNamed(Routes.SUBSCRIPTION);
         break;
