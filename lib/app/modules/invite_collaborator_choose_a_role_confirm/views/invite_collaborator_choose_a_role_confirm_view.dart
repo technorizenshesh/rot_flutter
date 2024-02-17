@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:rot/app/data/constants/string_constants.dart';
-import 'package:rot/common/common_widgets.dart';
-
+import '../../../../common/common_widgets.dart';
+import '../../../data/constants/string_constants.dart';
 import '../controllers/invite_collaborator_choose_a_role_confirm_controller.dart';
 
 class InviteCollaboratorChooseARoleConfirmView

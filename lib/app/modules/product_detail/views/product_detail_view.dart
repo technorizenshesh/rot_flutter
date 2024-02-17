@@ -1,14 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:rot/app/data/constants/icons_constant.dart';
-import 'package:rot/app/data/constants/string_constants.dart';
-import 'package:rot/common/common_methods.dart';
-import 'package:rot/common/common_widgets.dart';
-import 'package:rot/common/read_more.dart';
-
+import '../../../../common/common_methods.dart';
+import '../../../../common/common_widgets.dart';
+import '../../../../common/read_more.dart';
+import '../../../data/constants/icons_constant.dart';
+import '../../../data/constants/string_constants.dart';
 import '../controllers/product_detail_controller.dart';
 
 class ProductDetailView extends GetView<ProductDetailController> {

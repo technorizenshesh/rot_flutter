@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
-import 'package:rot/app/data/constants/string_constants.dart';
-import 'package:rot/app/routes/app_pages.dart';
+
+import '../../../data/constants/string_constants.dart';
+import '../../../routes/app_pages.dart';
 
 class UploadController extends GetxController {
   final count = 0.obs;

@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
-import 'package:rot/app/routes/app_pages.dart';
-import 'package:rot/common/common_methods.dart';
-
+import '../../../../common/common_methods.dart';
 import '../../../data/constants/icons_constant.dart';
+import '../../../routes/app_pages.dart';
 
 class HomeController extends GetxController {
   final count = 0.obs;

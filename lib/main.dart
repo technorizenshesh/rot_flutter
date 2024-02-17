@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rot/common/common_methods.dart';
-import 'package:rot/common/theme_data.dart';
+import 'package:rot_application/common/common_methods.dart';
+import 'package:rot_application/common/theme_data.dart';
 import 'app/routes/app_pages.dart';
 
 void main() {

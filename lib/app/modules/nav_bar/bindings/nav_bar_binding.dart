@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:rot/app/modules/chats/controllers/chats_controller.dart';
-import 'package:rot/app/modules/favorites/controllers/favorites_controller.dart';
-import 'package:rot/app/modules/upload/controllers/upload_controller.dart';
+import '../../chats/controllers/chats_controller.dart';
+import '../../favorites/controllers/favorites_controller.dart';
 import '../../home/controllers/home_controller.dart';
 import '../../profile/controllers/profile_controller.dart';
+import '../../upload/controllers/upload_controller.dart';
 import '../controllers/nav_bar_controller.dart';
 
 class NavBarBinding extends Bindings {

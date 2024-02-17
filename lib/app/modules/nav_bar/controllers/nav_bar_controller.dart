@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:rot/app/modules/chats/views/chats_view.dart';
-import 'package:rot/app/modules/favorites/views/favorites_view.dart';
-import 'package:rot/app/modules/profile/views/profile_view.dart';
-import 'package:rot/app/modules/upload/views/upload_view.dart';
+import '../../chats/views/chats_view.dart';
+import '../../favorites/views/favorites_view.dart';
 import '../../home/views/home_view.dart';
+import '../../profile/views/profile_view.dart';
+import '../../upload/views/upload_view.dart';
 
 final selectedIndex = 0.obs;
 

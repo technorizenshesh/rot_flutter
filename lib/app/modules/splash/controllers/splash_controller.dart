@@ -1,7 +1,6 @@
-import 'dart:async';
 import 'package:get/get.dart';
-import 'package:rot/app/data/constants/icons_constant.dart';
-import 'package:rot/app/data/constants/string_constants.dart';
+import '../../../data/constants/icons_constant.dart';
+import '../../../data/constants/string_constants.dart';
 import '../../../routes/app_pages.dart';
 
 class SplashController extends GetxController {

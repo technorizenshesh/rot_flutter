@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rot/app/data/constants/string_constants.dart';
+import '../../../data/constants/string_constants.dart';
 
 class ProfileDetailController extends GetxController
     with GetSingleTickerProviderStateMixin {

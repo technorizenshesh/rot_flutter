@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:rot/common/colors.dart';
-import 'package:rot/common/text_styles.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rot_application/common/colors.dart';
+import 'package:rot_application/common/text_styles.dart';
 
 class MThemeData {
   static ThemeData themeData({

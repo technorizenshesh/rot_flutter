@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rot/app/data/constants/icons_constant.dart';
-import 'package:rot/app/data/constants/string_constants.dart';
-import 'package:rot/common/common_methods.dart';
+
+import '../../../../common/common_methods.dart';
+import '../../../data/constants/icons_constant.dart';
+import '../../../data/constants/string_constants.dart';
 
 class FavoritesController extends GetxController
     with GetSingleTickerProviderStateMixin {

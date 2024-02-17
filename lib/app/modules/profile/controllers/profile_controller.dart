@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
-import 'package:rot/app/data/constants/string_constants.dart';
-import 'package:rot/app/routes/app_pages.dart';
-
 import '../../../data/constants/icons_constant.dart';
+import '../../../data/constants/string_constants.dart';
+import '../../../routes/app_pages.dart';
 
 class ProfileController extends GetxController {
   final count = 0.obs;

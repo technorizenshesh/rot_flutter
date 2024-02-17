@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rot/app/data/constants/icons_constant.dart';
+import '../../../data/constants/icons_constant.dart';
 import '../controllers/reset_password_mail_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../common/common_methods.dart';

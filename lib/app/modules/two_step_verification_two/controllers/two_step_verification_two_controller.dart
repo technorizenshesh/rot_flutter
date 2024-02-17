@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:rot/app/routes/app_pages.dart';
+
+import '../../../routes/app_pages.dart';
 
 class TwoStepVerificationTwoController extends GetxController {
-  //TODO: Implement TwoStepVerificationTwoController
 
   final count = 0.obs;
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:rot/app/data/constants/string_constants.dart';
-import 'package:rot/common/common_widgets.dart';
+import '../../../../common/common_widgets.dart';
+import '../../../data/constants/string_constants.dart';
 import '../controllers/categories_controller.dart';
 
 class CategoriesView extends GetView<CategoriesController> {

@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
-import 'package:rot/app/data/constants/icons_constant.dart';
-import 'package:rot/app/data/constants/string_constants.dart';
+
+import '../../../data/constants/icons_constant.dart';
+import '../../../data/constants/string_constants.dart';
 
 class AddNewAccountController extends GetxController {
   final count = 0.obs;
