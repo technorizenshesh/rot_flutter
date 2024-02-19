@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/accounts/bindings/accounts_binding.dart';
 import '../modules/accounts/views/accounts_view.dart';
+import '../modules/add_delivery_address/bindings/add_delivery_address_binding.dart';
+import '../modules/add_delivery_address/views/add_delivery_address_view.dart';
 import '../modules/add_new_account/bindings/add_new_account_binding.dart';
 import '../modules/add_new_account/views/add_new_account_view.dart';
 import '../modules/add_new_bank/bindings/add_new_bank_binding.dart';
@@ -30,6 +32,22 @@ import '../modules/converter/bindings/converter_binding.dart';
 import '../modules/converter/views/converter_view.dart';
 import '../modules/create_new_password/bindings/create_new_password_binding.dart';
 import '../modules/create_new_password/views/create_new_password_view.dart';
+import '../modules/delivery/bindings/delivery_binding.dart';
+import '../modules/delivery/views/delivery_view.dart';
+import '../modules/delivery_nearby_points/bindings/delivery_nearby_points_binding.dart';
+import '../modules/delivery_nearby_points/views/delivery_nearby_points_view.dart';
+import '../modules/delivery_order_detail/bindings/delivery_order_detail_binding.dart';
+import '../modules/delivery_order_detail/views/delivery_order_detail_view.dart';
+import '../modules/delivery_purchases_done/bindings/delivery_purchases_done_binding.dart';
+import '../modules/delivery_purchases_done/views/delivery_purchases_done_view.dart';
+import '../modules/delivery_purchases_on_the_way/bindings/delivery_purchases_on_the_way_binding.dart';
+import '../modules/delivery_purchases_on_the_way/views/delivery_purchases_on_the_way_view.dart';
+import '../modules/delivery_purchases_status/bindings/delivery_purchases_status_binding.dart';
+import '../modules/delivery_purchases_status/views/delivery_purchases_status_view.dart';
+import '../modules/delivery_summary/bindings/delivery_summary_binding.dart';
+import '../modules/delivery_summary/views/delivery_summary_view.dart';
+import '../modules/edit_address/bindings/edit_address_binding.dart';
+import '../modules/edit_address/views/edit_address_view.dart';
 import '../modules/favorites/bindings/favorites_binding.dart';
 import '../modules/favorites/views/favorites_view.dart';
 import '../modules/general_setting/bindings/general_setting_binding.dart';
@@ -72,6 +90,8 @@ import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
 import '../modules/package_preparation/bindings/package_preparation_binding.dart';
 import '../modules/package_preparation/views/package_preparation_view.dart';
+import '../modules/payment_method/bindings/payment_method_binding.dart';
+import '../modules/payment_method/views/payment_method_view.dart';
 import '../modules/product_detail/bindings/product_detail_binding.dart';
 import '../modules/product_detail/views/product_detail_view.dart';
 import '../modules/products_status/bindings/products_status_binding.dart';
@@ -442,6 +462,56 @@ class AppPages {
       name: _Paths.CHANGE,
       page: () => const ChangeView(),
       binding: ChangeBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_DELIVERY_ADDRESS,
+      page: () => const AddDeliveryAddressView(),
+      binding: AddDeliveryAddressBinding(),
+    ),
+    GetPage(
+      name: _Paths.PAYMENT_METHOD,
+      page: () => const PaymentMethodView(),
+      binding: PaymentMethodBinding(),
+    ),
+    GetPage(
+      name: _Paths.DELIVERY,
+      page: () => const DeliveryView(),
+      binding: DeliveryBinding(),
+    ),
+    GetPage(
+      name: _Paths.DELIVERY_NEARBY_POINTS,
+      page: () => const DeliveryNearbyPointsView(),
+      binding: DeliveryNearbyPointsBinding(),
+    ),
+    GetPage(
+      name: _Paths.DELIVERY_PURCHASES_STATUS,
+      page: () => const DeliveryPurchasesStatusView(),
+      binding: DeliveryPurchasesStatusBinding(),
+    ),
+    GetPage(
+      name: _Paths.DELIVERY_SUMMARY,
+      page: () => const DeliverySummaryView(),
+      binding: DeliverySummaryBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_ADDRESS,
+      page: () => const EditAddressView(),
+      binding: EditAddressBinding(),
+    ),
+    GetPage(
+      name: _Paths.DELIVERY_PURCHASES_DONE,
+      page: () => const DeliveryPurchasesDoneView(),
+      binding: DeliveryPurchasesDoneBinding(),
+    ),
+    GetPage(
+      name: _Paths.DELIVERY_PURCHASES_ON_THE_WAY,
+      page: () => const DeliveryPurchasesOnTheWayView(),
+      binding: DeliveryPurchasesOnTheWayBinding(),
+    ),
+    GetPage(
+      name: _Paths.DELIVERY_ORDER_DETAIL,
+      page: () => const DeliveryOrderDetailView(),
+      binding: DeliveryOrderDetailBinding(),
     ),
   ];
 }

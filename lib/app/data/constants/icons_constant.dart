@@ -141,6 +141,15 @@ class IconConstants {
   static const String icEmptyWallet = 'assets/icons/ic_empty_wallet.png';
   static const String icOut = 'assets/icons/ic_out.png';
   static const String icIn = 'assets/icons/ic_in.png';
+  static const String icFlag = 'assets/icons/ic_flag.png';
+  static const String icCopy = 'assets/icons/ic_copy.png';
+  static const String icDocuments = 'assets/icons/ic_documents.png';
+  static const String icEarth = 'assets/icons/ic_earth.png';
+  static const String icIdea = 'assets/icons/ic_idea.png';
+  static const String icTime = 'assets/icons/ic_time.png';
+  static const String icCardPayment = 'assets/icons/ic_card_payment.png';
+  static const String icPayMyFriends = 'assets/icons/ic_pay_my_friends.png';
+  static const String icWalletPayment = 'assets/icons/ic_wallet_payment.png';
 
   static const String icIntimacyManagement =
       'assets/icons/ic_intimacy_management.png';

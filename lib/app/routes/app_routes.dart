@@ -70,6 +70,17 @@ abstract class Routes {
   static const HISTORY_OF_MOVEMENTS = _Paths.HISTORY_OF_MOVEMENTS;
   static const ACCOUNTS = _Paths.ACCOUNTS;
   static const CHANGE = _Paths.CHANGE;
+  static const ADD_DELIVERY_ADDRESS = _Paths.ADD_DELIVERY_ADDRESS;
+  static const PAYMENT_METHOD = _Paths.PAYMENT_METHOD;
+  static const DELIVERY = _Paths.DELIVERY;
+  static const DELIVERY_NEARBY_POINTS = _Paths.DELIVERY_NEARBY_POINTS;
+  static const DELIVERY_PURCHASES_STATUS = _Paths.DELIVERY_PURCHASES_STATUS;
+  static const DELIVERY_SUMMARY = _Paths.DELIVERY_SUMMARY;
+  static const EDIT_ADDRESS = _Paths.EDIT_ADDRESS;
+  static const DELIVERY_PURCHASES_DONE = _Paths.DELIVERY_PURCHASES_DONE;
+  static const DELIVERY_PURCHASES_ON_THE_WAY =
+      _Paths.DELIVERY_PURCHASES_ON_THE_WAY;
+  static const DELIVERY_ORDER_DETAIL = _Paths.DELIVERY_ORDER_DETAIL;
 }
 
 abstract class _Paths {
@@ -140,4 +151,14 @@ abstract class _Paths {
   static const HISTORY_OF_MOVEMENTS = '/history-of-movements';
   static const ACCOUNTS = '/accounts';
   static const CHANGE = '/change';
+  static const ADD_DELIVERY_ADDRESS = '/add-delivery-address';
+  static const PAYMENT_METHOD = '/payment-method';
+  static const DELIVERY = '/delivery';
+  static const DELIVERY_NEARBY_POINTS = '/delivery-nearby-points';
+  static const DELIVERY_PURCHASES_STATUS = '/delivery-purchases-status';
+  static const DELIVERY_SUMMARY = '/delivery-summary';
+  static const EDIT_ADDRESS = '/edit-address';
+  static const DELIVERY_PURCHASES_DONE = '/delivery-purchases-done';
+  static const DELIVERY_PURCHASES_ON_THE_WAY = '/delivery-purchases-on-the-way';
+  static const DELIVERY_ORDER_DETAIL = '/delivery-order-detail';
 }
