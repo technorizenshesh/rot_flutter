@@ -52,6 +52,8 @@ import '../modules/favorites/bindings/favorites_binding.dart';
 import '../modules/favorites/views/favorites_view.dart';
 import '../modules/general_setting/bindings/general_setting_binding.dart';
 import '../modules/general_setting/views/general_setting_view.dart';
+import '../modules/get_start/bindings/get_start_binding.dart';
+import '../modules/get_start/views/get_start_view.dart';
 import '../modules/hashtag/bindings/hashtag_binding.dart';
 import '../modules/hashtag/views/hashtag_view.dart';
 import '../modules/help/bindings/help_binding.dart';
@@ -526,6 +528,11 @@ class AppPages {
       name: _Paths.SUB_CATEGORY_PRODUCTS,
       page: () => const SubCategoryProductsView(),
       binding: SubCategoryProductsBinding(),
+    ),
+    GetPage(
+      name: _Paths.GET_START,
+      page: () => const GetStartView(),
+      binding: GetStartBinding(),
     ),
   ];
 }

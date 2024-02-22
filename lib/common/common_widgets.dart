@@ -1,10 +1,15 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../app/data/apis/api_constants/api_key_constants.dart';
 import '../app/data/constants/icons_constant.dart';
 
 class CommonWidgets {
@@ -586,6 +591,69 @@ class CommonWidgets {
           .displayMedium
           ?.copyWith(fontSize: 14.px),
     );
+  }
+
+  static Future<bool> internetConnectionCheckerMethod() async {
+    try {
+      final result = await http.get(Uri.parse('https://www.google.com/'));
+      if (result.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } on SocketException catch (_) {
+      return false;
+    }
+  }
+
+  static ScaffoldFeatureController<SnackBar, SnackBarClosedReason> snackBarView(
+      {String title = ''}) {
+    var snackBar = SnackBar(
+      content: Text(title,
+          style: Theme.of(Get.context!)
+              .textTheme
+              .displayMedium
+              ?.copyWith(fontSize: 14.px)),
+      backgroundColor: Theme.of(Get.context!).colorScheme.onSecondary,
+    );
+    return ScaffoldMessenger.of(Get.context!).showSnackBar(snackBar);
+  }
+
+  ///For Check Post Api Response
+  static Future<bool> responseCheckForPostMethod(
+      {http.Response? response, bool wantSnackBar = true}) async {
+    Map<String, dynamic> responseMap = jsonDecode(response?.body ?? "");
+    if (wantSnackBar) {
+      if (responseMap[ApiKeyConstants.message] != null) {
+        snackBarView(title: responseMap[ApiKeyConstants.message]);
+      }
+      if (responseMap[ApiKeyConstants.error] != null) {
+        snackBarView(title: responseMap[ApiKeyConstants.error]);
+      }
+    }
+    if (response != null && response.statusCode == 200) {
+      return true;
+    } else if (response != null && response.statusCode == 401) {
+      return false;
+    } else {
+      return false;
+    }
+  }
+
+  ///For Check Get Api Response
+  static Future<bool> responseCheckForGetMethod({
+    http.Response? response,
+    bool wantSuccessToast = false,
+    bool wantErrorToast = true,
+  }) async {
+    Map<String, dynamic> responseMap = jsonDecode(response?.body ?? "");
+    if (response != null && response.statusCode == 200) {
+      return true;
+    } else if (response != null && response.statusCode == 401) {
+      return false;
+    } else {
+      return false;
+    }
   }
 }
 

@@ -83,6 +83,7 @@ abstract class Routes {
   static const DELIVERY_ORDER_DETAIL = _Paths.DELIVERY_ORDER_DETAIL;
   static const SUB_CATEGORY = _Paths.SUB_CATEGORY;
   static const SUB_CATEGORY_PRODUCTS = _Paths.SUB_CATEGORY_PRODUCTS;
+  static const GET_START = _Paths.GET_START;
 }
 
 abstract class _Paths {
@@ -165,4 +166,5 @@ abstract class _Paths {
   static const DELIVERY_ORDER_DETAIL = '/delivery-order-detail';
   static const SUB_CATEGORY = '/sub-category';
   static const SUB_CATEGORY_PRODUCTS = '/sub-category-products';
+  static const GET_START = '/get-start';
 }

@@ -1,20 +1,19 @@
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../data/constants/icons_constant.dart';
-import '../../../data/constants/string_constants.dart';
+import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../routes/app_pages.dart';
 
 class SplashController extends GetxController {
   final count = 0.obs;
 
-  List listOfLanguages = [
-    {'title': StringConstants.english.tr, 'icon': IconConstants.icEnglish.tr},
-    {'title': StringConstants.spanish.tr, 'icon': IconConstants.icSpanish.tr},
-  ];
+  SharedPreferences? prefs;
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    prefs = await SharedPreferences.getInstance();
     super.onInit();
+    await manageSession();
   }
 
   @override
@@ -29,23 +28,17 @@ class SplashController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnEnglish() async {
-    /*SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('languageCode', 'en');
-    prefs.setString('countryCode', 'US');
-    final String savedLanguageCode = prefs.getString('languageCode') ?? 'en';
-    final String savedCountryCode = prefs.getString('countryCode') ?? 'US';
-    Get.updateLocale(Locale(savedLanguageCode, savedCountryCode));*/
-    Get.toNamed(Routes.LOGIN);
-  }
-
-  clickOnSpanish() async {
-    /*SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('languageCode', 'es');
-    prefs.setString('countryCode', 'US');
-    final String savedLanguageCode = prefs.getString('languageCode') ?? 'es';
-    final String savedCountryCode = prefs.getString('countryCode') ?? 'US';
-    Get.updateLocale(Locale(savedLanguageCode, savedCountryCode));*/
-    Get.toNamed(Routes.LOGIN);
+  manageSession() {
+    Future.delayed(
+      Duration(seconds: 3),
+      () {
+        if (prefs?.getString(ApiKeyConstants.token) == null ||
+            prefs?.getString(ApiKeyConstants.token) != '') {
+          Get.offAllNamed(Routes.NAV_BAR);
+        } else {
+          Get.offAndToNamed(Routes.GET_START);
+        }
+      },
+    );
   }
 }

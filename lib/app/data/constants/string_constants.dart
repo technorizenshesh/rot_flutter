@@ -420,4 +420,5 @@ class StringConstants {
   static const String rotProtectionFees = 'Rot Protection Fees';
   static const String shipping = 'Shipping';
   static const String keep = 'Keep';
+  static const String allFieldsRequired = 'All Fields Required';
 }
