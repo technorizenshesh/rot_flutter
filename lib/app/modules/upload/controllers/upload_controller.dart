@@ -9,14 +9,14 @@ class UploadController extends GetxController {
   final switchValue = false.obs;
 
   List list = [
-    StringConstants.sell,
-    StringConstants.buy,
-    StringConstants.exchange,
-    StringConstants.rent,
-    StringConstants.hire,
+    StringConstants.sell.tr,
+    StringConstants.buy.tr,
+    StringConstants.exchange.tr,
+    StringConstants.rent.tr,
+    StringConstants.hire.tr,
   ];
 
-  final selectedValue = StringConstants.sell.obs;
+  final selectedValue = StringConstants.sell.tr.obs;
 
   @override
   void onInit() {

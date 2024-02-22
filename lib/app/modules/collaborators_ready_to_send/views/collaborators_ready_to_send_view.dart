@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
@@ -13,7 +14,7 @@ class CollaboratorsReadyToSendView
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonWidgets.appBar(title: StringConstants.collaborators),
+      appBar: CommonWidgets.appBar(title: StringConstants.collaborators.tr),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.px),
         child: ListView(
@@ -27,7 +28,7 @@ class CollaboratorsReadyToSendView
                     borderRadius: 50.px)),
             SizedBox(height: 40.px),
             Text(
-              StringConstants.readyWeSendYour,
+              StringConstants.readyWeSendYour.tr,
               textAlign: TextAlign.center,
               style: Theme.of(context)
                   .textTheme
@@ -45,7 +46,7 @@ class CollaboratorsReadyToSendView
             ),
             SizedBox(height: 40.px),
             Text(
-              StringConstants.theInvitationIsValidUntilSunday,
+              StringConstants.theInvitationIsValidUntilSunday.tr,
               style: Theme.of(context)
                   .textTheme
                   .titleMedium
@@ -56,7 +57,7 @@ class CollaboratorsReadyToSendView
               onPressed: () =>
                   controller.clickOnCreateAnotherInvitationButton(),
               childText: Text(
-                StringConstants.createAnotherInvitation,
+                StringConstants.createAnotherInvitation.tr,
                 style: Theme.of(context)
                     .textTheme
                     .headlineSmall
@@ -69,7 +70,7 @@ class CollaboratorsReadyToSendView
               buttonColor:
                   Theme.of(context).colorScheme.onSecondary.withOpacity(.6.px),
               childText: Text(
-                StringConstants.seeYourCollaborators,
+                StringConstants.seeYourCollaborators.tr,
                 style: Theme.of(context)
                     .textTheme
                     .headlineSmall

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/string_constants.dart';
 import '../controllers/bank_information_controller.dart';
@@ -11,7 +12,7 @@ class BankInformationView extends GetView<BankInformationController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonWidgets.appBar(title: StringConstants.bankInformation),
+      appBar: CommonWidgets.appBar(title: StringConstants.bankInformation.tr),
       body: ListView(
         children: [
           ListView.builder(
@@ -44,7 +45,7 @@ class BankInformationView extends GetView<BankInformationController> {
                 child: Padding(
                   padding: EdgeInsets.all(8.px),
                   child: Text(
-                    "+   ${StringConstants.addNewCard}",
+                    "+   ${StringConstants.addNewCard.tr}",
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                         fontSize: 16.px, color: Theme.of(context).primaryColor),
                   ),

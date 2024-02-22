@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import '../../chats/views/chats_view.dart';
 import '../../favorites/views/favorites_view.dart';
 import '../../home/views/home_view.dart';

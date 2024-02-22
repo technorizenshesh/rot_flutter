@@ -81,6 +81,8 @@ abstract class Routes {
   static const DELIVERY_PURCHASES_ON_THE_WAY =
       _Paths.DELIVERY_PURCHASES_ON_THE_WAY;
   static const DELIVERY_ORDER_DETAIL = _Paths.DELIVERY_ORDER_DETAIL;
+  static const SUB_CATEGORY = _Paths.SUB_CATEGORY;
+  static const SUB_CATEGORY_PRODUCTS = _Paths.SUB_CATEGORY_PRODUCTS;
 }
 
 abstract class _Paths {
@@ -161,4 +163,6 @@ abstract class _Paths {
   static const DELIVERY_PURCHASES_DONE = '/delivery-purchases-done';
   static const DELIVERY_PURCHASES_ON_THE_WAY = '/delivery-purchases-on-the-way';
   static const DELIVERY_ORDER_DETAIL = '/delivery-order-detail';
+  static const SUB_CATEGORY = '/sub-category';
+  static const SUB_CATEGORY_PRODUCTS = '/sub-category-products';
 }

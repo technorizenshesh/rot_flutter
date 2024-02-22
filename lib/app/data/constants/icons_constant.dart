@@ -119,20 +119,25 @@ class IconConstants {
   static const String icShipments = 'assets/icons/ic_shipments.png';
   static const String icMobile = 'assets/icons/ic_mobile.png';
   static const String icWindow = 'assets/icons/ic_window.png';
-  static const String icAccountEighteen = 'assets/icons/ic_account_eighteen.png';
+  static const String icAccountEighteen =
+      'assets/icons/ic_account_eighteen.png';
   static const String icCredit = 'assets/icons/ic_credit.png';
-  static const String icCurrencyAccount = 'assets/icons/ic_currency_account.png';
-  static const String icFlexibleAccount = 'assets/icons/ic_flexible_account.png';
+  static const String icCurrencyAccount =
+      'assets/icons/ic_currency_account.png';
+  static const String icFlexibleAccount =
+      'assets/icons/ic_flexible_account.png';
   static const String icJointAccount = 'assets/icons/ic_joint_account.png';
   static const String icLinkedAccount = 'assets/icons/ic_linked_account.png';
   static const String icPockets = 'assets/icons/ic_pockets.png';
   static const String icProAccount = 'assets/icons/ic_pro_account.png';
   static const String icVerifyProfile = 'assets/icons/ic_verify_profile.png';
   static const String icAddNewAccount = 'assets/icons/ic_add_new_account.png';
-  static const String icBankInformation = 'assets/icons/ic_bank_information.png';
+  static const String icBankInformation =
+      'assets/icons/ic_bank_information.png';
   static const String icCharge = 'assets/icons/ic_charge.png';
   static const String icConverter = 'assets/icons/ic_converter.png';
-  static const String icHistoryOfMovements = 'assets/icons/ic_history_of_movements.png';
+  static const String icHistoryOfMovements =
+      'assets/icons/ic_history_of_movements.png';
   static const String icPay = 'assets/icons/ic_pay.png';
   static const String icRecharge = 'assets/icons/ic_recharge.png';
   static const String icSendMoney = 'assets/icons/ic_send_money.png';
@@ -150,6 +155,8 @@ class IconConstants {
   static const String icCardPayment = 'assets/icons/ic_card_payment.png';
   static const String icPayMyFriends = 'assets/icons/ic_pay_my_friends.png';
   static const String icWalletPayment = 'assets/icons/ic_wallet_payment.png';
+  static const String icRouting = 'assets/icons/ic_routing.png';
+  static const String icInPerson = 'assets/icons/ic_in_person.png';
 
   static const String icIntimacyManagement =
       'assets/icons/ic_intimacy_management.png';
@@ -160,4 +167,9 @@ class IconConstants {
   static const String icBook = 'assets/icons/ic_book.png';
   static const String icProgressWorkout =
       'assets/icons/ic_progress_workout.png';
+  static const String icPromotionalCode =
+      'assets/icons/ic_promotional_code.png';
+  static const String icShippingTruck = 'assets/icons/ic_shipping_truck.png';
+  static const String icProProtection = 'assets/icons/ic_pro_protection.png';
+  static const String icShippingDone = 'assets/icons/ic_shipping_done.png';
 }

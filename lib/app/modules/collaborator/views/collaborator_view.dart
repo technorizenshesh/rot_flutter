@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
@@ -13,14 +14,14 @@ class CollaboratorView extends GetView<CollaboratorController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonWidgets.appBar(title: StringConstants.collaborators),
+      appBar: CommonWidgets.appBar(title: StringConstants.collaborators.tr),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.px),
         child: ListView(
           children: [
             SizedBox(height: 20.px),
             CommonWidgets.commonTextField(
-              hintText: StringConstants.searchForCollaborator,
+              hintText: StringConstants.searchForCollaborator.tr,
               borderRadius: 24.px,
               prefixIcon: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -83,9 +84,9 @@ class CollaboratorView extends GetView<CollaboratorController> {
                     itemBuilder: (context) {
                       return [
                         PopupMenuItem(
-                          value: StringConstants.seeDetails,
+                          value: StringConstants.seeDetails.tr,
                           child: Text(
-                            StringConstants.seeDetails,
+                            StringConstants.seeDetails.tr,
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium
@@ -93,9 +94,9 @@ class CollaboratorView extends GetView<CollaboratorController> {
                           ),
                         ),
                         PopupMenuItem(
-                          value: StringConstants.resendInvitation,
+                          value: StringConstants.resendInvitation.tr,
                           child: Text(
-                            StringConstants.resendInvitation,
+                            StringConstants.resendInvitation.tr,
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium
@@ -103,9 +104,9 @@ class CollaboratorView extends GetView<CollaboratorController> {
                           ),
                         ),
                         PopupMenuItem(
-                          value: StringConstants.eliminate,
+                          value: StringConstants.eliminate.tr,
                           child: Text(
-                            StringConstants.eliminate,
+                            StringConstants.eliminate.tr,
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium
@@ -124,7 +125,7 @@ class CollaboratorView extends GetView<CollaboratorController> {
             CommonWidgets.commonElevatedButton(
               onPressed: () => controller.clickOnInviteCollaboratorButton(),
               childText: Text(
-                StringConstants.inviteCollaborator,
+                StringConstants.inviteCollaborator.tr,
                 style: Theme.of(context)
                     .textTheme
                     .headlineSmall
@@ -137,7 +138,7 @@ class CollaboratorView extends GetView<CollaboratorController> {
               buttonColor:
                   Theme.of(context).colorScheme.onSecondary.withOpacity(.6.px),
               childText: Text(
-                StringConstants.manageRoles,
+                StringConstants.manageRoles.tr,
                 style: Theme.of(context)
                     .textTheme
                     .headlineSmall

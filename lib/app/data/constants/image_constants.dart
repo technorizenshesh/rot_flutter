@@ -35,4 +35,8 @@ class ImageConstants {
       'assets/images/image_wallet_to_your_bank_account.png';
   static const String imageUsingTheWallet =
       'assets/images/image_using_the_wallet.png';
+  static const String imageTheTransportCompany =
+      'assets/images/image_the_transport_company.png';
+  static const String imageEnjoyYourPurchase =
+      'assets/images/image_enjoy_your_purchase.png';
 }

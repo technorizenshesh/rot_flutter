@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
@@ -30,7 +31,7 @@ class HomeView extends GetView<HomeController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              StringConstants.welcome,
+                              StringConstants.welcome.tr,
                               style: Theme.of(context)
                                   .textTheme
                                   .displayMedium
@@ -74,7 +75,7 @@ class HomeView extends GetView<HomeController> {
                   CommonWidgets.commonTextField(
                     readOnly: true,
                     onTap: () => controller.clickOnSearchTextField(),
-                    hintText: StringConstants.search,
+                    hintText: StringConstants.search.tr,
                     borderRadius: 24.px,
                     prefixIcon: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -254,7 +255,7 @@ class HomeView extends GetView<HomeController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        StringConstants.categories,
+                        StringConstants.categories.tr,
                         style: Theme.of(context)
                             .textTheme
                             .displayMedium
@@ -266,7 +267,7 @@ class HomeView extends GetView<HomeController> {
                         child: Padding(
                           padding: EdgeInsets.all(8.px),
                           child: Text(
-                            StringConstants.seeAll,
+                            StringConstants.seeAll.tr,
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium
@@ -304,13 +305,17 @@ class HomeView extends GetView<HomeController> {
                                     width: 65.px,
                                     height: 65.px,
                                     decoration: BoxDecoration(
-                                      color: Theme.of(context).colorScheme.onSecondaryContainer.withOpacity(.4.px),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSecondaryContainer
+                                          .withOpacity(.4.px),
                                       borderRadius:
                                           BorderRadius.circular(34.px),
                                     ),
                                     child: Center(
                                       child: CommonWidgets.appIcons(
-                                        assetName: controller.list[index]['icon'],
+                                        assetName: controller.list[index]
+                                            ['icon'],
                                         width: 28.px,
                                         height: 28.px,
                                       ),
@@ -340,7 +345,7 @@ class HomeView extends GetView<HomeController> {
                   CommonWidgets.commonElevatedButton(
                     onPressed: () {},
                     childText: Text(
-                      StringConstants.placeAnAdHere,
+                      StringConstants.placeAnAdHere.tr,
                       style:
                           Theme.of(context).textTheme.headlineSmall?.copyWith(
                                 fontWeight: FontWeight.w700,
@@ -351,7 +356,7 @@ class HomeView extends GetView<HomeController> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      StringConstants.electronics,
+                      StringConstants.electronics.tr,
                       style: Theme.of(context)
                           .textTheme
                           .displayMedium
@@ -472,7 +477,7 @@ class HomeView extends GetView<HomeController> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      StringConstants.nearYou,
+                      StringConstants.nearYou.tr,
                       style: Theme.of(context)
                           .textTheme
                           .displayMedium
@@ -593,7 +598,7 @@ class HomeView extends GetView<HomeController> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      StringConstants.bestSeller,
+                      StringConstants.bestSeller.tr,
                       style: Theme.of(context)
                           .textTheme
                           .displayMedium

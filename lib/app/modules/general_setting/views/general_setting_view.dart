@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
@@ -12,7 +13,7 @@ class GeneralSettingView extends GetView<GeneralSettingController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonWidgets.appBar(title: StringConstants.generalSetting),
+      appBar: CommonWidgets.appBar(title: StringConstants.generalSetting.tr),
       body: ListView(
         children: [
           SizedBox(height: 20.px),

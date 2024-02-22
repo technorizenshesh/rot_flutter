@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rot_application/app/data/constants/icons_constant.dart';
+
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/string_constants.dart';
 import '../controllers/recharge_summary_controller.dart';
@@ -109,7 +110,7 @@ class RechargeSummaryView extends GetView<RechargeSummaryController> {
             ),
             SizedBox(height: 10.px),
             CommonWidgets.commonElevatedButton(
-              onPressed: () =>controller.clickOnRecharge(),
+              onPressed: () => controller.clickOnRecharge(),
               childText: Text(
                 StringConstants.recharge,
                 style: Theme.of(context)

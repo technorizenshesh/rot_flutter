@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:rot_application/app/routes/app_pages.dart';
 
 class DeliveryPurchasesOnTheWayController extends GetxController {
   //TODO: Implement DeliveryPurchasesOnTheWayController
@@ -20,4 +21,8 @@ class DeliveryPurchasesOnTheWayController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  clickOnKnowMore() {
+    Get.toNamed(Routes.DELIVERY_PURCHASES_DONE);
+  }
 }

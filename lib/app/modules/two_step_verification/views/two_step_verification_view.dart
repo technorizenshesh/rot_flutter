@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
@@ -100,7 +100,8 @@ class TwoStepVerificationView extends GetView<TwoStepVerificationController> {
                                       .displayMedium
                                       ?.copyWith(
                                           fontSize: 12.px,
-                                          color: Theme.of(context).primaryColor),
+                                          color:
+                                              Theme.of(context).primaryColor),
                                   maxLines: 1,
                                 ),
                               ],

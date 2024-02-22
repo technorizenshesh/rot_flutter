@@ -9,20 +9,20 @@ class GeneralSettingController extends GetxController {
 
   List listOfListTile = [
     {
-      'title': StringConstants.notification,
+      'title': StringConstants.notification.tr,
       'icon': IconConstants.icNotification
     },
     {
-      'title': StringConstants.twoStepVerification,
+      'title': StringConstants.twoStepVerification.tr,
       'icon': IconConstants.icTwoStepVerification
     },
-    {'title': StringConstants.appUnlock, 'icon': IconConstants.icAppUnlock},
+    {'title': StringConstants.appUnlock.tr, 'icon': IconConstants.icAppUnlock},
     {
-      'title': StringConstants.linkedDevices,
+      'title': StringConstants.linkedDevices.tr,
       'icon': IconConstants.icLinkedDevices
     },
     {
-      'title': StringConstants.collaborator,
+      'title': StringConstants.collaborator.tr,
       'icon': IconConstants.icCollaborator
     },
   ];

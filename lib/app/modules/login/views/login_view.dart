@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
@@ -43,7 +44,7 @@ class LoginView extends GetView<LoginController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        StringConstants.login,
+                        StringConstants.login.tr,
                         style: Theme.of(context)
                             .textTheme
                             .displayMedium
@@ -51,7 +52,7 @@ class LoginView extends GetView<LoginController> {
                       ),
                       SizedBox(height: 6.px),
                       Text(
-                        StringConstants.enterYourPhoneNumber,
+                        StringConstants.enterYourPhoneNumber.tr,
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium
@@ -60,14 +61,43 @@ class LoginView extends GetView<LoginController> {
                       SizedBox(height: 20.px),
                       CommonWidgets.commonTextFieldForLoginSignUP(
                         focusNode: controller.focusPhone,
-                        title: StringConstants.phoneNumber,
+                        title: StringConstants.phoneNumber.tr,
                         controller: controller.phoneController,
                         isCard: controller.icPhone.value,
-                        hintText: StringConstants.enterYourPhoneNumber,
+                        hintText: StringConstants.enterYourPhoneNumber.tr,
                         horizontalPadding: 0,
                         prefixIconHorizontal: 8,
                         prefixIcon: CommonWidgets.countryCodePicker(
                           onChanged: (value) {},
+                        ),
+                      ),
+                      SizedBox(height: 14.px),
+                      CommonWidgets.commonTextFieldForLoginSignUP(
+                        obscureText: controller.passwordHide.value,
+                        focusNode: controller.focusPassword,
+                        title: StringConstants.password,
+                        controller: controller.passwordController,
+                        isCard: controller.isPassword.value,
+                        prefixIcon: CommonWidgets.appIcons(
+                            assetName: IconConstants.icPasswordInActive,
+                            color: controller.isPassword.value
+                                ? Theme.of(Get.context!).primaryColor
+                                : Theme.of(Get.context!)
+                                    .colorScheme
+                                    .onSecondaryContainer),
+                        hintText: StringConstants.pleaseEnterPassword,
+                        suffixIcon: GestureDetector(
+                          onTap: () => controller.clickOnPasswordEyeButton(),
+                          child: CommonWidgets.appIcons(
+                            assetName: controller.passwordHide.value
+                                ? IconConstants.icView
+                                : IconConstants.icHide,
+                            color: controller.isPassword.value
+                                ? Theme.of(Get.context!).primaryColor
+                                : Theme.of(Get.context!)
+                                    .colorScheme
+                                    .onSecondaryContainer,
+                          ),
                         ),
                       ),
                       SizedBox(height: 10.px),
@@ -77,7 +107,7 @@ class LoginView extends GetView<LoginController> {
                         child: Padding(
                           padding: EdgeInsets.all(8.px),
                           child: Text(
-                            StringConstants.resetPassword,
+                            StringConstants.resetPassword.tr,
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium
@@ -91,7 +121,7 @@ class LoginView extends GetView<LoginController> {
                       CommonWidgets.commonElevatedButton(
                         onPressed: () => controller.clickOnLoginButton(),
                         childText: Text(
-                          StringConstants.login,
+                          StringConstants.login.tr,
                           style: Theme.of(context)
                               .textTheme
                               .headlineSmall
@@ -102,7 +132,7 @@ class LoginView extends GetView<LoginController> {
                       Align(
                         alignment: Alignment.center,
                         child: Text(
-                          StringConstants.or,
+                          StringConstants.or.tr,
                           style: Theme.of(context)
                               .textTheme
                               .headlineMedium
@@ -126,7 +156,7 @@ class LoginView extends GetView<LoginController> {
                             ),
                             SizedBox(width: 14.px),
                             Text(
-                              StringConstants.loginWithGoogle,
+                              StringConstants.loginWithGoogle.tr,
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineSmall
@@ -154,7 +184,7 @@ class LoginView extends GetView<LoginController> {
                             ),
                             SizedBox(width: 14.px),
                             Text(
-                              StringConstants.loginWithFacebook,
+                              StringConstants.loginWithFacebook.tr,
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineSmall
@@ -183,7 +213,7 @@ class LoginView extends GetView<LoginController> {
                             ),
                             SizedBox(width: 14.px),
                             Text(
-                              StringConstants.loginWithEmail,
+                              StringConstants.loginWithEmail.tr,
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineSmall
@@ -202,7 +232,7 @@ class LoginView extends GetView<LoginController> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            StringConstants.doNotHaveAnAccount,
+                            StringConstants.doNotHaveAnAccount.tr,
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineMedium
@@ -214,7 +244,7 @@ class LoginView extends GetView<LoginController> {
                             child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 8.px),
                               child: Text(
-                                StringConstants.signUp,
+                                StringConstants.signUp.tr,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineSmall

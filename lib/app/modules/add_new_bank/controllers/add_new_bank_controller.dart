@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
 class AddNewBankController extends GetxController {
-  //TODO: Implement AddNewBankController
-
   final count = 0.obs;
   @override
   void onInit() {

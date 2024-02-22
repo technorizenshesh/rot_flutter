@@ -13,7 +13,7 @@ class SearchView extends GetView<SearchViewController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonWidgets.appBar(title: StringConstants.search),
+      appBar: CommonWidgets.appBar(title: StringConstants.search.tr),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.px),
         child: Column(
@@ -21,7 +21,7 @@ class SearchView extends GetView<SearchViewController> {
           children: [
             SizedBox(height: 20.px),
             CommonWidgets.commonTextField(
-              hintText: StringConstants.search,
+              hintText: StringConstants.search.tr,
               borderRadius: 24.px,
               prefixIcon: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../data/constants/icons_constant.dart';
-import '../controllers/reset_password_mail_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
+import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
+import '../controllers/reset_password_mail_controller.dart';
 
 class ResetPasswordMailView extends GetView<ResetPasswordMailController> {
   const ResetPasswordMailView({Key? key}) : super(key: key);

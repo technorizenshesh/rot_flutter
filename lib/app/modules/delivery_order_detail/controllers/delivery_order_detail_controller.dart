@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
 class DeliveryOrderDetailController extends GetxController {
-  //TODO: Implement DeliveryOrderDetailController
-
   final count = 0.obs;
   @override
   void onInit() {
@@ -20,4 +18,6 @@ class DeliveryOrderDetailController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  clickOnKeepButton() {}
 }

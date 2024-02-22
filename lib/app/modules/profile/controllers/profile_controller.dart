@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 import '../../../routes/app_pages.dart';
@@ -7,25 +8,25 @@ class ProfileController extends GetxController {
   final count = 0.obs;
 
   List listOfListTile = [
-    {'title': StringConstants.sales, 'icon': IconConstants.icSales},
-    {'title': StringConstants.purchases, 'icon': IconConstants.icPurchases},
-    {'title': StringConstants.wallet, 'icon': IconConstants.icWallet},
+    {'title': StringConstants.sales.tr, 'icon': IconConstants.icSales},
+    {'title': StringConstants.purchases.tr, 'icon': IconConstants.icPurchases},
+    {'title': StringConstants.wallet.tr, 'icon': IconConstants.icWallet},
     {
-      'title': StringConstants.subscription,
+      'title': StringConstants.subscription.tr,
       'icon': IconConstants.icSubscription
     },
     {
-      'title': StringConstants.generalSetting,
+      'title': StringConstants.generalSetting.tr,
       'icon': IconConstants.icGeneralSetting
     },
     {
-      'title': StringConstants.changePassword,
+      'title': StringConstants.changePassword.tr,
       'icon': IconConstants.icChangePassword
     },
-    {'title': StringConstants.help, 'icon': IconConstants.icHelp},
-    {'title': StringConstants.myQRCode, 'icon': IconConstants.icMyRrCode},
-    {'title': StringConstants.user, 'icon': IconConstants.icUserProfile},
-    {'title': StringConstants.logOut, 'icon': IconConstants.icLogOut},
+    {'title': StringConstants.help.tr, 'icon': IconConstants.icHelp},
+    {'title': StringConstants.myQRCode.tr, 'icon': IconConstants.icMyRrCode},
+    {'title': StringConstants.user.tr, 'icon': IconConstants.icUserProfile},
+    {'title': StringConstants.logOut.tr, 'icon': IconConstants.icLogOut},
   ];
 
   @override

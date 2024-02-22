@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import '../../../routes/app_pages.dart';
 
 class ProductDetailController extends GetxController {
@@ -30,7 +31,7 @@ class ProductDetailController extends GetxController {
   clickOnChat() {}
 
   clickOnBuyButton() {
-    Get.toNamed(Routes.PAYMENT_METHOD);
+    Get.toNamed(Routes.DELIVERY);
   }
 
   clickOnReportProduct() {}

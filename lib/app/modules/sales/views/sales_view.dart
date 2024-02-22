@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
@@ -19,7 +20,7 @@ class SalesView extends GetView<SalesController> {
           initialIndex: 1,
           length: 3,
           child: Scaffold(
-            appBar: CommonWidgets.appBar(title: StringConstants.sales),
+            appBar: CommonWidgets.appBar(title: StringConstants.sales.tr),
             body: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.px),
               child: Column(

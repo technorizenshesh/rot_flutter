@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
-
 import '../controllers/chat_detail_controller.dart';
 
 class ChatDetailView extends GetView<ChatDetailController> {
@@ -98,7 +97,7 @@ class ChatDetailView extends GetView<ChatDetailController> {
                               ),
                               SizedBox(width: 10.px),
                               Text(
-                                StringConstants.getPaid,
+                                StringConstants.getPaid.tr,
                                 maxLines: 2,
                                 style: Theme.of(context)
                                     .textTheme
@@ -129,7 +128,7 @@ class ChatDetailView extends GetView<ChatDetailController> {
                               ),
                               SizedBox(width: 10.px),
                               Text(
-                                StringConstants.editPrice,
+                                StringConstants.editPrice.tr,
                                 maxLines: 2,
                                 style: Theme.of(context)
                                     .textTheme
@@ -161,7 +160,7 @@ class ChatDetailView extends GetView<ChatDetailController> {
                           ),
                           SizedBox(width: 14.px),
                           Text(
-                            StringConstants.forSecurity,
+                            StringConstants.forSecurity.tr,
                             textAlign: TextAlign.center,
                             maxLines: 2,
                             style: Theme.of(context)
@@ -405,7 +404,7 @@ class ChatDetailView extends GetView<ChatDetailController> {
               errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(24.px),
                   borderSide: BorderSide.none),
-              hintText: StringConstants.typeHere,
+              hintText: StringConstants.typeHere.tr,
               hintStyle: Theme.of(Get.context!).textTheme.titleMedium,
             ),
           ),

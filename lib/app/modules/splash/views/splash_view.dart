@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/image_constants.dart';
@@ -22,7 +23,7 @@ class SplashView extends GetView<SplashController> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                StringConstants.chooseTheLanguageFamiliarToYou,
+                StringConstants.chooseTheLanguageFamiliarToYou.tr,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.displayMedium?.copyWith(
                     color: Theme.of(context).primaryColor, fontSize: 20.px),
@@ -39,7 +40,7 @@ class SplashView extends GetView<SplashController> {
                     ),
                     SizedBox(width: 20.px),
                     Text(
-                      StringConstants.english,
+                      StringConstants.english.tr,
                       textAlign: TextAlign.center,
                       style: Theme.of(context)
                           .textTheme
@@ -54,7 +55,7 @@ class SplashView extends GetView<SplashController> {
               ),
               SizedBox(height: 14.px),
               CommonWidgets.commonElevatedButton(
-                onPressed: () {},
+                onPressed: () => controller.clickOnSpanish(),
                 child: Row(
                   children: [
                     CommonWidgets.appIcons(
@@ -64,7 +65,7 @@ class SplashView extends GetView<SplashController> {
                     ),
                     SizedBox(width: 14.px),
                     Text(
-                      StringConstants.spanish,
+                      StringConstants.spanish.tr,
                       textAlign: TextAlign.center,
                       style: Theme.of(context)
                           .textTheme

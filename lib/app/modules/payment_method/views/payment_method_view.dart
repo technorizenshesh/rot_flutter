@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rot_application/app/data/constants/string_constants.dart';
 import 'package:rot_application/common/common_widgets.dart';
+
 import '../../../../common/common_methods.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../controllers/payment_method_controller.dart';

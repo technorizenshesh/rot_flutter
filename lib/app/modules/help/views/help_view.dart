@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/image_constants.dart';
 import '../../../data/constants/string_constants.dart';
@@ -12,7 +13,7 @@ class HelpView extends GetView<HelpController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonWidgets.appBar(title: StringConstants.help),
+      appBar: CommonWidgets.appBar(title: StringConstants.help.tr),
       body: ListView(
         children: [
           SizedBox(height: 40.px),
@@ -71,7 +72,7 @@ class HelpView extends GetView<HelpController> {
           SizedBox(height: 8.px),
           Center(
             child: Text(
-              StringConstants.rotAllRightsReserved,
+              StringConstants.rotAllRightsReserved.tr,
               style: Theme.of(Get.context!).textTheme.displayMedium?.copyWith(
                     fontSize: 18.px,
                     color: Theme.of(context).colorScheme.onSecondaryContainer,

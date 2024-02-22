@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
@@ -12,7 +13,7 @@ class HashtagView extends GetView<HashtagController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonWidgets.appBar(title: StringConstants.hashtag),
+      appBar: CommonWidgets.appBar(title: StringConstants.hashtag.tr),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.px),
         child: Column(
@@ -20,7 +21,7 @@ class HashtagView extends GetView<HashtagController> {
           children: [
             SizedBox(height: 20.px),
             CommonWidgets.commonTextField(
-              hintText: StringConstants.search,
+              hintText: StringConstants.search.tr,
               borderRadius: 24.px,
               prefixIcon: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -73,12 +74,10 @@ class HashtagView extends GetView<HashtagController> {
                 ),
                 Text(
                   '0/5',
-                  style: Theme.of(Get.context!)
-                      .textTheme
-                      .displayMedium
-                      ?.copyWith(
-                    fontSize: 14.px,
-                  ),
+                  style:
+                      Theme.of(Get.context!).textTheme.displayMedium?.copyWith(
+                            fontSize: 14.px,
+                          ),
                 ),
               ],
             ),

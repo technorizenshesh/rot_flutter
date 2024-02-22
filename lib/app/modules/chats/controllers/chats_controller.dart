@@ -9,8 +9,8 @@ class ChatsController extends GetxController
   final count = 0.obs;
   late TabController tabController;
   final tabs = [
-    const Tab(text: StringConstants.message),
-    const Tab(text: StringConstants.notification),
+    Tab(text: StringConstants.message.tr),
+    Tab(text: StringConstants.notification.tr),
   ];
 
   @override

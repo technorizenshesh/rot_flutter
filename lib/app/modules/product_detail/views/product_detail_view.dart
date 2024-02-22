@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../../common/read_more.dart';
@@ -301,7 +302,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
                       childText: Row(
                         children: [
                           Text(
-                            StringConstants.chat,
+                            StringConstants.chat.tr,
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineSmall
@@ -322,7 +323,8 @@ class ProductDetailView extends GetView<ProductDetailController> {
                 SizedBox(height: 20.px),
                 ListTile(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.px),),
+                    borderRadius: BorderRadius.circular(10.px),
+                  ),
                   onTap: () => controller.clickOnUserProfileTile(),
                   leading: CommonWidgets.appIcons(
                     assetName: IconConstants.icUserImage,
@@ -498,13 +500,13 @@ class ProductDetailView extends GetView<ProductDetailController> {
                             ),
                             SizedBox(width: 10.px),
                             Text(
-                              StringConstants.rotProtection,
+                              StringConstants.rotProtection.tr,
                               style: Theme.of(context)
                                   .textTheme
                                   .displayMedium
                                   ?.copyWith(fontSize: 14.px),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             Text(
                               '+ Info',
                               style: Theme.of(context)
@@ -519,7 +521,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
                         ),
                         SizedBox(height: 10.px),
                         Text(
-                          StringConstants.buyWithoutWorries,
+                          StringConstants.buyWithoutWorries.tr,
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ],
@@ -554,7 +556,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
                         CommonWidgets.commonElevatedButton(
                           onPressed: () => controller.clickOnLearnMoreButton(),
                           childText: Text(
-                            StringConstants.learnMore,
+                            StringConstants.learnMore.tr,
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineSmall
@@ -583,7 +585,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
                 ),
                 SizedBox(height: 20.px),
                 Text(
-                  StringConstants.keepExploring,
+                  StringConstants.keepExploring.tr,
                   style: Theme.of(context)
                       .textTheme
                       .displayMedium
@@ -631,7 +633,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
                     child: Padding(
                       padding: EdgeInsets.all(8.px),
                       child: Text(
-                        StringConstants.reportProduct,
+                        StringConstants.reportProduct.tr,
                         style:
                             Theme.of(context).textTheme.displayMedium?.copyWith(
                                   fontSize: 16.px,
@@ -645,7 +647,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
                 CommonWidgets.commonElevatedButton(
                   onPressed: () => controller.clickOnBuyButton(),
                   childText: Text(
-                    StringConstants.buy,
+                    StringConstants.buy.tr,
                     style: Theme.of(context)
                         .textTheme
                         .headlineSmall

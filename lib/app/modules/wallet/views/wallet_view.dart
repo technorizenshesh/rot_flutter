@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rot_application/app/data/constants/icons_constant.dart';
 import 'package:rot_application/app/data/constants/string_constants.dart';
 import 'package:rot_application/common/common_methods.dart';
 import 'package:rot_application/common/common_widgets.dart';
+
 import '../controllers/wallet_controller.dart';
 
 class WalletView extends GetView<WalletController> {
@@ -65,7 +65,7 @@ class WalletView extends GetView<WalletController> {
                     CommonWidgets.commonElevatedButton(
                       wantContentSizeButton: true,
                       decoration: const BoxDecoration(),
-                      onPressed: () =>controller.clickOnAccounts(),
+                      onPressed: () => controller.clickOnAccounts(),
                       childText: Text(
                         StringConstants.accounts,
                         style: Theme.of(context)

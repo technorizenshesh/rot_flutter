@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
@@ -25,13 +26,13 @@ class FavoritesView extends GetView<FavoritesController> {
                 children: [
                   SizedBox(height: 20.px),
                   Text(
-                    StringConstants.favorites,
+                    StringConstants.favorites.tr,
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                         fontSize: 24.px, color: Theme.of(context).primaryColor),
                   ),
                   SizedBox(height: 30.px),
                   CommonWidgets.commonTextField(
-                    hintText: StringConstants.search,
+                    hintText: StringConstants.search.tr,
                     borderRadius: 24.px,
                     prefixIcon: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

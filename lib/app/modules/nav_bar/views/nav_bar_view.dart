@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 import '../controllers/nav_bar_controller.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 
 class NavBarView extends GetView<NavBarController> {
   const NavBarView({Key? key}) : super(key: key);
@@ -44,21 +45,21 @@ class NavBarView extends GetView<NavBarController> {
                         tabs: [
                           button(
                               image: IconConstants.icHome,
-                              text: StringConstants.home,
+                              text: StringConstants.home.tr,
                               index: 0),
                           button(
                               image: IconConstants.icFavorites,
-                              text: StringConstants.favorites,
+                              text: StringConstants.favorites.tr,
                               index: 1),
                           button(
                               image: IconConstants.icChat, text: '', index: 2),
                           button(
                               image: IconConstants.icChat,
-                              text: StringConstants.chatNow,
+                              text: StringConstants.chatNow.tr,
                               index: 3),
                           button(
                               image: IconConstants.icProfile,
-                              text: StringConstants.profile,
+                              text: StringConstants.profile.tr,
                               index: 4),
                         ],
                         selectedIndex: selectedIndex.value,
@@ -98,7 +99,11 @@ class NavBarView extends GetView<NavBarController> {
             assetName: image,
             color: selectedIndex.value == index
                 ? Theme.of(Get.context!).primaryColor
-                : Theme.of(Get.context!).textTheme.headlineMedium?.color?.withOpacity(.6),
+                : Theme.of(Get.context!)
+                    .textTheme
+                    .headlineMedium
+                    ?.color
+                    ?.withOpacity(.6),
           ),
           Text(
             text,
@@ -106,7 +111,11 @@ class NavBarView extends GetView<NavBarController> {
                   fontSize: 12.px,
                   color: selectedIndex.value == index
                       ? Theme.of(Get.context!).primaryColor
-                      : Theme.of(Get.context!).textTheme.headlineMedium?.color?.withOpacity(.6),
+                      : Theme.of(Get.context!)
+                          .textTheme
+                          .headlineMedium
+                          ?.color
+                          ?.withOpacity(.6),
                 ),
           ),
         ],

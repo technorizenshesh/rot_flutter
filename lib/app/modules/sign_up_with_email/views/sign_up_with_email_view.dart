@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controllers/sign_up_with_email_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/image_constants.dart';
 import '../../../data/constants/string_constants.dart';
+import '../controllers/sign_up_with_email_controller.dart';
 
 class SignUpWithEmailView extends GetView<SignUpWithEmailController> {
   const SignUpWithEmailView({Key? key}) : super(key: key);

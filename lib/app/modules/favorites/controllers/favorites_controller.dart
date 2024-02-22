@@ -11,10 +11,10 @@ class FavoritesController extends GetxController
 
   late TabController tabController;
   final tabs = [
-    const Tab(text: StringConstants.products),
-    const Tab(text: StringConstants.searches),
-    const Tab(text: StringConstants.profile),
-    const Tab(text: StringConstants.friend),
+    Tab(text: StringConstants.products.tr),
+    Tab(text: StringConstants.searches.tr),
+    Tab(text: StringConstants.profile.tr),
+    Tab(text: StringConstants.friend.tr),
   ];
 
   List listOfCards = [

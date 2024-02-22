@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../app/data/constants/icons_constant.dart';
 
 class CommonWidgets {
@@ -87,13 +88,16 @@ class CommonWidgets {
       height: wantContentSizeButton ? height : 60.px,
       width: wantContentSizeButton ? width : double.infinity,
       margin: buttonMargin,
-      decoration: decoration ?? BoxDecoration(
-        borderRadius: BorderRadius.circular(borderRadius ?? 14.px),
-        border: border ?? Border.all(
-          color: Theme.of(Get.context!).colorScheme.onSecondaryContainer,
-          width: 1.px,
-        ),
-      ),
+      decoration: decoration ??
+          BoxDecoration(
+            borderRadius: BorderRadius.circular(borderRadius ?? 14.px),
+            border: border ??
+                Border.all(
+                  color:
+                      Theme.of(Get.context!).colorScheme.onSecondaryContainer,
+                  width: 1.px,
+                ),
+          ),
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
@@ -129,14 +133,13 @@ class CommonWidgets {
     );
   }
 
-  static Widget appIcons({
-    required String assetName,
-    double? width,
-    double? height,
-    double? borderRadius,
-    Color? color,
-    BoxFit? fit
-  }) {
+  static Widget appIcons(
+      {required String assetName,
+      double? width,
+      double? height,
+      double? borderRadius,
+      Color? color,
+      BoxFit? fit}) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(borderRadius ?? 4.px),
       child: Image.asset(
@@ -144,7 +147,7 @@ class CommonWidgets {
         height: height ?? 24.px,
         width: width ?? 24.px,
         color: color,
-        fit: fit ??BoxFit.cover,
+        fit: fit ?? BoxFit.cover,
         errorBuilder: (context, error, stackTrace) {
           return SizedBox(
             height: height ?? 24.px,
@@ -424,8 +427,7 @@ class CommonWidgets {
         hintText: hintText,
         labelText: labelText,
         labelStyle: labelStyle,
-        fillColor:
-            fillColor ?? Theme.of(Get.context!).scaffoldBackgroundColor,
+        fillColor: fillColor ?? Theme.of(Get.context!).scaffoldBackgroundColor,
         filled: filled ?? true,
         contentPadding:
             contentPadding ?? EdgeInsets.symmetric(horizontal: 20.px),

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
-import '../controllers/otp_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/string_constants.dart';
+import '../controllers/otp_controller.dart';
 
 class OtpView extends GetView<OtpController> {
   const OtpView({Key? key}) : super(key: key);
@@ -32,7 +30,7 @@ class OtpView extends GetView<OtpController> {
                 CommonWidgets.commonElevatedButton(
                   onPressed: () => controller.clickOnNextButton(),
                   childText: Text(
-                    StringConstants.next,
+                    StringConstants.next.tr,
                     style: Theme.of(context)
                         .textTheme
                         .headlineSmall
@@ -55,7 +53,7 @@ class OtpView extends GetView<OtpController> {
                   children: [
                     SizedBox(height: 10.px),
                     Text(
-                      StringConstants.checkYourSms,
+                      StringConstants.checkYourSms.tr,
                       style: Theme.of(Get.context!)
                           .textTheme
                           .displayMedium
@@ -63,7 +61,7 @@ class OtpView extends GetView<OtpController> {
                     ),
                     SizedBox(height: 10.px),
                     Text(
-                      StringConstants.pleasePutTheSixDigitsSentToYou,
+                      StringConstants.pleasePutTheSixDigitsSentToYou.tr,
                       textAlign: TextAlign.center,
                       style: Theme.of(context)
                           .textTheme

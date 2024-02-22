@@ -11,9 +11,9 @@ class SalesController extends GetxController
 
   late TabController tabController;
   final tabs = [
-    const Tab(text: StringConstants.inWind),
-    const Tab(text: StringConstants.inProgress),
-    const Tab(text: StringConstants.finished),
+    Tab(text: StringConstants.inWind.tr),
+    Tab(text: StringConstants.inProgress.tr),
+    Tab(text: StringConstants.finished.tr),
   ];
 
   List listOfCards = [

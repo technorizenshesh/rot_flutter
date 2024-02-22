@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/image_constants.dart';
@@ -22,7 +23,7 @@ class ProfileView extends GetView<ProfileController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  StringConstants.profile,
+                  StringConstants.profile.tr,
                   style: Theme.of(context).textTheme.displayMedium?.copyWith(
                       fontSize: 24.px, color: Theme.of(context).primaryColor),
                 ),

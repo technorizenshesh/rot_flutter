@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/string_constants.dart';
 import '../controllers/categories_controller.dart';
@@ -11,7 +12,7 @@ class CategoriesView extends GetView<CategoriesController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonWidgets.appBar(title: StringConstants.categories),
+      appBar: CommonWidgets.appBar(title: StringConstants.categories.tr),
       body: ListView(
         children: [
           Padding(
@@ -43,9 +44,11 @@ class CategoriesView extends GetView<CategoriesController> {
                                   width: 65.px,
                                   height: 65.px,
                                   decoration: BoxDecoration(
-                                    color: Theme.of(context).colorScheme.onSecondaryContainer.withOpacity(.4.px),
-                                    borderRadius:
-                                    BorderRadius.circular(34.px),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSecondaryContainer
+                                        .withOpacity(.4.px),
+                                    borderRadius: BorderRadius.circular(34.px),
                                   ),
                                   child: Center(
                                     child: CommonWidgets.appIcons(

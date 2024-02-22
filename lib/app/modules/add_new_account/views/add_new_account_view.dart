@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/string_constants.dart';
 import '../controllers/add_new_account_controller.dart';
@@ -11,7 +12,7 @@ class AddNewAccountView extends GetView<AddNewAccountController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonWidgets.appBar(title: StringConstants.addNewAccount),
+      appBar: CommonWidgets.appBar(title: StringConstants.addNewAccount.tr),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.px),
         child: Column(

@@ -8,9 +8,9 @@ class HistoryOfMovementsController extends GetxController
   final count = 0.obs;
   late TabController tabController;
   final tabs = [
-    const Tab(text: StringConstants.all),
-    const Tab(text: StringConstants.appetizer),
-    const Tab(text: StringConstants.departures),
+    Tab(text: StringConstants.all.tr),
+    Tab(text: StringConstants.appetizer.tr),
+    Tab(text: StringConstants.departures.tr),
   ];
 
   @override

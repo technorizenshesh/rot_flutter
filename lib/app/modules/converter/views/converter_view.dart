@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rot_application/app/data/constants/image_constants.dart';
@@ -14,7 +13,7 @@ class ConverterView extends GetView<ConverterController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonWidgets.appBar(title: StringConstants.converter),
+      appBar: CommonWidgets.appBar(title: StringConstants.converter.tr),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.px),
         child: Column(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/image_constants.dart';
 import '../../../data/constants/string_constants.dart';
@@ -12,7 +13,7 @@ class HelpChatView extends GetView<HelpChatController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonWidgets.appBar(title: StringConstants.chat),
+      appBar: CommonWidgets.appBar(title: StringConstants.chat.tr),
       body: ListView(
         children: [
           Padding(
@@ -55,7 +56,7 @@ class HelpChatView extends GetView<HelpChatController> {
                 CommonWidgets.commonElevatedButton(
                   onPressed: () => controller.clickOnSubmitButton(),
                   childText: Text(
-                    StringConstants.submit,
+                    StringConstants.submit.tr,
                     style: Theme.of(context)
                         .textTheme
                         .headlineSmall

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 import '../../../routes/app_pages.dart';

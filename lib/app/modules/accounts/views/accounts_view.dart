@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
@@ -15,7 +16,7 @@ class AccountsView extends GetView<AccountsController> {
       initialIndex: 1,
       length: 2,
       child: Scaffold(
-        appBar: CommonWidgets.appBar(title: StringConstants.accounts),
+        appBar: CommonWidgets.appBar(title: StringConstants.accounts.tr),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.px),
           child: Column(
@@ -23,7 +24,7 @@ class AccountsView extends GetView<AccountsController> {
             children: [
               SizedBox(height: 60.px),
               Text(
-                StringConstants.message,
+                StringConstants.message.tr,
                 style: Theme.of(context).textTheme.displayMedium?.copyWith(
                     fontSize: 24.px, color: Theme.of(context).primaryColor),
               ),
@@ -67,8 +68,8 @@ class AccountsView extends GetView<AccountsController> {
                     Expanded(
                       child: Text(
                         controller.tabController.index == 0
-                            ? StringConstants.onlyForLocalTransfers
-                            : StringConstants.onlyForInternationalTransfers,
+                            ? StringConstants.onlyForLocalTransfers.tr
+                            : StringConstants.onlyForInternationalTransfers.tr,
                         style:
                             Theme.of(context).textTheme.displayMedium?.copyWith(
                                   fontSize: 18.px,
@@ -84,7 +85,7 @@ class AccountsView extends GetView<AccountsController> {
                       childText: Row(
                         children: [
                           Text(
-                            StringConstants.share,
+                            StringConstants.share.tr,
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineSmall
@@ -193,7 +194,7 @@ class LocalView extends GetView<AccountsController> {
         ),
         SizedBox(height: 20.px),
         Text(
-          StringConstants.document,
+          StringConstants.document.tr,
           style: Theme.of(context).textTheme.displayMedium?.copyWith(
                 fontSize: 24.px,
               ),
@@ -270,9 +271,9 @@ class SwiftView extends GetView<AccountsController> {
             subtitle: Text(
               controller.listOfData[index]['subtitle'],
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontSize: 14.px,
-                color: Theme.of(context).textTheme.displayMedium?.color,
-              ),
+                    fontSize: 14.px,
+                    color: Theme.of(context).textTheme.displayMedium?.color,
+                  ),
             ),
           ),
         ),
@@ -296,18 +297,18 @@ class SwiftView extends GetView<AccountsController> {
             title: Text(
               controller.listOfDataLocal[index]['title'],
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontSize: 14.px,
-                color: Theme.of(context).textTheme.displayMedium?.color,
-              ),
+                    fontSize: 14.px,
+                    color: Theme.of(context).textTheme.displayMedium?.color,
+                  ),
             ),
           ),
         ),
         SizedBox(height: 20.px),
         Text(
-          StringConstants.document,
+          StringConstants.document.tr,
           style: Theme.of(context).textTheme.displayMedium?.copyWith(
-            fontSize: 24.px,
-          ),
+                fontSize: 24.px,
+              ),
         ),
         SizedBox(height: 20.px),
         ListView.builder(

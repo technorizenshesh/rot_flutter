@@ -375,4 +375,49 @@ class StringConstants {
   static const String cardPayment = 'Card Payment';
   static const String available = 'Available';
   static const String youPay = 'You Pay';
+  static const String address = 'Address';
+  static const String streetNameAndNumber = 'Street name and number';
+  static const String floorAndDoorNumber = 'Floor and door number';
+  static const String nearbyPoints = 'Nearby points';
+  static const String inPerson = 'In person';
+  static const String meetAndPay =
+      'Meet and pay without leaving the app when you are with the seller';
+  static const String pickUpPoint = 'Pick-up point';
+  static const String viewPickUpPoint = 'View pick-up points';
+  static const String myAddress = 'My address';
+  static const String colour = 'Colour:';
+  static const String deliveryExpectedIn = 'Delivery expected in';
+  static const String delivery = 'Delivery';
+  static const String purchaseMade = 'Purchase made';
+  static const String theSellerHas =
+      'The seller has 24 hours to confirm that they will ship.';
+  static const String weProtectYourPurchase =
+      'We protect your purchase with RoT Protection. Read how it works';
+  static const String editAddress = 'Edit address';
+  static const String summary = 'Summary';
+  static const String toEdit = 'To edit';
+  static const String paymentMethod = 'Payment method';
+  static const String promotionalCode = 'Promotional code';
+  static const String theTransportCompanyAlreadyHasYourPackage =
+      'The transport company already has your package.';
+  static const String weWillNotify =
+      'We will notify you when the package is in delivery, there is less to ga';
+  static const String shippingCade = 'shipping cade';
+  static const String knowMore = 'Know more';
+  static const String protectYour =
+      'Protect your purchase with that PRO protection';
+  static const String followUp = 'Follow up';
+  static const String enjoyYourPurchase = 'Enjoy your purchase';
+  static const String oneThingThanks =
+      'One thing thanks for making this world a little better place.';
+  static const String theMoney =
+      'The money you paid with the wallet is already in your account. You will receive the rest in the method you used within 24 to 48 hours';
+  static const String enterStreetNameAndNumber = 'Enter street name and number';
+  static const String enterFloorAndDoorNumber = 'Enter floor and door number';
+  static const String enterZipCode = 'Enter zip code';
+  static const String enterCity = 'Enter city';
+  static const String enterCountry = 'Enter country';
+  static const String rotProtectionFees = 'Rot Protection Fees';
+  static const String shipping = 'Shipping';
+  static const String keep = 'Keep';
 }

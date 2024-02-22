@@ -130,6 +130,10 @@ import '../modules/something_went_wrong/bindings/something_went_wrong_binding.da
 import '../modules/something_went_wrong/views/something_went_wrong_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules/sub_category/bindings/sub_category_binding.dart';
+import '../modules/sub_category/views/sub_category_view.dart';
+import '../modules/sub_category_products/bindings/sub_category_products_binding.dart';
+import '../modules/sub_category_products/views/sub_category_products_view.dart';
 import '../modules/subscription/bindings/subscription_binding.dart';
 import '../modules/subscription/views/subscription_view.dart';
 import '../modules/two_step_verification/bindings/two_step_verification_binding.dart';
@@ -512,6 +516,16 @@ class AppPages {
       name: _Paths.DELIVERY_ORDER_DETAIL,
       page: () => const DeliveryOrderDetailView(),
       binding: DeliveryOrderDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.SUB_CATEGORY,
+      page: () => const SubCategoryView(),
+      binding: SubCategoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.SUB_CATEGORY_PRODUCTS,
+      page: () => const SubCategoryProductsView(),
+      binding: SubCategoryProductsBinding(),
     ),
   ];
 }

@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
 class HelpChatController extends GetxController {
-  //TODO: Implement HelpChatController
-
   final count = 0.obs;
   @override
   void onInit() {

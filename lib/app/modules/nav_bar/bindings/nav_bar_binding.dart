@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import '../../chats/controllers/chats_controller.dart';
 import '../../favorites/controllers/favorites_controller.dart';
 import '../../home/controllers/home_controller.dart';

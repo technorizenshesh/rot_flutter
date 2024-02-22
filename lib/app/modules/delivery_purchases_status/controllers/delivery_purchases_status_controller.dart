@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
 class DeliveryPurchasesStatusController extends GetxController {
-  //TODO: Implement DeliveryPurchasesStatusController
-
   final count = 0.obs;
   @override
   void onInit() {

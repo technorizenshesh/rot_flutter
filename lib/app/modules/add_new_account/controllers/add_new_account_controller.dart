@@ -8,43 +8,43 @@ class AddNewAccountController extends GetxController {
 
   List list = [
     {
-      'title': StringConstants.currencyAccount,
-      'subtitle': StringConstants.moreThanThirtyCurrencies,
-      'icon': IconConstants.icCurrencyAccount
+      'title': StringConstants.currencyAccount.tr,
+      'subtitle': StringConstants.moreThanThirtyCurrencies.tr,
+      'icon': IconConstants.icCurrencyAccount.tr
     },
     {
-      'title': StringConstants.flexibleAccount,
-      'subtitle': StringConstants.getUpTo,
-      'icon': IconConstants.icFlexibleAccount
+      'title': StringConstants.flexibleAccount.tr,
+      'subtitle': StringConstants.getUpTo.tr,
+      'icon': IconConstants.icFlexibleAccount.tr
     },
     {
-      'title': StringConstants.pockets,
-      'subtitle': StringConstants.saveMoneyAndManage,
-      'icon': IconConstants.icPockets
+      'title': StringConstants.pockets.tr,
+      'subtitle': StringConstants.saveMoneyAndManage.tr,
+      'icon': IconConstants.icPockets.tr
     },
     {
-      'title': StringConstants.jointAccount,
-      'subtitle': StringConstants.anAccountForAllTypes,
+      'title': StringConstants.jointAccount.tr,
+      'subtitle': StringConstants.anAccountForAllTypes.tr,
       'icon': IconConstants.icJointAccount
     },
     {
-      'title': StringConstants.proAccount,
-      'subtitle': StringConstants.discoverLoansAndCreditCards,
+      'title': StringConstants.proAccount.tr,
+      'subtitle': StringConstants.discoverLoansAndCreditCards.tr,
       'icon': IconConstants.icProAccount
     },
     {
-      'title': StringConstants.credit,
-      'subtitle': StringConstants.discoverLoansAndCreditCards,
+      'title': StringConstants.credit.tr,
+      'subtitle': StringConstants.discoverLoansAndCreditCards.tr,
       'icon': IconConstants.icCredit
     },
     {
-      'title': StringConstants.accountGreaterThanEighteen,
-      'subtitle': StringConstants.accountsForChildren,
+      'title': StringConstants.accountGreaterThanEighteen.tr,
+      'subtitle': StringConstants.accountsForChildren.tr,
       'icon': IconConstants.icAccountEighteen
     },
     {
-      'title': StringConstants.linkedDevices,
-      'subtitle': StringConstants.checkAllYourBankAccountsInOnePlace,
+      'title': StringConstants.linkedDevices.tr,
+      'subtitle': StringConstants.checkAllYourBankAccountsInOnePlace.tr,
       'icon': IconConstants.icLinkedDevices
     },
   ];

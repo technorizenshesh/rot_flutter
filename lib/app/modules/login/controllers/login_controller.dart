@@ -6,8 +6,15 @@ import '../../../routes/app_pages.dart';
 class LoginController extends GetxController {
   final count = 0.obs;
   final icPhone = false.obs;
+
+  final isPassword = false.obs;
+  final passwordHide = false.obs;
+
   TextEditingController phoneController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   FocusNode focusPhone = FocusNode();
+  FocusNode focusPassword = FocusNode();
 
   @override
   void onInit() {
@@ -17,10 +24,12 @@ class LoginController extends GetxController {
 
   void startListener() {
     focusPhone.addListener(onFocusChange);
+    focusPassword.addListener(onFocusChange);
   }
 
   void onFocusChange() {
     icPhone.value = focusPhone.hasFocus;
+    isPassword.value = focusPassword.hasFocus;
   }
 
   @override
@@ -54,4 +63,8 @@ class LoginController extends GetxController {
   clickOnGoogleButton() {}
 
   clickOnFacebookButton() {}
+
+  clickOnPasswordEyeButton() {
+    passwordHide.value = !passwordHide.value;
+  }
 }

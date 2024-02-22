@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
@@ -43,7 +44,7 @@ class SignUpView extends GetView<SignUpController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        StringConstants.signUp,
+                        StringConstants.signUp.tr,
                         style: Theme.of(context)
                             .textTheme
                             .displayMedium
@@ -51,7 +52,7 @@ class SignUpView extends GetView<SignUpController> {
                       ),
                       SizedBox(height: 6.px),
                       Text(
-                        StringConstants.enterYourEmailAndPassword,
+                        StringConstants.enterYourEmailAndPassword.tr,
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium
@@ -60,26 +61,26 @@ class SignUpView extends GetView<SignUpController> {
                       SizedBox(height: 20.px),
                       CommonWidgets.commonTextFieldForLoginSignUP(
                         focusNode: controller.focusFullName,
-                        title: StringConstants.fullName,
+                        title: StringConstants.fullName.tr,
                         controller: controller.fullNameController,
                         isCard: controller.isFullName.value,
-                        hintText: StringConstants.enterYourFullName,
+                        hintText: StringConstants.enterYourFullName.tr,
                         prefixIcon: CommonWidgets.appIcons(
                           assetName: IconConstants.icUser,
                           color: controller.isFullName.value
                               ? Theme.of(Get.context!).primaryColor
                               : Theme.of(Get.context!)
-                              .colorScheme
-                              .onSecondaryContainer,
+                                  .colorScheme
+                                  .onSecondaryContainer,
                         ),
                       ),
                       SizedBox(height: 14.px),
                       CommonWidgets.commonTextFieldForLoginSignUP(
                         focusNode: controller.focusPhoneNumber,
-                        title: StringConstants.phoneNumber,
+                        title: StringConstants.phoneNumber.tr,
                         controller: controller.phoneNumberController,
                         isCard: controller.isPhoneNumber.value,
-                        hintText: StringConstants.enterYourPhoneNumber,
+                        hintText: StringConstants.enterYourPhoneNumber.tr,
                         horizontalPadding: 0,
                         prefixIconHorizontal: 8,
                         prefixIcon: CommonWidgets.countryCodePicker(
@@ -90,7 +91,7 @@ class SignUpView extends GetView<SignUpController> {
                       CommonWidgets.commonTextFieldForLoginSignUP(
                         obscureText: controller.passwordHide.value,
                         focusNode: controller.focusPassword,
-                        title: StringConstants.password,
+                        title: StringConstants.password.tr,
                         controller: controller.passwordController,
                         isCard: controller.isPassword.value,
                         prefixIcon: CommonWidgets.appIcons(
@@ -98,9 +99,9 @@ class SignUpView extends GetView<SignUpController> {
                             color: controller.isPassword.value
                                 ? Theme.of(Get.context!).primaryColor
                                 : Theme.of(Get.context!)
-                                .colorScheme
-                                .onSecondaryContainer),
-                        hintText: StringConstants.pleaseEnterPassword,
+                                    .colorScheme
+                                    .onSecondaryContainer),
+                        hintText: StringConstants.pleaseEnterPassword.tr,
                         suffixIcon: GestureDetector(
                           onTap: () => controller.clickOnPasswordEyeButton(),
                           child: CommonWidgets.appIcons(
@@ -110,8 +111,8 @@ class SignUpView extends GetView<SignUpController> {
                             color: controller.isPassword.value
                                 ? Theme.of(Get.context!).primaryColor
                                 : Theme.of(Get.context!)
-                                .colorScheme
-                                .onSecondaryContainer,
+                                    .colorScheme
+                                    .onSecondaryContainer,
                           ),
                         ),
                       ),
@@ -119,7 +120,7 @@ class SignUpView extends GetView<SignUpController> {
                       CommonWidgets.commonElevatedButton(
                         onPressed: () => controller.clickOnSignUpButton(),
                         childText: Text(
-                          StringConstants.signUp,
+                          StringConstants.signUp.tr,
                           style: Theme.of(context)
                               .textTheme
                               .headlineSmall
@@ -130,7 +131,7 @@ class SignUpView extends GetView<SignUpController> {
                       Align(
                         alignment: Alignment.center,
                         child: Text(
-                          StringConstants.or,
+                          StringConstants.or.tr,
                           style: Theme.of(context)
                               .textTheme
                               .headlineMedium
@@ -154,7 +155,7 @@ class SignUpView extends GetView<SignUpController> {
                             ),
                             SizedBox(width: 14.px),
                             Text(
-                              StringConstants.loginWithGoogle,
+                              StringConstants.loginWithGoogle.tr,
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineSmall
@@ -182,7 +183,7 @@ class SignUpView extends GetView<SignUpController> {
                             ),
                             SizedBox(width: 14.px),
                             Text(
-                              StringConstants.loginWithFacebook,
+                              StringConstants.loginWithFacebook.tr,
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineSmall
@@ -211,7 +212,7 @@ class SignUpView extends GetView<SignUpController> {
                             ),
                             SizedBox(width: 14.px),
                             Text(
-                              StringConstants.signUpWithEmail,
+                              StringConstants.signUpWithEmail.tr,
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineSmall
@@ -230,7 +231,7 @@ class SignUpView extends GetView<SignUpController> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            StringConstants.doNotHaveAnAccount,
+                            StringConstants.doNotHaveAnAccount.tr,
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineMedium
@@ -242,7 +243,7 @@ class SignUpView extends GetView<SignUpController> {
                             child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 8.px),
                               child: Text(
-                                StringConstants.login,
+                                StringConstants.login.tr,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineSmall

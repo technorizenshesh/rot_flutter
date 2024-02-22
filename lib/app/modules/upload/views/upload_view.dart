@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
@@ -24,13 +25,13 @@ class UploadView extends GetView<UploadController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    StringConstants.upload,
+                    StringConstants.upload.tr,
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                         fontSize: 24.px, color: Theme.of(context).primaryColor),
                   ),
                   SizedBox(height: 30.px),
                   CommonWidgets.commonTextField(
-                    hintText: StringConstants.search,
+                    hintText: StringConstants.search.tr,
                     borderRadius: 24.px,
                     prefixIcon: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -70,31 +71,31 @@ class UploadView extends GetView<UploadController> {
                     ),
                   ),
                   SizedBox(height: 20.px),
-                  textFormField(hintText: StringConstants.title),
+                  textFormField(hintText: StringConstants.title.tr),
                   SizedBox(height: 10.px),
                   textFormField(
-                      hintText: StringConstants.description, maxLines: 4),
+                      hintText: StringConstants.description.tr, maxLines: 4),
                   SizedBox(height: 10.px),
-                  textFormField(hintText: StringConstants.category),
+                  textFormField(hintText: StringConstants.category.tr),
                   SizedBox(height: 10.px),
-                  textFormField(hintText: StringConstants.productLocation),
+                  textFormField(hintText: StringConstants.productLocation.tr),
                   SizedBox(height: 10.px),
-                  textFormField(hintText: StringConstants.city),
+                  textFormField(hintText: StringConstants.city.tr),
                   SizedBox(height: 10.px),
-                  textFormField(hintText: StringConstants.country),
+                  textFormField(hintText: StringConstants.country.tr),
                   SizedBox(height: 10.px),
-                  textFormField(hintText: StringConstants.zipCode),
+                  textFormField(hintText: StringConstants.zipCode.tr),
                   SizedBox(height: 10.px),
-                  textFormField(hintText: StringConstants.brand),
+                  textFormField(hintText: StringConstants.brand.tr),
                   SizedBox(height: 10.px),
                   textFormField(
-                    hintText: StringConstants.productsStatus,
+                    hintText: StringConstants.productsStatus.tr,
                     readOnly: true,
                     onTap: () => controller.clickOnProductsStatus(),
                   ),
                   SizedBox(height: 10.px),
                   textFormField(
-                    hintText: StringConstants.hashtag,
+                    hintText: StringConstants.hashtag.tr,
                     readOnly: true,
                     onTap: () => controller.clickOnHashtag(),
                   ),
@@ -102,12 +103,13 @@ class UploadView extends GetView<UploadController> {
                   Row(
                     children: [
                       Expanded(
-                        child: textFormField(hintText: StringConstants.price),
+                        child:
+                            textFormField(hintText: StringConstants.price.tr),
                       ),
                       SizedBox(width: 10.px),
                       Expanded(
-                        child:
-                            textFormField(hintText: StringConstants.currency),
+                        child: textFormField(
+                            hintText: StringConstants.currency.tr),
                       ),
                     ],
                   ),
@@ -116,7 +118,7 @@ class UploadView extends GetView<UploadController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        StringConstants.enableShipping,
+                        StringConstants.enableShipping.tr,
                         style: Theme.of(context)
                             .textTheme
                             .headlineSmall
@@ -184,7 +186,7 @@ class UploadView extends GetView<UploadController> {
                   CommonWidgets.commonElevatedButton(
                     onPressed: () => controller.clickOnPostAddButton(),
                     childText: Text(
-                      StringConstants.postAdd,
+                      StringConstants.postAdd.tr,
                       style: Theme.of(context)
                           .textTheme
                           .headlineSmall

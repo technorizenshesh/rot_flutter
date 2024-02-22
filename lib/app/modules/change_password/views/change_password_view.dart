@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
@@ -26,7 +27,7 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
               CommonWidgets.commonElevatedButton(
                 onPressed: () => controller.clickOnSaveButton(),
                 childText: Text(
-                  StringConstants.save,
+                  StringConstants.save.tr,
                   style: Theme.of(context)
                       .textTheme
                       .headlineSmall
@@ -37,7 +38,7 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
             ],
           ),
         ),
-        appBar: CommonWidgets.appBar(title: StringConstants.changePassword),
+        appBar: CommonWidgets.appBar(title: StringConstants.changePassword.tr),
         body: ListView(
           children: [
             Padding(
@@ -51,8 +52,8 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                     isCard: controller.isCurrentPassword.value,
                     focusNode: controller.focusCurrentPassword,
                     obscureText: controller.currentPasswordHide.value,
-                    title: StringConstants.currentPassword,
-                    hintText: StringConstants.currentPassword,
+                    title: StringConstants.currentPassword.tr,
+                    hintText: StringConstants.currentPassword.tr,
                     hintTextColor: controller.isCurrentPassword.value,
                     suffixIcon: GestureDetector(
                       onTap: () => controller.clickOnCurrentPasswordEyeButton(),
@@ -80,8 +81,8 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                     isCard: controller.isNewPassword.value,
                     focusNode: controller.focusNewPassword,
                     obscureText: controller.newPasswordHide.value,
-                    hintText: StringConstants.newPassword,
-                    title: StringConstants.newPassword,
+                    hintText: StringConstants.newPassword.tr,
+                    title: StringConstants.newPassword.tr,
                     hintTextColor: controller.isNewPassword.value,
                     suffixIcon: GestureDetector(
                       onTap: () => controller.clickOnNewPasswordEyeButton(),
@@ -109,9 +110,9 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                     isCard: controller.isConfirmPassword.value,
                     focusNode: controller.focusConfirmPassword,
                     obscureText: controller.confirmPasswordHide.value,
-                    hintText: StringConstants.confirmPassword,
+                    hintText: StringConstants.confirmPassword.tr,
                     hintTextColor: controller.isConfirmPassword.value,
-                    title: StringConstants.confirmPassword,
+                    title: StringConstants.confirmPassword.tr,
                     /*prefixIcon: Image.asset(
                       IconConstants.icLock,
                       color: controller.isConfirmPassword.value

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -22,7 +21,7 @@ class RateUsView extends GetView<RateUsController> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: 40.px),
-                CommonWidgets.appBarView(title: StringConstants.rateUs),
+                CommonWidgets.appBarView(title: StringConstants.rateUs.tr),
                 SizedBox(height: 20.px),
                 Card(
                   child: Padding(
@@ -32,7 +31,7 @@ class RateUsView extends GetView<RateUsController> {
                       child: Column(
                         children: [
                           Text(
-                            StringConstants.shareYourOpinion,
+                            StringConstants.shareYourOpinion.tr,
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium
@@ -40,7 +39,7 @@ class RateUsView extends GetView<RateUsController> {
                           ),
                           SizedBox(height: 10.px),
                           Text(
-                            StringConstants.yourRatingForThisProductGood,
+                            StringConstants.yourRatingForThisProductGood.tr,
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium
@@ -85,7 +84,7 @@ class RateUsView extends GetView<RateUsController> {
                           CommonWidgets.commonElevatedButton(
                             onPressed: () => controller.clickOnSendButton(),
                             child: Text(
-                              StringConstants.send,
+                              StringConstants.send.tr,
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineSmall

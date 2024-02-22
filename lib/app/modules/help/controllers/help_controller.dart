@@ -8,30 +8,30 @@ class HelpController extends GetxController {
 
   List list = [
     {
-      'title': StringConstants.supportText,
-      'button': [StringConstants.chat],
+      'title': StringConstants.supportText.tr,
+      'button': [StringConstants.chat.tr],
     },
     {
-      'title': StringConstants.medium,
+      'title': StringConstants.medium.tr,
       'button': [
-        StringConstants.helpCenter,
-        StringConstants.consultationInProgress,
+        StringConstants.helpCenter.tr,
+        StringConstants.consultationInProgress.tr,
       ],
     },
     {
-      'title': StringConstants.tipsAndRules,
+      'title': StringConstants.tipsAndRules.tr,
       'button': [
-        StringConstants.securityAdvice,
-        StringConstants.coexistenceRules,
+        StringConstants.securityAdvice.tr,
+        StringConstants.coexistenceRules.tr,
       ],
     },
     {
-      'title': StringConstants.legal,
+      'title': StringConstants.legal.tr,
       'button': [
-        StringConstants.legalWarning,
-        StringConstants.termsAndConditions,
-        StringConstants.privacyPolicies,
-        StringConstants.changeOfConsent,
+        StringConstants.legalWarning.tr,
+        StringConstants.termsAndConditions.tr,
+        StringConstants.privacyPolicies.tr,
+        StringConstants.changeOfConsent.tr,
       ],
     },
   ];
@@ -54,7 +54,7 @@ class HelpController extends GetxController {
   void increment() => count.value++;
 
   clickOnButton({required String buttonText}) {
-    if (StringConstants.chat == buttonText) {
+    if (StringConstants.chat.tr == buttonText) {
       Get.toNamed(Routes.HELP_CHAT);
     } else {
       Get.toNamed(Routes.HELP_CENTER, parameters: {'title': buttonText});

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../routes/app_pages.dart';
-
 class CreateNewPasswordController extends GetxController {
-
   final count = 0.obs;
   final isNewPassword = false.obs;
   final isConfirmPassword = false.obs;

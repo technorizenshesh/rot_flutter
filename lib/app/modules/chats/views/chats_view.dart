@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
@@ -23,13 +24,13 @@ class ChatsView extends GetView<ChatsController> {
             children: [
               SizedBox(height: 60.px),
               Text(
-                StringConstants.message,
+                StringConstants.message.tr,
                 style: Theme.of(context).textTheme.displayMedium?.copyWith(
                     fontSize: 24.px, color: Theme.of(context).primaryColor),
               ),
               SizedBox(height: 30.px),
               CommonWidgets.commonTextField(
-                hintText: StringConstants.search,
+                hintText: StringConstants.search.tr,
                 borderRadius: 24.px,
                 prefixIcon: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -80,8 +81,8 @@ class ChatsView extends GetView<ChatsController> {
                 controller.count.value;
                 return Text(
                   controller.tabController.index == 0
-                      ? StringConstants.chat
-                      : StringConstants.notification,
+                      ? StringConstants.chat.tr
+                      : StringConstants.notification.tr,
                   style: Theme.of(context).textTheme.displayMedium?.copyWith(
                         fontSize: 24.px,
                       ),

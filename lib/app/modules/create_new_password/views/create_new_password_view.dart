@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -32,7 +31,7 @@ class CreateNewPasswordView extends GetView<CreateNewPasswordController> {
                 CommonWidgets.commonElevatedButton(
                   onPressed: () => controller.clickOnSubmitButton(),
                   childText: Text(
-                    StringConstants.submit,
+                    StringConstants.submit.tr,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.w700,
                         ),
@@ -50,7 +49,7 @@ class CreateNewPasswordView extends GetView<CreateNewPasswordController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    StringConstants.createNewPassword,
+                    StringConstants.createNewPassword.tr,
                     style: Theme.of(context)
                         .textTheme
                         .displayMedium
@@ -59,7 +58,8 @@ class CreateNewPasswordView extends GetView<CreateNewPasswordController> {
                   SizedBox(height: 6.px),
                   Text(
                     StringConstants
-                        .yourNewPasswordMustBeDifferentFromPreviousUsedPasswords,
+                        .yourNewPasswordMustBeDifferentFromPreviousUsedPasswords
+                        .tr,
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium
@@ -69,7 +69,7 @@ class CreateNewPasswordView extends GetView<CreateNewPasswordController> {
                   CommonWidgets.commonTextFieldForLoginSignUP(
                     obscureText: !controller.hideNewPassword.value,
                     focusNode: controller.focusNewPassword,
-                    title: StringConstants.newPassword,
+                    title: StringConstants.newPassword.tr,
                     controller: controller.newPasswordController,
                     isCard: controller.isNewPassword.value,
                     prefixIcon: CommonWidgets.appIcons(
@@ -79,7 +79,7 @@ class CreateNewPasswordView extends GetView<CreateNewPasswordController> {
                             : Theme.of(Get.context!)
                                 .colorScheme
                                 .onSecondaryContainer),
-                    hintText: StringConstants.pleaseEnterNewPassword,
+                    hintText: StringConstants.pleaseEnterNewPassword.tr,
                     suffixIcon: GestureDetector(
                       onTap: () => controller.clickOnEyeNewPasswordButton(),
                       child: CommonWidgets.appIcons(
@@ -98,7 +98,7 @@ class CreateNewPasswordView extends GetView<CreateNewPasswordController> {
                   CommonWidgets.commonTextFieldForLoginSignUP(
                     obscureText: !controller.hideConfirmPassword.value,
                     focusNode: controller.focusConfirmPassword,
-                    title: StringConstants.confirmPassword,
+                    title: StringConstants.confirmPassword.tr,
                     controller: controller.newPasswordController,
                     isCard: controller.isConfirmPassword.value,
                     prefixIcon: CommonWidgets.appIcons(
@@ -108,7 +108,7 @@ class CreateNewPasswordView extends GetView<CreateNewPasswordController> {
                             : Theme.of(Get.context!)
                                 .colorScheme
                                 .onSecondaryContainer),
-                    hintText: StringConstants.pleaseEnterConfirmPassword,
+                    hintText: StringConstants.pleaseEnterConfirmPassword.tr,
                     suffixIcon: GestureDetector(
                       onTap: () => controller.clickOnEyeConfirmPasswordButton(),
                       child: CommonWidgets.appIcons(
