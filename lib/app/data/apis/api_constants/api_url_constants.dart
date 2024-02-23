@@ -8,4 +8,6 @@ class ApiUrlConstants {
       '${baseUrl}user_verification';
   static const String endPointOfLogin = '${baseUrl}login';
   static const String endPointOfForgetPassword = '${baseUrl}forget_password';
+  static const String endPointOfCreateNewPassword =
+      '${baseUrl}create_new_password';
 }

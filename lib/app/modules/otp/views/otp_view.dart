@@ -72,9 +72,7 @@ class OtpView extends GetView<OtpController> {
                             ?.copyWith(fontSize: 16.px),
                       ),
                       SizedBox(height: 74.px),
-                      CommonWidgets.commonOtpView(
-                          controller: controller.pin,
-                          autoDismissKeyboard: true),
+                      CommonWidgets.commonOtpView(controller: controller.pin),
                     ],
                   ),
                 ),

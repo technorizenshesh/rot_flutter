@@ -14,7 +14,7 @@ class LoginController extends GetxController {
   final count = 0.obs;
   final icPhone = false.obs;
   final isPassword = false.obs;
-  final passwordHide = false.obs;
+  final passwordHide = true.obs;
 
   final inAsyncCall = false.obs;
   final countryCode = '+91'.obs;
@@ -87,7 +87,6 @@ class LoginController extends GetxController {
       };
       UserModel? userModel = await ApiMethods.login(bodyParams: bodyParams);
       if (userModel != null &&
-          userModel.userData != null &&
           userModel.token != null &&
           userModel.token!.isNotEmpty) {
         SharedPreferences sp = await SharedPreferences.getInstance();

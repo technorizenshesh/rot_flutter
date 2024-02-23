@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../app/data/apis/api_constants/api_key_constants.dart';
 import '../app/data/constants/icons_constant.dart';
+import '../app/data/constants/string_constants.dart';
 
 class CommonWidgets {
   static appBar({String? title, bool wantBackButton = true}) {
@@ -490,7 +492,7 @@ class CommonWidgets {
     double? borderRadius,
     double? borderWidth,
     bool readOnly = false,
-    bool autoFocus = true,
+    bool autoFocus = false,
     bool enableActiveFill = true,
     bool enablePinAutofill = true,
     bool autoDismissKeyboard = true,
@@ -654,6 +656,31 @@ class CommonWidgets {
     } else {
       return false;
     }
+  }
+
+  static void showAlertDialog(
+      {String title = StringConstants.logout,
+      String content = StringConstants.wouldYouLikeToLogout,
+      VoidCallback? onPressedYes}) {
+    showCupertinoModalPopup<void>(
+      context: Get.context!,
+      builder: (BuildContext context) => CupertinoAlertDialog(
+        title: Text(title),
+        content: Text(content),
+        actions: <CupertinoDialogAction>[
+          CupertinoDialogAction(
+            isDefaultAction: true,
+            onPressed: () => Get.back(),
+            child: Text(StringConstants.no),
+          ),
+          CupertinoDialogAction(
+            isDestructiveAction: true,
+            onPressed: onPressedYes,
+            child: Text(StringConstants.yes),
+          ),
+        ],
+      ),
+    );
   }
 }
 

@@ -76,8 +76,8 @@ class ChangePasswordController extends GetxController {
           await ApiMethods.userSignup(bodyParams: bodyParams);
       if (userModel != null &&
           userModel.userData != null &&
-          userModel.userData!.id != null &&
-          userModel.userData!.id!.isNotEmpty) {
+          userModel.token != null &&
+          userModel.token!.isNotEmpty) {
         SharedPreferences sp = await SharedPreferences.getInstance();
         sp.setString(ApiKeyConstants.token, userModel.token!);
         Get.toNamed(Routes.NAV_BAR);

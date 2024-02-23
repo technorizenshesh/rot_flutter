@@ -16,7 +16,7 @@ class LoginWithEmailController extends GetxController {
 
   final isEmail = false.obs;
   final isPassword = false.obs;
-  final passwordHide = false.obs;
+  final passwordHide = true.obs;
 
   final inAsyncCall = false.obs;
   Map<String, dynamic> bodyParams = {};
@@ -56,7 +56,9 @@ class LoginWithEmailController extends GetxController {
     Get.toNamed(Routes.RESET_PASSWORD_MAIL);
   }
 
-  clickOnSignUpButton() {}
+  clickOnSignUpButton() {
+    Get.toNamed(Routes.SIGN_UP);
+  }
 
   clickOnPasswordEyeButton() {
     passwordHide.value = !passwordHide.value;
@@ -77,7 +79,6 @@ class LoginWithEmailController extends GetxController {
       };
       UserModel? userModel = await ApiMethods.login(bodyParams: bodyParams);
       if (userModel != null &&
-          userModel.userData != null &&
           userModel.token != null &&
           userModel.token!.isNotEmpty) {
         SharedPreferences sp = await SharedPreferences.getInstance();

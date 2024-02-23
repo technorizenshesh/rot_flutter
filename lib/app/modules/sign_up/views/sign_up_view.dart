@@ -109,9 +109,9 @@ class SignUpView extends GetView<SignUpController> {
                           suffixIcon: GestureDetector(
                             onTap: () => controller.clickOnPasswordEyeButton(),
                             child: CommonWidgets.appIcons(
-                              assetName: !controller.passwordHide.value
-                                  ? IconConstants.icView
-                                  : IconConstants.icHide,
+                              assetName: controller.passwordHide.value
+                                  ? IconConstants.icHide
+                                  : IconConstants.icView,
                               color: controller.isPassword.value
                                   ? Theme.of(Get.context!).primaryColor
                                   : Theme.of(Get.context!)

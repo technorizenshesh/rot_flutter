@@ -19,7 +19,7 @@ class SignUpWithEmailController extends GetxController {
   final isFullName = false.obs;
   final isEmail = false.obs;
   final isPassword = false.obs;
-  final passwordHide = false.obs;
+  final passwordHide = true.obs;
 
   TextEditingController fullNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();

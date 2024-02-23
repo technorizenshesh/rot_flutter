@@ -13,7 +13,7 @@ class ResetPasswordController extends GetxController {
   final count = 0.obs;
   final isPhone = false.obs;
   final inAsyncCall = false.obs;
-  final countryCode = ''.obs;
+  final countryCode = '+91'.obs;
   FocusNode focusPhone = FocusNode();
 
   TextEditingController phoneController = TextEditingController();
@@ -64,7 +64,8 @@ class ResetPasswordController extends GetxController {
           userModel.userData!.id != null &&
           userModel.userData!.id!.isNotEmpty) {
         Map<String, String> parameters = {
-          ApiKeyConstants.userId: userModel.userData!.id.toString()
+          ApiKeyConstants.userId: userModel.userData!.id.toString(),
+          ApiKeyConstants.type: StringConstants.resetPassword,
         };
         Get.toNamed(Routes.OTP, parameters: parameters);
       }

@@ -74,4 +74,21 @@ class ApiMethods {
     }
     return null;
   }
+
+  static Future<UserModel?> createNewPassword({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    UserModel? userModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfCreateNewPassword,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      userModel = UserModel.fromJson(jsonDecode(response.body));
+      return userModel;
+    }
+    return null;
+  }
 }

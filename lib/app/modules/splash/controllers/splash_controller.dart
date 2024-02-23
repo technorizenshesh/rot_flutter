@@ -28,17 +28,13 @@ class SplashController extends GetxController {
 
   void increment() => count.value++;
 
-  manageSession() {
-    Future.delayed(
-      Duration(seconds: 3),
-      () {
-        if (prefs?.getString(ApiKeyConstants.token) == null ||
-            prefs?.getString(ApiKeyConstants.token) != '') {
-          Get.offAllNamed(Routes.NAV_BAR);
-        } else {
-          Get.offAndToNamed(Routes.GET_START);
-        }
-      },
-    );
+  manageSession() async {
+    await Future.delayed(const Duration(seconds: 3));
+    print("TOKEN:::::::::::${prefs?.getString(ApiKeyConstants.token)}");
+    if (prefs?.getString(ApiKeyConstants.token) != null) {
+      Get.offAllNamed(Routes.NAV_BAR);
+    } else {
+      Get.offAndToNamed(Routes.GET_START);
+    }
   }
 }

@@ -1,8 +1,12 @@
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../common/common_widgets.dart';
+import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 import '../../../routes/app_pages.dart';
+import '../../nav_bar/controllers/nav_bar_controller.dart';
 
 class ProfileController extends GetxController {
   final count = 0.obs;
@@ -72,7 +76,21 @@ class ProfileController extends GetxController {
       case 7:
         Get.toNamed(Routes.MY_QR_CODE);
         break;
+      case 9:
+        CommonWidgets.showAlertDialog(
+          onPressedYes: () => clickOnYes(),
+        );
+        break;
     }
+  }
+
+  clickOnYes() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString(ApiKeyConstants.token, '');
+    sharedPreferences.clear();
+    selectedIndex.value = 0;
+    Get.delete<NavBarController>();
+    Get.offAllNamed(Routes.GET_START);
   }
 
   clickOnDetailCard() {

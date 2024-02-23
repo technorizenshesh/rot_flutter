@@ -18,11 +18,13 @@ class OtpController extends GetxController {
 
   final inAsyncCall = false.obs;
   String userId = '';
+  String type = '';
   Map<String, String?> parameters = Get.parameters;
 
   @override
   void onInit() {
     userId = parameters[ApiKeyConstants.userId] ?? '';
+    type = parameters[ApiKeyConstants.type] ?? '';
     super.onInit();
   }
 
@@ -47,10 +49,18 @@ class OtpController extends GetxController {
       };
       UserModel? userModel =
           await ApiMethods.userVerification(bodyParams: bodyParams);
-      if (userModel != null) {
-        SharedPreferences sp = await SharedPreferences.getInstance();
-        sp.setString(ApiKeyConstants.token, userModel.token!);
-        Get.toNamed(Routes.NAV_BAR);
+      if (userModel != null && userModel.userData != null) {
+        if (type == StringConstants.resetPassword) {
+          Map<String, String> parameters = {
+            ApiKeyConstants.userId: userId,
+            ApiKeyConstants.type: StringConstants.resetPassword,
+          };
+          Get.toNamed(Routes.CREATE_NEW_PASSWORD, parameters: parameters);
+        } else if (userModel.token != null && userModel.token!.isNotEmpty) {
+          SharedPreferences sp = await SharedPreferences.getInstance();
+          sp.setString(ApiKeyConstants.token, userModel.token!);
+          Get.toNamed(Routes.NAV_BAR);
+        }
       }
       inAsyncCall.value = false;
     } else {

@@ -47,8 +47,8 @@ class ResetPasswordMailController extends GetxController {
     if (emailController.text.trim().isNotEmpty) {
       inAsyncCall.value = true;
       bodyParams = {
-        ApiKeyConstants.mobile: emailController.text,
-        ApiKeyConstants.type: ApiKeyConstants.mobile,
+        ApiKeyConstants.email: emailController.text,
+        ApiKeyConstants.type: ApiKeyConstants.email,
       };
       UserModel? userModel =
           await ApiMethods.forgetPassword(bodyParams: bodyParams);
@@ -57,7 +57,8 @@ class ResetPasswordMailController extends GetxController {
           userModel.userData!.id != null &&
           userModel.userData!.id!.isNotEmpty) {
         Map<String, String> parameters = {
-          ApiKeyConstants.userId: userModel.userData!.id.toString()
+          ApiKeyConstants.userId: userModel.userData!.id.toString(),
+          ApiKeyConstants.type: StringConstants.resetPassword,
         };
         Get.toNamed(Routes.OTP, parameters: parameters);
       }

@@ -96,8 +96,8 @@ class LoginWithEmailView extends GetView<LoginWithEmailController> {
                             onTap: () => controller.clickOnPasswordEyeButton(),
                             child: CommonWidgets.appIcons(
                               assetName: controller.passwordHide.value
-                                  ? IconConstants.icView
-                                  : IconConstants.icHide,
+                                  ? IconConstants.icHide
+                                  : IconConstants.icView,
                               color: controller.isPassword.value
                                   ? Theme.of(Get.context!).primaryColor
                                   : Theme.of(Get.context!)

@@ -19,7 +19,7 @@ class SignUpController extends GetxController {
   final isFullName = false.obs;
   final isPhoneNumber = false.obs;
   final isPassword = false.obs;
-  final passwordHide = false.obs;
+  final passwordHide = true.obs;
 
   TextEditingController fullNameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
@@ -96,8 +96,9 @@ class SignUpController extends GetxController {
 
   clickOnCancelButton() {}
 
-  clickOnSignUpWithEmailButton() {
-    Get.toNamed(Routes.SIGN_UP_WITH_EMAIL);
+  clickOnSignUpWithEmailButton() async {
+    await Get.toNamed(Routes.SIGN_UP_WITH_EMAIL);
+    Get.back();
   }
 
   clickOnPasswordEyeButton() {
