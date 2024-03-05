@@ -14,7 +14,6 @@ Future<void> main() async {
   final String savedLanguageCode = prefs.getString('languageCode') ?? 'en';
   final String savedCountryCode = prefs.getString('countryCode') ?? 'US';
   final savedLocale = Locale(savedLanguageCode, savedCountryCode);
-
   WidgetsFlutterBinding.ensureInitialized();
   CommonMethods.unFocsKeyBoard();
   runApp(

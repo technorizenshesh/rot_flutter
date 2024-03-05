@@ -1,12 +1,18 @@
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/common_methods.dart';
+import '../../../data/apis/api_constants/api_key_constants.dart';
+import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/get_banner_model.dart';
+import '../../../data/apis/api_models/get_category_model.dart';
+import '../../../data/apis/api_models/user_model.dart';
 import '../../../data/constants/icons_constant.dart';
+import '../../../data/constants/string_constants.dart';
 import '../../../routes/app_pages.dart';
 
 class HomeController extends GetxController {
   final count = 0.obs;
-
   final cardIndex = 0.obs;
 
   List list = [
@@ -77,6 +83,7 @@ class HomeController extends GetxController {
       'image': 'assets/un_used_images/image3.png',
     },
   ];
+
   List listOfCards3 = [
     {
       'title': 'electric kettle',
@@ -104,9 +111,24 @@ class HomeController extends GetxController {
     },
   ];
 
+  final inAsyncCall = false.obs;
+
+  List<Data> data = [];
+  Map<String, String> parameters = {};
+  Map<String, String> queryParameters = {};
+  List<BannerData> bannerData = [];
+  String userId = '';
+
+  UserData? userData;
+
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    userId = sp.getString(ApiKeyConstants.userId) ?? '';
     super.onInit();
+    inAsyncCall.value = true;
+    await onInitWork();
+    inAsyncCall.value = false;
   }
 
   @override
@@ -131,5 +153,49 @@ class HomeController extends GetxController {
 
   clickOnSearchTextField() {
     Get.toNamed(Routes.SEARCH);
+  }
+
+  Future<void> onInitWork() async {
+    await getBannerApi();
+    await getCategoryApi();
+    await getProfileApi();
+  }
+
+  Future<void> getProfileApi() async {
+    queryParameters = {
+      ApiKeyConstants.userId: userId,
+    };
+    UserModel? userModel =
+        await ApiMethods.getProfile(queryParameters: queryParameters);
+    if (userModel != null) {
+      userData = userModel.userData;
+      increment();
+    }
+  }
+
+  Future<void> getBannerApi() async {
+    GetBannerModel? getBannerModel = await ApiMethods.getBanner();
+    if (getBannerModel != null &&
+        getBannerModel.data != null &&
+        getBannerModel.data!.isNotEmpty) {
+      bannerData = getBannerModel.data ?? [];
+    }
+  }
+
+  Future<void> getCategoryApi() async {
+    GetCategoryModel? getCategoryModel = await ApiMethods.getCategory();
+    if (getCategoryModel != null &&
+        getCategoryModel.data != null &&
+        getCategoryModel.data!.isNotEmpty) {
+      data = getCategoryModel.data ?? [];
+    }
+  }
+
+  clickOnCategoryCard({required int index}) {
+    parameters = {
+      StringConstants.title: data[index].categoryName ?? '',
+      ApiKeyConstants.categoryId: data[index].id ?? ''
+    };
+    Get.toNamed(Routes.SUB_CATEGORY, parameters: parameters);
   }
 }

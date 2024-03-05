@@ -56,9 +56,14 @@ class OtpController extends GetxController {
             ApiKeyConstants.type: StringConstants.resetPassword,
           };
           Get.toNamed(Routes.CREATE_NEW_PASSWORD, parameters: parameters);
-        } else if (userModel.token != null && userModel.token!.isNotEmpty) {
+        } else if (userModel.token != null &&
+            userModel.token!.isNotEmpty &&
+            userModel.userData != null &&
+            userModel.userData!.id != null &&
+            userModel.userData!.id!.isNotEmpty) {
           SharedPreferences sp = await SharedPreferences.getInstance();
           sp.setString(ApiKeyConstants.token, userModel.token!);
+          sp.setString(ApiKeyConstants.userId, userModel.userData!.id!);
           Get.toNamed(Routes.NAV_BAR);
         }
       }

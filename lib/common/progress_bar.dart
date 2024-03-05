@@ -31,7 +31,7 @@ class ProgressBar extends StatelessWidget {
   ProgressBar({
     Key? key,
     required this.inAsyncCall,
-    this.opacity = 0.5,
+    this.opacity = 0.1,
     this.color = Colors.grey,
     this.progressIndicator,
     this.offset,

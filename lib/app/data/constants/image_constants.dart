@@ -39,4 +39,6 @@ class ImageConstants {
       'assets/images/image_the_transport_company.png';
   static const String imageEnjoyYourPurchase =
       'assets/images/image_enjoy_your_purchase.png';
+  static const String imageNoDataFound =
+      'assets/images/image_no_data_found.png';
 }

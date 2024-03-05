@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rot_application/common/progress_bar.dart';
 
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
-import '../../../data/constants/image_constants.dart';
 import '../../../data/constants/string_constants.dart';
 import '../controllers/profile_detail_controller.dart';
 
@@ -13,121 +13,146 @@ class ProfileDetailView extends GetView<ProfileDetailController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CommonWidgets.appBar(title: StringConstants.profile),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.px),
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 20.px),
-              Card(
-                elevation: .4.px,
-                child: Padding(
-                  padding: EdgeInsets.all(8.px),
-                  child: Row(
-                    children: [
-                      CommonWidgets.appIcons(
-                        assetName: ImageConstants.imageSupport,
-                        height: 80.px,
-                        width: 80.px,
-                        borderRadius: 50.px,
-                      ),
-                      SizedBox(width: 20.px),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+    return Obx(() {
+      controller.count.value;
+      return Scaffold(
+        appBar: CommonWidgets.appBar(title: StringConstants.profile),
+        body: ProgressBar(
+          inAsyncCall: controller.inAsyncCall.value,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.px),
+            child: SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 20.px),
+                  Card(
+                    elevation: .4.px,
+                    child: Padding(
+                      padding: EdgeInsets.all(8.px),
+                      child: Row(
                         children: [
-                          Text(
-                            'Tommy Jason',
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
-                                    fontSize: 20.px,
-                                    color: Theme.of(context).primaryColor),
-                          ),
-                          SizedBox(height: 4.px),
-                          Text(
-                            'tommyjason@gmail.com',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall
-                                ?.copyWith(
-                                  fontSize: 12.px,
+                          (controller.userData != null &&
+                                  controller.userData!.image != null &&
+                                  controller.userData!.image!.isNotEmpty)
+                              ? CommonWidgets.imageView(
+                                  image: controller.userData!.image ?? '',
+                                  height: 80.px,
+                                  width: 80.px,
+                                  borderRadius: BorderRadius.circular(40.px),
+                                )
+                              : CommonWidgets.appIcons(
+                                  assetName: IconConstants.icUserImage,
+                                  height: 80.px,
+                                  width: 80.px,
+                                  borderRadius: 40.px),
+                          SizedBox(width: 20.px),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (controller.userData != null &&
+                                  controller.userData!.userName != null &&
+                                  controller.userData!.userName!.isNotEmpty)
+                                Text(
+                                  controller.userData!.userName ?? '',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(
+                                          fontSize: 20.px,
+                                          color:
+                                              Theme.of(context).primaryColor),
                                 ),
-                          ),
-                          SizedBox(height: 4.px),
-                          Text(
-                            '⭐⭐⭐⭐⭐ 5',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall
-                                ?.copyWith(
-                                  fontSize: 12.px,
+                              SizedBox(height: 4.px),
+                              if (controller.userData != null &&
+                                  controller.userData!.email != null &&
+                                  controller.userData!.email!.isNotEmpty)
+                                Text(
+                                  controller.userData!.email ?? '',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall
+                                      ?.copyWith(
+                                        fontSize: 12.px,
+                                      ),
                                 ),
+                              SizedBox(height: 4.px),
+                              if (controller.userData != null &&
+                                  controller.userData!.reviewCount != null &&
+                                  controller.userData!.reviewCount!.isNotEmpty)
+                                Text(
+                                  "⭐ ${controller.userData!.reviewCount ?? ''}",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall
+                                      ?.copyWith(
+                                        fontSize: 12.px,
+                                      ),
+                                ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              SizedBox(height: 20.px),
-              Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .onSecondary
-                      .withOpacity(.1.px),
-                  borderRadius: BorderRadius.circular(8.px),
-                ),
-                child: TabBar(
-                  onTap: (value) {
-                    controller.increment();
-                  },
-                  splashBorderRadius: BorderRadius.circular(8.px),
-                  controller: controller.tabController,
-                  indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.px),
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  labelColor: Theme.of(context).scaffoldBackgroundColor,
-                  unselectedLabelColor:
-                      Theme.of(context).textTheme.displayMedium?.color,
-                  tabs: controller.tabs,
-                  labelStyle:
-                      Theme.of(context).textTheme.displayMedium?.copyWith(
-                            fontSize: 14.px,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                  indicatorSize:
-                      TabBarIndicatorSize.tab, // Set indicatorSize to tab
-                ),
-              ),
-              SizedBox(height: 20.px),
-              Obx(() {
-                controller.count.value;
-                return Text(
-                  tabText(),
-                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                        fontSize: 24.px,
+                  SizedBox(height: 20.px),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSecondary
+                          .withOpacity(.1.px),
+                      borderRadius: BorderRadius.circular(8.px),
+                    ),
+                    child: TabBar(
+                      onTap: (value) {
+                        controller.increment();
+                      },
+                      splashBorderRadius: BorderRadius.circular(8.px),
+                      controller: controller.tabController,
+                      indicator: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.px),
+                        color: Theme.of(context).primaryColor,
                       ),
-                );
-              }),
-              SizedBox(height: 8.px),
-              Obx(() {
-                controller.count.value;
-                return Expanded(
-                  child: screens(),
-                );
-              }),
-              SizedBox(height: 20.px),
-            ],
+                      labelColor: Theme.of(context).scaffoldBackgroundColor,
+                      unselectedLabelColor:
+                          Theme.of(context).textTheme.displayMedium?.color,
+                      tabs: controller.tabs,
+                      labelStyle:
+                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                                fontSize: 14.px,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                      indicatorSize:
+                          TabBarIndicatorSize.tab, // Set indicatorSize to tab
+                    ),
+                  ),
+                  SizedBox(height: 20.px),
+                  Obx(() {
+                    controller.count.value;
+                    return Text(
+                      tabText(),
+                      style:
+                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                                fontSize: 24.px,
+                              ),
+                    );
+                  }),
+                  SizedBox(height: 8.px),
+                  Obx(() {
+                    controller.count.value;
+                    return Expanded(
+                      child: screens(),
+                    );
+                  }),
+                  SizedBox(height: 20.px),
+                ],
+              ),
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget screens() {
@@ -158,10 +183,12 @@ class ProfileDetailsView extends GetView<ProfileDetailController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => ListView(
-          children: [
-            SizedBox(height: 20.px),
-            CommonWidgets.commonTextFieldForLoginSignUP(
+    return Obx(() {
+      controller.count.value;
+      return ListView(
+        children: [
+          SizedBox(height: 20.px),
+          /*CommonWidgets.commonTextFieldForLoginSignUP(
               focusNode: controller.focusFirstName,
               title: StringConstants.firstName,
               controller: controller.firstNameController,
@@ -175,18 +202,43 @@ class ProfileDetailsView extends GetView<ProfileDetailController> {
               controller: controller.lastNameController,
               isCard: controller.isLastName.value,
               hintText: StringConstants.enterYourLastName,
+            ),*/
+          CommonWidgets.commonTextFieldForLoginSignUP(
+            focusNode: controller.focusFullName,
+            title: StringConstants.fullName.tr,
+            controller: controller.fullNameController,
+            isCard: controller.isFullName.value,
+            hintText: StringConstants.enterYourFullName.tr,
+            prefixIcon: CommonWidgets.appIcons(
+              assetName: IconConstants.icUser,
+              color: controller.isFullName.value
+                  ? Theme.of(Get.context!).primaryColor
+                  : Theme.of(Get.context!).colorScheme.onSecondaryContainer,
             ),
-            SizedBox(height: 14.px),
-            CommonWidgets.commonTextFieldForLoginSignUP(
-              focusNode: controller.focusSellersAddress,
-              title: StringConstants.sellersAddress,
-              controller: controller.sellersAddressController,
-              isCard: controller.isSellersAddress.value,
-              hintText: StringConstants.enterYourSellersAddress,
+          ),
+          SizedBox(height: 14.px),
+          CommonWidgets.commonTextFieldForLoginSignUP(
+            focusNode: controller.focusSellersAddress,
+            title: StringConstants.sellersAddress,
+            controller: controller.sellersAddressController,
+            isCard: controller.isSellersAddress.value,
+            hintText: StringConstants.enterYourSellersAddress,
+          ),
+          SizedBox(height: 14.px),
+          CommonWidgets.commonElevatedButton(
+            onPressed: () => controller.clickOnSubmitButton(type: 'profile'),
+            childText: Text(
+              StringConstants.submit.tr,
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall
+                  ?.copyWith(fontWeight: FontWeight.w700),
             ),
-            SizedBox(height: 14.px),
-          ],
-        ));
+          ),
+          SizedBox(height: 20.px),
+        ],
+      );
+    });
   }
 }
 

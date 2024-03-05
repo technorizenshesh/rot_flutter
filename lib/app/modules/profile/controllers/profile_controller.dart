@@ -3,6 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/common_widgets.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
+import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/user_model.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 import '../../../routes/app_pages.dart';
@@ -33,9 +35,21 @@ class ProfileController extends GetxController {
     {'title': StringConstants.logOut.tr, 'icon': IconConstants.icLogOut},
   ];
 
+  String userId = '';
+
+  final inAsyncCall = false.obs;
+  Map<String, String> queryParameters = {};
+
+  UserData? userData;
+
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    userId = sp.getString(ApiKeyConstants.userId) ?? '';
     super.onInit();
+    inAsyncCall.value = true;
+    await onInitWork();
+    inAsyncCall.value = false;
   }
 
   @override
@@ -95,5 +109,21 @@ class ProfileController extends GetxController {
 
   clickOnDetailCard() {
     Get.toNamed(Routes.PROFILE_DETAIL);
+  }
+
+  Future<void> onInitWork() async {
+    await getProfileApi();
+  }
+
+  Future<void> getProfileApi() async {
+    queryParameters = {
+      ApiKeyConstants.userId: userId,
+    };
+    UserModel? userModel =
+        await ApiMethods.getProfile(queryParameters: queryParameters);
+    if (userModel != null) {
+      userData = userModel.userData;
+      increment();
+    }
   }
 }

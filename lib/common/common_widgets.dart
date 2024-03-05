@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +10,11 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../app/data/apis/api_constants/api_key_constants.dart';
 import '../app/data/constants/icons_constant.dart';
+import '../app/data/constants/image_constants.dart';
 import '../app/data/constants/string_constants.dart';
 
 class CommonWidgets {
@@ -137,6 +140,65 @@ class CommonWidgets {
               ],
             ),
       ),
+    );
+  }
+
+  static imageView({
+    double? width,
+    double? height,
+    double? radius,
+    required String image,
+    String? defaultNetworkImage,
+    BoxFit? fit,
+    BorderRadiusGeometry? borderRadius,
+  }) {
+    return SizedBox(
+      height: height ?? 64.px,
+      width: width ?? double.infinity,
+      child: ClipRRect(
+        borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 8.px),
+        child: CachedNetworkImage(
+          imageUrl: image,
+          fit: fit ?? BoxFit.cover,
+          errorWidget: (context, error, stackTrace) {
+            return Container(
+              height: height ?? 64.px,
+              width: width ?? double.infinity,
+              color:
+                  Theme.of(context).colorScheme.onSecondary.withOpacity(.2.px),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(radius ?? 8.px),
+                child: Icon(Icons.error, color: Theme.of(context).primaryColor),
+              ),
+            );
+          },
+          progressIndicatorBuilder: (context, url, downloadProgress) {
+            return SizedBox(
+              height: height ?? 64.px,
+              width: width ?? double.infinity,
+              child: Shimmer.fromColors(
+                baseColor: Theme.of(context)
+                    .colorScheme
+                    .onSecondary
+                    .withOpacity(.4.px),
+                highlightColor: Theme.of(context).colorScheme.onSecondary,
+                child: Container(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSecondary
+                      .withOpacity(.4.px),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  static Widget dataNotFound() {
+    return Center(
+      child: Image.asset(ImageConstants.imageNoDataFound),
     );
   }
 

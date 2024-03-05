@@ -49,9 +49,13 @@ class CheckYourMailController extends GetxController {
           await ApiMethods.userVerification(bodyParams: bodyParams);
       if (userModel != null &&
           userModel.token != null &&
-          userModel.token!.isNotEmpty) {
+          userModel.token!.isNotEmpty &&
+          userModel.userData != null &&
+          userModel.userData!.id != null &&
+          userModel.userData!.id!.isNotEmpty) {
         SharedPreferences sp = await SharedPreferences.getInstance();
         sp.setString(ApiKeyConstants.token, userModel.token!);
+        sp.setString(ApiKeyConstants.userId, userModel.userData!.id!);
         Get.toNamed(Routes.NAV_BAR);
       }
       inAsyncCall.value = false;
