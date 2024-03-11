@@ -171,9 +171,11 @@ class StringConstants {
   static const String description = 'Description';
   static const String title = 'Title';
   static const String category = 'Category';
+  static const String subCategory = 'Sub category';
   static const String productLocation = 'Product Location';
   static const String city = 'City';
   static const String country = 'Country';
+  static const String state = 'State';
   static const String zipCode = 'Zip Code';
   static const String brand = 'Brand';
   static const String hashtag = 'Hashtag';

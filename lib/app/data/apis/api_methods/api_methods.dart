@@ -5,12 +5,17 @@ import 'package:http/http.dart' as http;
 
 import '../../../../common/http_methods.dart';
 import '../api_constants/api_url_constants.dart';
+import '../api_models/get_all_product_model.dart';
 import '../api_models/get_banner_model.dart';
 import '../api_models/get_category_model.dart';
+import '../api_models/get_city_model.dart';
+import '../api_models/get_country_model.dart';
+import '../api_models/get_currency_model.dart';
 import '../api_models/get_hash_tag_model.dart';
 import '../api_models/get_product_details_model.dart';
 import '../api_models/get_product_model.dart';
 import '../api_models/get_product_status_model.dart';
+import '../api_models/get_state_model.dart';
 import '../api_models/get_sub_category_model.dart';
 import '../api_models/user_model.dart';
 
@@ -132,6 +137,21 @@ class ApiMethods {
     return null;
   }
 
+  static Future<GetCurrencyModel?> getCurrency({
+    void Function(int)? checkResponse,
+  }) async {
+    GetCurrencyModel? getCurrencyModel;
+    http.Response? response = await MyHttp.getMethod(
+      url: ApiUrlConstants.endPointOfGetCurrency,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getCurrencyModel = GetCurrencyModel.fromJson(jsonDecode(response.body));
+      return getCurrencyModel;
+    }
+    return null;
+  }
+
   static Future<GetSubCategoryModel?> getSubCategory({
     required Map<String, dynamic> queryParameters,
     void Function(int)? checkResponse,
@@ -165,6 +185,25 @@ class ApiMethods {
     if (response != null) {
       getProductModel = GetProductModel.fromJson(jsonDecode(response.body));
       return getProductModel;
+    }
+    return null;
+  }
+
+  static Future<GetAllProductModel?> getAllProduct({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    GetAllProductModel? getAllProductModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetAllProduct,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getAllProductModel =
+          GetAllProductModel.fromJson(jsonDecode(response.body));
+      return getAllProductModel;
     }
     return null;
   }
@@ -222,6 +261,42 @@ class ApiMethods {
     return null;
   }
 
+  static Future<GetStateModel?> getStates({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    GetStateModel? getStateModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetStates,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getStateModel = GetStateModel.fromJson(jsonDecode(response.body));
+      return getStateModel;
+    }
+    return null;
+  }
+
+  static Future<GetCityModel?> getCity({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    GetCityModel? userModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetCity,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      userModel = GetCityModel.fromJson(jsonDecode(response.body));
+      return userModel;
+    }
+    return null;
+  }
+
   static Future<GetBannerModel?> getBanner({
     void Function(int)? checkResponse,
   }) async {
@@ -233,6 +308,21 @@ class ApiMethods {
     if (response != null) {
       getBannerModel = GetBannerModel.fromJson(jsonDecode(response.body));
       return getBannerModel;
+    }
+    return null;
+  }
+
+  static Future<GetCountryModel?> getCountry({
+    void Function(int)? checkResponse,
+  }) async {
+    GetCountryModel? getCountryModel;
+    http.Response? response = await MyHttp.getMethod(
+      url: ApiUrlConstants.endPointOfGetCountry,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getCountryModel = GetCountryModel.fromJson(jsonDecode(response.body));
+      return getCountryModel;
     }
     return null;
   }

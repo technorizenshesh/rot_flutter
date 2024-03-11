@@ -129,24 +129,43 @@ class ProfileDetailController extends GetxController
   }
 
   clickOnSubmitButton({String type = ''}) async {
-    if (fullNameController.text.trim().isNotEmpty &&
-        sellersAddressController.text.trim().isNotEmpty) {
-      inAsyncCall.value = true;
-      bodyParams = {
-        ApiKeyConstants.userId: userId,
-        ApiKeyConstants.userName: fullNameController.text,
-        ApiKeyConstants.email: sellersAddressController.text,
-        /*ApiKeyConstants.gender: fullNameController.text,
-        ApiKeyConstants.mobile: fullNameController.text,
-        ApiKeyConstants.dob: fullNameController.text,
-        ApiKeyConstants.whatsappNumber: fullNameController.text,*/
-      };
-      http.Response? response = await ApiMethods.updateProfile(
-          bodyParams: bodyParams, imageMap: {ApiKeyConstants.image: File('')});
-      if (response != null) {}
-      inAsyncCall.value = false;
+    if (type.isNotEmpty) {
+      if (fullNameController.text.trim().isNotEmpty &&
+          sellersAddressController.text.trim().isNotEmpty) {
+        inAsyncCall.value = true;
+        bodyParams = {
+          ApiKeyConstants.userId: userId,
+          ApiKeyConstants.userName: fullNameController.text,
+          ApiKeyConstants.sellerAddress: sellersAddressController.text,
+        };
+        http.Response? response = await ApiMethods.updateProfile(
+            bodyParams: bodyParams,
+            imageMap: {ApiKeyConstants.image: File('')});
+        if (response != null) {}
+        inAsyncCall.value = false;
+      } else {
+        CommonWidgets.snackBarView(title: StringConstants.allFieldsRequired);
+      }
     } else {
-      CommonWidgets.snackBarView(title: StringConstants.allFieldsRequired);
+      if (fullNameController.text.trim().isNotEmpty &&
+          sellersAddressController.text.trim().isNotEmpty) {
+        inAsyncCall.value = true;
+        bodyParams = {
+          ApiKeyConstants.userId: userId,
+          ApiKeyConstants.email: emailController.text,
+          ApiKeyConstants.gender: genderController.text,
+          ApiKeyConstants.mobile: phoneController.text,
+          ApiKeyConstants.dob: dobController.text,
+          // ApiKeyConstants.whatsappNumber: fullNameController.text,
+        };
+        http.Response? response = await ApiMethods.updateProfile(
+            bodyParams: bodyParams,
+            imageMap: {ApiKeyConstants.image: File('')});
+        if (response != null) {}
+        inAsyncCall.value = false;
+      } else {
+        CommonWidgets.snackBarView(title: StringConstants.allFieldsRequired);
+      }
     }
   }
 }

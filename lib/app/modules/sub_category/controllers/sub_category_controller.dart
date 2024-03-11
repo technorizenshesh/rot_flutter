@@ -15,7 +15,7 @@ class SubCategoryController extends GetxController {
 
   Map<String, dynamic> queryParameters = {};
 
-  List<Data> data = [];
+  List<GetSubCategoryData> data = [];
   GetSubCategoryModel? getSubCategoryModel;
 
   Map<String, String> parametersPass = {};

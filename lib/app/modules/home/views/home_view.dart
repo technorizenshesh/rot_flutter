@@ -90,6 +90,9 @@ class HomeView extends GetView<HomeController> {
                     CommonWidgets.commonTextField(
                       readOnly: true,
                       onTap: () => controller.clickOnSearchTextField(),
+                      /* onChanged: (value) =>
+                          controller.searchMethod(value: value),*/
+                      // controller: controller.searchController,
                       hintText: StringConstants.search.tr,
                       borderRadius: 24.px,
                       prefixIcon: Column(
@@ -397,394 +400,308 @@ class HomeView extends GetView<HomeController> {
                         ),
                       ),
                     if (controller.data.isNotEmpty) SizedBox(height: 20.px),
-                    CommonWidgets.commonElevatedButton(
-                      onPressed: () {},
-                      childText: Text(
-                        StringConstants.placeAnAdHere.tr,
-                        style:
-                            Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                ),
+                    if (controller.data.isNotEmpty)
+                      CommonWidgets.commonElevatedButton(
+                        onPressed: () {},
+                        childText: Text(
+                          StringConstants.placeAnAdHere.tr,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(
+                                fontWeight: FontWeight.w700,
+                              ),
+                        ),
                       ),
-                    ),
                     SizedBox(height: 20.px),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        StringConstants.electronics.tr,
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium
-                            ?.copyWith(fontSize: 18.px),
+                    if (controller.data.isNotEmpty)
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          StringConstants.all.tr,
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(fontSize: 18.px),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 20.px),
-                    SingleChildScrollView(
-                      child: Wrap(
-                        children: List.generate(controller.listOfCards.length,
-                            (index) {
-                          return SizedBox(
-                            width: MediaQuery.of(context).size.width / 2.2,
-                            // height: 280.px,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8.px),
-                              child: InkWell(
-                                onTap: () =>
-                                    controller.clickOnCard(index: index),
-                                borderRadius: BorderRadius.circular(8.px),
-                                child: Column(
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        ClipRRect(
+                    if (controller.allProductData.isNotEmpty)
+                      SizedBox(height: 20.px),
+                    if (controller.allProductData.isNotEmpty)
+                      controller.searchResult.isNotEmpty ||
+                              controller.searchController.text.isNotEmpty
+                          ? SingleChildScrollView(
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Wrap(
+                                  children: List.generate(
+                                      controller.searchResult.length, (index) {
+                                    return SizedBox(
+                                      width: MediaQuery.of(context).size.width /
+                                          2.2,
+                                      // height: 280.px,
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 8.px),
+                                        child: InkWell(
+                                          onTap: () => controller.clickOnCard(
+                                              index: index),
                                           borderRadius:
-                                              BorderRadius.circular(8.px),
-                                          child: Image.asset(
-                                            controller.listOfCards[index]
-                                                ['image'],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(4.px),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                              BorderRadius.circular(14.px),
+                                          child: Column(
                                             children: [
-                                              CommonWidgets.appIcons(
-                                                assetName: controller
-                                                        .listOfCards[index]
-                                                    ['icon1'],
-                                                width: 40.px,
-                                                height: 40.px,
+                                              Stack(
+                                                children: [
+                                                  CommonWidgets.imageView(
+                                                    image: controller
+                                                            .searchResult[index]
+                                                            .image ??
+                                                        '',
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            14.px),
+                                                    height: 140.px,
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.all(4.px),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        CommonWidgets.appIcons(
+                                                          assetName: controller
+                                                                  .listOfCards2[
+                                                              0]['icon1'],
+                                                          width: 40.px,
+                                                          height: 40.px,
+                                                        ),
+                                                        CommonWidgets.appIcons(
+                                                          assetName: controller
+                                                                  .listOfCards2[
+                                                              0]['icon2'],
+                                                          width: 40.px,
+                                                          height: 40.px,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              CommonWidgets.appIcons(
-                                                assetName: controller
-                                                        .listOfCards[index]
-                                                    ['icon2'],
-                                                width: 40.px,
-                                                height: 40.px,
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  SizedBox(height: 10.px),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Expanded(
+                                                        child: Text(
+                                                          controller
+                                                                  .searchResult[
+                                                                      index]
+                                                                  .price ??
+                                                              '',
+                                                          maxLines: 1,
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .displayMedium
+                                                                  ?.copyWith(
+                                                                    fontSize:
+                                                                        16.px,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .primaryColor,
+                                                                  ),
+                                                        ),
+                                                      ),
+                                                      CommonWidgets.appIcons(
+                                                        assetName: IconConstants
+                                                            .icLikePrimary,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(height: 10.px),
+                                                  Text(
+                                                    controller
+                                                            .searchResult[index]
+                                                            .productName ??
+                                                        '',
+                                                    maxLines: 1,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .displayMedium
+                                                        ?.copyWith(
+                                                            fontSize: 14.px),
+                                                  ),
+                                                  SizedBox(height: 10.px),
+                                                  Text(
+                                                    controller
+                                                            .searchResult[index]
+                                                            .description ??
+                                                        '',
+                                                    maxLines: 2,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleMedium,
+                                                  ),
+                                                  SizedBox(height: 10.px),
+                                                ],
                                               ),
                                             ],
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(height: 10.px),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              child: Text(
-                                                controller.listOfCards[index]
-                                                    ['price'],
-                                                maxLines: 1,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .displayMedium
-                                                    ?.copyWith(
-                                                      fontSize: 16.px,
-                                                      color: Theme.of(context)
-                                                          .primaryColor,
-                                                    ),
-                                              ),
-                                            ),
-                                            CommonWidgets.appIcons(
-                                              assetName:
-                                                  IconConstants.icLikePrimary,
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: 10.px),
-                                        Text(
-                                          controller.listOfCards[index]
-                                              ['title'],
-                                          maxLines: 1,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displayMedium
-                                              ?.copyWith(
-                                                fontSize: 14.px,
-                                              ),
-                                        ),
-                                        SizedBox(height: 10.px),
-                                        Text(
-                                          controller.listOfCards[index]
-                                              ['subTitle'],
-                                          maxLines: 2,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleMedium,
-                                        ),
-                                        SizedBox(height: 10.px),
-                                      ],
-                                    ),
-                                  ],
+                                      ),
+                                    );
+                                  }),
                                 ),
                               ),
-                            ),
-                          );
-                        }),
-                      ),
-                    ),
-                    SizedBox(height: 20.px),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        StringConstants.nearYou.tr,
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium
-                            ?.copyWith(fontSize: 18.px),
-                      ),
-                    ),
-                    SizedBox(height: 20.px),
-                    SingleChildScrollView(
-                      child: Wrap(
-                        children: List.generate(controller.listOfCards2.length,
-                            (index) {
-                          return SizedBox(
-                            width: MediaQuery.of(context).size.width / 2.2,
-                            // height: 280.px,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8.px),
-                              child: InkWell(
-                                onTap: () =>
-                                    controller.clickOnCard(index: index),
-                                borderRadius: BorderRadius.circular(8.px),
-                                child: Column(
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        ClipRRect(
+                            )
+                          : SingleChildScrollView(
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Wrap(
+                                  children: List.generate(
+                                      controller.allProductData.length,
+                                      (index) {
+                                    return SizedBox(
+                                      width: MediaQuery.of(context).size.width /
+                                          2.2,
+                                      // height: 280.px,
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 8.px),
+                                        child: InkWell(
+                                          onTap: () => controller.clickOnCard(
+                                              index: index),
                                           borderRadius:
-                                              BorderRadius.circular(8.px),
-                                          child: Image.asset(
-                                            controller.listOfCards2[index]
-                                                ['image'],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(4.px),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                              BorderRadius.circular(14.px),
+                                          child: Column(
                                             children: [
-                                              CommonWidgets.appIcons(
-                                                assetName: controller
-                                                        .listOfCards2[index]
-                                                    ['icon1'],
-                                                width: 40.px,
-                                                height: 40.px,
+                                              Stack(
+                                                children: [
+                                                  CommonWidgets.imageView(
+                                                    image: controller
+                                                            .allProductData[
+                                                                index]
+                                                            .image ??
+                                                        '',
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            14.px),
+                                                    height: 140.px,
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.all(4.px),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        CommonWidgets.appIcons(
+                                                          assetName: controller
+                                                                  .listOfCards2[
+                                                              0]['icon1'],
+                                                          width: 40.px,
+                                                          height: 40.px,
+                                                        ),
+                                                        CommonWidgets.appIcons(
+                                                          assetName: controller
+                                                                  .listOfCards2[
+                                                              0]['icon2'],
+                                                          width: 40.px,
+                                                          height: 40.px,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              CommonWidgets.appIcons(
-                                                assetName: controller
-                                                        .listOfCards2[index]
-                                                    ['icon2'],
-                                                width: 40.px,
-                                                height: 40.px,
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  SizedBox(height: 10.px),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Expanded(
+                                                        child: Text(
+                                                          controller
+                                                                  .allProductData[
+                                                                      index]
+                                                                  .price ??
+                                                              '',
+                                                          maxLines: 1,
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .displayMedium
+                                                                  ?.copyWith(
+                                                                    fontSize:
+                                                                        16.px,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .primaryColor,
+                                                                  ),
+                                                        ),
+                                                      ),
+                                                      CommonWidgets.appIcons(
+                                                        assetName: IconConstants
+                                                            .icLikePrimary,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(height: 10.px),
+                                                  Text(
+                                                    controller
+                                                            .allProductData[
+                                                                index]
+                                                            .productName ??
+                                                        '',
+                                                    maxLines: 1,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .displayMedium
+                                                        ?.copyWith(
+                                                            fontSize: 14.px),
+                                                  ),
+                                                  SizedBox(height: 10.px),
+                                                  Text(
+                                                    controller
+                                                            .allProductData[
+                                                                index]
+                                                            .description ??
+                                                        '',
+                                                    maxLines: 2,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleMedium,
+                                                  ),
+                                                  SizedBox(height: 10.px),
+                                                ],
                                               ),
                                             ],
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(height: 10.px),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              child: Text(
-                                                controller.listOfCards2[index]
-                                                    ['price'],
-                                                maxLines: 1,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .displayMedium
-                                                    ?.copyWith(
-                                                      fontSize: 16.px,
-                                                      color: Theme.of(context)
-                                                          .primaryColor,
-                                                    ),
-                                              ),
-                                            ),
-                                            CommonWidgets.appIcons(
-                                              assetName:
-                                                  IconConstants.icLikePrimary,
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: 10.px),
-                                        Text(
-                                          controller.listOfCards2[index]
-                                              ['title'],
-                                          maxLines: 1,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displayMedium
-                                              ?.copyWith(
-                                                fontSize: 14.px,
-                                              ),
-                                        ),
-                                        SizedBox(height: 10.px),
-                                        Text(
-                                          controller.listOfCards2[index]
-                                              ['subTitle'],
-                                          maxLines: 2,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleMedium,
-                                        ),
-                                        SizedBox(height: 10.px),
-                                      ],
-                                    ),
-                                  ],
+                                      ),
+                                    );
+                                  }),
                                 ),
                               ),
                             ),
-                          );
-                        }),
-                      ),
-                    ),
-                    SizedBox(height: 20.px),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        StringConstants.bestSeller.tr,
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium
-                            ?.copyWith(fontSize: 18.px),
-                      ),
-                    ),
-                    SizedBox(height: 20.px),
-                    SingleChildScrollView(
-                      child: Wrap(
-                        children: List.generate(controller.listOfCards3.length,
-                            (index) {
-                          return SizedBox(
-                            width: MediaQuery.of(context).size.width / 2.2,
-                            // height: 280.px,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8.px),
-                              child: InkWell(
-                                onTap: () =>
-                                    controller.clickOnCard(index: index),
-                                borderRadius: BorderRadius.circular(8.px),
-                                child: Column(
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(8.px),
-                                          child: Image.asset(
-                                            controller.listOfCards3[index]
-                                                ['image'],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(4.px),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              CommonWidgets.appIcons(
-                                                assetName: controller
-                                                        .listOfCards3[index]
-                                                    ['icon1'],
-                                                width: 40.px,
-                                                height: 40.px,
-                                              ),
-                                              CommonWidgets.appIcons(
-                                                assetName: controller
-                                                        .listOfCards3[index]
-                                                    ['icon2'],
-                                                width: 40.px,
-                                                height: 40.px,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(height: 10.px),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              child: Text(
-                                                controller.listOfCards3[index]
-                                                    ['price'],
-                                                maxLines: 1,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .displayMedium
-                                                    ?.copyWith(
-                                                      fontSize: 16.px,
-                                                      color: Theme.of(context)
-                                                          .primaryColor,
-                                                    ),
-                                              ),
-                                            ),
-                                            CommonWidgets.appIcons(
-                                              assetName:
-                                                  IconConstants.icLikePrimary,
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: 10.px),
-                                        Text(
-                                          controller.listOfCards3[index]
-                                              ['title'],
-                                          maxLines: 1,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displayMedium
-                                              ?.copyWith(
-                                                fontSize: 14.px,
-                                              ),
-                                        ),
-                                        SizedBox(height: 10.px),
-                                        Text(
-                                          controller.listOfCards3[index]
-                                              ['subTitle'],
-                                          maxLines: 2,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleMedium,
-                                        ),
-                                        SizedBox(height: 10.px),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
-                        }),
-                      ),
-                    ),
                     SizedBox(height: 20.px),
                   ],
                 ),

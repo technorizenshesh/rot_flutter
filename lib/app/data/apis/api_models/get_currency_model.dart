@@ -1,15 +1,15 @@
-class GetSubCategoryModel {
-  List<GetSubCategoryData>? data;
+class GetCurrencyModel {
+  List<CurrencyData>? data;
   String? message;
   String? status;
 
-  GetSubCategoryModel({this.data, this.message, this.status});
+  GetCurrencyModel({this.data, this.message, this.status});
 
-  GetSubCategoryModel.fromJson(Map<String, dynamic> json) {
+  GetCurrencyModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <GetSubCategoryData>[];
+      data = <CurrencyData>[];
       json['data'].forEach((v) {
-        data!.add(GetSubCategoryData.fromJson(v));
+        data!.add(CurrencyData.fromJson(v));
       });
     }
     message = json['message'];
@@ -27,27 +27,27 @@ class GetSubCategoryModel {
   }
 }
 
-class GetSubCategoryData {
+class CurrencyData {
   String? id;
-  String? categoryId;
-  String? subCatName;
+  String? currencyName;
+  String? currencySymbols;
   String? dateTime;
 
-  GetSubCategoryData(
-      {this.id, this.categoryId, this.subCatName, this.dateTime});
+  CurrencyData(
+      {this.id, this.currencyName, this.currencySymbols, this.dateTime});
 
-  GetSubCategoryData.fromJson(Map<String, dynamic> json) {
+  CurrencyData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    categoryId = json['category_id'];
-    subCatName = json['sub_cat_name'];
+    currencyName = json['currency_name'];
+    currencySymbols = json['currency_symbols'];
     dateTime = json['date_time'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['category_id'] = categoryId;
-    data['sub_cat_name'] = subCatName;
+    data['currency_name'] = currencyName;
+    data['currency_symbols'] = currencySymbols;
     data['date_time'] = dateTime;
     return data;
   }

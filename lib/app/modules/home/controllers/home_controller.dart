@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:rot_application/app/data/apis/api_models/get_all_product_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/common_methods.dart';
@@ -120,6 +122,12 @@ class HomeController extends GetxController {
   String userId = '';
 
   UserData? userData;
+  TextEditingController searchController = TextEditingController();
+
+  GetAllProductModel? getAllProductModel;
+
+  List<AllProductData> allProductData = [];
+  List<AllProductData> searchResult = [];
 
   @override
   Future<void> onInit() async {
@@ -159,6 +167,7 @@ class HomeController extends GetxController {
     await getBannerApi();
     await getCategoryApi();
     await getProfileApi();
+    await getAllProductApi();
   }
 
   Future<void> getProfileApi() async {
@@ -170,6 +179,16 @@ class HomeController extends GetxController {
     if (userModel != null) {
       userData = userModel.userData;
       increment();
+    }
+  }
+
+  Future<void> getAllProductApi() async {
+    getAllProductModel =
+        await ApiMethods.getAllProduct(queryParameters: queryParameters);
+    if (getAllProductModel != null &&
+        getAllProductModel!.data != null &&
+        getAllProductModel!.data!.isNotEmpty) {
+      allProductData = getAllProductModel!.data ?? [];
     }
   }
 
@@ -197,5 +216,21 @@ class HomeController extends GetxController {
       ApiKeyConstants.categoryId: data[index].id ?? ''
     };
     Get.toNamed(Routes.SUB_CATEGORY, parameters: parameters);
+  }
+
+  searchMethod({required String value}) {
+    searchResult.clear();
+    if (searchController.text.isEmpty) {
+      increment();
+      return;
+    }
+    allProductData.forEach((res) {
+      if (res.productName!
+          .toUpperCase()
+          .contains(searchController.text.toUpperCase())) {
+        searchResult.add(res);
+      }
+    });
+    increment();
   }
 }
