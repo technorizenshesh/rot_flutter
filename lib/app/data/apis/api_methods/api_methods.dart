@@ -6,6 +6,7 @@ import '../../../../common/http_methods.dart';
 import '../api_constants/api_url_constants.dart';
 import '../api_models/get_banner_model.dart';
 import '../api_models/get_category_model.dart';
+import '../api_models/get_favorite_product_model.dart';
 import '../api_models/get_hash_tag_model.dart';
 import '../api_models/get_product_details_model.dart';
 import '../api_models/get_product_model.dart';
@@ -228,6 +229,25 @@ class ApiMethods {
       getProductStatusModel =
           GetProductStatusModel.fromJson(jsonDecode(response.body));
       return getProductStatusModel;
+    }
+    return null;
+  }
+
+  static Future<GetFavoriteProductModel?> getFavoriteProduct({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> queryParameters,
+  }) async {
+    GetFavoriteProductModel? getFavoriteProductModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetFavoriteProduct,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getFavoriteProductModel =
+          GetFavoriteProductModel.fromJson(jsonDecode(response.body));
+      return getFavoriteProductModel;
     }
     return null;
   }

@@ -91,10 +91,10 @@ class FavoritesView extends GetView<FavoritesController> {
                   ),
                   SizedBox(height: 20.px),
                   Obx(() {
-                    controller.count.value;
-                    return Expanded(
-                      child: screens(),
-                    );
+                    controller.inAsyncCall.value;
+                    return controller.inAsyncCall.value
+                        ? const Center(child: CircularProgressIndicator())
+                        : Expanded(child: screens());
                   }),
                 ],
               ),
@@ -125,102 +125,107 @@ class ProductsView extends GetView<FavoritesController> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Wrap(
-        children: List.generate(controller.listOfCards.length, (index) {
-          return SizedBox(
-            width: MediaQuery.of(context).size.width / 2.2,
-            height: 280.px,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.px),
-              child: InkWell(
-                onTap: () => controller.clickOnCard(index: index),
-                borderRadius: BorderRadius.circular(8.px),
-                child: Column(
-                  children: [
-                    Stack(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(8.px),
-                          child: Image.asset(
-                            controller.listOfCards[index]['image'],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(4.px),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              CommonWidgets.appIcons(
-                                assetName: controller.listOfCards[index]
-                                    ['icon1'],
-                                width: 40.px,
-                                height: 40.px,
-                              ),
-                              CommonWidgets.appIcons(
-                                assetName: controller.listOfCards[index]
-                                    ['icon2'],
-                                width: 40.px,
-                                height: 40.px,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 10.px),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: controller.getFavoriteProductList.isNotEmpty
+            ? Wrap(
+                children: List.generate(controller.listOfCards.length, (index) {
+                  return SizedBox(
+                    width: MediaQuery.of(context).size.width / 2.2,
+                    height: 280.px,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.px),
+                      child: InkWell(
+                        onTap: () => controller.clickOnCard(index: index),
+                        borderRadius: BorderRadius.circular(8.px),
+                        child: Column(
                           children: [
-                            Expanded(
-                              child: Text(
-                                controller.listOfCards[index]['price'],
-                                maxLines: 1,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayMedium
-                                    ?.copyWith(
-                                      fontSize: 16.px,
-                                      color: Theme.of(context).primaryColor,
-                                    ),
-                              ),
+                            Stack(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.px),
+                                  child: Image.asset(
+                                    controller.listOfCards[index]['image'],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(4.px),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      CommonWidgets.appIcons(
+                                        assetName: controller.listOfCards[index]
+                                            ['icon1'],
+                                        width: 40.px,
+                                        height: 40.px,
+                                      ),
+                                      CommonWidgets.appIcons(
+                                        assetName: controller.listOfCards[index]
+                                            ['icon2'],
+                                        width: 40.px,
+                                        height: 40.px,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
-                            CommonWidgets.appIcons(
-                              assetName: IconConstants.icLikePrimary,
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(height: 10.px),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        controller.listOfCards[index]['price'],
+                                        maxLines: 1,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium
+                                            ?.copyWith(
+                                              fontSize: 16.px,
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                            ),
+                                      ),
+                                    ),
+                                    CommonWidgets.appIcons(
+                                      assetName: IconConstants.icLikePrimary,
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 10.px),
+                                Text(
+                                  controller.listOfCards[index]['title'],
+                                  maxLines: 1,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(
+                                        fontSize: 14.px,
+                                      ),
+                                ),
+                                SizedBox(height: 10.px),
+                                Text(
+                                  controller.listOfCards[index]['subTitle'],
+                                  maxLines: 2,
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
+                                SizedBox(height: 10.px),
+                              ],
                             ),
                           ],
                         ),
-                        SizedBox(height: 10.px),
-                        Text(
-                          controller.listOfCards[index]['title'],
-                          maxLines: 1,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium
-                              ?.copyWith(
-                                fontSize: 14.px,
-                              ),
-                        ),
-                        SizedBox(height: 10.px),
-                        Text(
-                          controller.listOfCards[index]['subTitle'],
-                          maxLines: 2,
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        SizedBox(height: 10.px),
-                      ],
+                      ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        }),
-      ),
-    );
+                  );
+                }),
+              )
+            : CommonWidgets.dataNotFound());
   }
 }
 

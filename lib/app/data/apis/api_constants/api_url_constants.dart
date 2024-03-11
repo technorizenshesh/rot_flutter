@@ -17,6 +17,8 @@ class ApiUrlConstants {
       '/rot/api/get_product_details';
   static const String endPointOfProductLikeUnlike =
       '/rot/api/product_like_unlike';
+  static const String endPointOfGetFavoriteProduct =
+      '/rot/api/get_like_product_';
   static const String endPointOfGetBanner = '${baseUrl}get_banner';
   static const String endPointOfGetHashTag = '${baseUrl}get_hash_tag';
   static const String endPointOfGetProductStatus =
