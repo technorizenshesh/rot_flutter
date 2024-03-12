@@ -1,15 +1,15 @@
-class GetProductModel {
-  List<Data>? data;
+class GetFavoriteProductModel {
+  List<GetFavoriteProductData>? data;
   String? message;
   String? status;
 
-  GetProductModel({this.data, this.message, this.status});
+  GetFavoriteProductModel({this.data, this.message, this.status});
 
-  GetProductModel.fromJson(Map<String, dynamic> json) {
+  GetFavoriteProductModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <GetFavoriteProductData>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(GetFavoriteProductData.fromJson(v));
       });
     }
     message = json['message'];
@@ -27,7 +27,54 @@ class GetProductModel {
   }
 }
 
-class Data {
+class GetFavoriteProductData {
+  String? id;
+  String? userId;
+  String? productId;
+  String? dateTime;
+  Product? product;
+  List<ProductImage>? productImage;
+
+  GetFavoriteProductData(
+      {this.id,
+      this.userId,
+      this.productId,
+      this.dateTime,
+      this.product,
+      this.productImage});
+
+  GetFavoriteProductData.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    userId = json['user_id'];
+    productId = json['product_id'];
+    dateTime = json['date_time'];
+    product =
+        json['product'] != null ? Product.fromJson(json['product']) : null;
+    if (json['product_image'] != null) {
+      productImage = <ProductImage>[];
+      json['product_image'].forEach((v) {
+        productImage!.add(ProductImage.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['user_id'] = userId;
+    data['product_id'] = productId;
+    data['date_time'] = dateTime;
+    if (product != null) {
+      data['product'] = product!.toJson();
+    }
+    if (productImage != null) {
+      data['product_image'] = productImage!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Product {
   String? id;
   String? userId;
   String? categoryId;
@@ -46,10 +93,8 @@ class Data {
   String? status;
   String? dateTime;
   String? productName;
-  String? subCategoryId;
-  String? image;
 
-  Data(
+  Product(
       {this.id,
       this.userId,
       this.categoryId,
@@ -67,11 +112,9 @@ class Data {
       this.price,
       this.status,
       this.dateTime,
-      this.productName,
-      this.subCategoryId,
-      this.image});
+      this.productName});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     userId = json['user_id'];
     categoryId = json['category_id'];
@@ -90,8 +133,6 @@ class Data {
     status = json['status'];
     dateTime = json['date_time'];
     productName = json['product_name'];
-    subCategoryId = json['sub_category_id'];
-    image = json['image'];
   }
 
   Map<String, dynamic> toJson() {
@@ -114,8 +155,31 @@ class Data {
     data['status'] = status;
     data['date_time'] = dateTime;
     data['product_name'] = productName;
-    data['sub_category_id'] = subCategoryId;
+    return data;
+  }
+}
+
+class ProductImage {
+  String? id;
+  String? productId;
+  String? image;
+  String? dateTime;
+
+  ProductImage({this.id, this.productId, this.image, this.dateTime});
+
+  ProductImage.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    productId = json['product_id'];
+    image = json['image'];
+    dateTime = json['date_time'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['product_id'] = productId;
     data['image'] = image;
+    data['date_time'] = dateTime;
     return data;
   }
 }

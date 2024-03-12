@@ -19,6 +19,13 @@ class ApiUrlConstants {
       '/rot/api/get_product_details';
   static const String endPointOfProductLikeUnlike =
       '/rot/api/product_like_unlike';
+  static const String endPointOfGetFavoriteProduct =
+      '/rot/api/get_like_product';
+  static const String endPointOfGetProductByUserId =
+      '/rot/api/get_product_user_id';
+  static const String endPointOfGetMyLikeUser = '/rot/api/get_like_user';
+  static const String endPointOfGetUserDetails = '/rot/api/get_user_details';
+  static const String endPointOfUserLikeUnlike = '/rot/api/user_like_unlike';
   static const String endPointOfGetProfile = '/rot/api/get_profile';
   static const String endPointOfGetStates = '/rot/api/get_states';
   static const String endPointOfGetCity = '/rot/api/get_city';

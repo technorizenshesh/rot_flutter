@@ -13,6 +13,7 @@ class ProductDetailController extends GetxController {
   final cardIndex = 0.obs;
   String productId = '';
   String userId = '';
+  String otherUserId = '';
   Map<String, String?> parameters = Get.parameters;
   final inAsyncCall = false.obs;
   Map<String, dynamic> queryParameters = {};
@@ -25,6 +26,7 @@ class ProductDetailController extends GetxController {
   Future<void> onInit() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     userId = sp.getString(ApiKeyConstants.userId) ?? '';
+    otherUserId = parameters[ApiKeyConstants.otherUserId] ?? '';
     productId = parameters[ApiKeyConstants.productId] ?? '';
     super.onInit();
     inAsyncCall.value = true;
@@ -59,7 +61,8 @@ class ProductDetailController extends GetxController {
   clickOnLearnMoreButton() {}
 
   clickOnUserProfileTile() {
-    Get.toNamed(Routes.PROFILE_PUBLIC);
+    Map<String, String> data = {ApiKeyConstants.otherUserId: otherUserId};
+    Get.toNamed(Routes.PROFILE_PUBLIC, parameters: data);
   }
 
   Future<void> onInitWork() async {

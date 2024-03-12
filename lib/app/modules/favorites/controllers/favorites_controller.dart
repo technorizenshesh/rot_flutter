@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/common_methods.dart';
+import '../../../data/apis/api_constants/api_key_constants.dart';
+import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/get_favorite_product_model.dart';
+import '../../../data/apis/api_models/get_like_users_model.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
+import '../../../routes/app_pages.dart';
 
 class FavoritesController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -16,7 +22,12 @@ class FavoritesController extends GetxController
     Tab(text: StringConstants.profile.tr),
     Tab(text: StringConstants.friend.tr),
   ];
-
+  Map<String, dynamic> productQueryParams = {};
+  Map<String, dynamic> likeUserQueryParams = {};
+  Map<String, String> parametersPass = {};
+  String userId = '';
+  List<GetFavoriteProductData> getFavoriteProductList = [];
+  List<GetLikeUsersData> getLikeUserList = [];
   List listOfCards = [
     {
       'title': 'electric kettle',
@@ -52,10 +63,21 @@ class FavoritesController extends GetxController
     },
   ];
 
+  final inAsyncCall = false.obs;
   @override
-  void onInit() {
-    tabController = TabController(length: 4, vsync: this);
+  void onInit() async {
     super.onInit();
+    tabController = TabController(length: 4, vsync: this);
+    inAsyncCall.value = true;
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    userId = sp.getString(ApiKeyConstants.userId) ?? '';
+    await getAllApi();
+    inAsyncCall.value = false;
+  }
+
+  Future<void> getAllApi() async {
+    await getFavoriteProductApi();
+    await getLikeUsersApi();
   }
 
   @override
@@ -70,5 +92,41 @@ class FavoritesController extends GetxController
 
   void increment() => count.value++;
 
-  clickOnCard({required int index}) {}
+  clickOnCard({required int index}) {
+    parametersPass = {
+      ApiKeyConstants.productId: getFavoriteProductList[index].productId ?? '',
+      ApiKeyConstants.otherUserId:
+          getFavoriteProductList[index].product!.userId ?? ''
+    };
+    Get.toNamed(Routes.PRODUCT_DETAIL, parameters: parametersPass);
+  }
+
+  Future<void> getFavoriteProductApi() async {
+    productQueryParams = {
+      ApiKeyConstants.userId: userId,
+    };
+    print("param:- $productQueryParams");
+    GetFavoriteProductModel? getFavoriteProductModel =
+        await ApiMethods.getFavoriteProduct(
+            queryParameters: productQueryParams);
+    if (getFavoriteProductModel != null &&
+        getFavoriteProductModel.data != null &&
+        getFavoriteProductModel.data!.isNotEmpty) {
+      getFavoriteProductList = getFavoriteProductModel.data ?? [];
+    }
+  }
+
+  Future<void> getLikeUsersApi() async {
+    likeUserQueryParams = {
+      ApiKeyConstants.userId: userId,
+    };
+    print(" like user param:- $likeUserQueryParams");
+    GetLikeUsersModel? getLikeUsersModel = await ApiMethods.getMyLikeUserList(
+        queryParameters: likeUserQueryParams);
+    if (getLikeUsersModel != null &&
+        getLikeUsersModel.data != null &&
+        getLikeUsersModel.data!.isNotEmpty) {
+      getLikeUserList = getLikeUsersModel.data ?? [];
+    }
+  }
 }

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:rot_application/app/data/apis/api_models/get_like_users_model.dart';
 
 import '../../../../common/http_methods.dart';
 import '../api_constants/api_url_constants.dart';
@@ -11,10 +12,13 @@ import '../api_models/get_category_model.dart';
 import '../api_models/get_city_model.dart';
 import '../api_models/get_country_model.dart';
 import '../api_models/get_currency_model.dart';
+import '../api_models/get_favorite_product_model.dart';
 import '../api_models/get_hash_tag_model.dart';
 import '../api_models/get_product_details_model.dart';
 import '../api_models/get_product_model.dart';
 import '../api_models/get_product_status_model.dart';
+import '../api_models/get_profile_public_model.dart';
+import '../api_models/get_profile_public_products_model.dart';
 import '../api_models/get_state_model.dart';
 import '../api_models/get_sub_category_model.dart';
 import '../api_models/user_model.dart';
@@ -354,6 +358,97 @@ class ApiMethods {
       getProductStatusModel =
           GetProductStatusModel.fromJson(jsonDecode(response.body));
       return getProductStatusModel;
+    }
+    return null;
+  }
+
+  static Future<GetFavoriteProductModel?> getFavoriteProduct({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    GetFavoriteProductModel? getFavoriteProductModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetFavoriteProduct,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getFavoriteProductModel =
+          GetFavoriteProductModel.fromJson(jsonDecode(response.body));
+      return getFavoriteProductModel;
+    }
+    return null;
+  }
+
+  static Future<GetProfilePublicModel?> getProfilePublic({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    GetProfilePublicModel? getProfilePublicModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetUserDetails,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getProfilePublicModel =
+          GetProfilePublicModel.fromJson(jsonDecode(response.body));
+      return getProfilePublicModel;
+    }
+    return null;
+  }
+
+  static Future<http.Response?> userLikeUnlike({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfUserLikeUnlike,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      return response;
+    }
+    return null;
+  }
+
+  static Future<ProfilePublicProductsModel?> getProductByUserId({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    ProfilePublicProductsModel? profilePublicProductsModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetProductByUserId,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      profilePublicProductsModel =
+          ProfilePublicProductsModel.fromJson(jsonDecode(response.body));
+      return profilePublicProductsModel;
+    }
+    return null;
+  }
+
+  static Future<GetLikeUsersModel?> getMyLikeUserList({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    GetLikeUsersModel? getLikeUsersModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetMyLikeUser,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getLikeUsersModel = GetLikeUsersModel.fromJson(jsonDecode(response.body));
+      return getLikeUsersModel;
     }
     return null;
   }

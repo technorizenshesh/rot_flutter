@@ -1,15 +1,15 @@
-class GetProductModel {
-  List<Data>? data;
+class ProfilePublicProductsModel {
+  List<ProfilePublicProductsData>? data;
   String? message;
   String? status;
 
-  GetProductModel({this.data, this.message, this.status});
+  ProfilePublicProductsModel({this.data, this.message, this.status});
 
-  GetProductModel.fromJson(Map<String, dynamic> json) {
+  ProfilePublicProductsModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <ProfilePublicProductsData>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(ProfilePublicProductsData.fromJson(v));
       });
     }
     message = json['message'];
@@ -27,7 +27,7 @@ class GetProductModel {
   }
 }
 
-class Data {
+class ProfilePublicProductsData {
   String? id;
   String? userId;
   String? categoryId;
@@ -47,9 +47,9 @@ class Data {
   String? dateTime;
   String? productName;
   String? subCategoryId;
-  String? image;
+  List<ProductImage>? productImage;
 
-  Data(
+  ProfilePublicProductsData(
       {this.id,
       this.userId,
       this.categoryId,
@@ -69,9 +69,9 @@ class Data {
       this.dateTime,
       this.productName,
       this.subCategoryId,
-      this.image});
+      this.productImage});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  ProfilePublicProductsData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     userId = json['user_id'];
     categoryId = json['category_id'];
@@ -91,7 +91,12 @@ class Data {
     dateTime = json['date_time'];
     productName = json['product_name'];
     subCategoryId = json['sub_category_id'];
-    image = json['image'];
+    if (json['product_image'] != null) {
+      productImage = <ProductImage>[];
+      json['product_image'].forEach((v) {
+        productImage!.add(ProductImage.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -115,7 +120,34 @@ class Data {
     data['date_time'] = dateTime;
     data['product_name'] = productName;
     data['sub_category_id'] = subCategoryId;
+    if (productImage != null) {
+      data['product_image'] = productImage!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class ProductImage {
+  String? id;
+  String? productId;
+  String? image;
+  String? dateTime;
+
+  ProductImage({this.id, this.productId, this.image, this.dateTime});
+
+  ProductImage.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    productId = json['product_id'];
+    image = json['image'];
+    dateTime = json['date_time'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['product_id'] = productId;
     data['image'] = image;
+    data['date_time'] = dateTime;
     return data;
   }
 }

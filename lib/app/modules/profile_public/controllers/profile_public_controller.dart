@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/common_methods.dart';
+import '../../../data/apis/api_constants/api_key_constants.dart';
+import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/get_profile_public_model.dart';
+import '../../../data/apis/api_models/get_profile_public_products_model.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 
@@ -13,9 +19,18 @@ class ProfilePublicController extends GetxController
   final tabs = [
     const Tab(text: "28 ${StringConstants.published}"),
     const Tab(text: "164 ${StringConstants.reviews}"),
-    const Tab(text:"+ ${StringConstants.info}"),
+    const Tab(text: "+ ${StringConstants.info}"),
   ];
-
+  Map<String, String?> parameters = Get.parameters;
+  GetProfilePublicData? getProfilePublicData;
+  List<ProfilePublicProductsData> products = [];
+  final inAsyncCall = false.obs;
+  final likeUnlike = false.obs;
+  String myId = '';
+  String otherUserId = '';
+  Map<String, dynamic> getPublicProfileQueryParams = {};
+  Map<String, dynamic> getPublishedProductQueryParams = {};
+  Map<String, dynamic> userLikeUnlikeQueryParams = {};
   List listOfCards = [
     {
       'title': 'electric kettle',
@@ -52,9 +67,16 @@ class ProfilePublicController extends GetxController
   ];
 
   @override
-  void onInit() {
+  void onInit() async {
     tabController = TabController(length: 3, vsync: this);
     super.onInit();
+    inAsyncCall.value = true;
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    myId = sp.getString(ApiKeyConstants.userId) ?? '';
+    otherUserId = parameters[ApiKeyConstants.otherUserId] ?? '';
+    await getProfilePublicApi();
+    await getPublishedProductApi();
+    inAsyncCall.value = false;
   }
 
   @override
@@ -69,5 +91,49 @@ class ProfilePublicController extends GetxController
 
   void increment() => count.value++;
 
+  changeLikeUnlike() {
+    likeUnlike.value = !likeUnlike.value;
+  }
+
   clickOnCard({required int index}) {}
+
+  Future<void> getProfilePublicApi() async {
+    getPublicProfileQueryParams = {
+      ApiKeyConstants.userId: otherUserId,
+    };
+    print("get public profile param:- $getPublicProfileQueryParams");
+    GetProfilePublicModel? getProfilePublicModel =
+        await ApiMethods.getProfilePublic(
+            queryParameters: getPublicProfileQueryParams);
+    if (getProfilePublicModel != null && getProfilePublicModel.data != null) {
+      getProfilePublicData = getProfilePublicModel.data!;
+    }
+  }
+
+  Future<void> getPublishedProductApi() async {
+    getPublishedProductQueryParams = {
+      ApiKeyConstants.userId: otherUserId,
+    };
+    print("get published product param:- $getPublishedProductQueryParams");
+    ProfilePublicProductsModel? profilePublicProductsModel =
+        await ApiMethods.getProductByUserId(
+            queryParameters: getPublishedProductQueryParams);
+    if (profilePublicProductsModel != null &&
+        profilePublicProductsModel.data != null &&
+        profilePublicProductsModel.data!.isNotEmpty) {
+      products = profilePublicProductsModel.data!;
+    }
+  }
+
+  Future<void> userLikeUnlikeApi() async {
+    userLikeUnlikeQueryParams = {
+      ApiKeyConstants.otherUserId: otherUserId,
+      ApiKeyConstants.userId: myId,
+    };
+    http.Response? response = await ApiMethods.userLikeUnlike(
+        queryParameters: userLikeUnlikeQueryParams);
+    if (response != null) {
+      changeLikeUnlike();
+    }
+  }
 }

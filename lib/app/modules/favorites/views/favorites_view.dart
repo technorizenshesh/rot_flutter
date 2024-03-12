@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
+import '../../../data/apis/api_models/get_favorite_product_model.dart';
+import '../../../data/apis/api_models/get_like_users_model.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 import '../controllers/favorites_controller.dart';
@@ -91,10 +94,10 @@ class FavoritesView extends GetView<FavoritesController> {
                   ),
                   SizedBox(height: 20.px),
                   Obx(() {
-                    controller.count.value;
-                    return Expanded(
-                      child: screens(),
-                    );
+                    controller.inAsyncCall.value;
+                    return controller.inAsyncCall.value
+                        ? const Center(child: CircularProgressIndicator())
+                        : Expanded(child: screens());
                   }),
                 ],
               ),
@@ -125,102 +128,119 @@ class ProductsView extends GetView<FavoritesController> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Wrap(
-        children: List.generate(controller.listOfCards.length, (index) {
-          return SizedBox(
-            width: MediaQuery.of(context).size.width / 2.2,
-            height: 280.px,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.px),
-              child: InkWell(
-                onTap: () => controller.clickOnCard(index: index),
-                borderRadius: BorderRadius.circular(8.px),
-                child: Column(
-                  children: [
-                    Stack(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(8.px),
-                          child: Image.asset(
-                            controller.listOfCards[index]['image'],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(4.px),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              CommonWidgets.appIcons(
-                                assetName: controller.listOfCards[index]
-                                    ['icon1'],
-                                width: 40.px,
-                                height: 40.px,
-                              ),
-                              CommonWidgets.appIcons(
-                                assetName: controller.listOfCards[index]
-                                    ['icon2'],
-                                width: 40.px,
-                                height: 40.px,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 10.px),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: controller.getFavoriteProductList.isNotEmpty
+            ? Wrap(
+                children: List.generate(
+                    controller.getFavoriteProductList.length, (index) {
+                  GetFavoriteProductData item =
+                      controller.getFavoriteProductList[index];
+                  return SizedBox(
+                    width: MediaQuery.of(context).size.width / 2.2,
+                    height: 280.px,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.px),
+                      child: InkWell(
+                        onTap: () => controller.clickOnCard(index: index),
+                        borderRadius: BorderRadius.circular(8.px),
+                        child: Column(
                           children: [
-                            Expanded(
-                              child: Text(
-                                controller.listOfCards[index]['price'],
-                                maxLines: 1,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayMedium
-                                    ?.copyWith(
-                                      fontSize: 16.px,
-                                      color: Theme.of(context).primaryColor,
-                                    ),
-                              ),
+                            Stack(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.px),
+                                  child: CommonWidgets.imageView(
+                                    height: 170.px,
+                                    image: item.productImage!.isNotEmpty
+                                        ? item.productImage![0].image ?? ""
+                                        : '',
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(4.px),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      CommonWidgets.appIcons(
+                                        assetName: controller.listOfCards[index]
+                                            ['icon1'],
+                                        width: 40.px,
+                                        height: 40.px,
+                                      ),
+                                      CommonWidgets.appIcons(
+                                        assetName: controller.listOfCards[index]
+                                            ['icon2'],
+                                        width: 40.px,
+                                        height: 40.px,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
-                            CommonWidgets.appIcons(
-                              assetName: IconConstants.icLikePrimary,
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(height: 10.px),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        '${CommonMethods.cur}${item.product!.price}',
+                                        maxLines: 1,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium
+                                            ?.copyWith(
+                                              fontSize: 16.px,
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                            ),
+                                      ),
+                                    ),
+                                    CommonWidgets.appIcons(
+                                      assetName: IconConstants.icLikePrimary,
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 5.px),
+                                Text(
+                                  item.product!.title!,
+                                  maxLines: 1,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(
+                                        fontSize: 14.px,
+                                      ),
+                                ),
+                                SizedBox(height: 5.px),
+                                Text(
+                                  item.product!.productName!,
+                                  maxLines: 2,
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
+                                SizedBox(height: 5.px),
+                                Text(
+                                  item.product!.productLocation ?? 'Address',
+                                  maxLines: 1,
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                        SizedBox(height: 10.px),
-                        Text(
-                          controller.listOfCards[index]['title'],
-                          maxLines: 1,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium
-                              ?.copyWith(
-                                fontSize: 14.px,
-                              ),
-                        ),
-                        SizedBox(height: 10.px),
-                        Text(
-                          controller.listOfCards[index]['subTitle'],
-                          maxLines: 2,
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        SizedBox(height: 10.px),
-                      ],
+                      ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        }),
-      ),
-    );
+                  );
+                }),
+              )
+            : CommonWidgets.dataNotFound());
   }
 }
 
@@ -281,117 +301,166 @@ class FavoritesProfileView extends GetView<FavoritesController> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: EdgeInsets.zero,
-      itemCount: 2,
-      itemBuilder: (context, index) => Card(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.px)),
-        elevation: .2.px,
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(10.px),
-                  topLeft: Radius.circular(10.px),
-                ),
-              ),
-              child: Row(children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      Stack(
-                        alignment: Alignment.topRight,
+    return controller.getLikeUserList.isNotEmpty
+        ? ListView.builder(
+            padding: EdgeInsets.zero,
+            itemCount: controller.getLikeUserList.length,
+            itemBuilder: (context, index) {
+              GetLikeUsersData item = controller.getLikeUserList[index];
+              return Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.px)),
+                elevation: .2.px,
+                child: Column(
+                  children: [
+                    Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(10.px),
+                            topLeft: Radius.circular(10.px),
+                          ),
+                        ),
+                        child:
+                            /*Row(children: [
+                    Expanded(
+                      child: Column(
                         children: [
-                          CommonWidgets.appIcons(
-                              assetName: 'assets/un_used_images/collage2.png',
-                              height: 110.px,
-                              borderRadius: 0,
-                              width: double.infinity,
-                              fit: BoxFit.cover),
-                          Padding(
-                            padding: EdgeInsets.all(8.px),
-                            child: CommonWidgets.appIcons(
-                              assetName: IconConstants.icMoneyReceived,
-                              width: 40.px,
-                              height: 40.px,
-                            ),
+                          Stack(
+                            alignment: Alignment.topRight,
+                            children: [
+                              CommonWidgets.appIcons(
+                                  assetName: 'assets/un_used_images/collage2.png',
+                                  height: 110.px,
+                                  borderRadius: 0,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover),
+                              Padding(
+                                padding: EdgeInsets.all(8.px),
+                                child: CommonWidgets.appIcons(
+                                  assetName: IconConstants.icMoneyReceived,
+                                  width: 40.px,
+                                  height: 40.px,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Stack(
+                            alignment: Alignment.topRight,
+                            children: [
+                              CommonWidgets.appIcons(
+                                assetName: 'assets/un_used_images/collage3.png',
+                                height: 110.px,
+                                borderRadius: 0,
+                                width: double.infinity,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(8.px),
+                                child: CommonWidgets.appIcons(
+                                  assetName: IconConstants.icSaving,
+                                  width: 40.px,
+                                  height: 40.px,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                      Stack(
+                    ),
+                    Expanded(
+                      child: Stack(
                         alignment: Alignment.topRight,
                         children: [
                           CommonWidgets.appIcons(
-                            assetName: 'assets/un_used_images/collage3.png',
-                            height: 110.px,
+                            assetName: 'assets/un_used_images/collage1.png',
+                            height: 220.px,
                             borderRadius: 0,
                             width: double.infinity,
                           ),
                           Padding(
                             padding: EdgeInsets.all(8.px),
                             child: CommonWidgets.appIcons(
-                              assetName: IconConstants.icSaving,
+                              assetName: IconConstants.icHands,
                               width: 40.px,
                               height: 40.px,
                             ),
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Stack(
-                    alignment: Alignment.topRight,
-                    children: [
-                      CommonWidgets.appIcons(
-                        assetName: 'assets/un_used_images/collage1.png',
-                        height: 220.px,
-                        borderRadius: 0,
-                        width: double.infinity,
+                    ),
+                  ]),*/
+                            Stack(
+                          children: [
+                            CommonWidgets.imageView(
+                              height: 220.px,
+                              image: item.product!.productImage ?? '',
+                            ),
+                            Positioned(
+                              top: 5.px,
+                              right: 5.px,
+                              child: Padding(
+                                padding: EdgeInsets.all(8.px),
+                                child: CommonWidgets.appIcons(
+                                  assetName: IconConstants.icHands,
+                                  width: 40.px,
+                                  height: 40.px,
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              top: 5.px,
+                              left: 10.px,
+                              child: Padding(
+                                padding: EdgeInsets.all(8.px),
+                                child: CommonWidgets.appIcons(
+                                  assetName: IconConstants.icMoneyReceived,
+                                  width: 40.px,
+                                  height: 40.px,
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 10,
+                              left: 10,
+                              child: Padding(
+                                padding: EdgeInsets.all(8.px),
+                                child: CommonWidgets.appIcons(
+                                  assetName: IconConstants.icSaving,
+                                  width: 40.px,
+                                  height: 40.px,
+                                ),
+                              ),
+                            )
+                          ],
+                        )),
+                    SizedBox(height: 8.px),
+                    ListTile(
+                      leading: CommonWidgets.appIcons(
+                        assetName: IconConstants.icUserImage,
+                        height: 50.px,
+                        width: 50.px,
+                        borderRadius: 0.px,
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(8.px),
-                        child: CommonWidgets.appIcons(
-                          assetName: IconConstants.icHands,
-                          width: 40.px,
-                          height: 40.px,
-                        ),
+                      trailing: CommonWidgets.appIcons(
+                        assetName: IconConstants.icLikePrimary,
                       ),
-                    ],
-                  ),
+                      title: Text(
+                        item.product!.userName ?? '',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium
+                            ?.copyWith(fontSize: 18.px),
+                      ),
+                      subtitle: Text(
+                        '4.5 (${item.product!.reviewCount} reviews)',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ),
+                  ],
                 ),
-              ]),
-            ),
-            SizedBox(height: 8.px),
-            ListTile(
-              leading: CommonWidgets.appIcons(
-                assetName: IconConstants.icUserImage,
-                height: 50.px,
-                width: 50.px,
-                borderRadius: 0.px,
-              ),
-              trailing: CommonWidgets.appIcons(
-                assetName: IconConstants.icLikePrimary,
-              ),
-              title: Text(
-                'iphone gadgets',
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineMedium
-                    ?.copyWith(fontSize: 18.px),
-              ),
-              subtitle: Text(
-                '4.5 (2,495 reviews)',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+              );
+            },
+          )
+        : CommonWidgets.dataNotFound();
   }
 }
 

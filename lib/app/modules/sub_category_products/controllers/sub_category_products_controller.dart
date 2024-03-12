@@ -81,6 +81,7 @@ class SubCategoryProductsController extends GetxController {
   clickOnCard({required int index}) {
     parametersPass = {
       ApiKeyConstants.productId: data[index].id ?? '',
+      ApiKeyConstants.otherUserId: data[index].userId ?? '',
     };
     Get.toNamed(Routes.PRODUCT_DETAIL, parameters: parametersPass);
   }
