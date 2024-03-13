@@ -381,21 +381,22 @@ class ProductDetailView extends GetView<ProductDetailController> {
                               borderRadius: BorderRadius.circular(10.px),
                             ),
                             onTap: () => controller.clickOnUserProfileTile(),
-                            leading: CommonWidgets.appIcons(
-                              assetName: IconConstants.icUserImage,
+                            leading: CommonWidgets.imageView(
+                              image:
+                                  controller.getProfilePublicData!.image ?? '',
                               height: 50.px,
                               width: 50.px,
-                              borderRadius: 0.px,
+                              radius: 25.px,
                             ),
                             title: Text(
-                              'iphone gadgets',
+                              controller.getProfilePublicData!.userName ?? '',
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineMedium
                                   ?.copyWith(fontSize: 18.px),
                             ),
                             subtitle: Text(
-                              '⭐⭐⭐⭐⭐ 5 (2,495 reviews)',
+                              '⭐⭐⭐⭐⭐ 5 (${controller.getProfilePublicData!.reviewCount} reviews)',
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                           ),

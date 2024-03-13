@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:rot_application/app/data/apis/api_models/get_chat_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_like_users_model.dart';
 
 import '../../../../common/http_methods.dart';
@@ -449,6 +450,40 @@ class ApiMethods {
     if (response != null) {
       getLikeUsersModel = GetLikeUsersModel.fromJson(jsonDecode(response.body));
       return getLikeUsersModel;
+    }
+    return null;
+  }
+
+  static Future<GetChatModel?> getChat({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    GetChatModel? getChatModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfGetChat,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getChatModel = GetChatModel.fromJson(jsonDecode(response.body));
+      return getChatModel;
+    }
+    return null;
+  }
+
+  static Future<http.Response?> insertChat({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    //UserModel? userModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfInsertChat,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      //userModel = UserModel.fromJson(jsonDecode(response.body));
+      return response;
     }
     return null;
   }

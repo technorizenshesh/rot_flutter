@@ -532,7 +532,7 @@ class HomeView extends GetView<HomeController> {
                                                   Text(
                                                     controller
                                                             .searchResult[index]
-                                                            .productName ??
+                                                            .title ??
                                                         '',
                                                     maxLines: 1,
                                                     style: Theme.of(context)
@@ -669,7 +669,7 @@ class HomeView extends GetView<HomeController> {
                                                     controller
                                                             .allProductData[
                                                                 index]
-                                                            .productName ??
+                                                            .title ??
                                                         '',
                                                     maxLines: 1,
                                                     style: Theme.of(context)

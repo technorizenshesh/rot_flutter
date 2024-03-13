@@ -249,50 +249,58 @@ class SearchesView extends GetView<FavoritesController> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: EdgeInsets.zero,
-      itemCount: 2,
-      itemBuilder: (context, index) => Card(
-        elevation: .2.px,
-        child: ListTile(
-          // contentPadding: EdgeInsets.zero,
-          title: Text(
-            'gratis',
-            style: Theme.of(context)
-                .textTheme
-                .displayMedium
-                ?.copyWith(fontSize: 20.px),
-          ),
-          subtitle: Text(
-            'Home & Garden. WC2R 2...',
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontSize: 14.px,
-                ),
-          ),
-          trailing: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                height: 30.px,
-                width: 30.px,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.error.withOpacity(.1.px),
-                  borderRadius: BorderRadius.circular(6.px),
-                ),
-                child: Center(
-                  child: Icon(
-                    Icons.highlight_remove_rounded,
-                    color: Theme.of(context).colorScheme.error,
-                    size: 16.px,
+    return controller.getFavoriteProductList.isNotEmpty
+        ? ListView.builder(
+            padding: EdgeInsets.zero,
+            itemCount: controller.getFavoriteProductList.length,
+            itemBuilder: (context, index) {
+              GetFavoriteProductData item =
+                  controller.getFavoriteProductList[index];
+              return Card(
+                elevation: .2.px,
+                child: ListTile(
+                  onTap: () => controller.clickOnCard(index: index),
+                  title: Text(
+                    item.product!.title ?? '',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(fontSize: 20.px),
+                  ),
+                  subtitle: Text(
+                    item.product!.productName ?? '',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontSize: 14.px,
+                        ),
+                  ),
+                  trailing: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 30.px,
+                        width: 30.px,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .error
+                              .withOpacity(.1.px),
+                          borderRadius: BorderRadius.circular(6.px),
+                        ),
+                        child: Center(
+                          child: Icon(
+                            Icons.highlight_remove_rounded,
+                            color: Theme.of(context).colorScheme.error,
+                            size: 16.px,
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+              );
+            })
+        : CommonWidgets.dataNotFound();
   }
 }
 
@@ -434,6 +442,10 @@ class FavoritesProfileView extends GetView<FavoritesController> {
                         )),
                     SizedBox(height: 8.px),
                     ListTile(
+                      onTap: () {
+                        controller
+                            .clickOnUserProfileTile(item.otherUserId ?? '');
+                      },
                       leading: CommonWidgets.appIcons(
                         assetName: IconConstants.icUserImage,
                         height: 50.px,

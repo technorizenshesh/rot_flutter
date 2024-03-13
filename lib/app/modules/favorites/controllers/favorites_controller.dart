@@ -20,7 +20,7 @@ class FavoritesController extends GetxController
     Tab(text: StringConstants.products.tr),
     Tab(text: StringConstants.searches.tr),
     Tab(text: StringConstants.profile.tr),
-    Tab(text: StringConstants.friend.tr),
+    // Tab(text: StringConstants.friend.tr),
   ];
   Map<String, dynamic> productQueryParams = {};
   Map<String, dynamic> likeUserQueryParams = {};
@@ -67,7 +67,7 @@ class FavoritesController extends GetxController
   @override
   void onInit() async {
     super.onInit();
-    tabController = TabController(length: 4, vsync: this);
+    tabController = TabController(length: 3, vsync: this);
     inAsyncCall.value = true;
     SharedPreferences sp = await SharedPreferences.getInstance();
     userId = sp.getString(ApiKeyConstants.userId) ?? '';
@@ -99,6 +99,11 @@ class FavoritesController extends GetxController
           getFavoriteProductList[index].product!.userId ?? ''
     };
     Get.toNamed(Routes.PRODUCT_DETAIL, parameters: parametersPass);
+  }
+
+  clickOnUserProfileTile(String otherUserId) {
+    Map<String, String> data = {ApiKeyConstants.otherUserId: otherUserId};
+    Get.toNamed(Routes.PROFILE_PUBLIC, parameters: data);
   }
 
   Future<void> getFavoriteProductApi() async {

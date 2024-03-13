@@ -152,7 +152,11 @@ class HomeController extends GetxController {
   void increment() => count.value++;
 
   clickOnCard({required int index}) {
-    Get.toNamed(Routes.PRODUCT_DETAIL);
+    Map<String, String> parametersPass = {
+      ApiKeyConstants.productId: allProductData[index].id ?? '',
+      ApiKeyConstants.otherUserId: allProductData[index].userId ?? ''
+    };
+    Get.toNamed(Routes.PRODUCT_DETAIL, parameters: parametersPass);
   }
 
   seeAll() {

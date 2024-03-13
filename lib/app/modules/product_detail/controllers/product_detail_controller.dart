@@ -5,6 +5,7 @@ import 'package:rot_application/app/data/apis/api_models/get_product_details_mod
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/get_profile_public_model.dart';
 import '../../../routes/app_pages.dart';
 
 class ProductDetailController extends GetxController {
@@ -17,8 +18,10 @@ class ProductDetailController extends GetxController {
   Map<String, String?> parameters = Get.parameters;
   final inAsyncCall = false.obs;
   Map<String, dynamic> queryParameters = {};
+  Map<String, dynamic> getPublicProfileQueryParams = {};
 
   GetProductDetailsModel? getProductDetailsModel;
+  GetProfilePublicData? getProfilePublicData;
 
   Data? data;
 
@@ -50,7 +53,16 @@ class ProductDetailController extends GetxController {
     Get.back();
   }
 
-  clickOnChat() {}
+  clickOnChat() {
+    Map<String, String> detailForChat = {
+      'userName': getProfilePublicData!.userName ?? '',
+      'userImage': getProfilePublicData!.image ?? '',
+      'userAmount': getProductDetailsModel!.data!.price ?? '',
+      'otherUserId': otherUserId,
+      'userId': userId
+    };
+    Get.toNamed(Routes.CHAT_DETAIL, parameters: detailForChat);
+  }
 
   clickOnBuyButton() {
     Get.toNamed(Routes.DELIVERY);
@@ -67,6 +79,7 @@ class ProductDetailController extends GetxController {
 
   Future<void> onInitWork() async {
     await getProductDetailApi();
+    await getProfilePublicApi();
   }
 
   Future<void> getProductDetailApi() async {
@@ -79,6 +92,19 @@ class ProductDetailController extends GetxController {
     if (getProductDetailsModel != null &&
         getProductDetailsModel!.data != null) {
       data = getProductDetailsModel!.data!;
+    }
+  }
+
+  Future<void> getProfilePublicApi() async {
+    getPublicProfileQueryParams = {
+      ApiKeyConstants.userId: otherUserId,
+    };
+    print("get public profile param:- $getPublicProfileQueryParams");
+    GetProfilePublicModel? getProfilePublicModel =
+        await ApiMethods.getProfilePublic(
+            queryParameters: getPublicProfileQueryParams);
+    if (getProfilePublicModel != null && getProfilePublicModel.data != null) {
+      getProfilePublicData = getProfilePublicModel.data!;
     }
   }
 
