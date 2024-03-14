@@ -4,6 +4,7 @@ class ApiKeyConstants {
   static const String countryCode = 'country_code';
   static const String mobile = 'mobile';
   static const String password = 'password';
+  static const String oldPassword = 'old_password';
   static const String email = 'email';
   static const String gender = 'gender';
   static const String dob = 'dob';

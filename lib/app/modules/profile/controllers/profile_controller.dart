@@ -65,6 +65,7 @@ class ProfileController extends GetxController {
   void increment() => count.value++;
 
   clickOnListTile({required int index}) {
+    Map<String, String> data = {ApiKeyConstants.userId: userId};
     switch (index) {
       case 0:
         Get.toNamed(Routes.SALES);
@@ -82,7 +83,7 @@ class ProfileController extends GetxController {
         Get.toNamed(Routes.GENERAL_SETTING);
         break;
       case 5:
-        Get.toNamed(Routes.CHANGE_PASSWORD);
+        Get.toNamed(Routes.CHANGE_PASSWORD, parameters: data);
         break;
       case 6:
         Get.toNamed(Routes.HELP);

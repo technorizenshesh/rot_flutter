@@ -65,7 +65,7 @@ class SearchView extends GetView<SearchViewController> {
                             itemCount: controller.searchResult.length,
                             itemBuilder: (context, index) => Card(
                               elevation: .2.px,
-                              child: ListTile(
+                              child: GestureDetector(
                                 onTap: () {
                                   controller.openProductDetailPage(
                                       productId:
@@ -73,36 +73,61 @@ class SearchView extends GetView<SearchViewController> {
                                       otherUserId: controller
                                           .searchResult[index].userId!);
                                 },
-                                contentPadding: EdgeInsets.zero,
-                                leading: CommonWidgets.imageView(
-                                  image: controller.searchResult[index].image ??
-                                      '',
-                                  height: 60.px,
-                                  width: 60.px,
-                                  radius: 5.px,
-                                ),
-                                title: Text(
-                                  controller.searchResult[index].title ?? '',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayMedium
-                                      ?.copyWith(fontSize: 20.px),
-                                ),
-                                subtitle: Text(
-                                  controller.searchResult[index].description ??
-                                      '',
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium
-                                      ?.copyWith(
-                                        fontSize: 14.px,
-                                      ),
-                                ),
-                                trailing: CommonWidgets.appIcons(
-                                  assetName: IconConstants.icLikePrimary,
-                                ),
+                                child: ListTile(
+                                    contentPadding: EdgeInsets.zero,
+                                    leading: CommonWidgets.imageView(
+                                      image: controller
+                                              .searchResult[index].image ??
+                                          '',
+                                      height: 60.px,
+                                      width: 60.px,
+                                      radius: 5.px,
+                                    ),
+                                    title: Text(
+                                      controller.searchResult[index].title ??
+                                          '',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium
+                                          ?.copyWith(fontSize: 20.px),
+                                    ),
+                                    subtitle: Text(
+                                      controller.searchResult[index]
+                                              .description ??
+                                          '',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                            fontSize: 14.px,
+                                          ),
+                                    ),
+                                    trailing: GestureDetector(
+                                      onTap: () {
+                                        controller.productLikeUnlikeApi(
+                                            controller.searchResult[index].id!);
+                                      },
+                                      child: Obx(() {
+                                        controller.likeProductId.value;
+                                        return controller.likeProductId.value ==
+                                                controller
+                                                    .searchResult[index].id
+                                            ? Icon(
+                                                Icons.favorite_rounded,
+                                                size: 24,
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                              )
+                                            : Icon(
+                                                Icons.favorite_border,
+                                                size: 24,
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                              );
+                                      }),
+                                    )),
                               ),
                             ),
                           ),
@@ -113,70 +138,73 @@ class SearchView extends GetView<SearchViewController> {
                             itemCount: controller.allProductData.length,
                             itemBuilder: (context, index) => Card(
                               elevation: .2.px,
-                              child: ListTile(
-                                  onTap: () {
-                                    controller.openProductDetailPage(
-                                        productId: controller
-                                            .allProductData[index].id!,
-                                        otherUserId: controller
-                                            .allProductData[index].userId!);
-                                  },
-                                  contentPadding: EdgeInsets.zero,
-                                  leading: CommonWidgets.imageView(
-                                    image: controller
-                                            .allProductData[index].image ??
-                                        '',
-                                    height: 60.px,
-                                    width: 60.px,
-                                    radius: 5.px,
-                                  ),
-                                  title: Text(
-                                    controller.allProductData[index].title ??
-                                        '',
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayMedium
-                                        ?.copyWith(fontSize: 18.px),
-                                  ),
-                                  subtitle: Text(
-                                    controller.allProductData[index]
-                                            .description ??
-                                        '',
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium
-                                        ?.copyWith(
-                                          fontSize: 14.px,
-                                        ),
-                                  ),
-                                  trailing: GestureDetector(
-                                    onTap: () {
-                                      controller.productLikeUnlikeApi(
-                                          controller.allProductData[index].id!);
-                                    },
-                                    child: Obx(() {
-                                      controller.likeProductId.value;
-                                      return controller.likeProductId.value ==
-                                              controller
-                                                  .allProductData[index].id
-                                          ? Icon(
-                                              Icons.favorite_rounded,
-                                              size: 24,
-                                              color: Theme.of(context)
-                                                  .primaryColor,
-                                            )
-                                          : Icon(
-                                              Icons.favorite_border,
-                                              size: 24,
-                                              color: Theme.of(context)
-                                                  .primaryColor,
-                                            );
-                                    }),
-                                  )),
+                              child: GestureDetector(
+                                onTap: () {
+                                  controller.openProductDetailPage(
+                                      productId:
+                                          controller.allProductData[index].id!,
+                                      otherUserId: controller
+                                          .allProductData[index].userId!);
+                                },
+                                child: ListTile(
+                                    contentPadding: EdgeInsets.zero,
+                                    leading: CommonWidgets.imageView(
+                                      image: controller
+                                              .allProductData[index].image ??
+                                          '',
+                                      height: 60.px,
+                                      width: 60.px,
+                                      radius: 5.px,
+                                    ),
+                                    title: Text(
+                                      controller.allProductData[index].title ??
+                                          '',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium
+                                          ?.copyWith(fontSize: 18.px),
+                                    ),
+                                    subtitle: Text(
+                                      controller.allProductData[index]
+                                              .description ??
+                                          '',
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                            fontSize: 14.px,
+                                          ),
+                                    ),
+                                    trailing: GestureDetector(
+                                      onTap: () {
+                                        controller.productLikeUnlikeApi(
+                                            controller
+                                                .allProductData[index].id!);
+                                      },
+                                      child: Obx(() {
+                                        controller.likeProductId.value;
+                                        return controller.likeProductId.value ==
+                                                controller
+                                                    .allProductData[index].id
+                                            ? Icon(
+                                                Icons.favorite_rounded,
+                                                size: 24,
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                              )
+                                            : Icon(
+                                                Icons.favorite_border,
+                                                size: 24,
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                              );
+                                      }),
+                                    )),
+                              ),
                             ),
                           ),
                         ),

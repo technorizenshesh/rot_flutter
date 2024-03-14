@@ -10,6 +10,7 @@ class ApiUrlConstants {
   static const String endPointOfForgetPassword = '${baseUrl}forget_password';
   static const String endPointOfCreateNewPassword =
       '${baseUrl}create_new_password';
+  static const String endPointOfChangePassword = '${baseUrl}change_password';
   static const String endPointOfGetCategory = '${baseUrl}get_category';
   static const String endPointOfGetCurrency = '${baseUrl}get_currency';
   static const String endPointOfGetSubCategory = '/rot/api/get_sub_category';
@@ -35,6 +36,7 @@ class ApiUrlConstants {
   static const String endPointOfGetProductStatus =
       '${baseUrl}get_product_status';
   static const String endPointOfUpdateProfile = '${baseUrl}update_profile';
+  static const String endPointOfGetConversation = '${baseUrl}get_conversation';
   static const String endPointOfGetChat = '${baseUrl}get_chat';
   static const String endPointOfInsertChat = '${baseUrl}insert_chat';
 }

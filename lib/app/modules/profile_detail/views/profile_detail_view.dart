@@ -297,65 +297,73 @@ class ReviewsView extends GetView<ProfileDetailController> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: EdgeInsets.symmetric(vertical: 4.px),
-      itemCount: 4,
-      itemBuilder: (context, index) => Card(
-        elevation: .2.px,
-        child: Column(
-          children: [
-            ListTile(
-              // contentPadding: EdgeInsets.zero,
-              leading: CommonWidgets.appIcons(
-                assetName: IconConstants.icUserImage,
-                height: 60.px,
-                width: 60.px,
-                borderRadius: 4.px,
-              ),
-              title: Text(
-                'Justin Schleifer',
-                style: Theme.of(context)
-                    .textTheme
-                    .displayMedium
-                    ?.copyWith(fontSize: 16.px),
-              ),
-              trailing: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.px),
-                  border: Border.all(
-                    color: Theme.of(context).primaryColor,
-                    width: 1.px,
-                  ),
-                ),
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 8.px, vertical: 4.px),
-                  child: Row(mainAxisSize: MainAxisSize.min, children: [
-                    Text(
-                      '5 ⭐',
-                      maxLines: 2,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontSize: 14.px,
-                            color: Theme.of(context).primaryColor,
-                          ),
+    return controller.userData!.reviewCount != '0'
+        ? ListView.builder(
+            padding: EdgeInsets.symmetric(vertical: 4.px),
+            itemCount: 4,
+            itemBuilder: (context, index) => Card(
+              elevation: .2.px,
+              child: Column(
+                children: [
+                  ListTile(
+                    // contentPadding: EdgeInsets.zero,
+                    leading: CommonWidgets.appIcons(
+                      assetName: IconConstants.icUserImage,
+                      height: 60.px,
+                      width: 60.px,
+                      borderRadius: 4.px,
                     ),
-                  ]),
-                ),
+                    title: Text(
+                      'Justin Schleifer',
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(fontSize: 16.px),
+                    ),
+                    trailing: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.px),
+                        border: Border.all(
+                          color: Theme.of(context).primaryColor,
+                          width: 1.px,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 8.px, vertical: 4.px),
+                        child: Row(mainAxisSize: MainAxisSize.min, children: [
+                          Text(
+                            '5 ⭐',
+                            maxLines: 2,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                  fontSize: 14.px,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                          ),
+                        ]),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10.px),
+                  Padding(
+                    padding: EdgeInsets.all(8.px),
+                    child: Text(
+                      'Lorem ipsum dolor sit amet consectetur. Amet non elementum fermentum eu non nisi vestibulum. Lectus phasellus libero hendrerit nibh euismod arcu at. Egestas lacinia ut hendrerit etiam id sollicitudin.',
+                      style: Theme.of(context).textTheme.titleMedium,
+                      maxLines: 3,
+                    ),
+                  ),
+                  SizedBox(height: 10.px),
+                ],
               ),
             ),
-            SizedBox(height: 10.px),
-            Padding(
-              padding: EdgeInsets.all(8.px),
-              child: Text(
-                'Lorem ipsum dolor sit amet consectetur. Amet non elementum fermentum eu non nisi vestibulum. Lectus phasellus libero hendrerit nibh euismod arcu at. Egestas lacinia ut hendrerit etiam id sollicitudin.',
-                style: Theme.of(context).textTheme.titleMedium,
-                maxLines: 3,
-              ),
-            ),
-            SizedBox(height: 10.px),
-          ],
-        ),
-      ),
-    );
+          )
+        : SizedBox(
+            height: 300,
+            child: CommonWidgets.dataNotFound(),
+          );
   }
 }

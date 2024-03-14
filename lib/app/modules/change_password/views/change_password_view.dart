@@ -32,7 +32,25 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   CommonWidgets.commonElevatedButton(
-                    onPressed: () => controller.clickOnSaveButton(),
+                    onPressed: () {
+                      if (controller
+                              .confirmPasswordController.text.isNotEmpty &&
+                          controller.newPasswordController.text.isNotEmpty &&
+                          controller
+                              .currentPasswordController.text.isNotEmpty) {
+                        if (controller.newPasswordController.text ==
+                            controller.confirmPasswordController.text) {
+                          controller.clickOnSaveButton();
+                        } else {
+                          CommonWidgets.snackBarView(
+                              title:
+                                  'New Password and confirm password are not match.');
+                        }
+                      } else {
+                        CommonWidgets.snackBarView(
+                            title: StringConstants.allFieldsRequired);
+                      }
+                    },
                     childText: Text(
                       StringConstants.save.tr,
                       style: Theme.of(context)

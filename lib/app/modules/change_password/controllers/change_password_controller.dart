@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 import '../../../../common/common_widgets.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
-import '../../../data/apis/api_models/user_model.dart';
 import '../../../data/constants/string_constants.dart';
-import '../../../routes/app_pages.dart';
 
 class ChangePasswordController extends GetxController {
   final count = 0.obs;
@@ -69,23 +67,13 @@ class ChangePasswordController extends GetxController {
     if (currentPasswordController.text.trim().isNotEmpty) {
       inAsyncCall.value = true;
       bodyParams = {
-        ApiKeyConstants.userName: currentPasswordController.text,
+        ApiKeyConstants.password: confirmPasswordController.text.toString(),
+        ApiKeyConstants.oldPassword: currentPasswordController.text.toString(),
         ApiKeyConstants.userId: userId,
       };
-      UserModel? userModel =
-          await ApiMethods.userSignup(bodyParams: bodyParams);
-      if (userModel != null &&
-          userModel.userData != null &&
-          userModel.token != null &&
-          userModel.token!.isNotEmpty &&
-          userModel.userData != null &&
-          userModel.userData!.id != null &&
-          userModel.userData!.id!.isNotEmpty) {
-        SharedPreferences sp = await SharedPreferences.getInstance();
-        sp.setString(ApiKeyConstants.token, userModel.token!);
-        sp.setString(ApiKeyConstants.userId, userModel.userData!.id!);
-        Get.toNamed(Routes.NAV_BAR);
-      }
+      http.Response? response =
+          await ApiMethods.changePassword(bodyParams: bodyParams);
+
       inAsyncCall.value = false;
     } else {
       CommonWidgets.snackBarView(title: StringConstants.allFieldsRequired);

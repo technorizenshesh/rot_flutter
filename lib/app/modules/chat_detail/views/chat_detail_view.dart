@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rot_application/app/data/apis/api_models/get_chat_model.dart';
 
@@ -15,9 +16,9 @@ class ChatDetailView extends GetView<ChatDetailController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       bottomNavigationBar: Container(
           height: 80,
-          alignment: Alignment.bottomCenter,
           padding: EdgeInsets.all(10.px),
           child: Obx(() {
             controller.textMessageLoading.value;
@@ -105,166 +106,179 @@ class ChatDetailView extends GetView<ChatDetailController> {
                     ),
                   );
           })),
-      body: Column(children: [
-        SizedBox(height: 60.px),
-        Card(
-          elevation: .2.px,
-          child: ListTile(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.px)),
-            leading: CommonWidgets.appIcons(
-              assetName: IconConstants.icBack,
-              height: 34.px,
-              width: 34.px,
-              borderRadius: 0.px,
-            ),
-            title: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                CommonWidgets.imageView(
-                  image: controller.userImage,
-                  height: 40.px,
-                  width: 40.px,
-                  radius: 20.px,
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(children: [
+          SizedBox(height: 60.px),
+          Card(
+            elevation: .2.px,
+            child: ListTile(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.px)),
+              leading: GestureDetector(
+                onTap: () {
+                  Get.back();
+                },
+                child: CommonWidgets.appIcons(
+                  assetName: IconConstants.icBack,
+                  height: 34.px,
+                  width: 34.px,
+                  borderRadius: 0.px,
                 ),
-                SizedBox(width: 8.px),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${CommonMethods.cur} ${controller.userAmount}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium
-                            ?.copyWith(fontSize: 20.px),
-                      ),
-                      Text(
-                        controller.userName,
-                        maxLines: 2,
-                        style:
-                            Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontSize: 14.px,
-                                ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            trailing: Icon(
-              Icons.more_vert_rounded,
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
-        ),
-        SizedBox(height: 20.px),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.px),
-          child: Column(
-            children: [
-              Row(
+              ),
+              title: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.px),
-                      border: Border.all(
-                        color: Theme.of(context).primaryColor,
-                        width: 2.px,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(10.px),
-                      child: Row(mainAxisSize: MainAxisSize.min, children: [
-                        CommonWidgets.appIcons(
-                          assetName: IconConstants.icGetPaidInPerson,
-                          height: 16.px,
-                          width: 16.px,
-                          borderRadius: 0.px,
-                        ),
-                        SizedBox(width: 10.px),
-                        Text(
-                          StringConstants.getPaid.tr,
-                          maxLines: 2,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium
-                              ?.copyWith(fontSize: 14.px),
-                        ),
-                      ]),
-                    ),
+                  CommonWidgets.imageView(
+                    image: controller.userImage,
+                    height: 40.px,
+                    width: 40.px,
+                    radius: 20.px,
                   ),
-                  SizedBox(width: 10.px),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.px),
-                      border: Border.all(
-                        color: Theme.of(context).primaryColor,
-                        width: 2.px,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(10.px),
-                      child: Row(mainAxisSize: MainAxisSize.min, children: [
-                        CommonWidgets.appIcons(
-                          assetName: IconConstants.icEditPrice,
-                          height: 16.px,
-                          width: 16.px,
-                          borderRadius: 0.px,
-                        ),
-                        SizedBox(width: 10.px),
+                  SizedBox(width: 8.px),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         Text(
-                          StringConstants.editPrice.tr,
-                          maxLines: 2,
+                          '${CommonMethods.cur} ${controller.userAmount}',
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium
-                              ?.copyWith(fontSize: 14.px),
+                              ?.copyWith(fontSize: 20.px),
                         ),
-                      ]),
+                        Text(
+                          controller.userName,
+                          maxLines: 2,
+                          style:
+                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontSize: 14.px,
+                                  ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 20.px),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.px),
-                  color: Theme.of(context)
-                      .colorScheme
-                      .onSecondary
-                      .withOpacity(.1.px),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(14.px),
-                  child: Row(mainAxisSize: MainAxisSize.min, children: [
-                    CommonWidgets.appIcons(
-                      assetName: IconConstants.icSecurityReasons,
-                      height: 16.px,
-                      width: 16.px,
-                      borderRadius: 0.px,
-                    ),
-                    SizedBox(width: 14.px),
-                    Text(
-                      StringConstants.forSecurity.tr,
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontSize: 14.px,
-                          color:
-                              Theme.of(context).textTheme.displayMedium?.color),
-                    ),
-                  ]),
-                ),
+              trailing: Icon(
+                Icons.more_vert_rounded,
+                color: Theme.of(context).primaryColor,
               ),
-            ],
+            ),
           ),
-        ),
-        SingleChildScrollView(child: Expanded(child: Obx(() {
-          controller.messageLoading.value;
-          return shoChat();
-        })))
-      ]),
+          SizedBox(height: 20.px),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.px),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.px),
+                        border: Border.all(
+                          color: Theme.of(context).primaryColor,
+                          width: 2.px,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(10.px),
+                        child: Row(mainAxisSize: MainAxisSize.min, children: [
+                          CommonWidgets.appIcons(
+                            assetName: IconConstants.icGetPaidInPerson,
+                            height: 16.px,
+                            width: 16.px,
+                            borderRadius: 0.px,
+                          ),
+                          SizedBox(width: 10.px),
+                          Text(
+                            StringConstants.getPaid.tr,
+                            maxLines: 2,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(fontSize: 14.px),
+                          ),
+                        ]),
+                      ),
+                    ),
+                    SizedBox(width: 10.px),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.px),
+                        border: Border.all(
+                          color: Theme.of(context).primaryColor,
+                          width: 2.px,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(10.px),
+                        child: Row(mainAxisSize: MainAxisSize.min, children: [
+                          CommonWidgets.appIcons(
+                            assetName: IconConstants.icEditPrice,
+                            height: 16.px,
+                            width: 16.px,
+                            borderRadius: 0.px,
+                          ),
+                          SizedBox(width: 10.px),
+                          Text(
+                            StringConstants.editPrice.tr,
+                            maxLines: 2,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(fontSize: 14.px),
+                          ),
+                        ]),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20.px),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.px),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSecondary
+                        .withOpacity(.1.px),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(14.px),
+                    child: Row(mainAxisSize: MainAxisSize.min, children: [
+                      CommonWidgets.appIcons(
+                        assetName: IconConstants.icSecurityReasons,
+                        height: 16.px,
+                        width: 16.px,
+                        borderRadius: 0.px,
+                      ),
+                      SizedBox(width: 14.px),
+                      Text(
+                        StringConstants.forSecurity.tr,
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(
+                                fontSize: 14.px,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.color),
+                      ),
+                    ]),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SingleChildScrollView(child: Expanded(child: Obx(() {
+            controller.count.value;
+            return shoChat();
+          })))
+        ]),
+      ),
     );
   }
 
@@ -277,95 +291,86 @@ class ChatDetailView extends GetView<ChatDetailController> {
             itemCount: controller.chatResultList.length,
             itemBuilder: (context, index) {
               ChatResult item = controller.chatResultList[index];
-              return Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.px)),
-                elevation: .2.px,
-                child: item.senderId == controller.userId
-                    ? Container(
-                        alignment: Alignment.centerRight,
-                        margin: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(10.px),
-                            topLeft: Radius.circular(10.px),
+              return Container(
+                width: double.infinity,
+                alignment: item.senderId == controller.userId
+                    ? Alignment.centerRight
+                    : Alignment.centerLeft,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: item.senderId == controller.userId
+                          ? Colors.grey.withOpacity(0.3)
+                          : Colors.teal.withOpacity(0.5)),
+                  child: Column(
+                    crossAxisAlignment: item.senderId == controller.userId
+                        ? CrossAxisAlignment.start
+                        : CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        item.chatMessage ?? '',
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: item.senderId == controller.userId
+                            ? MainAxisAlignment.end
+                            : MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            item.date == null
+                                ? ""
+                                : (DateFormat('HH:mm a')
+                                        .format(DateTime.parse(item.date!)))
+                                    .toString(),
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 10),
                           ),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              item.chatMessage ?? '',
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(
-                                      fontSize: 14.px,
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .displayMedium
-                                          ?.color),
-                            ),
-                            Text(
-                              '08:21',
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(
-                                      fontSize: 14.px,
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .displayMedium
-                                          ?.color),
-                            ),
-                          ],
-                        ))
-                    : Container(
-                        alignment: Alignment.centerLeft,
-                        margin: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.teal,
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(10.px),
-                            topLeft: Radius.circular(10.px),
+                          const SizedBox(
+                            width: 3,
                           ),
-                        ),
-                        child: Column(
-                          children: [
-                            Text(
-                              item.chatMessage ?? '',
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(
-                                      fontSize: 14.px,
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .displayMedium
-                                          ?.color),
-                            ),
-                            Text(
-                              '08:21',
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(
-                                      fontSize: 14.px,
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .displayMedium
-                                          ?.color),
-                            ),
-                          ],
-                        )),
+                          Text(
+                            item.date == null ? "" : getTimeAgo(item.date!),
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 10),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               );
             },
           )
-        : CommonWidgets.dataNotFound();
+        : SizedBox(height: 300, child: CommonWidgets.dataNotFound());
+  }
+
+  String getTimeAgo(String timestamp) {
+    if (timestamp == null) {
+      return "";
+    }
+    DateTime dateTime = DateTime.parse(timestamp);
+    DateTime now = DateTime.now();
+    Duration difference = now.difference(dateTime);
+
+    if (difference.inDays == 0) {
+      return 'Today';
+    } else if (difference.inDays == 1) {
+      return 'Yesterday';
+    } else if (difference.inDays > 1 && difference.inDays <= 5) {
+      return '${difference.inDays} days ago';
+    } else if (difference.inDays > 5) {
+      return DateFormat('dd-MM-yyyy').format(dateTime);
+    } else {
+      // Handle future dates
+      return 'Future date';
+    }
   }
 }

@@ -60,12 +60,12 @@ class ProfileView extends GetView<ProfileController> {
                                       width: 80.px,
                                       borderRadius: 40.px),
                               SizedBox(width: 20.px),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  if (controller.userData != null &&
-                                      controller.userData!.userName != null &&
-                                      controller.userData!.userName!.isNotEmpty)
+                              if (controller.userData != null &&
+                                  controller.userData!.userName != null &&
+                                  controller.userData!.userName!.isNotEmpty)
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
                                     Text(
                                       controller.userData!.userName ?? '',
                                       style: Theme.of(context)
@@ -76,25 +76,23 @@ class ProfileView extends GetView<ProfileController> {
                                               color: Theme.of(context)
                                                   .primaryColor),
                                     ),
-                                  SizedBox(height: 4.px),
-                                  if (controller.userData != null &&
-                                      controller.userData!.email != null &&
-                                      controller.userData!.email!.isNotEmpty)
-                                    Text(
-                                      controller.userData!.email ?? '',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall
-                                          ?.copyWith(
-                                            fontSize: 12.px,
-                                          ),
+                                    SizedBox(height: 4.px),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          controller.userData!.email ?? '',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall
+                                              ?.copyWith(
+                                                fontSize: 12.px,
+                                              ),
+                                        ),
+                                      ],
                                     ),
-                                  SizedBox(height: 4.px),
-                                  if (controller.userData != null &&
-                                      controller.userData!.reviewCount !=
-                                          null &&
-                                      controller
-                                          .userData!.reviewCount!.isNotEmpty)
+                                    SizedBox(height: 4.px),
                                     Text(
                                       "⭐ ${controller.userData!.reviewCount ?? ''}",
                                       style: Theme.of(context)
@@ -104,8 +102,8 @@ class ProfileView extends GetView<ProfileController> {
                                             fontSize: 12.px,
                                           ),
                                     ),
-                                ],
-                              ),
+                                  ],
+                                ),
                             ],
                           ),
                         ),

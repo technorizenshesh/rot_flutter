@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:rot_application/app/data/apis/api_models/get_chat_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_conversation_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_like_users_model.dart';
 
 import '../../../../common/http_methods.dart';
@@ -106,6 +107,21 @@ class ApiMethods {
     if (response != null) {
       userModel = UserModel.fromJson(jsonDecode(response.body));
       return userModel;
+    }
+    return null;
+  }
+
+  static Future<http.Response?> changePassword({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfChangePassword,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      return response;
     }
     return null;
   }
@@ -450,6 +466,24 @@ class ApiMethods {
     if (response != null) {
       getLikeUsersModel = GetLikeUsersModel.fromJson(jsonDecode(response.body));
       return getLikeUsersModel;
+    }
+    return null;
+  }
+
+  static Future<GetConversationModel?> getConversationList({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    GetConversationModel? getConversationModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfGetConversation,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getConversationModel =
+          GetConversationModel.fromJson(jsonDecode(response.body));
+      return getConversationModel;
     }
     return null;
   }

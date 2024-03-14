@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rot_application/app/data/apis/api_models/get_conversation_model.dart';
 
-import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
@@ -90,10 +90,14 @@ class ChatsView extends GetView<ChatsController> {
               }),
               SizedBox(height: 8.px),
               Obx(() {
-                controller.count.value;
-                return Expanded(
-                  child: screens(),
-                );
+                controller.inAsyncCall.value;
+                return controller.inAsyncCall.value
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Expanded(
+                        child: screens(),
+                      );
               })
             ],
           ),
@@ -117,68 +121,81 @@ class MessageView extends GetView<ChatsController> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: EdgeInsets.zero,
-      itemCount: 2,
-      itemBuilder: (context, index) => Card(
-        elevation: .2.px,
-        child: ListTile(
-          onTap: () => controller.clickOnMessageTile(),
-          // contentPadding: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.px)),
-          leading: CommonWidgets.appIcons(
-            assetName: IconConstants.icUserImage,
-            height: 60.px,
-            width: 60.px,
-            borderRadius: 0.px,
-          ),
-          title: Text(
-            '${CommonMethods.cur} 25.00',
-            style: Theme.of(context)
-                .textTheme
-                .displayMedium
-                ?.copyWith(fontSize: 20.px),
-          ),
-          subtitle: Text(
-            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur',
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontSize: 14.px,
-                ),
-          ),
-          trailing: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '2:11',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontSize: 14.px,
-                    ),
-              ),
-              SizedBox(height: 8.px),
-              Container(
-                height: 24.px,
-                width: 24.px,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(12.px),
-                ),
-                child: Center(
-                  child: Text(
-                    '2',
-                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+    return controller.getConversationList.isNotEmpty
+        ? ListView.builder(
+            padding: EdgeInsets.zero,
+            itemCount: controller.getConversationList.length,
+            itemBuilder: (context, index) {
+              GetConversationResult item =
+                  controller.getConversationList[index];
+              return Card(
+                elevation: .2.px,
+                child: ListTile(
+                  onTap: () => controller.clickOnMessageTile(index),
+                  // contentPadding: EdgeInsets.zero,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.px)),
+                  leading: CommonWidgets.imageView(
+                    image: item.image ?? '',
+                    height: 60.px,
+                    width: 60.px,
+                    radius: 30.px,
+                  ),
+                  title: Text(
+                    item.userName ?? '',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(fontSize: 20.px),
+                  ),
+                  subtitle: Text(
+                    item.lastMessage ?? '',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontSize: 14.px,
-                          color: Theme.of(context).scaffoldBackgroundColor,
                         ),
                   ),
+                  trailing: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        item.date ?? '',
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontSize: 14.px,
+                                ),
+                      ),
+                      SizedBox(height: 8.px),
+                      Container(
+                        height: 24.px,
+                        width: 24.px,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(12.px),
+                        ),
+                        child: Center(
+                          child: Text(
+                            '2',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 14.px,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+              );
+            })
+        : SizedBox(
+            height: 300,
+            child: CommonWidgets.dataNotFound(),
+          );
   }
 }
 

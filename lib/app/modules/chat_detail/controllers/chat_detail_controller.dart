@@ -58,6 +58,7 @@ class ChatDetailController extends GetxController {
         getChatModel.result != null &&
         getChatModel.result!.isNotEmpty) {
       chatResultList = getChatModel.result!;
+      increment();
     }
     messageLoading.value = false;
   }
@@ -72,6 +73,7 @@ class ChatDetailController extends GetxController {
         await ApiMethods.insertChat(bodyParams: insertChatParameters);
     print("response:-${response!.body.toString()}");
     if (response != null) {
+      messageController.text = '';
       getChatApi();
     } else {
       CommonWidgets.showMyToastMessage('Send message failed ...');
