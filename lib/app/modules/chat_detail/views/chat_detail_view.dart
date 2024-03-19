@@ -273,10 +273,10 @@ class ChatDetailView extends GetView<ChatDetailController> {
               ],
             ),
           ),
-          SingleChildScrollView(child: Expanded(child: Obx(() {
+          SingleChildScrollView(child: Obx(() {
             controller.count.value;
             return shoChat();
-          })))
+          }))
         ]),
       ),
     );

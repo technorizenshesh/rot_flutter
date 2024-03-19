@@ -37,41 +37,37 @@ class UploadView extends GetView<UploadController> {
                               fontSize: 24.px,
                               color: Theme.of(context).primaryColor),
                     ),
-                    /*  SizedBox(height: 30.px),
-                    CommonWidgets.commonTextField(
-                      hintText: StringConstants.search.tr,
-                      borderRadius: 24.px,
-                      prefixIcon: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          CommonWidgets.appIcons(
-                            assetName: IconConstants.icSearch,
-                            height: 20.px,
-                            width: 20.px,
-                          ),
-                        ],
-                      ),
-                    ),*/
                     SizedBox(height: 20.px),
                     SingleChildScrollView(
                       child: Wrap(
-                        children: List.generate(10, (index) {
+                        children: List.generate(4, (index) {
                           return SizedBox(
-                            width: MediaQuery.of(context).size.width / 5.5,
+                            width: MediaQuery.of(context).size.width / 4.5,
                             child: InkWell(
                               onTap: () => controller.clickOnCard(index: index),
                               borderRadius: BorderRadius.circular(8.px),
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 2.px, vertical: 4.px),
-                                child: Center(
-                                  child: CommonWidgets.appIcons(
-                                    height: 60.px,
-                                    width: 60.px,
-                                    assetName: IconConstants.icAddDotted,
-                                  ),
-                                ),
+                                child: controller.imageList[index] != null
+                                    ? Container(
+                                        height: 75.px,
+                                        width: 75.px,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15.px)),
+                                        clipBehavior: Clip.hardEdge,
+                                        child: Image.file(
+                                            controller.imageList[index]!,
+                                            fit: BoxFit.fill),
+                                      )
+                                    : Center(
+                                        child: CommonWidgets.appIcons(
+                                          height: 75.px,
+                                          width: 75.px,
+                                          assetName: IconConstants.icAddDotted,
+                                        ),
+                                      ),
                               ),
                             ),
                           );
@@ -79,10 +75,14 @@ class UploadView extends GetView<UploadController> {
                       ),
                     ),
                     SizedBox(height: 20.px),
-                    textFormField(hintText: StringConstants.title.tr),
+                    textFormField(
+                        hintText: StringConstants.title.tr,
+                        controller: controller.titleController),
                     SizedBox(height: 10.px),
                     textFormField(
-                        hintText: StringConstants.description.tr, maxLines: 4),
+                        hintText: StringConstants.description.tr,
+                        controller: controller.descriptionController,
+                        maxLines: 4),
                     SizedBox(height: 10.px),
                     if (controller.data.isNotEmpty)
                       dropDown(
@@ -108,7 +108,9 @@ class UploadView extends GetView<UploadController> {
                       ),
                     if (controller.getSubCategoryData.isNotEmpty)
                       SizedBox(height: 10.px),
-                    textFormField(hintText: StringConstants.productLocation.tr),
+                    textFormField(
+                        hintText: StringConstants.productLocation.tr,
+                        controller: controller.productLocationController),
                     SizedBox(height: 10.px),
                     if (controller.countryData.isNotEmpty)
                       dropDown(
@@ -145,25 +147,32 @@ class UploadView extends GetView<UploadController> {
                                 controller.cityData[index].name.toString()),
                       ),
                     if (controller.cityData.isNotEmpty) SizedBox(height: 10.px),
-                    textFormField(hintText: StringConstants.zipCode.tr),
+                    textFormField(
+                        hintText: StringConstants.zipCode.tr,
+                        controller: controller.zipCodeController),
                     SizedBox(height: 10.px),
                     textFormField(
                       hintText: StringConstants.productsStatus.tr,
                       readOnly: true,
+                      showSuffix: true,
+                      controller: controller.productStatusController,
                       onTap: () => controller.clickOnProductsStatus(),
                     ),
                     SizedBox(height: 10.px),
                     textFormField(
                       hintText: StringConstants.hashtag.tr,
                       readOnly: true,
+                      showSuffix: true,
+                      controller: controller.hashTagController,
                       onTap: () => controller.clickOnHashtag(),
                     ),
                     SizedBox(height: 10.px),
                     Row(
                       children: [
                         Expanded(
-                          child:
-                              textFormField(hintText: StringConstants.price.tr),
+                          child: textFormField(
+                              hintText: StringConstants.price.tr,
+                              controller: controller.priceController),
                         ),
                         SizedBox(width: 10.px),
                         if (controller.currencyData.isNotEmpty)
@@ -175,7 +184,7 @@ class UploadView extends GetView<UploadController> {
                               items: List.generate(
                                   controller.currencyData.length,
                                   (index) => controller
-                                      .currencyData[index].currencySymbols
+                                      .currencyData[index].currencyName
                                       .toString()),
                             ),
                           ),
@@ -275,41 +284,53 @@ class UploadView extends GetView<UploadController> {
 
   textFormField(
       {required String hintText,
+      required TextEditingController controller,
       int? maxLines,
       bool? readOnly,
+      bool showSuffix = false,
       GestureTapCallback? onTap}) {
     return TextField(
       maxLines: maxLines ?? 1,
       onTap: onTap,
       readOnly: readOnly ?? false,
+      controller: controller,
       style: Theme.of(Get.context!)
           .textTheme
           .headlineMedium
           ?.copyWith(fontSize: 14.px),
       decoration: InputDecoration(
-        disabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-              color: Theme.of(Get.context!).colorScheme.onSurface, width: 2.px),
-          borderRadius: BorderRadius.circular(14.px),
-        ),
-        border: OutlineInputBorder(
+          disabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-                color: Theme.of(Get.context!).primaryColor, width: 2.px),
-            borderRadius: BorderRadius.circular(14.px)),
-        enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: Theme.of(Get.context!).colorScheme.onSecondaryContainer,
+                color: Theme.of(Get.context!).colorScheme.onSurface,
                 width: 2.px),
-            borderRadius: BorderRadius.circular(14.px)),
-        errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: Theme.of(Get.context!).colorScheme.onError, width: 2.px),
-            borderRadius: BorderRadius.circular(14.px)),
-        hintText: hintText,
-        labelText: hintText,
-        hintStyle: Theme.of(Get.context!).textTheme.titleMedium,
-        labelStyle: Theme.of(Get.context!).textTheme.titleMedium,
-      ),
+            borderRadius: BorderRadius.circular(14.px),
+          ),
+          border: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: Theme.of(Get.context!).primaryColor, width: 2.px),
+              borderRadius: BorderRadius.circular(14.px)),
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color:
+                      Theme.of(Get.context!).colorScheme.onSecondaryContainer,
+                  width: 2.px),
+              borderRadius: BorderRadius.circular(14.px)),
+          errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: Theme.of(Get.context!).colorScheme.onError,
+                  width: 2.px),
+              borderRadius: BorderRadius.circular(14.px)),
+          hintText: hintText,
+          labelText: hintText,
+          hintStyle: Theme.of(Get.context!).textTheme.titleMedium,
+          labelStyle: Theme.of(Get.context!).textTheme.titleMedium,
+          suffixIcon: showSuffix
+              ? Icon(
+                  Icons.arrow_forward_ios,
+                  size: 15,
+                  color: Theme.of(Get.context!).primaryColor,
+                )
+              : null),
     );
   }
 

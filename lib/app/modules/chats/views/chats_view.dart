@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rot_application/app/data/apis/api_models/get_conversation_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_notification_model.dart';
 
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
@@ -55,6 +56,7 @@ class ChatsView extends GetView<ChatsController> {
                 ),
                 child: TabBar(
                   onTap: (value) {
+                    controller.tabController.index = value;
                     controller.increment();
                   },
                   splashBorderRadius: BorderRadius.circular(8.px),
@@ -90,6 +92,7 @@ class ChatsView extends GetView<ChatsController> {
               }),
               SizedBox(height: 8.px),
               Obx(() {
+                controller.count.value;
                 controller.inAsyncCall.value;
                 return controller.inAsyncCall.value
                     ? const Center(
@@ -204,65 +207,67 @@ class ChatNotificationView extends GetView<ChatsController> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: EdgeInsets.zero,
-      itemCount: 4,
-      itemBuilder: (context, index) => Card(
-        elevation: .2.px,
-        child: ListTile(
-          // contentPadding: EdgeInsets.zero,
-          leading: CommonWidgets.appIcons(
-            assetName: IconConstants.icUserImage,
-            height: 60.px,
-            width: 60.px,
-            borderRadius: 4.px,
-          ),
-          title: Text(
-            'Reserved',
-            style: Theme.of(context)
-                .textTheme
-                .displayMedium
-                ?.copyWith(fontSize: 20.px),
-          ),
-          subtitle: Text(
-            'Someone you follow has uploaded new items',
-            maxLines: 2,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontSize: 14.px,
-                ),
-          ),
-          trailing: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '2 hours ago',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontSize: 14.px,
-                    ),
-              ),
-              SizedBox(height: 8.px),
-              Container(
-                height: 24.px,
-                width: 24.px,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(12.px),
-                ),
-                child: Center(
-                  child: Text(
-                    '2',
-                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+    return controller.notificationList.isNotEmpty
+        ? ListView.builder(
+            padding: EdgeInsets.zero,
+            itemCount: controller.notificationList.length,
+            itemBuilder: (context, index) {
+              NotificationData item = controller.notificationList[index];
+              return Card(
+                elevation: .2.px,
+                child: ListTile(
+                  // contentPadding: EdgeInsets.zero,
+                  leading: CommonWidgets.appIcons(
+                    assetName: IconConstants.icUserImage,
+                    height: 60.px,
+                    width: 60.px,
+                    borderRadius: 4.px,
+                  ),
+                  title: Text(
+                    item.message ?? '',
+                    maxLines: 4,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontSize: 14.px,
-                          color: Theme.of(context).scaffoldBackgroundColor,
                         ),
                   ),
+                  trailing: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        '2 hours\n ago',
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontSize: 14.px,
+                                ),
+                      ),
+                      SizedBox(height: 8.px),
+                      Container(
+                        height: 24.px,
+                        width: 24.px,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(12.px),
+                        ),
+                        child: Center(
+                          child: Text(
+                            '2',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 14.px,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+              );
+            })
+        : CommonWidgets.dataNotFound();
   }
 }

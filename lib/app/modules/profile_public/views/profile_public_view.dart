@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rot_application/app/data/apis/api_models/get_review_model.dart';
 
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
@@ -226,30 +227,70 @@ class ProfilePublicView extends GetView<ProfilePublicController> {
                                           ),
                                           SizedBox(height: 14.px),
                                           Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
-                                              CommonWidgets.appIcons(
-                                                assetName:
-                                                    IconConstants.icLocation,
-                                                width: 24.px,
-                                                height: 24.px,
-                                              ),
-                                              SizedBox(width: 12.px),
-                                              Text.rich(
-                                                TextSpan(
-                                                  children: [
+                                              Row(
+                                                children: [
+                                                  CommonWidgets.appIcons(
+                                                    assetName: IconConstants
+                                                        .icLocation,
+                                                    width: 24.px,
+                                                    height: 24.px,
+                                                  ),
+                                                  SizedBox(width: 12.px),
+                                                  Text.rich(
                                                     TextSpan(
-                                                      text: controller
-                                                              .getProfilePublicData!
-                                                              .sellerAddress ??
-                                                          '',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .headlineMedium
-                                                          ?.copyWith(
-                                                              fontSize: 10.px),
+                                                      children: [
+                                                        TextSpan(
+                                                          text: controller
+                                                                  .getProfilePublicData!
+                                                                  .sellerAddress ??
+                                                              '',
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .headlineMedium
+                                                              ?.copyWith(
+                                                                  fontSize:
+                                                                      10.px),
+                                                        ),
+                                                        TextSpan(
+                                                          text: 'View location',
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .headlineMedium
+                                                              ?.copyWith(
+                                                                fontSize: 12.px,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .primaryColor,
+                                                              ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                    TextSpan(
-                                                      text: 'View location',
+                                                  ),
+                                                ],
+                                              ),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  controller.openRateUs();
+                                                },
+                                                child: Row(
+                                                  children: [
+                                                    Icon(
+                                                      Icons.star,
+                                                      size: 24.px,
+                                                      color:
+                                                          Colors.orangeAccent,
+                                                    ),
+                                                    SizedBox(width: 8.px),
+                                                    Text(
+                                                      'Rate Us',
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .headlineMedium
@@ -262,6 +303,7 @@ class ProfilePublicView extends GetView<ProfilePublicController> {
                                                                 .primaryColor,
                                                           ),
                                                     ),
+                                                    SizedBox(width: 10.px),
                                                   ],
                                                 ),
                                               ),
@@ -474,70 +516,74 @@ class ReviewsView extends GetView<ProfilePublicController> {
 
   @override
   Widget build(BuildContext context) {
-    return controller.getProfilePublicData!.reviewCount != '0'
+    return controller.reviewList.isNotEmpty
         ? ListView.builder(
             padding: EdgeInsets.symmetric(vertical: 4.px),
-            itemCount: 4,
-            itemBuilder: (context, index) => Card(
-              elevation: .2.px,
-              child: Column(
-                children: [
-                  ListTile(
-                    // contentPadding: EdgeInsets.zero,
-                    leading: CommonWidgets.appIcons(
-                      assetName: IconConstants.icUserImage,
-                      height: 60.px,
-                      width: 60.px,
-                      borderRadius: 4.px,
-                    ),
-                    title: Text(
-                      'Justin Schleifer',
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(fontSize: 16.px),
-                    ),
-                    trailing: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.px),
-                        border: Border.all(
-                          color: Theme.of(context).primaryColor,
-                          width: 1.px,
+            itemCount: controller.reviewList.length,
+            itemBuilder: (context, index) {
+              ReviewData item = controller.reviewList[index];
+              return Card(
+                elevation: .2.px,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    ListTile(
+                      // contentPadding: EdgeInsets.zero,
+                      leading: CommonWidgets.imageView(
+                        image: item.image ?? '',
+                        height: 60.px,
+                        width: 60.px,
+                        radius: 4.px,
+                      ),
+                      title: Text(
+                        item.userName ?? '',
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(fontSize: 16.px),
+                      ),
+                      trailing: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.px),
+                          border: Border.all(
+                            color: Theme.of(context).primaryColor,
+                            width: 1.px,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 8.px, vertical: 4.px),
+                          child: Row(mainAxisSize: MainAxisSize.min, children: [
+                            Text(
+                              '${item.rating} ⭐',
+                              maxLines: 2,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(
+                                    fontSize: 14.px,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                            ),
+                          ]),
                         ),
                       ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 8.px, vertical: 4.px),
-                        child: Row(mainAxisSize: MainAxisSize.min, children: [
-                          Text(
-                            '5 ⭐',
-                            maxLines: 2,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium
-                                ?.copyWith(
-                                  fontSize: 14.px,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                          ),
-                        ]),
+                    ),
+                    SizedBox(height: 10.px),
+                    Padding(
+                      padding: EdgeInsets.all(8.px),
+                      child: Text(
+                        item.review ?? '',
+                        textAlign: TextAlign.start,
+                        style: Theme.of(context).textTheme.titleMedium,
+                        maxLines: 3,
                       ),
                     ),
-                  ),
-                  SizedBox(height: 10.px),
-                  Padding(
-                    padding: EdgeInsets.all(8.px),
-                    child: Text(
-                      'Lorem ipsum dolor sit amet consectetur. Amet non elementum fermentum eu non nisi vestibulum. Lectus phasellus libero hendrerit nibh euismod arcu at. Egestas lacinia ut hendrerit etiam id sollicitudin.',
-                      style: Theme.of(context).textTheme.titleMedium,
-                      maxLines: 3,
-                    ),
-                  ),
-                  SizedBox(height: 10.px),
-                ],
-              ),
-            ),
-          )
+                    SizedBox(height: 10.px),
+                  ],
+                ),
+              );
+            })
         : CommonWidgets.dataNotFound();
   }
 }

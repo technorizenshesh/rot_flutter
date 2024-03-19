@@ -1,5 +1,5 @@
 class GetHashTagModel {
-  List<Data>? data;
+  List<GetHashTagData>? data;
   String? message;
   String? status;
 
@@ -7,9 +7,9 @@ class GetHashTagModel {
 
   GetHashTagModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <GetHashTagData>[];
       json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
+        data!.add(GetHashTagData.fromJson(v));
       });
     }
     message = json['message'];
@@ -27,14 +27,14 @@ class GetHashTagModel {
   }
 }
 
-class Data {
+class GetHashTagData {
   String? id;
   String? hashTagName;
   String? status;
 
-  Data({this.id, this.hashTagName, this.status});
+  GetHashTagData({this.id, this.hashTagName, this.status});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  GetHashTagData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     hashTagName = json['hash_tag_name'];
     status = json['status'];

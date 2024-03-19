@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:rot_application/app/data/apis/api_models/get_review_model.dart';
+import 'package:rot_application/app/routes/app_pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/common_methods.dart';
@@ -24,6 +26,7 @@ class ProfilePublicController extends GetxController
   Map<String, String?> parameters = Get.parameters;
   GetProfilePublicData? getProfilePublicData;
   List<ProfilePublicProductsData> products = [];
+  List<ReviewData> reviewList = [];
   final inAsyncCall = false.obs;
   final likeUnlike = false.obs;
   String myId = '';
@@ -77,6 +80,7 @@ class ProfilePublicController extends GetxController
     await getProfilePublicApi();
     await getPublishedProductApi();
     inAsyncCall.value = false;
+    getReviewApi();
   }
 
   @override
@@ -93,6 +97,14 @@ class ProfilePublicController extends GetxController
 
   changeLikeUnlike() {
     likeUnlike.value = !likeUnlike.value;
+  }
+
+  openRateUs() {
+    Map<String, String> data = {
+      ApiKeyConstants.userId: myId,
+      ApiKeyConstants.otherUserId: otherUserId
+    };
+    Get.toNamed(Routes.RATE_US, parameters: data);
   }
 
   clickOnCard({required int index}) {}
@@ -122,6 +134,22 @@ class ProfilePublicController extends GetxController
         profilePublicProductsModel.data != null &&
         profilePublicProductsModel.data!.isNotEmpty) {
       products = profilePublicProductsModel.data!;
+    }
+  }
+
+  Future<void> getReviewApi() async {
+    try {
+      Map<String, dynamic> getReviewQueryParam = {
+        ApiKeyConstants.sellerId: otherUserId,
+      };
+      print("body param:---${getReviewQueryParam}");
+      ReviewModel? reviewModel =
+          await ApiMethods.getReview(queryParameters: getReviewQueryParam);
+      if (reviewModel!.status == '1' && reviewModel.data!.isNotEmpty) {
+        reviewList = reviewModel.data!;
+      }
+    } catch (e) {
+      print("Error:- ${e.toString()}");
     }
   }
 

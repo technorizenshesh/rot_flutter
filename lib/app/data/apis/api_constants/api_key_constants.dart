@@ -37,4 +37,9 @@ class ApiKeyConstants {
   static const String senderId = 'sender_id';
   static const String receiverId = 'receiver_id';
   static const String chatMessage = 'chat_message';
+  static const String amount = 'amount';
+  static const String location = 'location';
+  static const String review = 'review';
+  static const String rating = 'rating';
+  static const String sellerId = 'seller_id';
 }

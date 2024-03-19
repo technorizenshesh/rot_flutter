@@ -1,25 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rot_application/app/data/apis/api_models/get_product_delivery_model.dart';
 
 import '../../../../common/common_widgets.dart';
+import '../../../data/apis/api_constants/api_key_constants.dart';
+import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 
 class PurchasesController extends GetxController
     with GetSingleTickerProviderStateMixin {
+  Map<String, String?> parameters = Get.parameters;
   final count = 0.obs;
-
+  final showLoading = true.obs;
+  String userId = '';
   late TabController tabController;
   final tabs = [
     const Tab(text: StringConstants.completed),
     const Tab(text: StringConstants.ongoing),
   ];
 
+  GetProductDeliveryModel? getProductDeliveryModel;
+  List<GetProductDeliveryData> deliveryList = [];
+
   @override
-  void onInit() {
+  void onInit() async {
     tabController = TabController(length: 2, vsync: this);
     super.onInit();
+    userId = parameters[ApiKeyConstants.userId]!;
+    await getProductDeliveryApi();
+    changeShowLoading(false);
   }
 
   @override
@@ -33,6 +44,9 @@ class PurchasesController extends GetxController
   }
 
   void increment() => count.value++;
+  changeShowLoading(bool value) {
+    showLoading.value = value;
+  }
 
   clickOnOngoing() {
     showModalBottomSheet(
@@ -119,5 +133,18 @@ class PurchasesController extends GetxController
         ),
       ],
     );
+  }
+
+  Future<void> getProductDeliveryApi() async {
+    Map<String, dynamic> getQueryParameters = {ApiKeyConstants.userId: userId};
+    getProductDeliveryModel = await ApiMethods.getProductDelivery(
+        queryParameters: getQueryParameters);
+
+    if (getProductDeliveryModel != null &&
+        getProductDeliveryModel!.data!.isNotEmpty) {
+      deliveryList = getProductDeliveryModel!.data!;
+    } else {
+      print("Failed.....");
+    }
   }
 }

@@ -65,7 +65,7 @@ class ProductDetailController extends GetxController {
   }
 
   clickOnBuyButton() {
-    Get.toNamed(Routes.DELIVERY);
+    Get.toNamed(Routes.DELIVERY, arguments: getProductDetailsModel);
   }
 
   clickOnReportProduct() {}

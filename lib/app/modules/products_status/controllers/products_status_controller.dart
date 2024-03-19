@@ -6,7 +6,7 @@ import '../../../data/apis/api_models/get_product_status_model.dart';
 class ProductsStatusController extends GetxController {
   final count = 0.obs;
   final inAsyncCall = false.obs;
-  List<Data> data = [];
+  List<GetProductStatusData> data = [];
   GetProductStatusModel? getProductStatusModel;
 
   @override

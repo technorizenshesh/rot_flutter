@@ -41,4 +41,5 @@ class ImageConstants {
       'assets/images/image_enjoy_your_purchase.png';
   static const String imageNoDataFound =
       'assets/images/image_no_data_found.png';
+  static const String imageReview = 'assets/images/image_review.png';
 }

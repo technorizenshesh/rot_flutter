@@ -6,7 +6,7 @@ import '../../../data/apis/api_methods/api_methods.dart';
 class HashtagController extends GetxController {
   final count = 0.obs;
   final inAsyncCall = false.obs;
-  List<Data> data = [];
+  List<GetHashTagData> data = [];
   List selectedListValue = [];
   List selectedListValueTitle = [];
 

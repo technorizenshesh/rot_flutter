@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rot_application/app/data/apis/api_models/get_product_details_model.dart';
 import 'package:rot_application/app/data/constants/icons_constant.dart';
 import 'package:rot_application/app/data/constants/string_constants.dart';
 import 'package:rot_application/app/routes/app_pages.dart';
@@ -16,6 +17,7 @@ class DeliveryController extends GetxController {
   double long = 75.869;
 
   Map<String, dynamic> parameters = Get.parameters;
+  GetProductDetailsModel productDetailsModel = Get.arguments;
 
   List list = [
     {
@@ -65,7 +67,7 @@ class DeliveryController extends GetxController {
       case '3.99 €':
         Get.toNamed(Routes.DELIVERY_PURCHASES_STATUS);
       case '4.99 €':
-        Get.toNamed(Routes.DELIVERY_SUMMARY);
+        Get.toNamed(Routes.DELIVERY_SUMMARY, arguments: productDetailsModel);
     }
   }
 }

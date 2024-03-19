@@ -16,7 +16,33 @@ class HashtagView extends GetView<HashtagController> {
     return Obx(() {
       controller.count.value;
       return Scaffold(
-        appBar: CommonWidgets.appBar(title: StringConstants.hashtag.tr),
+        appBar: AppBar(
+          elevation: 0,
+          shadowColor: Theme.of(Get.context!).scaffoldBackgroundColor,
+          surfaceTintColor: Theme.of(Get.context!).scaffoldBackgroundColor,
+          foregroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
+          backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
+          leading: GestureDetector(
+            onTap: () {
+              Get.back(result: controller.data);
+            },
+            child: Center(
+              child: CommonWidgets.appIcons(
+                assetName: IconConstants.icBack,
+                height: 32.px,
+                width: 32.px,
+              ),
+            ),
+          ),
+          centerTitle: true,
+          title: Text(
+            StringConstants.hashtag.tr,
+            style: Theme.of(Get.context!)
+                .textTheme
+                .displayMedium
+                ?.copyWith(fontSize: 20.px),
+          ),
+        ),
         body: ProgressBar(
           inAsyncCall: controller.inAsyncCall.value,
           child: Padding(

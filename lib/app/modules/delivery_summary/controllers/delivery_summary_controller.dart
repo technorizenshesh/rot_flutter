@@ -1,9 +1,15 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:rot_application/app/routes/app_pages.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../data/apis/api_constants/api_key_constants.dart';
+import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/get_product_details_model.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 
@@ -15,8 +21,11 @@ class DeliverySummaryController extends GetxController {
 
   double lat = 22.702;
   double long = 75.869;
+  String userId = '';
+  GetProductDetailsModel productDetailsModel = Get.arguments;
 
   Map<String, dynamic> parameters = Get.parameters;
+  final btnLoading = false.obs;
 
   List list = [
     {
@@ -36,12 +45,14 @@ class DeliverySummaryController extends GetxController {
       'icon': IconConstants.icPromotionalCode,
     },
   ];
-
+  Map<String, dynamic> buyQueryParameters = {};
   final selectedValue = StringConstants.inPerson.tr.obs;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    userId = sp.getString(ApiKeyConstants.userId) ?? '';
   }
 
   @override
@@ -57,10 +68,38 @@ class DeliverySummaryController extends GetxController {
   void increment() => count.value++;
 
   clickOnContinueButton() {
-    Get.toNamed(Routes.DELIVERY_PURCHASES_ON_THE_WAY);
+    btnLoading.value = true;
+    buyProductDeliveryApi();
   }
 
   clickOnToEdit() {
     Get.toNamed(Routes.EDIT_ADDRESS);
+  }
+
+  Future<void> buyProductDeliveryApi() async {
+    buyQueryParameters = {
+      ApiKeyConstants.productId: productDetailsModel.data!.id,
+      ApiKeyConstants.userId: userId,
+      ApiKeyConstants.amount: productDetailsModel.data!.price,
+      ApiKeyConstants.type: 'My address',
+      ApiKeyConstants.location: 'indore ,madhya pradesh',
+    };
+    http.Response? response =
+        await ApiMethods.buyProduct(queryParameters: buyQueryParameters);
+
+    if (response != null) {
+      Map<String, dynamic> jsonData = jsonDecode(response!.body);
+      if (jsonData['status'] == 1) {
+        print("Successfully complete.....");
+        //data = getProductDetailsModel!.data!;
+        Get.toNamed(Routes.DELIVERY_PURCHASES_ON_THE_WAY,
+            arguments: productDetailsModel);
+      } else {
+        print("Failed.....");
+      }
+    } else {
+      print("Failed.....");
+    }
+    btnLoading.value = false;
   }
 }

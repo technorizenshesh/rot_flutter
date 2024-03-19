@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rot_application/app/data/apis/api_models/get_notification_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/apis/api_constants/api_key_constants.dart';
@@ -19,6 +20,7 @@ class ChatsController extends GetxController
   String userId = '';
   final inAsyncCall = false.obs;
   List<GetConversationResult> getConversationList = [];
+  List<NotificationData> notificationList = [];
 
   @override
   void onInit() async {
@@ -28,6 +30,7 @@ class ChatsController extends GetxController
     SharedPreferences sp = await SharedPreferences.getInstance();
     userId = sp.getString(ApiKeyConstants.userId) ?? '';
     await getConversationListApi();
+    await getNotificationApi();
     inAsyncCall.value = false;
   }
 
@@ -65,6 +68,17 @@ class ChatsController extends GetxController
         getConversationModel.result != null &&
         getConversationModel.result!.isNotEmpty) {
       getConversationList = getConversationModel.result!;
+    }
+  }
+
+  Future<void> getNotificationApi() async {
+    Map<String, dynamic> getNotification = {ApiKeyConstants.userId: userId};
+    NotificationModel? notificationModel =
+        await ApiMethods.getNotification(queryParameters: getNotification);
+    if (notificationModel != null &&
+        notificationModel.data != null &&
+        notificationModel.data!.isNotEmpty) {
+      notificationList = notificationModel.data!;
     }
   }
 }

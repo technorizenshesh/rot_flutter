@@ -36,14 +36,14 @@ class DeliverySummaryView extends GetView<DeliverySummaryController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Asus laptop',
+                        controller.productDetailsModel.data!.productName ?? '',
                         style: Theme.of(Get.context!)
                             .textTheme
                             .displayMedium
                             ?.copyWith(fontSize: 14.px),
                       ),
                       Text(
-                        '\$ 40,00',
+                        '\$ ${controller.productDetailsModel.data!.price!}',
                         style: Theme.of(Get.context!)
                             .textTheme
                             .displayMedium
@@ -108,7 +108,7 @@ class DeliverySummaryView extends GetView<DeliverySummaryController> {
                             ?.copyWith(fontSize: 14.px),
                       ),
                       Text(
-                        '\$ 47,18',
+                        '\$ ${int.parse(controller.productDetailsModel.data!.price!) + 738}',
                         style: Theme.of(Get.context!)
                             .textTheme
                             .displayMedium
@@ -191,10 +191,14 @@ class DeliverySummaryView extends GetView<DeliverySummaryController> {
             child: Row(children: [
               Expanded(
                 flex: 1,
-                child: CommonWidgets.appIcons(
-                  assetName: 'assets/un_used_images/image_head _phones.png',
+                child: CommonWidgets.imageView(
+                  image: controller
+                          .productDetailsModel.data!.productImage!.isNotEmpty
+                      ? controller
+                          .productDetailsModel.data!.productImage![0].image!
+                      : '',
                   height: 100.px,
-                  borderRadius: 14.px,
+                  radius: 14.px,
                 ),
               ),
               SizedBox(width: 10.px),
@@ -205,7 +209,7 @@ class DeliverySummaryView extends GetView<DeliverySummaryController> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Mackbook Pro',
+                      controller.productDetailsModel.data!.productName ?? '',
                       style: Theme.of(context)
                           .textTheme
                           .headlineMedium
@@ -221,7 +225,7 @@ class DeliverySummaryView extends GetView<DeliverySummaryController> {
                       children: [
                         Flexible(
                           child: Text(
-                            '${CommonMethods.cur}949.00',
+                            '${CommonMethods.cur} ${controller.productDetailsModel.data!.price}',
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium
@@ -232,7 +236,7 @@ class DeliverySummaryView extends GetView<DeliverySummaryController> {
                           ),
                         ),
                         SizedBox(width: 10.px),
-                        Flexible(
+                        /* Flexible(
                           child: Text(
                             '${CommonMethods.cur}465.00',
                             style: Theme.of(context)
@@ -244,7 +248,7 @@ class DeliverySummaryView extends GetView<DeliverySummaryController> {
                                       Theme.of(context).colorScheme.onSecondary,
                                 ),
                           ),
-                        ),
+                        ), */
                       ],
                     ),
                   ],
@@ -252,19 +256,29 @@ class DeliverySummaryView extends GetView<DeliverySummaryController> {
               ),
             ]),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.px.px),
-            child: CommonWidgets.commonElevatedButton(
-              onPressed: () => controller.clickOnContinueButton(),
-              childText: Text(
-                StringConstants.continueText.tr,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(fontWeight: FontWeight.w700),
-              ),
-            ),
-          ),
+          Obx(() => controller.btnLoading.value
+              ? Container(
+                  height: 60,
+                  alignment: Alignment.center,
+                  margin: const EdgeInsets.only(left: 10, right: 10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.grey),
+                  child: const CircularProgressIndicator(),
+                )
+              : Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.px.px),
+                  child: CommonWidgets.commonElevatedButton(
+                    onPressed: () => controller.clickOnContinueButton(),
+                    childText: Text(
+                      StringConstants.continueText.tr,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                )),
           SizedBox(height: 20.px),
         ],
       ),

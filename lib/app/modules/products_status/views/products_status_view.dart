@@ -25,7 +25,9 @@ class ProductsStatusView extends GetView<ProductsStatusController> {
                   itemBuilder: (context, index) => Card(
                     elevation: .2.px,
                     child: ListTile(
-                      // contentPadding: EdgeInsets.zero,
+                      onTap: () {
+                        Get.back(result: controller.data![index]);
+                      },
                       title: Text(
                         controller.data[index].title ?? '',
                         style: Theme.of(context)

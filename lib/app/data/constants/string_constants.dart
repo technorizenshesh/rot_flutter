@@ -80,6 +80,11 @@ class StringConstants {
   static const String save = 'Save';
   static const String myProfile = 'My Profile';
   static const String rateUs = 'Rate Us';
+  static const String submitYourReview = 'Submit your review';
+  static const String rateYourExperienceWithPedro =
+      'Rate your experience with Pedro';
+  static const String clickOnStarLeave =
+      'Click on the stars to leave your rating. The more stars, the better the experience.';
   static const String welcome = 'Welcome,';
   static const String message = 'Message';
   static const String total = 'Total';

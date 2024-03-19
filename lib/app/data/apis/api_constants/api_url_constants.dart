@@ -39,4 +39,12 @@ class ApiUrlConstants {
   static const String endPointOfGetConversation = '${baseUrl}get_conversation';
   static const String endPointOfGetChat = '${baseUrl}get_chat';
   static const String endPointOfInsertChat = '${baseUrl}insert_chat';
+  static const String endPointOfAddProduct = '${baseUrl}add_product';
+  static const String endPointOfBuyProductDelivery =
+      '/rot/api/product_delivery';
+  static const String endPointOfGetProductDelivery =
+      '/rot/api/get_product_delivery';
+  static const String endPointOfGetNotification = '/rot/api/get_notification';
+  static const String endPointOfAddReview = '/rot/api/add_review';
+  static const String endPointOfGetReview = '/rot/api/get_review';
 }

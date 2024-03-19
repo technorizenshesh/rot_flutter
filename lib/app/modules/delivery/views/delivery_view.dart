@@ -70,10 +70,14 @@ class DeliveryView extends GetView<DeliveryController> {
             child: Row(children: [
               Expanded(
                 flex: 1,
-                child: CommonWidgets.appIcons(
-                  assetName: 'assets/un_used_images/image_head _phones.png',
+                child: CommonWidgets.imageView(
+                  image: controller
+                          .productDetailsModel.data!.productImage!.isNotEmpty
+                      ? controller
+                          .productDetailsModel.data!.productImage![0].image!
+                      : '',
                   height: 100.px,
-                  borderRadius: 14.px,
+                  radius: 14.px,
                 ),
               ),
               SizedBox(width: 10.px),
@@ -84,7 +88,7 @@ class DeliveryView extends GetView<DeliveryController> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Mackbook Pro',
+                      controller.productDetailsModel.data!.productName ?? '',
                       style: Theme.of(context)
                           .textTheme
                           .headlineMedium
@@ -100,7 +104,7 @@ class DeliveryView extends GetView<DeliveryController> {
                       children: [
                         Flexible(
                           child: Text(
-                            '${CommonMethods.cur}949.00',
+                            '${CommonMethods.cur}${controller.productDetailsModel.data!.price}',
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium
@@ -111,7 +115,7 @@ class DeliveryView extends GetView<DeliveryController> {
                           ),
                         ),
                         SizedBox(width: 10.px),
-                        Flexible(
+                        /*  Flexible(
                           child: Text(
                             '${CommonMethods.cur}465.00',
                             style: Theme.of(context)
@@ -123,7 +127,7 @@ class DeliveryView extends GetView<DeliveryController> {
                                       Theme.of(context).colorScheme.onSecondary,
                                 ),
                           ),
-                        ),
+                        ),*/
                       ],
                     ),
                   ],

@@ -5,6 +5,10 @@ import 'package:http/http.dart' as http;
 import 'package:rot_application/app/data/apis/api_models/get_chat_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_conversation_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_like_users_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_notification_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_product_delivery_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_review_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_simple_model.dart';
 
 import '../../../../common/http_methods.dart';
 import '../api_constants/api_url_constants.dart';
@@ -518,6 +522,120 @@ class ApiMethods {
     if (response != null) {
       //userModel = UserModel.fromJson(jsonDecode(response.body));
       return response;
+    }
+    return null;
+  }
+
+  static Future<http.Response?> buyProduct({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfBuyProductDelivery,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      return response;
+    }
+    return null;
+  }
+
+  /// Get product delivery
+  static Future<GetProductDeliveryModel?> getProductDelivery({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    GetProductDeliveryModel? getProductDeliveryModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetProductDelivery,
+      checkResponse: checkResponse,
+    );
+
+    if (response != null) {
+      getProductDeliveryModel =
+          GetProductDeliveryModel.fromJson(jsonDecode(response.body));
+      return getProductDeliveryModel;
+    }
+    return null;
+  }
+
+  ///Add Product Api ....
+  static Future<http.Response?> addProductApi(
+      {void Function(int)? checkResponse,
+      Map<String, dynamic>? bodyParams,
+      List<File>? imageList}) async {
+    http.Response? response = await MyHttp.multipart(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfAddProduct,
+      images: imageList,
+      imageKey: 'image[]',
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      return response;
+    }
+    return null;
+  }
+
+  /// Get Notification Api
+  static Future<NotificationModel?> getNotification({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    NotificationModel? notificationModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetNotification,
+      checkResponse: checkResponse,
+    );
+
+    if (response != null) {
+      notificationModel = NotificationModel.fromJson(jsonDecode(response.body));
+      return notificationModel;
+    }
+    return null;
+  }
+
+  ///Add Review Api....
+  static Future<SimpleResponseModel?> addReview({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    SimpleResponseModel? simpleResponseModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfAddReview,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      simpleResponseModel =
+          SimpleResponseModel.fromJson(jsonDecode(response.body));
+      return simpleResponseModel;
+    }
+    return null;
+  }
+
+  ///Get Review Api....
+  static Future<ReviewModel?> getReview({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    ReviewModel? reviewModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetReview,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      reviewModel = ReviewModel.fromJson(jsonDecode(response.body));
+      return reviewModel;
     }
     return null;
   }
