@@ -44,7 +44,10 @@ class ApiUrlConstants {
       '/rot/api/product_delivery';
   static const String endPointOfGetProductDelivery =
       '/rot/api/get_product_delivery';
+  static const String endPointOfGetProductUser = '/rot/api/get_product_user';
   static const String endPointOfGetNotification = '/rot/api/get_notification';
   static const String endPointOfAddReview = '/rot/api/add_review';
   static const String endPointOfGetReview = '/rot/api/get_review';
+  static const String endPointOfAddCard = '/rot/api/add_card';
+  static const String endPointOfGetCard = '/rot/api/get_card';
 }

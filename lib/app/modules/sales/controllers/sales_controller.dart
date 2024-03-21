@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rot_application/app/data/apis/api_models/get_product_delivery_model.dart';
 
 import '../../../../common/common_methods.dart';
+import '../../../data/apis/api_constants/api_key_constants.dart';
+import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/get_profile_public_products_model.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 
@@ -15,7 +19,12 @@ class SalesController extends GetxController
     Tab(text: StringConstants.inProgress.tr),
     Tab(text: StringConstants.finished.tr),
   ];
-
+  Map<String, dynamic> getPublishedProductQueryParams = {};
+  Map<String, String?> parameters = Get.parameters;
+  List<ProfilePublicProductsData> inWindProductList = [];
+  List<GetProductDeliveryData> pendingProductList = [];
+  List<GetProductDeliveryData> completeProductList = [];
+  final showProgressBar = true.obs;
   List listOfCards = [
     {
       'title': 'electric kettle',
@@ -52,9 +61,14 @@ class SalesController extends GetxController
   ];
 
   @override
-  void onInit() {
+  void onInit() async {
     tabController = TabController(length: 3, vsync: this);
     super.onInit();
+    await getPublishedProductApi();
+    showProgressBar.value = false;
+    increment();
+    getPendingProductApi();
+    getCompleteProductApi();
   }
 
   @override
@@ -70,4 +84,51 @@ class SalesController extends GetxController
   void increment() => count.value++;
 
   clickOnCard({required int index}) {}
+
+  Future<void> getPublishedProductApi() async {
+    getPublishedProductQueryParams = {
+      ApiKeyConstants.userId: parameters[ApiKeyConstants.userId],
+    };
+    print("get published product param:- $getPublishedProductQueryParams");
+    ProfilePublicProductsModel? profilePublicProductsModel =
+        await ApiMethods.getProductByUserId(
+            queryParameters: getPublishedProductQueryParams);
+    if (profilePublicProductsModel != null &&
+        profilePublicProductsModel.data != null &&
+        profilePublicProductsModel.data!.isNotEmpty) {
+      inWindProductList = profilePublicProductsModel.data!;
+    }
+  }
+
+  Future<void> getPendingProductApi() async {
+    Map<String, dynamic> getQueryParameters = {
+      ApiKeyConstants.productUserId: parameters[ApiKeyConstants.userId],
+      ApiKeyConstants.status: 'Pending'
+    };
+    GetProductDeliveryModel? getProductDeliveryModel =
+        await ApiMethods.getProductUser(queryParameters: getQueryParameters);
+
+    if (getProductDeliveryModel != null &&
+        getProductDeliveryModel.data!.isNotEmpty) {
+      pendingProductList = getProductDeliveryModel.data!;
+    } else {
+      print("Failed.....");
+    }
+  }
+
+  Future<void> getCompleteProductApi() async {
+    Map<String, dynamic> getQueryParameters = {
+      ApiKeyConstants.productUserId: parameters[ApiKeyConstants.userId],
+      ApiKeyConstants.status: 'Complete'
+    };
+    GetProductDeliveryModel? getProductDeliveryModel =
+        await ApiMethods.getProductUser(queryParameters: getQueryParameters);
+
+    if (getProductDeliveryModel != null &&
+        getProductDeliveryModel.data!.isNotEmpty) {
+      completeProductList = getProductDeliveryModel.data!;
+    } else {
+      print("Failed.....");
+    }
+  }
 }

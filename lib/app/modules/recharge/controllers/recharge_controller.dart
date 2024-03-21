@@ -5,12 +5,19 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rot_application/app/data/constants/image_constants.dart';
 
 import '../../../../common/common_widgets.dart';
+import '../../../data/apis/api_constants/api_key_constants.dart';
+import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/get_card_list_model.dart';
 import '../../../data/constants/string_constants.dart';
 import '../../../routes/app_pages.dart';
 
 class RechargeController extends GetxController {
+  TextEditingController amountController = TextEditingController();
   final count = 0.obs;
-
+  Map<String, String?> parameters = Get.parameters;
+  List<CardListData> cardList = [];
+  final showLoading = true.obs;
+  final presentData = true.obs;
   List listOfListTile = [
     {
       'title': 'Axis Bank **** **** **** 8395',
@@ -47,6 +54,7 @@ class RechargeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    getMyCardList();
   }
 
   @override
@@ -61,8 +69,42 @@ class RechargeController extends GetxController {
 
   void increment() => count.value++;
 
+  Future<void> getMyCardList() async {
+    try {
+      Map<String, dynamic> addNewCardParameters = {
+        ApiKeyConstants.userId: parameters[ApiKeyConstants.userId],
+      };
+      print("bodyParam:-$addNewCardParameters");
+      CardListModel? cardListModel =
+          await ApiMethods.getCardListApi(bodyParams: addNewCardParameters);
+      if (cardListModel != null && cardListModel.status == '1') {
+        cardList = cardListModel.data!;
+        presentData.value = true;
+      } else {
+        presentData.value = false;
+        CommonWidgets.showMyToastMessage('Card are not added till now ...');
+      }
+    } catch (e) {
+      presentData.value = false;
+      print('Error:- ${e.toString()}');
+      CommonWidgets.showMyToastMessage('Add new card failed ...');
+    }
+    showLoading.value = false;
+  }
+
   clickOnListTile({required int index}) {
-    Get.toNamed(Routes.RECHARGE_SUMMARY);
+    if (amountController.text.isNotEmpty) {
+      Map<String, String> data = {
+        ApiKeyConstants.userId: parameters[ApiKeyConstants.userId]!,
+        ApiKeyConstants.amount: amountController.text.isNotEmpty
+            ? amountController.text.toString()
+            : '0'
+      };
+      Get.toNamed(Routes.RECHARGE_SUMMARY,
+          parameters: data, arguments: cardList[index]);
+    } else {
+      CommonWidgets.showMyToastMessage('Please enter recharge amount');
+    }
   }
 
   clickOnReloadWallet() {

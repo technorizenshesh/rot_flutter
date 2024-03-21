@@ -172,4 +172,6 @@ class IconConstants {
   static const String icShippingTruck = 'assets/icons/ic_shipping_truck.png';
   static const String icProProtection = 'assets/icons/ic_pro_protection.png';
   static const String icShippingDone = 'assets/icons/ic_shipping_done.png';
+  static const String icFlagGroup = 'assets/icons/ic_flag_group.png';
+  static const String icFlag1 = 'assets/icons/ic_flag1.png';
 }

@@ -16,6 +16,7 @@ class ApiKeyConstants {
   static const String message = 'message';
   static const String otp = 'otp';
   static const String userId = 'user_id';
+  static const String productUserId = 'product_user_id';
   static const String categoryId = 'category_id';
   static const String subCategoryId = 'sub_category_id';
   static const String productId = 'product_id';
@@ -42,4 +43,10 @@ class ApiKeyConstants {
   static const String review = 'review';
   static const String rating = 'rating';
   static const String sellerId = 'seller_id';
+  static const String status = 'status';
+  static const String cardNumber = 'card_number';
+  static const String cardHolderName = 'card_holder_name';
+  static const String expireDate = 'expire_date';
+  static const String cvc = 'cvc';
+  static const String wallet = 'wallet';
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:rot_application/common/progress_bar.dart';
 
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
@@ -17,140 +16,177 @@ class ProfileDetailView extends GetView<ProfileDetailController> {
       controller.count.value;
       return Scaffold(
         appBar: CommonWidgets.appBar(title: StringConstants.profile),
-        body: ProgressBar(
-          inAsyncCall: controller.inAsyncCall.value,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.px),
-            child: SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 20.px),
-                  Card(
-                    elevation: .4.px,
-                    child: Padding(
-                      padding: EdgeInsets.all(8.px),
-                      child: Row(
-                        children: [
-                          (controller.userData != null &&
-                                  controller.userData!.image != null &&
-                                  controller.userData!.image!.isNotEmpty)
-                              ? CommonWidgets.imageView(
-                                  image: controller.userData!.image ?? '',
-                                  height: 80.px,
-                                  width: 80.px,
-                                  borderRadius: BorderRadius.circular(40.px),
-                                )
-                              : CommonWidgets.appIcons(
-                                  assetName: IconConstants.icUserImage,
-                                  height: 80.px,
-                                  width: 80.px,
-                                  borderRadius: 40.px),
-                          SizedBox(width: 20.px),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+        body: controller.inAsyncCall.value
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.px),
+                child: SafeArea(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 20.px),
+                      Card(
+                        elevation: .4.px,
+                        child: Padding(
+                          padding: EdgeInsets.all(8.px),
+                          child: Row(
                             children: [
-                              if (controller.userData != null &&
-                                  controller.userData!.userName != null &&
-                                  controller.userData!.userName!.isNotEmpty)
-                                Text(
-                                  controller.userData!.userName ?? '',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayMedium
-                                      ?.copyWith(
-                                          fontSize: 20.px,
-                                          color:
-                                              Theme.of(context).primaryColor),
+                              GestureDetector(
+                                onTap: () {
+                                  controller.getImage();
+                                },
+                                child: Stack(
+                                  children: [
+                                    (controller.selectedFile == null)
+                                        ? CommonWidgets.imageView(
+                                            image: controller.userData!.image ??
+                                                '',
+                                            height: 80.px,
+                                            width: 80.px,
+                                            borderRadius:
+                                                BorderRadius.circular(40.px),
+                                          )
+                                        : ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(40.px),
+                                            child: Image.file(
+                                              controller.selectedFile!,
+                                              height: 80.px,
+                                              fit: BoxFit.fill,
+                                              width: 80.px,
+                                            ),
+                                          ),
+                                    const Positioned(
+                                        right: 0,
+                                        bottom: 0,
+                                        child: Icon(
+                                          Icons.photo,
+                                          size: 20,
+                                          color: Colors.teal,
+                                        ))
+                                  ],
                                 ),
-                              SizedBox(height: 4.px),
-                              if (controller.userData != null &&
-                                  controller.userData!.email != null &&
-                                  controller.userData!.email!.isNotEmpty)
-                                Text(
-                                  controller.userData!.email ?? '',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleSmall
-                                      ?.copyWith(
-                                        fontSize: 12.px,
-                                      ),
-                                ),
-                              SizedBox(height: 4.px),
-                              if (controller.userData != null &&
-                                  controller.userData!.reviewCount != null &&
-                                  controller.userData!.reviewCount!.isNotEmpty)
-                                Text(
-                                  "⭐ ${controller.userData!.reviewCount ?? ''}",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleSmall
-                                      ?.copyWith(
-                                        fontSize: 12.px,
-                                      ),
-                                ),
+                              ),
+                              SizedBox(width: 20.px),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (controller.userData != null &&
+                                      controller.userData!.userName != null &&
+                                      controller.userData!.userName!.isNotEmpty)
+                                    Row(
+                                      children: [
+                                        Text(
+                                          controller.userData!.userName ?? '',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displayMedium
+                                              ?.copyWith(
+                                                  fontSize: 20.px,
+                                                  color: Theme.of(context)
+                                                      .primaryColor),
+                                        ),
+                                        CommonWidgets.appIcons(
+                                            assetName: IconConstants.icFlag1,
+                                            width: 25,
+                                            height: 20)
+                                      ],
+                                    ),
+                                  SizedBox(height: 4.px),
+                                  if (controller.userData != null &&
+                                      controller.userData!.email != null &&
+                                      controller.userData!.email!.isNotEmpty)
+                                    Text(
+                                      controller.userData!.email ?? '',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall
+                                          ?.copyWith(
+                                            fontSize: 12.px,
+                                          ),
+                                    ),
+                                  SizedBox(height: 4.px),
+                                  if (controller.userData != null &&
+                                      controller.userData!.reviewCount !=
+                                          null &&
+                                      controller
+                                          .userData!.reviewCount!.isNotEmpty)
+                                    Text(
+                                      "⭐ ${controller.userData!.reviewCount ?? ''}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall
+                                          ?.copyWith(
+                                            fontSize: 12.px,
+                                          ),
+                                    ),
+                                ],
+                              ),
                             ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                  SizedBox(height: 20.px),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSecondary
-                          .withOpacity(.1.px),
-                      borderRadius: BorderRadius.circular(8.px),
-                    ),
-                    child: TabBar(
-                      onTap: (value) {
-                        controller.increment();
-                      },
-                      splashBorderRadius: BorderRadius.circular(8.px),
-                      controller: controller.tabController,
-                      indicator: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.px),
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      labelColor: Theme.of(context).scaffoldBackgroundColor,
-                      unselectedLabelColor:
-                          Theme.of(context).textTheme.displayMedium?.color,
-                      tabs: controller.tabs,
-                      labelStyle:
-                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                      SizedBox(height: 20.px),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSecondary
+                              .withOpacity(.1.px),
+                          borderRadius: BorderRadius.circular(8.px),
+                        ),
+                        child: TabBar(
+                          onTap: (value) {
+                            controller.increment();
+                          },
+                          splashBorderRadius: BorderRadius.circular(8.px),
+                          controller: controller.tabController,
+                          indicator: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.px),
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          labelColor: Theme.of(context).scaffoldBackgroundColor,
+                          unselectedLabelColor:
+                              Theme.of(context).textTheme.displayMedium?.color,
+                          tabs: controller.tabs,
+                          labelStyle: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
                                 fontSize: 14.px,
                                 color: Theme.of(context).primaryColor,
                               ),
-                      indicatorSize:
-                          TabBarIndicatorSize.tab, // Set indicatorSize to tab
-                    ),
-                  ),
-                  SizedBox(height: 20.px),
-                  Obx(() {
-                    controller.count.value;
-                    return Text(
-                      tabText(),
-                      style:
-                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                          indicatorSize: TabBarIndicatorSize
+                              .tab, // Set indicatorSize to tab
+                        ),
+                      ),
+                      SizedBox(height: 20.px),
+                      Obx(() {
+                        controller.count.value;
+                        return Text(
+                          tabText(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
                                 fontSize: 24.px,
                               ),
-                    );
-                  }),
-                  SizedBox(height: 8.px),
-                  Obx(() {
-                    controller.count.value;
-                    return Expanded(
-                      child: screens(),
-                    );
-                  }),
-                  SizedBox(height: 20.px),
-                ],
+                        );
+                      }),
+                      SizedBox(height: 8.px),
+                      Obx(() {
+                        controller.count.value;
+                        return Expanded(
+                          child: screens(),
+                        );
+                      }),
+                      SizedBox(height: 20.px),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ),
-        ),
       );
     });
   }
@@ -224,9 +260,21 @@ class ProfileDetailsView extends GetView<ProfileDetailController> {
             isCard: controller.isSellersAddress.value,
             hintText: StringConstants.enterYourSellersAddress,
           ),
+          SizedBox(height: 20.px),
+          Text(
+            'Sells In',
+            style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                  fontSize: 16.px,
+                ),
+          ),
+          SizedBox(height: 14.px),
+          CommonWidgets.appIcons(
+            assetName: IconConstants.icFlagGroup,
+            height: 70,
+          ),
           SizedBox(height: 14.px),
           CommonWidgets.commonElevatedButton(
-            onPressed: () => controller.clickOnSubmitButton(type: 'profile'),
+            onPressed: () => controller.clickOnSubmitButton(),
             childText: Text(
               StringConstants.submit.tr,
               style: Theme.of(context)

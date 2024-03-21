@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:rot_application/app/data/apis/api_constants/api_key_constants.dart';
 
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
@@ -6,7 +7,7 @@ import '../../../routes/app_pages.dart';
 
 class WalletController extends GetxController {
   final count = 0.obs;
-
+  Map<String, String?> parameters = Get.parameters;
   List listOfListTile = [
     {
       'title': StringConstants.historyOfMovements,
@@ -41,15 +42,20 @@ class WalletController extends GetxController {
   void increment() => count.value++;
 
   clickOnListTile({required int index}) {
+    Map<String, String> data = {
+      ApiKeyConstants.userId: parameters[ApiKeyConstants.userId]!
+    };
     switch (index) {
       case 0:
         Get.toNamed(Routes.HISTORY_OF_MOVEMENTS);
       case 1:
-        Get.toNamed(Routes.BANK_INFORMATION);
+        Get.toNamed(Routes.BANK_INFORMATION, parameters: data);
       case 2:
         Get.toNamed(Routes.CONVERTER);
+      // case 3:
+      //   Get.toNamed(Routes.ADD_NEW_ACCOUNT);
       case 3:
-        Get.toNamed(Routes.ADD_NEW_ACCOUNT);
+        Get.toNamed(Routes.ADD_NEW_CARD, parameters: data);
     }
   }
 
@@ -64,7 +70,10 @@ class WalletController extends GetxController {
   clickOnCharge() {}
 
   clickOnRecharge() {
-    Get.toNamed(Routes.RECHARGE);
+    Map<String, String> data = {
+      ApiKeyConstants.userId: parameters[ApiKeyConstants.userId]!
+    };
+    Get.toNamed(Routes.RECHARGE, parameters: data);
   }
 
   clickOnAccounts() {

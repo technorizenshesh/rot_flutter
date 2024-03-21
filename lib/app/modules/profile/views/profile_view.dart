@@ -66,15 +66,23 @@ class ProfileView extends GetView<ProfileController> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      controller.userData!.userName ?? '',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displayMedium
-                                          ?.copyWith(
-                                              fontSize: 20.px,
-                                              color: Theme.of(context)
-                                                  .primaryColor),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          controller.userData!.userName ?? '',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displayMedium
+                                              ?.copyWith(
+                                                  fontSize: 20.px,
+                                                  color: Theme.of(context)
+                                                      .primaryColor),
+                                        ),
+                                        CommonWidgets.appIcons(
+                                            assetName: IconConstants.icFlag1,
+                                            width: 25,
+                                            height: 20)
+                                      ],
                                     ),
                                     SizedBox(height: 4.px),
                                     Row(

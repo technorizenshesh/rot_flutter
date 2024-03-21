@@ -39,7 +39,7 @@ class HomeView extends GetView<HomeController> {
                                     .textTheme
                                     .displayMedium
                                     ?.copyWith(
-                                        fontSize: 24.px,
+                                        fontSize: 22.px,
                                         color: Theme.of(context).primaryColor),
                               ),
                               SizedBox(height: 8.px),

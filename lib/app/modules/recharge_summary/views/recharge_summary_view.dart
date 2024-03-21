@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rot_application/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:rot_application/app/data/constants/icons_constant.dart';
 
 import '../../../../common/common_widgets.dart';
@@ -35,7 +36,7 @@ class RechargeSummaryView extends GetView<RechargeSummaryController> {
                 width: 40.px,
               ),
               trailing: Text(
-                '\$ 06.00',
+                '\$ ${getPercentage(controller.parameters[ApiKeyConstants.amount] ?? '0')}',
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium
@@ -52,7 +53,7 @@ class RechargeSummaryView extends GetView<RechargeSummaryController> {
             SizedBox(height: 20.px),
             ListTile(
               trailing: Text(
-                '\$ 06.00',
+                '\$ ${controller.parameters[ApiKeyConstants.amount] ?? '0'}',
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium
@@ -67,7 +68,7 @@ class RechargeSummaryView extends GetView<RechargeSummaryController> {
             SizedBox(height: 20.px),
             ListTile(
               trailing: Text(
-                '\$ 06.00',
+                '\$ ${totalAmount(controller.parameters[ApiKeyConstants.amount] ?? '0')}',
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium
@@ -91,21 +92,28 @@ class RechargeSummaryView extends GetView<RechargeSummaryController> {
                 ),
               ),
               leading: CommonWidgets.appIcons(
-                assetName: 'assets/un_used_images/logos_mastercard.png',
-                height: 40.px,
-                width: 40.px,
-              ),
+                  assetName: 'assets/un_used_images/logos_mastercard.png',
+                  height: 40.px,
+                  width: 40.px,
+                  fit: BoxFit.fill),
               trailing: Text(
                 StringConstants.edit,
                 style: Theme.of(context).textTheme.displayMedium?.copyWith(
                     fontSize: 14.px, color: Theme.of(context).primaryColor),
               ),
               title: Text(
-                'Axis Bank **** **** **** 8395s',
+                controller.cardListData.cardNumber ?? '',
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium
                     ?.copyWith(fontSize: 14.px),
+              ),
+              subtitle: Text(
+                controller.cardListData.cardHolderName ?? '',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontSize: 12.px),
               ),
             ),
             SizedBox(height: 10.px),
@@ -124,5 +132,15 @@ class RechargeSummaryView extends GetView<RechargeSummaryController> {
         ),
       ),
     );
+  }
+
+  String getPercentage(String value) {
+    double fee = double.parse(value) * 0.1;
+    return fee.toStringAsFixed(2);
+  }
+
+  String totalAmount(String value) {
+    double fee = (double.parse(value) * 0.1) + (double.parse(value));
+    return fee.toStringAsFixed(2);
   }
 }

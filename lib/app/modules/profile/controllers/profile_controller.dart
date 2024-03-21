@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:rot_application/app/data/constants/image_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/common_widgets.dart';
@@ -16,7 +17,7 @@ class ProfileController extends GetxController {
   List listOfListTile = [
     {'title': StringConstants.sales.tr, 'icon': IconConstants.icSales},
     {'title': StringConstants.purchases.tr, 'icon': IconConstants.icPurchases},
-    {'title': StringConstants.wallet.tr, 'icon': IconConstants.icWallet},
+    {'title': StringConstants.wallet.tr, 'icon': ImageConstants.imageWallet},
     {
       'title': StringConstants.subscription.tr,
       'icon': IconConstants.icSubscription
@@ -65,16 +66,19 @@ class ProfileController extends GetxController {
   void increment() => count.value++;
 
   clickOnListTile({required int index}) {
-    Map<String, String> data = {ApiKeyConstants.userId: userId};
+    Map<String, String> data = {
+      ApiKeyConstants.userId: userId,
+      ApiKeyConstants.wallet: userData!.wallet ?? '0'
+    };
     switch (index) {
       case 0:
-        Get.toNamed(Routes.SALES);
+        Get.toNamed(Routes.SALES, parameters: data);
         break;
       case 1:
         Get.toNamed(Routes.PURCHASES, parameters: data);
         break;
       case 2:
-        Get.toNamed(Routes.WALLET);
+        Get.toNamed(Routes.WALLET, parameters: data);
         break;
       case 3:
         Get.toNamed(Routes.SUBSCRIPTION);

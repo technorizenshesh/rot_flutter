@@ -6,6 +6,7 @@ import 'package:rot_application/app/data/constants/string_constants.dart';
 import 'package:rot_application/common/common_methods.dart';
 import 'package:rot_application/common/common_widgets.dart';
 
+import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../controllers/wallet_controller.dart';
 
 class WalletView extends GetView<WalletController> {
@@ -50,7 +51,7 @@ class WalletView extends GetView<WalletController> {
                               ),
                         ),
                         TextSpan(
-                          text: '0',
+                          text: controller.parameters[ApiKeyConstants.wallet],
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium
@@ -75,36 +76,42 @@ class WalletView extends GetView<WalletController> {
                       ),
                     ),
                     SizedBox(height: 10.px),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        card(
-                          assetName: IconConstants.icRecharge,
-                          text: StringConstants.recharge,
-                          onTap: () => controller.clickOnRecharge(),
+                    SizedBox(
+                      height: 70.px,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            card(
+                              assetName: IconConstants.icRecharge,
+                              text: StringConstants.recharge,
+                              onTap: () => controller.clickOnRecharge(),
+                            ),
+                            card(
+                              assetName: IconConstants.icCharge,
+                              text: StringConstants.charge,
+                              onTap: () => controller.clickOnCharge(),
+                            ),
+                            card(
+                              assetName: IconConstants.icSendMoney,
+                              text: StringConstants.sendMoney,
+                              onTap: () => controller.clickOnSendMoney(),
+                            ),
+                            card(
+                              assetName: IconConstants.icPay,
+                              text: StringConstants.pay,
+                              onTap: () => controller.clickOnPay(),
+                            ),
+                            card(
+                              assetName: IconConstants.icWithdraw,
+                              text: StringConstants.withdraw,
+                              onTap: () => controller.clickOnWithDraw(),
+                            ),
+                          ],
                         ),
-                        card(
-                          assetName: IconConstants.icCharge,
-                          text: StringConstants.charge,
-                          onTap: () => controller.clickOnCharge(),
-                        ),
-                        card(
-                          assetName: IconConstants.icSendMoney,
-                          text: StringConstants.sendMoney,
-                          onTap: () => controller.clickOnSendMoney(),
-                        ),
-                        card(
-                          assetName: IconConstants.icPay,
-                          text: StringConstants.pay,
-                          onTap: () => controller.clickOnPay(),
-                        ),
-                        card(
-                          assetName: IconConstants.icWithdraw,
-                          text: StringConstants.withdraw,
-                          onTap: () => controller.clickOnWithDraw(),
-                        ),
-                      ],
+                      ),
                     ),
                   ],
                 ),

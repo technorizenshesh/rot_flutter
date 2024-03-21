@@ -42,4 +42,7 @@ class ImageConstants {
   static const String imageNoDataFound =
       'assets/images/image_no_data_found.png';
   static const String imageReview = 'assets/images/image_review.png';
+  static const String imageCard1 = 'assets/images/image_card1.png';
+  static const String imageCard2 = 'assets/images/image_card2.png';
+  static const String imageWallet = 'assets/images/image_wallet.png';
 }

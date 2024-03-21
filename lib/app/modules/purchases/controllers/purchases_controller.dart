@@ -22,14 +22,16 @@ class PurchasesController extends GetxController
   ];
 
   GetProductDeliveryModel? getProductDeliveryModel;
-  List<GetProductDeliveryData> deliveryList = [];
+  List<GetProductDeliveryData> pendingDeliveryList = [];
+  List<GetProductDeliveryData> completeDeliveryList = [];
 
   @override
   void onInit() async {
     tabController = TabController(length: 2, vsync: this);
     super.onInit();
     userId = parameters[ApiKeyConstants.userId]!;
-    await getProductDeliveryApi();
+    await getCompleteDeliveryApi();
+    await getPendingDeliveryApi();
     changeShowLoading(false);
   }
 
@@ -135,14 +137,33 @@ class PurchasesController extends GetxController
     );
   }
 
-  Future<void> getProductDeliveryApi() async {
-    Map<String, dynamic> getQueryParameters = {ApiKeyConstants.userId: userId};
+  Future<void> getCompleteDeliveryApi() async {
+    Map<String, dynamic> getQueryParameters = {
+      ApiKeyConstants.userId: userId,
+      ApiKeyConstants.status: 'Complete'
+    };
     getProductDeliveryModel = await ApiMethods.getProductDelivery(
         queryParameters: getQueryParameters);
 
     if (getProductDeliveryModel != null &&
         getProductDeliveryModel!.data!.isNotEmpty) {
-      deliveryList = getProductDeliveryModel!.data!;
+      completeDeliveryList = getProductDeliveryModel!.data!;
+    } else {
+      print("Failed.....");
+    }
+  }
+
+  Future<void> getPendingDeliveryApi() async {
+    Map<String, dynamic> getQueryParameters = {
+      ApiKeyConstants.userId: userId,
+      ApiKeyConstants.status: 'Pending'
+    };
+    getProductDeliveryModel = await ApiMethods.getProductDelivery(
+        queryParameters: getQueryParameters);
+
+    if (getProductDeliveryModel != null &&
+        getProductDeliveryModel!.data!.isNotEmpty) {
+      pendingDeliveryList = getProductDeliveryModel!.data!;
     } else {
       print("Failed.....");
     }

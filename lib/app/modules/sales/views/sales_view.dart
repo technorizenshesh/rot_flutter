@@ -4,6 +4,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
+import '../../../data/apis/api_models/get_product_delivery_model.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 import '../controllers/sales_controller.dart';
@@ -61,9 +62,11 @@ class SalesView extends GetView<SalesController> {
                   SizedBox(height: 20.px),
                   Obx(() {
                     controller.count.value;
-                    return Expanded(
-                      child: screens(),
-                    );
+                    return controller.showProgressBar.value
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : Expanded(child: screens());
                   }),
                 ],
               ),
@@ -91,103 +94,119 @@ class InWindView extends GetView<SalesController> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Wrap(
-        children: List.generate(controller.listOfCards.length, (index) {
-          return SizedBox(
-            width: MediaQuery.of(context).size.width / 2.2,
-            height: 280.px,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.px),
-              child: InkWell(
-                onTap: () => controller.clickOnCard(index: index),
-                borderRadius: BorderRadius.circular(8.px),
-                child: Column(
-                  children: [
-                    Stack(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(8.px),
-                          child: Image.asset(
-                            controller.listOfCards[index]['image'],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(4.px),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return controller.inWindProductList.isNotEmpty
+        ? SingleChildScrollView(
+            child: Wrap(
+              children:
+                  List.generate(controller.inWindProductList.length, (index) {
+                return SizedBox(
+                  width: MediaQuery.of(context).size.width / 2.2,
+                  height: 280.px,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.px),
+                    child: InkWell(
+                      onTap: () => controller.clickOnCard(index: index),
+                      borderRadius: BorderRadius.circular(8.px),
+                      child: Column(
+                        children: [
+                          Stack(
                             children: [
-                              CommonWidgets.appIcons(
-                                assetName: controller.listOfCards[index]
-                                    ['icon1'],
-                                width: 40.px,
-                                height: 40.px,
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8.px),
+                                child: CommonWidgets.imageView(
+                                    image: controller.inWindProductList[index]
+                                            .productImage!.isNotEmpty
+                                        ? controller.inWindProductList[index]
+                                                .productImage![0].image ??
+                                            ''
+                                        : '',
+                                    width: 180.px,
+                                    height: 170.px),
                               ),
-                              CommonWidgets.appIcons(
-                                assetName: controller.listOfCards[index]
-                                    ['icon2'],
-                                width: 40.px,
-                                height: 40.px,
+                              Padding(
+                                padding: EdgeInsets.all(4.px),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    CommonWidgets.appIcons(
+                                      assetName: controller.listOfCards[index]
+                                          ['icon1'],
+                                      width: 40.px,
+                                      height: 40.px,
+                                    ),
+                                    CommonWidgets.appIcons(
+                                      assetName: controller.listOfCards[index]
+                                          ['icon2'],
+                                      width: 40.px,
+                                      height: 40.px,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 10.px),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                controller.listOfCards[index]['price'],
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 10.px),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      controller
+                                              .inWindProductList[index].price ??
+                                          '',
+                                      maxLines: 1,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium
+                                          ?.copyWith(
+                                            fontSize: 16.px,
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                          ),
+                                    ),
+                                  ),
+                                  CommonWidgets.appIcons(
+                                    assetName: IconConstants.icLikePrimary,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10.px),
+                              Text(
+                                controller.inWindProductList[index].title ?? '',
                                 maxLines: 1,
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayMedium
                                     ?.copyWith(
-                                      fontSize: 16.px,
-                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 14.px,
                                     ),
                               ),
-                            ),
-                            CommonWidgets.appIcons(
-                              assetName: IconConstants.icLikePrimary,
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10.px),
-                        Text(
-                          controller.listOfCards[index]['title'],
-                          maxLines: 1,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium
-                              ?.copyWith(
-                                fontSize: 14.px,
+                              SizedBox(height: 10.px),
+                              Text(
+                                controller
+                                        .inWindProductList[index].description ??
+                                    '',
+                                maxLines: 2,
+                                style: Theme.of(context).textTheme.titleMedium,
                               ),
-                        ),
-                        SizedBox(height: 10.px),
-                        Text(
-                          controller.listOfCards[index]['subTitle'],
-                          maxLines: 2,
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        SizedBox(height: 10.px),
-                      ],
+                              SizedBox(height: 10.px),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              }),
             ),
-          );
-        }),
-      ),
-    );
+          )
+        : CommonWidgets.dataNotFound();
   }
 }
 
@@ -196,51 +215,85 @@ class InProgressView extends GetView<SalesController> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox();
-    /* return ListView.builder(
-      padding: EdgeInsets.zero,
-      itemCount: 2,
-      itemBuilder: (context, index) => Card(
-        elevation: .2.px,
-        child: ListTile(
-          // contentPadding: EdgeInsets.zero,
-          title: Text(
-            'gratis',
-            style: Theme.of(context)
-                .textTheme
-                .displayMedium
-                ?.copyWith(fontSize: 20.px),
-          ),
-          subtitle: Text(
-            'Home & Garden. WC2R 2...',
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontSize: 14.px,
-                ),
-          ),
-          trailing: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                height: 30.px,
-                width: 30.px,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.error.withOpacity(.1.px),
-                  borderRadius: BorderRadius.circular(6.px),
-                ),
-                child: Center(
-                  child: Icon(
-                    Icons.highlight_remove_rounded,
-                    color: Theme.of(context).colorScheme.error,
-                    size: 16.px,
+    return controller.pendingProductList.isNotEmpty
+        ? ListView.builder(
+            shrinkWrap: true,
+            physics: const ScrollPhysics(),
+            itemCount: controller.pendingProductList.length,
+            itemBuilder: (context, index) {
+              GetProductDeliveryData item =
+                  controller.pendingProductList[index];
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    item.dateTime.toString().substring(0, 10),
+                    maxLines: 1,
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(fontSize: 16.px),
                   ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );*/
+                  SizedBox(height: 4.px),
+                  ListTile(
+                    leading: CommonWidgets.imageView(
+                      image: item.image ?? '',
+                      height: 44.px,
+                      width: 44.px,
+                      radius: 0.px,
+                    ),
+                    title: Text(
+                      item.productName ?? '',
+                      maxLines: 1,
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(fontSize: 14.px),
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'In progress',
+                          style:
+                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontSize: 12.px,
+                                  ),
+                          maxLines: 1,
+                        ),
+                        SizedBox(height: 2.px),
+                        Text(
+                          'Completed on Dec 14.',
+                          style:
+                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontSize: 12.px,
+                                  ),
+                          maxLines: 1,
+                        ),
+                      ],
+                    ),
+                    trailing: Text(
+                      '${CommonMethods.cur}${item.amount}',
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(
+                              fontSize: 16.px,
+                              color: Theme.of(context).primaryColor),
+                    ),
+                  ),
+                  SizedBox(height: 10.px),
+                  Divider(
+                    height: 2.px,
+                    color: Theme.of(context).colorScheme.onSecondary,
+                    thickness: .2.px,
+                  ),
+                  SizedBox(height: 10.px),
+                ],
+              );
+            },
+          )
+        : CommonWidgets.dataNotFound();
   }
 }
 
@@ -249,95 +302,84 @@ class FinishedView extends GetView<SalesController> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        SizedBox(height: 20.px),
-        Text(
-          '2023',
-          maxLines: 1,
-          style: Theme.of(context)
-              .textTheme
-              .displayMedium
-              ?.copyWith(fontSize: 26.px),
-        ),
-        SizedBox(height: 2.px),
-        Text(
-          'January',
-          maxLines: 1,
-          style: Theme.of(context)
-              .textTheme
-              .displayMedium
-              ?.copyWith(fontSize: 16.px),
-        ),
-        SizedBox(height: 20.px),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: 2,
-          itemBuilder: (context, index) => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'December',
-                maxLines: 1,
-                style: Theme.of(context)
-                    .textTheme
-                    .displayMedium
-                    ?.copyWith(fontSize: 16.px),
-              ),
-              SizedBox(height: 4.px),
-              ListTile(
-                leading: CommonWidgets.appIcons(
-                  assetName: 'assets/un_used_images/eyerphones.png',
-                  height: 44.px,
-                  width: 44.px,
-                  borderRadius: 0.px,
-                ),
-                title: Text(
-                  '5 2.5" SSD hard drives pre...',
-                  maxLines: 1,
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayMedium
-                      ?.copyWith(fontSize: 14.px),
-                ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Shipment',
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontSize: 12.px,
-                          ),
-                      maxLines: 1,
+    return controller.completeProductList.isNotEmpty
+        ? ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: controller.completeProductList.length,
+            itemBuilder: (context, index) {
+              GetProductDeliveryData item =
+                  controller.completeProductList[index];
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    item.dateTime.toString().substring(0, 10),
+                    maxLines: 1,
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(fontSize: 16.px),
+                  ),
+                  SizedBox(height: 4.px),
+                  ListTile(
+                    leading: CommonWidgets.imageView(
+                      image: item.image ?? '',
+                      height: 44.px,
+                      width: 44.px,
+                      radius: 0.px,
                     ),
-                    SizedBox(height: 2.px),
-                    Text(
-                      'Completed on Dec 14.',
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontSize: 12.px,
-                          ),
+                    title: Text(
+                      item.productName ?? '',
                       maxLines: 1,
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(fontSize: 14.px),
                     ),
-                  ],
-                ),
-                trailing: Text(
-                  '${CommonMethods.cur}949.00',
-                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                      fontSize: 16.px, color: Theme.of(context).primaryColor),
-                ),
-              ),
-              SizedBox(height: 10.px),
-              Divider(
-                height: 2.px,
-                color: Theme.of(context).colorScheme.onSecondary,
-                thickness: .2.px,
-              ),
-              SizedBox(height: 10.px),
-            ],
-          ),
-        ),
-      ],
-    );
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Shipment',
+                          style:
+                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontSize: 12.px,
+                                  ),
+                          maxLines: 1,
+                        ),
+                        SizedBox(height: 2.px),
+                        Text(
+                          'Completed on Dec 14.',
+                          style:
+                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontSize: 12.px,
+                                  ),
+                          maxLines: 1,
+                        ),
+                      ],
+                    ),
+                    trailing: Text(
+                      '${CommonMethods.cur}${item..amount}',
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(
+                              fontSize: 16.px,
+                              color: Theme.of(context).primaryColor),
+                    ),
+                  ),
+                  SizedBox(height: 10.px),
+                  Divider(
+                    height: 2.px,
+                    color: Theme.of(context).colorScheme.onSecondary,
+                    thickness: .2.px,
+                  ),
+                  SizedBox(height: 10.px),
+                ],
+              );
+            },
+          )
+        : CommonWidgets.dataNotFound();
   }
 }

@@ -77,28 +77,32 @@ class DeliverySummaryController extends GetxController {
   }
 
   Future<void> buyProductDeliveryApi() async {
-    buyQueryParameters = {
-      ApiKeyConstants.productId: productDetailsModel.data!.id,
-      ApiKeyConstants.userId: userId,
-      ApiKeyConstants.amount: productDetailsModel.data!.price,
-      ApiKeyConstants.type: 'My address',
-      ApiKeyConstants.location: 'indore ,madhya pradesh',
-    };
-    http.Response? response =
-        await ApiMethods.buyProduct(queryParameters: buyQueryParameters);
+    try {
+      buyQueryParameters = {
+        ApiKeyConstants.productId: productDetailsModel.data!.id,
+        ApiKeyConstants.userId: userId,
+        ApiKeyConstants.amount: productDetailsModel.data!.price,
+        ApiKeyConstants.type: 'My address',
+        ApiKeyConstants.location: 'indore ,madhya pradesh',
+      };
+      http.Response? response =
+          await ApiMethods.buyProduct(queryParameters: buyQueryParameters);
 
-    if (response != null) {
-      Map<String, dynamic> jsonData = jsonDecode(response!.body);
-      if (jsonData['status'] == 1) {
-        print("Successfully complete.....");
-        //data = getProductDetailsModel!.data!;
-        Get.toNamed(Routes.DELIVERY_PURCHASES_ON_THE_WAY,
-            arguments: productDetailsModel);
+      if (response != null) {
+        Map<String, dynamic> jsonData = jsonDecode(response!.body);
+        if (jsonData['status'] == 1) {
+          print("Successfully complete.....");
+          //data = getProductDetailsModel!.data!;
+          Get.toNamed(Routes.DELIVERY_PURCHASES_ON_THE_WAY,
+              arguments: productDetailsModel);
+        } else {
+          print("Failed.....");
+        }
       } else {
         print("Failed.....");
       }
-    } else {
-      print("Failed.....");
+    } catch (e) {
+      print("Error:- ${e.toString()}");
     }
     btnLoading.value = false;
   }

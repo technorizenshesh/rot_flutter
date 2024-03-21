@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/common_widgets.dart';
@@ -48,7 +49,7 @@ class ProfileDetailController extends GetxController
   TextEditingController genderController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-
+  File? selectedFile;
   String userId = '';
 
   final inAsyncCall = false.obs;
@@ -128,44 +129,39 @@ class ProfileDetailController extends GetxController
     }
   }
 
-  clickOnSubmitButton({String type = ''}) async {
-    if (type.isNotEmpty) {
-      if (fullNameController.text.trim().isNotEmpty &&
-          sellersAddressController.text.trim().isNotEmpty) {
-        inAsyncCall.value = true;
-        bodyParams = {
-          ApiKeyConstants.userId: userId,
-          ApiKeyConstants.userName: fullNameController.text,
-          ApiKeyConstants.sellerAddress: sellersAddressController.text,
-        };
-        http.Response? response = await ApiMethods.updateProfile(
-            bodyParams: bodyParams,
-            imageMap: {ApiKeyConstants.image: File('')});
-        if (response != null) {}
-        inAsyncCall.value = false;
-      } else {
-        CommonWidgets.snackBarView(title: StringConstants.allFieldsRequired);
-      }
+  clickOnSubmitButton() async {
+    if (fullNameController.text.trim().isNotEmpty &&
+        sellersAddressController.text.trim().isNotEmpty) {
+      inAsyncCall.value = true;
+      bodyParams = {
+        ApiKeyConstants.userId: userId,
+        ApiKeyConstants.email: emailController.text,
+        ApiKeyConstants.gender: genderController.text,
+        ApiKeyConstants.mobile: phoneController.text,
+        ApiKeyConstants.dob: dobController.text,
+        ApiKeyConstants.userName: fullNameController.text,
+        ApiKeyConstants.sellerAddress: sellersAddressController.text,
+      };
+      http.Response? response = await ApiMethods.updateProfile(
+          bodyParams: bodyParams, imageFile: selectedFile
+          // imageMap: {ApiKeyConstants.image:selectedFile}
+          );
+      if (response != null) {}
+      inAsyncCall.value = false;
     } else {
-      if (fullNameController.text.trim().isNotEmpty &&
-          sellersAddressController.text.trim().isNotEmpty) {
-        inAsyncCall.value = true;
-        bodyParams = {
-          ApiKeyConstants.userId: userId,
-          ApiKeyConstants.email: emailController.text,
-          ApiKeyConstants.gender: genderController.text,
-          ApiKeyConstants.mobile: phoneController.text,
-          ApiKeyConstants.dob: dobController.text,
-          // ApiKeyConstants.whatsappNumber: fullNameController.text,
-        };
-        http.Response? response = await ApiMethods.updateProfile(
-            bodyParams: bodyParams,
-            imageMap: {ApiKeyConstants.image: File('')});
-        if (response != null) {}
-        inAsyncCall.value = false;
-      } else {
-        CommonWidgets.snackBarView(title: StringConstants.allFieldsRequired);
-      }
+      CommonWidgets.snackBarView(title: StringConstants.allFieldsRequired);
+    }
+  }
+
+  Future getImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      print("Image :-${pickedFile.path}");
+      selectedFile = File(pickedFile.path);
+      increment();
+    } else {
+      print('No image selected.');
     }
   }
 }

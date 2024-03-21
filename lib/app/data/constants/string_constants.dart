@@ -434,4 +434,6 @@ class StringConstants {
   static const String logout = 'Logout';
   static const String wouldYouLikeToLogout = 'Would You Like To Logout ?';
   static const String unlike = 'unlike';
+  static const String okIAmReady = 'Ok i am ready';
+  static const String nowYouCanShop = 'Now you can shop';
 }

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:rot_application/app/data/apis/api_models/get_card_list_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_chat_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_conversation_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_like_users_model.dart';
@@ -27,6 +28,7 @@ import '../api_models/get_profile_public_model.dart';
 import '../api_models/get_profile_public_products_model.dart';
 import '../api_models/get_state_model.dart';
 import '../api_models/get_sub_category_model.dart';
+import '../api_models/response_model.dart';
 import '../api_models/user_model.dart';
 
 class ApiMethods {
@@ -130,14 +132,17 @@ class ApiMethods {
     return null;
   }
 
-  static Future<http.Response?> updateProfile({
-    void Function(int)? checkResponse,
-    required Map<String, dynamic> bodyParams,
-    Map<String, File>? imageMap,
-  }) async {
+  static Future<http.Response?> updateProfile(
+      {void Function(int)? checkResponse,
+      required Map<String, dynamic> bodyParams,
+      required File? imageFile
+      //Map<String, File>? imageMap,
+      }) async {
     http.Response? response = await MyHttp.multipart(
       url: ApiUrlConstants.endPointOfUpdateProfile,
-      imageMap: imageMap,
+      //imageMap: imageMap,
+      image: imageFile,
+      imageKey: 'image',
       checkResponse: checkResponse,
       bodyParams: bodyParams,
     );
@@ -581,6 +586,27 @@ class ApiMethods {
     return null;
   }
 
+  /// Get product User
+  static Future<GetProductDeliveryModel?> getProductUser({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    GetProductDeliveryModel? getProductDeliveryModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetProductUser,
+      checkResponse: checkResponse,
+    );
+
+    if (response != null) {
+      getProductDeliveryModel =
+          GetProductDeliveryModel.fromJson(jsonDecode(response.body));
+      return getProductDeliveryModel;
+    }
+    return null;
+  }
+
   /// Get Notification Api
   static Future<NotificationModel?> getNotification({
     required Map<String, dynamic> queryParameters,
@@ -636,6 +662,43 @@ class ApiMethods {
     if (response != null) {
       reviewModel = ReviewModel.fromJson(jsonDecode(response.body));
       return reviewModel;
+    }
+    return null;
+  }
+
+  static Future<ResponseModel?> addNewCard({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    ResponseModel? responseModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: bodyParams,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfAddCard,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      responseModel = ResponseModel.fromJson(jsonDecode(response.body));
+      return responseModel;
+    }
+    return null;
+  }
+
+  /// Get All Card List Model .....
+  static Future<CardListModel?> getCardListApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    CardListModel? cardListModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: bodyParams,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetCard,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      cardListModel = CardListModel.fromJson(jsonDecode(response.body));
+      return cardListModel;
     }
     return null;
   }

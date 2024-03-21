@@ -228,6 +228,51 @@ class CommonWidgets {
     );
   }
 
+  static InputDecoration inputDecoration(
+      {String? hintText,
+      String? labelText,
+      String? errorText,
+      EdgeInsetsGeometry? contentPadding,
+      Color? fillColor,
+      TextStyle? hintStyle,
+      TextStyle? labelStyle,
+      TextStyle? errorStyle,
+      Widget? suffixIcon,
+      Widget? prefixIcon,
+      bool? filled}) {
+    return InputDecoration(
+      errorText: errorText,
+      counterText: '',
+      errorStyle: Theme.of(Get.context!)
+          .textTheme
+          .titleMedium
+          ?.copyWith(color: Theme.of(Get.context!).colorScheme.error),
+      suffixIcon: suffixIcon,
+      prefixIcon: prefixIcon,
+      hintText: hintText,
+      labelText: labelText,
+      labelStyle: Theme.of(Get.context!).textTheme.titleMedium,
+      fillColor: Theme.of(Get.context!).primaryColor,
+      // filled: filled ?? false,
+      contentPadding: EdgeInsets.symmetric(vertical: 4.px, horizontal: 16.px),
+      hintStyle: Theme.of(Get.context!).textTheme.titleMedium,
+      disabledBorder: border(color: Theme.of(Get.context!).colorScheme.surface),
+      border: border(color: Theme.of(Get.context!).colorScheme.surface),
+      errorBorder: border(color: Theme.of(Get.context!).colorScheme.surface),
+      enabledBorder: border(color: Theme.of(Get.context!).colorScheme.surface),
+      focusedErrorBorder: border(),
+      focusedBorder: border(),
+    );
+  }
+
+  static border({Color? color}) {
+    return OutlineInputBorder(
+      borderSide: BorderSide(
+          color: color ?? Theme.of(Get.context!).primaryColor, width: 2.px),
+      borderRadius: BorderRadius.circular(14.px),
+    );
+  }
+
   static Widget commonTextFieldForLoginSignUP(
       {double? elevation,
       String? hintText,

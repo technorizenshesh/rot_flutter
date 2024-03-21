@@ -57,6 +57,7 @@ abstract class Routes {
   static const INVITE_COLLABORATOR_CHOOSE_A_ROLE_SEND_INVITATION =
       _Paths.INVITE_COLLABORATOR_CHOOSE_A_ROLE_SEND_INVITATION;
   static const ADD_NEW_ACCOUNT = _Paths.ADD_NEW_ACCOUNT;
+  static const ADD_NEW_CARD = _Paths.ADD_NEW_CARD;
   static const BANK_INFORMATION = _Paths.BANK_INFORMATION;
   static const ADD_NEW_BANK = _Paths.ADD_NEW_BANK;
   static const TWO_STEP_VERIFICATION_TWO = _Paths.TWO_STEP_VERIFICATION_TWO;
@@ -146,6 +147,7 @@ abstract class _Paths {
   static const TWO_STEP_VERIFICATION_TWO = '/two-step-verification-two';
   static const TWO_STEP_VERIFICATION_OTP = '/two-step-verification-otp';
   static const WALLET = '/wallet';
+  static const ADD_NEW_CARD = '/add-new-card';
   static const RECHARGE = '/recharge';
   static const RECHARGE_SUMMARY = '/recharge-summary';
   static const RECHARGE_DONE = '/recharge-done';
