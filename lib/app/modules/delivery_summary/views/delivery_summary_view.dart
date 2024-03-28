@@ -64,7 +64,7 @@ class DeliverySummaryView extends GetView<DeliverySummaryController> {
                           ?.copyWith(fontSize: 12.px),
                     ),
                     trailing: Text(
-                      '\$ 3,69',
+                      '\$ 3.69',
                       style: Theme.of(Get.context!)
                           .textTheme
                           .titleMedium
@@ -84,7 +84,7 @@ class DeliverySummaryView extends GetView<DeliverySummaryController> {
                           ?.copyWith(fontSize: 12.px),
                     ),
                     trailing: Text(
-                      '\$ 3,69',
+                      '\$ 3.69',
                       style: Theme.of(Get.context!)
                           .textTheme
                           .titleMedium
@@ -108,7 +108,7 @@ class DeliverySummaryView extends GetView<DeliverySummaryController> {
                             ?.copyWith(fontSize: 14.px),
                       ),
                       Text(
-                        '\$ ${int.parse(controller.productDetailsModel.data!.price!) + 738}',
+                        '\$ ${int.parse(controller.productDetailsModel.data!.price!) + 7.38}',
                         style: Theme.of(Get.context!)
                             .textTheme
                             .displayMedium
@@ -120,71 +120,228 @@ class DeliverySummaryView extends GetView<DeliverySummaryController> {
               ),
             ),
           ),
-          ListView.builder(
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: controller.list.length,
-            itemBuilder: (context, index) => Obx(() {
-              controller.count.value;
-              return Padding(
-                padding: EdgeInsets.symmetric(vertical: 4.px),
-                child: Theme(
-                  data: ThemeData(
-                    unselectedWidgetColor: Theme.of(Get.context!)
-                        .primaryColor, // Set the inactive color here
-                  ),
-                  child: ListTile(
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 10.px),
-                        Text(
-                          controller.list[index]['subtitle'],
-                          maxLines: 3,
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 4.px),
+            child: Theme(
+              data: ThemeData(
+                unselectedWidgetColor: Theme.of(Get.context!)
+                    .primaryColor, // Set the inactive color here
+              ),
+              child: ListTile(
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 10.px),
+                    Text(
+                      StringConstants.myAddress.tr,
+                      maxLines: 1,
+                      style: Theme.of(Get.context!)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(
+                            fontSize: 16.px,
+                          ),
+                    ),
+                    SizedBox(height: 4.px),
+                    InkWell(
+                      onTap: () => controller.clickOnToEdit(0),
+                      borderRadius: BorderRadius.circular(8.px),
+                      child: Padding(
+                        padding: EdgeInsets.all(8.px),
+                        child: Text(
+                          StringConstants.toEdit.tr,
                           style: Theme.of(Get.context!)
                               .textTheme
                               .displayMedium
                               ?.copyWith(
-                                fontSize: 16.px,
-                              ),
+                                  fontSize: 14.px,
+                                  color: Theme.of(context).primaryColor),
                         ),
-                        SizedBox(height: 4.px),
-                        InkWell(
-                          onTap: () => controller.clickOnToEdit(),
-                          borderRadius: BorderRadius.circular(8.px),
-                          child: Padding(
-                            padding: EdgeInsets.all(8.px),
-                            child: Text(
-                              StringConstants.toEdit.tr,
-                              style: Theme.of(Get.context!)
-                                  .textTheme
-                                  .displayMedium
-                                  ?.copyWith(
-                                      fontSize: 14.px,
-                                      color: Theme.of(context).primaryColor),
+                      ),
+                    ),
+                  ],
+                ),
+                title: Text(
+                  'PS CLOSER TELECOM, Plaza\nBatallas 3-LOCAL 2, 47005\nValladolid, Spain',
+                  style: Theme.of(Get.context!).textTheme.titleMedium?.copyWith(
+                        fontSize: 14.px,
+                      ),
+                ),
+                leading: CommonWidgets.appIcons(
+                    height: 34.px,
+                    width: 34.px,
+                    assetName: IconConstants.icLocation),
+              ),
+            ),
+          ),
+          controller.parameters['method'] == 'Card'
+              ? Padding(
+                  padding: EdgeInsets.symmetric(vertical: 4.px),
+                  child: Theme(
+                    data: ThemeData(
+                      unselectedWidgetColor: Theme.of(Get.context!)
+                          .primaryColor, // Set the inactive color here
+                    ),
+                    child: ListTile(
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 10.px),
+                          Text(
+                            "Card *************${controller.parameters['card_number'].toString().substring(10, 14)}",
+                            maxLines: 1,
+                            style: Theme.of(Get.context!)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 16.px,
+                                ),
+                          ),
+                          SizedBox(height: 4.px),
+                          InkWell(
+                            onTap: () => controller.clickOnToEdit(1),
+                            borderRadius: BorderRadius.circular(8.px),
+                            child: Padding(
+                              padding: EdgeInsets.all(8.px),
+                              child: Text(
+                                StringConstants.toEdit.tr,
+                                style: Theme.of(Get.context!)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(
+                                        fontSize: 14.px,
+                                        color: Theme.of(context).primaryColor),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
+                      title: Text(
+                        'Payment method',
+                        style: Theme.of(Get.context!)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(
+                              fontSize: 14.px,
+                            ),
+                      ),
+                      leading: CommonWidgets.appIcons(
+                          height: 34.px,
+                          width: 34.px,
+                          assetName: IconConstants.icCardPayment),
                     ),
-                    title: Text(
-                      controller.list[index]['title'],
-                      style: Theme.of(Get.context!)
-                          .textTheme
-                          .titleMedium
-                          ?.copyWith(
-                            fontSize: 14.px,
+                  ),
+                )
+              : Padding(
+                  padding: EdgeInsets.symmetric(vertical: 4.px),
+                  child: Theme(
+                    data: ThemeData(
+                      unselectedWidgetColor: Theme.of(Get.context!)
+                          .primaryColor, // Set the inactive color here
+                    ),
+                    child: ListTile(
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 10.px),
+                          Text(
+                            'Wallet  ${controller.parameters['amount']}',
+                            maxLines: 1,
+                            style: Theme.of(Get.context!)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 16.px,
+                                ),
                           ),
+                          SizedBox(height: 4.px),
+                          InkWell(
+                            onTap: () => controller.clickOnToEdit(1),
+                            borderRadius: BorderRadius.circular(8.px),
+                            child: Padding(
+                              padding: EdgeInsets.all(8.px),
+                              child: Text(
+                                StringConstants.toEdit.tr,
+                                style: Theme.of(Get.context!)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(
+                                        fontSize: 14.px,
+                                        color: Theme.of(context).primaryColor),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      title: Text(
+                        'Payment method',
+                        style: Theme.of(Get.context!)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(
+                              fontSize: 14.px,
+                            ),
+                      ),
+                      leading: CommonWidgets.appIcons(
+                          height: 34.px,
+                          width: 34.px,
+                          assetName: IconConstants.icWalletPayment),
                     ),
-                    leading: CommonWidgets.appIcons(
-                        height: 34.px,
-                        width: 34.px,
-                        assetName: controller.list[index]['icon']),
                   ),
                 ),
-              );
-            }),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 4.px),
+            child: Theme(
+              data: ThemeData(
+                unselectedWidgetColor: Theme.of(Get.context!)
+                    .primaryColor, // Set the inactive color here
+              ),
+              child: ListTile(
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 10.px),
+                    Text(
+                      StringConstants.myAddress.tr,
+                      maxLines: 1,
+                      style: Theme.of(Get.context!)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(
+                            fontSize: 16.px,
+                          ),
+                    ),
+                    SizedBox(height: 4.px),
+                    InkWell(
+                      onTap: () => controller.clickOnToEdit(2),
+                      borderRadius: BorderRadius.circular(8.px),
+                      child: Padding(
+                        padding: EdgeInsets.all(8.px),
+                        child: Text(
+                          StringConstants.toEdit.tr,
+                          style: Theme.of(Get.context!)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                  fontSize: 14.px,
+                                  color: Theme.of(context).primaryColor),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                title: Text(
+                  'Promotional code',
+                  style: Theme.of(Get.context!).textTheme.titleMedium?.copyWith(
+                        fontSize: 14.px,
+                      ),
+                ),
+                leading: CommonWidgets.appIcons(
+                    height: 34.px,
+                    width: 34.px,
+                    assetName: IconConstants.icPromotionalCode),
+              ),
+            ),
           ),
           Padding(
             padding: EdgeInsets.all(16.px),

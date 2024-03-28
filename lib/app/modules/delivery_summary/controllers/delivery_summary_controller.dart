@@ -10,7 +10,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/apis/api_models/get_product_details_model.dart';
-import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 
 class DeliverySummaryController extends GetxController {
@@ -26,25 +25,6 @@ class DeliverySummaryController extends GetxController {
 
   Map<String, dynamic> parameters = Get.parameters;
   final btnLoading = false.obs;
-
-  List list = [
-    {
-      'title': 'Stimulated delivery in 3-7 days ',
-      'subtitle':
-          'PS CLOSER TELECOM, Plaza\nBatallas 3-LOCAL 2, 47005\nValladolid, Spain',
-      'icon': IconConstants.icLocation,
-    },
-    {
-      'subtitle': 'Card **** **** 4744',
-      'title': 'Payment method',
-      'icon': IconConstants.icCardPayment,
-    },
-    {
-      'title': 'Promotional code',
-      'subtitle': StringConstants.myAddress.tr,
-      'icon': IconConstants.icPromotionalCode,
-    },
-  ];
   Map<String, dynamic> buyQueryParameters = {};
   final selectedValue = StringConstants.inPerson.tr.obs;
 
@@ -72,8 +52,12 @@ class DeliverySummaryController extends GetxController {
     buyProductDeliveryApi();
   }
 
-  clickOnToEdit() {
-    Get.toNamed(Routes.EDIT_ADDRESS);
+  clickOnToEdit(int index) {
+    if (index == 1) {
+      Get.back();
+    } else {
+      Get.toNamed(Routes.EDIT_ADDRESS);
+    }
   }
 
   Future<void> buyProductDeliveryApi() async {

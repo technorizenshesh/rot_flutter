@@ -105,7 +105,9 @@ class InWindView extends GetView<SalesController> {
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8.px),
                     child: InkWell(
-                      onTap: () => controller.clickOnCard(index: index),
+                      onTap: () => controller.clickOnCard(
+                          productId: controller.inWindProductList[index].id
+                              .toString()),
                       borderRadius: BorderRadius.circular(8.px),
                       child: Column(
                         children: [

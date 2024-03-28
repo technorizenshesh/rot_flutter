@@ -178,9 +178,7 @@ class RechargeView extends GetView<RechargeController> {
                                               Theme.of(context).primaryColor),
                                 ),
                                 title: Text(
-                                  item.cardNumber!.trim().length == 16
-                                      ? '************${item.cardNumber.toString().substring(11, 15)}'
-                                      : '${item.cardNumber}',
+                                  "*************${item.cardNumber.toString().substring(item.cardNumber!.length - 4, item.cardNumber!.length)}",
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleMedium

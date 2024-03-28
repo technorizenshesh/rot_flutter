@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rot_application/app/data/apis/api_models/get_product_delivery_model.dart';
+import 'package:rot_application/app/routes/app_pages.dart';
 
 import '../../../../common/common_methods.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
@@ -83,7 +84,13 @@ class SalesController extends GetxController
 
   void increment() => count.value++;
 
-  clickOnCard({required int index}) {}
+  clickOnCard({required String productId}) {
+    Map<String, String> data = {
+      ApiKeyConstants.userId: parameters[ApiKeyConstants.userId]!,
+      ApiKeyConstants.productId: productId
+    };
+    Get.toNamed(Routes.MY_ADD_PRODUCT_DETAIL, parameters: data);
+  }
 
   Future<void> getPublishedProductApi() async {
     getPublishedProductQueryParams = {

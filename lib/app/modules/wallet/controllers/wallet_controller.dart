@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:rot_application/app/data/apis/api_constants/api_key_constants.dart';
 
+import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/user_model.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 import '../../../routes/app_pages.dart';
@@ -8,6 +10,7 @@ import '../../../routes/app_pages.dart';
 class WalletController extends GetxController {
   final count = 0.obs;
   Map<String, String?> parameters = Get.parameters;
+  final walletAmount = '0'.obs;
   List listOfListTile = [
     {
       'title': StringConstants.historyOfMovements,
@@ -18,15 +21,12 @@ class WalletController extends GetxController {
       'icon': IconConstants.icBankInformation
     },
     {'title': StringConstants.converter, 'icon': IconConstants.icConverter},
-    {
-      'title': StringConstants.addNewAccount,
-      'icon': IconConstants.icAddNewAccount
-    },
   ];
 
   @override
   void onInit() {
     super.onInit();
+    getProfileApi();
   }
 
   @override
@@ -47,15 +47,11 @@ class WalletController extends GetxController {
     };
     switch (index) {
       case 0:
-        Get.toNamed(Routes.HISTORY_OF_MOVEMENTS);
+        Get.toNamed(Routes.HISTORY_OF_MOVEMENTS, parameters: data);
       case 1:
         Get.toNamed(Routes.BANK_INFORMATION, parameters: data);
       case 2:
         Get.toNamed(Routes.CONVERTER);
-      // case 3:
-      //   Get.toNamed(Routes.ADD_NEW_ACCOUNT);
-      case 3:
-        Get.toNamed(Routes.ADD_NEW_CARD, parameters: data);
     }
   }
 
@@ -69,14 +65,26 @@ class WalletController extends GetxController {
 
   clickOnCharge() {}
 
-  clickOnRecharge() {
+  clickOnRecharge() async {
     Map<String, String> data = {
       ApiKeyConstants.userId: parameters[ApiKeyConstants.userId]!
     };
-    Get.toNamed(Routes.RECHARGE, parameters: data);
+    await Get.toNamed(Routes.RECHARGE, parameters: data);
+    getProfileApi();
   }
 
   clickOnAccounts() {
     Get.toNamed(Routes.ACCOUNTS);
+  }
+
+  Future<void> getProfileApi() async {
+    Map<String, String> queryParameters = {
+      ApiKeyConstants.userId: parameters[ApiKeyConstants.userId]!,
+    };
+    UserModel? userModel =
+        await ApiMethods.getProfile(queryParameters: queryParameters);
+    if (userModel != null) {
+      walletAmount.value = userModel.userData!.wallet ?? '0';
+    }
   }
 }

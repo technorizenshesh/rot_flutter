@@ -117,15 +117,23 @@ class RechargeSummaryView extends GetView<RechargeSummaryController> {
               ),
             ),
             SizedBox(height: 10.px),
-            CommonWidgets.commonElevatedButton(
-              onPressed: () => controller.clickOnRecharge(),
-              childText: Text(
-                StringConstants.recharge,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(fontWeight: FontWeight.w700),
-              ),
+            Obx(
+              () => controller.btnLoading.value
+                  ? Container(
+                      height: 50.px,
+                      alignment: Alignment.center,
+                      child: const CircularProgressIndicator(),
+                    )
+                  : CommonWidgets.commonElevatedButton(
+                      onPressed: () => controller.clickOnRecharge(),
+                      childText: Text(
+                        StringConstants.recharge,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall
+                            ?.copyWith(fontWeight: FontWeight.w700),
+                      ),
+                    ),
             ),
             SizedBox(height: 10.px),
           ],

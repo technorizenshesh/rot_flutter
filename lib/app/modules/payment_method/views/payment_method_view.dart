@@ -5,6 +5,7 @@ import 'package:rot_application/app/data/constants/string_constants.dart';
 import 'package:rot_application/common/common_widgets.dart';
 
 import '../../../../common/common_methods.dart';
+import '../../../data/apis/api_models/get_card_list_model.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../controllers/payment_method_controller.dart';
 
@@ -25,11 +26,16 @@ class PaymentMethodView extends GetView<PaymentMethodController> {
               Row(children: [
                 Expanded(
                   flex: 1,
-                  child: CommonWidgets.appIcons(
-                    assetName: 'assets/un_used_images/image_head _phones.png',
-                    height: 100.px,
-                    borderRadius: 14.px,
-                  ),
+                  child: CommonWidgets.imageView(
+                      image: controller.productDetailsModel.data!.productImage!
+                              .isNotEmpty
+                          ? controller.productDetailsModel.data!
+                                  .productImage![0].image ??
+                              ''
+                          : '',
+                      height: 100.px,
+                      radius: 14.px,
+                      fit: BoxFit.fill),
                 ),
                 SizedBox(width: 10.px),
                 Expanded(
@@ -39,7 +45,7 @@ class PaymentMethodView extends GetView<PaymentMethodController> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Mackbook Pro',
+                        controller.productDetailsModel.data!.productName ?? '',
                         style: Theme.of(context)
                             .textTheme
                             .headlineMedium
@@ -55,7 +61,7 @@ class PaymentMethodView extends GetView<PaymentMethodController> {
                         children: [
                           Flexible(
                             child: Text(
-                              '${CommonMethods.cur}949.00',
+                              '${CommonMethods.cur}${controller.productDetailsModel.data!.price}',
                               style: Theme.of(context)
                                   .textTheme
                                   .displayMedium
@@ -65,7 +71,7 @@ class PaymentMethodView extends GetView<PaymentMethodController> {
                                   ),
                             ),
                           ),
-                          SizedBox(width: 10.px),
+                          /* SizedBox(width: 10.px),
                           Flexible(
                             child: Text(
                               '${CommonMethods.cur}465.00',
@@ -79,7 +85,7 @@ class PaymentMethodView extends GetView<PaymentMethodController> {
                                         .onSecondary,
                                   ),
                             ),
-                          ),
+                          ),*/
                         ],
                       ),
                     ],
@@ -91,29 +97,28 @@ class PaymentMethodView extends GetView<PaymentMethodController> {
                 ),
               ]),
               SizedBox(height: 20.px),
-              Card(
-                elevation: .4.px,
-                child: Padding(
-                  padding: EdgeInsets.all(8.px),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: controller.listOfListTile.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          ListTile(
+              Text(
+                'Select payment method',
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
+              Column(
+                children: [
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.px),
+                    ),
+                    elevation: .4.px,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: controller.listOfListTile.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.only(
+                              left: 8.px, right: 8.px, top: 5.px, bottom: 5.px),
+                          child: ListTile(
                             onTap: () =>
                                 controller.clickOnListTile(index: index),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.px),
-                              side: BorderSide(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSecondary
-                                    .withOpacity(.2.px),
-                              ),
-                            ),
                             leading: CommonWidgets.appIcons(
                                 assetName: controller.listOfListTile[index]
                                     ['icon']),
@@ -131,12 +136,15 @@ class PaymentMethodView extends GetView<PaymentMethodController> {
                               color: Theme.of(context).primaryColor,
                             ),
                           ),
-                          getDetail(index: index),
-                        ],
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
-                ),
+                  Card(
+                    elevation: .4.px,
+                    child: getDetail(index: controller.upValue.value),
+                  ),
+                ],
               ),
               SizedBox(height: 20.px),
               CommonWidgets.commonElevatedButton(
@@ -169,48 +177,75 @@ class PaymentMethodView extends GetView<PaymentMethodController> {
             ),
             child: Column(
               children: [
-                RadioListTile<String>(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.px),
-                  ),
-                  visualDensity: VisualDensity.compact,
-                  secondary: Image.asset(
-                      'assets/un_used_images/logos_mastercard.png',
-                      height: 24.px,
-                      width: 24.px),
-                  controlAffinity: ListTileControlAffinity.trailing,
-                  title: Text(
-                    'Axis Bank **** **** **** 8395',
-                    style:
-                        Theme.of(Get.context!).textTheme.titleSmall?.copyWith(
-                              fontSize: 10.px,
-                            ),
-                  ),
-                  value: "Hey",
-                  groupValue: "newGroup",
-                  onChanged: (value) {},
-                ),
-                RadioListTile<String>(
-                  visualDensity: VisualDensity.compact,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.px),
-                  ),
-                  secondary: Image.asset('assets/un_used_images/logos_visa.png',
-                      height: 24.px, width: 24.px),
-                  controlAffinity: ListTileControlAffinity.trailing,
-                  title: Text(
-                    'HDFC Bank **** **** **** 6246',
-                    style:
-                        Theme.of(Get.context!).textTheme.titleSmall?.copyWith(
-                              fontSize: 10.px,
-                            ),
-                  ),
-                  value: "Hey",
-                  groupValue: "newGroup",
-                  onChanged: (value) {},
-                ),
+                Obx(() => controller.cardDataPresent.value
+                    ? Obx(() {
+                        controller.count.value;
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: controller.cardList.length,
+                          itemBuilder: (context, index) {
+                            CardListData item = controller.cardList[index];
+                            return Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 4.px, horizontal: 4),
+                              child: ListTile(
+                                onTap: () => controller.changeSelectedCardIndex(
+                                    index: index),
+                                /* shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.px),
+                                  side: BorderSide(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSecondary
+                                        .withOpacity(.4.px),
+                                  ),
+                                ),*/
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 10.px, vertical: 0.px),
+                                leading: CommonWidgets.appIcons(
+                                    assetName: index % 2 == 0
+                                        ? 'assets/un_used_images/logos_visa.png'
+                                        : 'assets/un_used_images/logos_mastercard.png',
+                                    height: 30.px,
+                                    width: 30.px,
+                                    fit: BoxFit.fill,
+                                    borderRadius: 0.px),
+                                trailing: Icon(
+                                  controller.selectedCard.value == index
+                                      ? Icons.circle
+                                      : Icons.circle_outlined,
+                                  color: Colors.teal,
+                                  size: 20,
+                                ),
+                                title: Text(
+                                  "*************${item.cardNumber.toString().substring(item.cardNumber!.length - 4, item.cardNumber!.length)}",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(fontSize: 14.px),
+                                ),
+                                subtitle: Text(
+                                  item.cardHolderName ?? '',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(fontSize: 12.px),
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      })
+                    : SizedBox(
+                        height: 100.px,
+                        width: 100.px,
+                        child: CommonWidgets.dataNotFound())),
+                SizedBox(height: 20.px),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    controller.clickOnNewCard();
+                  },
                   borderRadius: BorderRadius.circular(15.px),
                   child: Padding(
                     padding: EdgeInsets.symmetric(
@@ -237,7 +272,7 @@ class PaymentMethodView extends GetView<PaymentMethodController> {
             ),
           ),
           SizedBox(height: 20.px),
-          Text(
+          /*   Text(
             StringConstants.cardNumber,
             style: Theme.of(Get.context!)
                 .textTheme
@@ -324,6 +359,7 @@ class PaymentMethodView extends GetView<PaymentMethodController> {
                 .displayMedium
                 ?.copyWith(fontSize: 16.px),
           ),
+
           SizedBox(height: 20.px),
           CommonWidgets.commonTextFieldForLoginSignUP(
             obscureText: controller.hideCvv.value,
@@ -353,7 +389,7 @@ class PaymentMethodView extends GetView<PaymentMethodController> {
               ),
             ),
           ),
-          SizedBox(height: 40.px),
+          SizedBox(height: 40.px), */
         ],
       );
     } else if (1 == index && controller.upValue.value == index) {
@@ -440,6 +476,7 @@ class PaymentMethodView extends GetView<PaymentMethodController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
+                flex: 1,
                 child: Text(
                   StringConstants.youPay,
                   style: Theme.of(Get.context!)
@@ -449,6 +486,7 @@ class PaymentMethodView extends GetView<PaymentMethodController> {
                 ),
               ),
               Expanded(
+                flex: 3,
                 child: Text.rich(
                   textAlign: TextAlign.center,
                   TextSpan(children: [
@@ -463,7 +501,7 @@ class PaymentMethodView extends GetView<PaymentMethodController> {
                           ),
                     ),
                     TextSpan(
-                      text: '0',
+                      text: controller.productDetailsModel.data!.price,
                       style: Theme.of(Get.context!)
                           .textTheme
                           .displayMedium
@@ -483,6 +521,7 @@ class PaymentMethodView extends GetView<PaymentMethodController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
+                flex: 2,
                 child: Text(
                   StringConstants.available,
                   style: Theme.of(Get.context!)
@@ -492,30 +531,36 @@ class PaymentMethodView extends GetView<PaymentMethodController> {
                 ),
               ),
               Expanded(
-                child: Text.rich(
-                  textAlign: TextAlign.center,
-                  TextSpan(children: [
-                    TextSpan(
-                      text: CommonMethods.cur,
-                      style: Theme.of(Get.context!)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(
-                            fontSize: 14.px,
-                            color: Theme.of(Get.context!).primaryColor,
-                          ),
+                flex: 3,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 10.px),
+                      child: Text(
+                        CommonMethods.cur,
+                        style: Theme.of(Get.context!)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(
+                              fontSize: 14.px,
+                              color: Theme.of(Get.context!).primaryColor,
+                            ),
+                      ),
                     ),
-                    TextSpan(
-                      text: '100',
-                      style: Theme.of(Get.context!)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(
-                            fontSize: 60.px,
-                            color: Theme.of(Get.context!).primaryColor,
-                          ),
-                    ),
-                  ]),
+                    Obx(
+                      () => Text(
+                        controller.walletAmount.toString(),
+                        style: Theme.of(Get.context!)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(
+                              fontSize: 60.px,
+                              color: Theme.of(Get.context!).primaryColor,
+                            ),
+                      ),
+                    )
+                  ],
                 ),
               ),
               const Expanded(child: SizedBox()),

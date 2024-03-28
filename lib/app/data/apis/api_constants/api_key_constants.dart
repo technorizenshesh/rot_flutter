@@ -47,6 +47,10 @@ class ApiKeyConstants {
   static const String cardNumber = 'card_number';
   static const String cardHolderName = 'card_holder_name';
   static const String expireDate = 'expire_date';
+  static const String expiryYear = 'expiry_year';
+  static const String expiryMonth = 'expiry_month';
   static const String cvc = 'cvc';
+  static const String cvcCode = 'cvc_code';
   static const String wallet = 'wallet';
+  static const String cardId = 'card_id';
 }

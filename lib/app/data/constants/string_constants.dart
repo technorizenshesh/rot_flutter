@@ -48,6 +48,7 @@ class StringConstants {
   static const String sales = 'Sales';
   static const String purchases = 'Purchases';
   static const String wallet = 'Wallet';
+  static const String delete = 'Delete';
   static const String subscription = 'Subscription';
   static const String generalSetting = 'General Setting';
   static const String changePassword = 'Change Password';
@@ -193,6 +194,7 @@ class StringConstants {
   static const String buy = 'Buy';
   static const String learnMore = 'Learn More';
   static const String sell = 'Sell';
+  static const String sellFaster = 'Sell Faster';
   static const String enableShipping = 'Enable Shipping';
   static const String keepExploring = 'Keep exploring';
   static const String ongoing = 'Ongoing';

@@ -157,7 +157,6 @@ class IconConstants {
   static const String icWalletPayment = 'assets/icons/ic_wallet_payment.png';
   static const String icRouting = 'assets/icons/ic_routing.png';
   static const String icInPerson = 'assets/icons/ic_in_person.png';
-
   static const String icIntimacyManagement =
       'assets/icons/ic_intimacy_management.png';
   static const String icStressManagement =
@@ -174,4 +173,9 @@ class IconConstants {
   static const String icShippingDone = 'assets/icons/ic_shipping_done.png';
   static const String icFlagGroup = 'assets/icons/ic_flag_group.png';
   static const String icFlag1 = 'assets/icons/ic_flag1.png';
+  static const String icFlagBtc = 'assets/icons/ic_flag_btc.png';
+  static const String icFlagEur = 'assets/icons/ic_flag_eur.png';
+  static const String icFlagGpd = 'assets/icons/ic_flag_gpd.png';
+  static const String icFlagUsd = 'assets/icons/ic_flag_usd.png';
+  static const String icGreyCard = 'assets/icons/ic_grey_card.png';
 }

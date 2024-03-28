@@ -18,6 +18,7 @@ class ApiUrlConstants {
   static const String endPointOfGetAllProduct = '/rot/api/get_all_product';
   static const String endPointOfGetProductDetail =
       '/rot/api/get_product_details';
+  static const String endPointOfDeleteProduct = '/rot/api/delete_product';
   static const String endPointOfProductLikeUnlike =
       '/rot/api/product_like_unlike';
   static const String endPointOfGetFavoriteProduct =
@@ -49,5 +50,10 @@ class ApiUrlConstants {
   static const String endPointOfAddReview = '/rot/api/add_review';
   static const String endPointOfGetReview = '/rot/api/get_review';
   static const String endPointOfAddCard = '/rot/api/add_card';
+  static const String endPointOfDeleteCard = '/rot/api/delete_card';
   static const String endPointOfGetCard = '/rot/api/get_card';
+  static const String endPointOfGetToken = '/rot/api/get_token';
+  static const String endPointOfAddWallet = '/rot/api/add_wallet';
+  static const String endPointOfGetWalletHistory =
+      '/rot/api/get_wallet_history';
 }

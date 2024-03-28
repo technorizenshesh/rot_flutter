@@ -6,7 +6,6 @@ import 'package:rot_application/app/data/constants/string_constants.dart';
 import 'package:rot_application/common/common_methods.dart';
 import 'package:rot_application/common/common_widgets.dart';
 
-import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../controllers/wallet_controller.dart';
 
 class WalletView extends GetView<WalletController> {
@@ -38,29 +37,31 @@ class WalletView extends GetView<WalletController> {
                               ),
                     ),
                     SizedBox(height: 10.px),
-                    Text.rich(
-                      TextSpan(children: [
-                        TextSpan(
-                          text: CommonMethods.cur,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium
-                              ?.copyWith(
-                                fontSize: 14.px,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                        ),
-                        TextSpan(
-                          text: controller.parameters[ApiKeyConstants.wallet],
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium
-                              ?.copyWith(
-                                fontSize: 60.px,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                        ),
-                      ]),
+                    Obx(
+                      () => Text.rich(
+                        TextSpan(children: [
+                          TextSpan(
+                            text: CommonMethods.cur,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 14.px,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                          ),
+                          TextSpan(
+                            text: controller.walletAmount.value,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 60.px,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                          ),
+                        ]),
+                      ),
                     ),
                     SizedBox(height: 10.px),
                     CommonWidgets.commonElevatedButton(
@@ -96,7 +97,7 @@ class WalletView extends GetView<WalletController> {
                             ),
                             card(
                               assetName: IconConstants.icSendMoney,
-                              text: StringConstants.sendMoney,
+                              text: StringConstants.send,
                               onTap: () => controller.clickOnSendMoney(),
                             ),
                             card(

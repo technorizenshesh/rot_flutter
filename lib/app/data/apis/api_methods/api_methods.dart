@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:rot_application/app/data/apis/api_models/get_add_wallet_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_card_list_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_chat_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_conversation_model.dart';
@@ -10,6 +11,8 @@ import 'package:rot_application/app/data/apis/api_models/get_notification_model.
 import 'package:rot_application/app/data/apis/api_models/get_product_delivery_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_review_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_simple_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_token_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_wallet_history_model.dart';
 
 import '../../../../common/http_methods.dart';
 import '../api_constants/api_url_constants.dart';
@@ -19,6 +22,8 @@ import '../api_models/get_category_model.dart';
 import '../api_models/get_city_model.dart';
 import '../api_models/get_country_model.dart';
 import '../api_models/get_currency_model.dart';
+import '../api_models/get_delete_card_model.dart';
+import '../api_models/get_delete_product_model.dart';
 import '../api_models/get_favorite_product_model.dart';
 import '../api_models/get_hash_tag_model.dart';
 import '../api_models/get_product_details_model.dart';
@@ -253,6 +258,26 @@ class ApiMethods {
       getProductDetailsModel =
           GetProductDetailsModel.fromJson(jsonDecode(response.body));
       return getProductDetailsModel;
+    }
+    return null;
+  }
+
+  ///Delete product api...
+  static Future<DeleteProductModel?> deleteProductByProductId({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    DeleteProductModel? deleteProductModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfDeleteProduct,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      deleteProductModel =
+          DeleteProductModel.fromJson(jsonDecode(response.body));
+      return deleteProductModel;
     }
     return null;
   }
@@ -684,6 +709,25 @@ class ApiMethods {
     return null;
   }
 
+  ///Delete Card .....
+  static Future<DeleteCardModel?> deleteCardApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    DeleteCardModel? deleteCardModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: bodyParams,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfDeleteCard,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      deleteCardModel = DeleteCardModel.fromJson(jsonDecode(response.body));
+      return deleteCardModel;
+    }
+    return null;
+  }
+
   /// Get All Card List Model .....
   static Future<CardListModel?> getCardListApi({
     void Function(int)? checkResponse,
@@ -699,6 +743,64 @@ class ApiMethods {
     if (response != null) {
       cardListModel = CardListModel.fromJson(jsonDecode(response.body));
       return cardListModel;
+    }
+    return null;
+  }
+
+  /// Get Token for add wallet amount  Model .....
+  static Future<TokenModel?> getTokenApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    TokenModel? tokenModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: bodyParams,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetToken,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      tokenModel = TokenModel.fromJson(jsonDecode(response.body));
+      return tokenModel;
+    }
+    return null;
+  }
+
+  /// Add to wallet amount Model .....
+  static Future<AddWalletModel?> addToWalletAmountApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    AddWalletModel? addWalletModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: bodyParams,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfAddWallet,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      addWalletModel = AddWalletModel.fromJson(jsonDecode(response.body));
+      return addWalletModel;
+    }
+    return null;
+  }
+
+  /// Get wallet history Model .....
+  static Future<WalletHistoryModel?> getWalletHistoryApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    WalletHistoryModel? walletHistoryModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: bodyParams,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetWalletHistory,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      walletHistoryModel =
+          WalletHistoryModel.fromJson(jsonDecode(response.body));
+      return walletHistoryModel;
     }
     return null;
   }

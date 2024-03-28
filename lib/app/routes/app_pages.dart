@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:rot_application/app/modules/add_new_card/bindings/AddNewCardBinding.dart';
 import 'package:rot_application/app/modules/add_new_card/views/AddNewCardView.dart';
+import 'package:rot_application/app/modules/my_add_product_detail/bindings/my_add_product_binding.dart';
+import 'package:rot_application/app/modules/my_add_product_detail/views/my_add_product_detail_view.dart';
 
 import '../modules/accounts/bindings/accounts_binding.dart';
 import '../modules/accounts/views/accounts_view.dart';
@@ -285,6 +287,11 @@ class AppPages {
       name: _Paths.PRODUCT_DETAIL,
       page: () => const ProductDetailView(),
       binding: ProductDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.MY_ADD_PRODUCT_DETAIL,
+      page: () => const MyAddProductDetailView(),
+      binding: MyAddProductBinding(),
     ),
     GetPage(
       name: _Paths.SEARCH,

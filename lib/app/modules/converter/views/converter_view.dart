@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:rot_application/app/data/constants/image_constants.dart';
 
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/string_constants.dart';
@@ -14,6 +13,16 @@ class ConverterView extends GetView<ConverterController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonWidgets.appBar(title: StringConstants.converter.tr),
+      bottomNavigationBar: CommonWidgets.commonElevatedButton(
+          onPressed: () => controller.clickOnSave(),
+          childText: Text(
+            StringConstants.addNew,
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall
+                ?.copyWith(fontWeight: FontWeight.w700),
+          ),
+          buttonMargin: const EdgeInsets.only(bottom: 10, right: 10, left: 10)),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.px),
         child: Column(
@@ -21,66 +30,93 @@ class ConverterView extends GetView<ConverterController> {
           children: [
             SizedBox(height: 20.px),
             Text(
-              'Do you have a low balance?',
+              'Converter',
               maxLines: 1,
               style: Theme.of(context)
                   .textTheme
                   .displayMedium
-                  ?.copyWith(fontSize: 18.px),
+                  ?.copyWith(fontSize: 24.px),
             ),
             SizedBox(height: 8.px),
             Text(
-              'Make a mixed payment and complete the payment with your card or PayPal.',
+              'Use the converter to compare current values',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontSize: 12.px,
+                    fontSize: 14.px,
                   ),
               maxLines: 1,
             ),
             SizedBox(height: 20.px),
             Expanded(
               child: ListView.builder(
-                padding: EdgeInsets.zero,
-                itemCount: 1,
-                itemBuilder: (context, index) => Column(
-                  children: [
-                    ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      leading: CommonWidgets.appIcons(
-                        assetName: ImageConstants.imageLogo,
-                        height: 40.px,
-                        width: 40.px,
-                        borderRadius: 20.px,
+                  padding: EdgeInsets.zero,
+                  itemCount: controller.flagIconList.length,
+                  itemBuilder: (context, index) {
+                    String item = controller.flagIconList[index];
+                    return Dismissible(
+                      key: Key(item),
+                      direction: DismissDirection.endToStart,
+                      background: Container(
+                        color: Colors.red,
+                        alignment: Alignment.centerRight,
+                        padding: const EdgeInsets.only(right: 15),
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.delete,
+                              size: 25,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              "Borrar",
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.white),
+                            )
+                          ],
+                        ),
                       ),
-                      title: Text(
-                        'Bitcoin',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium
-                            ?.copyWith(
-                                fontSize: 16.px,
-                                color: Theme.of(context).primaryColor),
+                      onDismissed: (direction) {
+                        controller.flagIconList.removeAt(index);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('$item dismissed')));
+                      },
+                      child: ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        leading: CommonWidgets.appIcons(
+                            assetName: controller.flagIconList[index],
+                            height: 50.px,
+                            width: 50.px,
+                            borderRadius: 25.px,
+                            fit: BoxFit.fill),
+                        title: Text(
+                          controller.titleList[index],
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                  fontSize: 16.px,
+                                  color: Theme.of(context).primaryColor),
+                        ),
+                        subtitle: Text(
+                          controller.subTitleList[index],
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                  fontSize: 16.px, fontWeight: FontWeight.w400),
+                        ),
+                        trailing: Text(
+                          controller.amountList[index],
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                  fontSize: 16.px, fontWeight: FontWeight.w400),
+                        ),
                       ),
-                      subtitle: Text(
-                        'BTC',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium
-                            ?.copyWith(
-                                fontSize: 16.px, fontWeight: FontWeight.w400),
-                      ),
-                      trailing: Text(
-                        '100',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium
-                            ?.copyWith(
-                                fontSize: 16.px, fontWeight: FontWeight.w400),
-                      ),
-                    ),
-                    SizedBox(height: 4.px),
-                  ],
-                ),
-              ),
+                    );
+                  }),
             ),
           ],
         ),

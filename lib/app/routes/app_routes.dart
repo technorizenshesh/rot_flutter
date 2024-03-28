@@ -30,6 +30,7 @@ abstract class Routes {
   static const CATEGORIES = _Paths.CATEGORIES;
   static const UPLOAD = _Paths.UPLOAD;
   static const PRODUCT_DETAIL = _Paths.PRODUCT_DETAIL;
+  static const MY_ADD_PRODUCT_DETAIL = _Paths.MY_ADD_PRODUCT_DETAIL;
   static const SEARCH = _Paths.SEARCH;
   static const PRODUCTS_STATUS = _Paths.PRODUCTS_STATUS;
   static const HASHTAG = _Paths.HASHTAG;
@@ -115,6 +116,7 @@ abstract class _Paths {
   static const CATEGORIES = '/categories';
   static const UPLOAD = '/upload';
   static const PRODUCT_DETAIL = '/product-detail';
+  static const MY_ADD_PRODUCT_DETAIL = '/my-add-product-detail';
   static const SEARCH = '/search';
   static const PRODUCTS_STATUS = '/products-status';
   static const HASHTAG = '/hashtag';
