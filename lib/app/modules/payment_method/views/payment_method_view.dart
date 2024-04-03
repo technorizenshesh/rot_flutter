@@ -506,7 +506,7 @@ class PaymentMethodView extends GetView<PaymentMethodController> {
                           .textTheme
                           .displayMedium
                           ?.copyWith(
-                            fontSize: 60.px,
+                            fontSize: 50.px,
                             color: Theme.of(Get.context!).primaryColor,
                           ),
                     ),
@@ -551,11 +551,12 @@ class PaymentMethodView extends GetView<PaymentMethodController> {
                     Obx(
                       () => Text(
                         controller.walletAmount.toString(),
+                        overflow: TextOverflow.ellipsis,
                         style: Theme.of(Get.context!)
                             .textTheme
                             .displayMedium
                             ?.copyWith(
-                              fontSize: 60.px,
+                              fontSize: 50.px,
                               color: Theme.of(Get.context!).primaryColor,
                             ),
                       ),

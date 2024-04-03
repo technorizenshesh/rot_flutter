@@ -16,6 +16,7 @@ class ProfileDetailController extends GetxController
     with GetSingleTickerProviderStateMixin {
   final count = 0.obs;
   late TabController tabController;
+  final showGander = false.obs;
   final tabs = [
     const Tab(text: StringConstants.profile),
     const Tab(text: StringConstants.account),

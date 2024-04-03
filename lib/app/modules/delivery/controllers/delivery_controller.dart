@@ -68,7 +68,8 @@ class DeliveryController extends GetxController {
         Get.toNamed(Routes.DELIVERY_PURCHASES_STATUS);
       case '4.99 €':
         //Get.toNamed(Routes.DELIVERY_SUMMARY, arguments: productDetailsModel);
-        Get.toNamed(Routes.PAYMENT_METHOD, arguments: productDetailsModel);
+        Get.offAndToNamed(Routes.PAYMENT_METHOD,
+            arguments: productDetailsModel);
     }
   }
 }

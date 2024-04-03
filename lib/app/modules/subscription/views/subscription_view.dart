@@ -47,7 +47,7 @@ class SubscriptionView extends GetView<SubscriptionController> {
                 ),
                 SizedBox(height: 20.px),
                 Container(
-                  height: 200.px,
+                  height: 220.px,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(
@@ -59,7 +59,7 @@ class SubscriptionView extends GetView<SubscriptionController> {
                     padding: EdgeInsets.all(20.px),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
                           StringConstants.rot,
@@ -103,6 +103,8 @@ class SubscriptionView extends GetView<SubscriptionController> {
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
                               ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 5,
                         ),
                       ],
                     ),
@@ -110,7 +112,7 @@ class SubscriptionView extends GetView<SubscriptionController> {
                 ),
                 SizedBox(height: 20.px),
                 Container(
-                  height: 200.px,
+                  height: 220.px,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(
@@ -122,7 +124,7 @@ class SubscriptionView extends GetView<SubscriptionController> {
                     padding: EdgeInsets.all(20.px),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           StringConstants.rot,

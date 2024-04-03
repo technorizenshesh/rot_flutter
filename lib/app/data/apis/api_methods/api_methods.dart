@@ -6,6 +6,7 @@ import 'package:rot_application/app/data/apis/api_models/get_add_wallet_model.da
 import 'package:rot_application/app/data/apis/api_models/get_card_list_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_chat_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_conversation_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_help_center_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_like_users_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_notification_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_product_delivery_model.dart';
@@ -801,6 +802,25 @@ class ApiMethods {
       walletHistoryModel =
           WalletHistoryModel.fromJson(jsonDecode(response.body));
       return walletHistoryModel;
+    }
+    return null;
+  }
+
+  /// Get Help Center Model .....
+  static Future<HelpCenterModel?> getHelpCenterApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    HelpCenterModel? helpCenterModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: bodyParams,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetPages,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      helpCenterModel = HelpCenterModel.fromJson(jsonDecode(response.body));
+      return helpCenterModel;
     }
     return null;
   }

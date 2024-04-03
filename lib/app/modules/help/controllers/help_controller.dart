@@ -54,6 +54,7 @@ class HelpController extends GetxController {
   void increment() => count.value++;
 
   clickOnButton({required String buttonText}) {
+    print("Title:-----$buttonText");
     if (StringConstants.chat.tr == buttonText) {
       Get.toNamed(Routes.HELP_CHAT);
     } else {

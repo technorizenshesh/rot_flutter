@@ -56,4 +56,5 @@ class ApiUrlConstants {
   static const String endPointOfAddWallet = '/rot/api/add_wallet';
   static const String endPointOfGetWalletHistory =
       '/rot/api/get_wallet_history';
+  static const String endPointOfGetPages = '/rot/api/get_pages';
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../common/common_widgets.dart';
@@ -299,20 +300,127 @@ class AccountView extends GetView<ProfileDetailController> {
           children: [
             SizedBox(height: 20.px),
             CommonWidgets.commonTextFieldForLoginSignUP(
-              focusNode: controller.focusDob,
-              title: StringConstants.dob,
-              controller: controller.dobController,
-              isCard: controller.isDob.value,
-              hintText: StringConstants.enterYourDob,
-            ),
+                focusNode: controller.focusDob,
+                title: StringConstants.dob,
+                controller: controller.dobController,
+                isCard: controller.isDob.value,
+                hintText: StringConstants.enterYourDob,
+                readOnly: true,
+                suffixIcon: GestureDetector(
+                  onTap: () async {
+                    DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1950),
+                      //DateTime.now() - not to allow to choose before today.
+                      lastDate: DateTime(2100),
+                      builder: (BuildContext context, Widget? child) {
+                        return Theme(
+                          data: ThemeData.light().copyWith(
+                            colorScheme: const ColorScheme.light(
+                              primary:
+                                  Colors.teal, // Color of the selected date
+                              onPrimary: Colors
+                                  .white, // Text color of the selected date
+                            ),
+                            backgroundColor:
+                                Colors.white, // Background color of the dialog
+                          ),
+                          child: child!,
+                        );
+                      },
+                    );
+
+                    if (pickedDate != null) {
+                      print(
+                          pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                      String formattedDate =
+                          DateFormat('dd/MM/yyyy').format(pickedDate);
+                      print(
+                          formattedDate); //formatted date output using intl package =>  2021-03-16
+                      controller.dobController.text = formattedDate;
+                    } else {}
+                  },
+                  child: Icon(Icons.calendar_month,
+                      size: 20.px, color: Theme.of(Get.context!).hintColor),
+                )),
             SizedBox(height: 14.px),
             CommonWidgets.commonTextFieldForLoginSignUP(
-              focusNode: controller.focusGender,
-              title: StringConstants.gender,
-              controller: controller.genderController,
-              isCard: controller.isGender.value,
-              hintText: StringConstants.enterYourGender,
-            ),
+                focusNode: controller.focusGender,
+                title: StringConstants.gender,
+                controller: controller.genderController,
+                isCard: controller.isGender.value,
+                hintText: StringConstants.enterYourGender,
+                suffixIcon: GestureDetector(
+                  onTap: () async {
+                    controller.showGander.value = !controller.showGander.value;
+                  },
+                  child: Icon(
+                      controller.showGander.value
+                          ? Icons.keyboard_arrow_up_rounded
+                          : Icons.keyboard_arrow_down,
+                      size: 25.px,
+                      color: Theme.of(Get.context!).hintColor),
+                )),
+            Obx(() => controller.showGander.value
+                ? Container(
+                    margin: EdgeInsets.only(top: 2.px),
+                    padding:
+                        EdgeInsets.only(top: 5.px, bottom: 5.px, left: 15.px),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.px),
+                      border: Border.all(
+                          width: 1.px, color: Theme.of(Get.context!).hintColor),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 10.px),
+                        GestureDetector(
+                          onTap: () {
+                            controller.showGander.value = false;
+                            controller.genderController.text = 'Male';
+                          },
+                          child: SizedBox(
+                            height: 30.px,
+                            width: double.infinity,
+                            child: Text(
+                              'Male',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                    fontSize: 16.px,
+                                  ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10.px),
+                        GestureDetector(
+                          onTap: () {
+                            controller.showGander.value = false;
+                            controller.genderController.text = 'Female';
+                          },
+                          child: SizedBox(
+                            height: 30.px,
+                            width: double.infinity,
+                            child: Text(
+                              'Female',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                    fontSize: 16.px,
+                                  ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : SizedBox(
+                    height: 2.px,
+                  )),
             SizedBox(height: 14.px),
             CommonWidgets.commonTextFieldForLoginSignUP(
               focusNode: controller.focusEmail,

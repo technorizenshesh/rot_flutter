@@ -118,7 +118,9 @@ class PaymentMethodController extends GetxController {
           Map<String, String> data = {
             'method': 'Card',
             'card_id': cardList[selectedCard.value].id.toString(),
-            'card_number': cardList[selectedCard.value].cardNumber.toString()
+            'card_number': cardList[selectedCard.value].cardNumber.toString(),
+            'cvcCode': cardList[selectedCard.value].cvc.toString(),
+            'expire_Date': cardList[selectedCard.value].expireDate.toString(),
           };
           Get.toNamed(Routes.DELIVERY_SUMMARY,
               arguments: productDetailsModel, parameters: data);
@@ -131,6 +133,7 @@ class PaymentMethodController extends GetxController {
         {
           Map<String, String> data = {
             'method': 'Wallet',
+            'card_id': '',
             'amount': walletAmount.toString()
           };
           Get.toNamed(Routes.DELIVERY_SUMMARY,
