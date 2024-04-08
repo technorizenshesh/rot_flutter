@@ -17,7 +17,7 @@ import '../../../data/constants/string_constants.dart';
 class DeliverySummaryController extends GetxController {
   final Completer<GoogleMapController> mapController =
       Completer<GoogleMapController>();
-
+  final deliveryAddress = 'address'.obs;
   final count = 0.obs;
 
   double lat = 22.702;
@@ -58,11 +58,12 @@ class DeliverySummaryController extends GetxController {
     }
   }
 
-  clickOnToEdit(int index) {
+  clickOnToEdit(int index) async {
     if (index == 1) {
       Get.back();
     } else {
-      Get.toNamed(Routes.EDIT_ADDRESS);
+      String address = await Get.toNamed(Routes.EDIT_ADDRESS);
+      deliveryAddress.value = address;
     }
   }
 
@@ -102,7 +103,7 @@ class DeliverySummaryController extends GetxController {
         ApiKeyConstants.userId: userId,
         ApiKeyConstants.amount: productDetailsModel.data!.price,
         ApiKeyConstants.type: 'My address',
-        ApiKeyConstants.location: 'indore ,madhya pradesh',
+        ApiKeyConstants.location: deliveryAddress.value,
         ApiKeyConstants.paymentType: parameters['method'],
         ApiKeyConstants.token: token
       };

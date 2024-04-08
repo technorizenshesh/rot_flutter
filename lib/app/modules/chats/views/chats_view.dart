@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rot_application/app/data/apis/api_models/get_conversation_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_notification_model.dart';
@@ -235,13 +236,13 @@ class ChatNotificationView extends GetView<ChatsController> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        '2 hours\n ago',
+                        getTimeAgo(item.dateTime!),
                         style:
                             Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontSize: 14.px,
+                                  fontSize: 12.px,
                                 ),
                       ),
-                      SizedBox(height: 8.px),
+                      SizedBox(height: 5.px),
                       Container(
                         height: 24.px,
                         width: 24.px,
@@ -269,5 +270,27 @@ class ChatNotificationView extends GetView<ChatsController> {
               );
             })
         : CommonWidgets.dataNotFound();
+  }
+
+  String getTimeAgo(String timestamp) {
+    if (timestamp == null) {
+      return "";
+    }
+    DateTime dateTime = DateTime.parse(timestamp);
+    DateTime now = DateTime.now();
+    Duration difference = now.difference(dateTime);
+
+    if (difference.inDays == 0) {
+      return 'Today';
+    } else if (difference.inDays == 1) {
+      return 'Yesterday';
+    } else if (difference.inDays > 1 && difference.inDays <= 5) {
+      return '${difference.inDays} days ago';
+    } else if (difference.inDays > 5) {
+      return DateFormat('dd-MM-yyyy').format(dateTime);
+    } else {
+      // Handle future dates
+      return 'Future date';
+    }
   }
 }

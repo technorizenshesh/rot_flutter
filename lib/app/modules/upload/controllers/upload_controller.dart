@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
 import 'package:rot_application/app/data/apis/api_models/get_category_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_city_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_currency_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_state_model.dart';
+import 'package:rot_application/common/common_pickImage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/common_widgets.dart';
@@ -19,6 +19,7 @@ import '../../../data/apis/api_models/get_product_status_model.dart';
 import '../../../data/apis/api_models/get_sub_category_model.dart';
 import '../../../data/constants/string_constants.dart';
 import '../../../routes/app_pages.dart';
+import '../../nav_bar/controllers/nav_bar_controller.dart';
 
 class UploadController extends GetxController {
   final count = 0.obs;
@@ -245,14 +246,15 @@ class UploadController extends GetxController {
   }
 
   Future getImage(int i) async {
-    final picker = ImagePicker();
+    /*  final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       print("Image :-${pickedFile.path}");
       imageList[i] = File(pickedFile.path);
     } else {
       print('No image selected.');
-    }
+    } */
+    imageList[i] = await getImagePicker(Get.context!);
     increment();
   }
 
@@ -287,6 +289,7 @@ class UploadController extends GetxController {
       print("response:-${response!.body.toString()}");
       if (response != null) {
         CommonWidgets.showMyToastMessage('Add post successfully complete ...');
+        areChangeProducts.value = true;
       } else {
         CommonWidgets.showMyToastMessage('Add Post failed ...');
       }

@@ -31,7 +31,7 @@ class OtpView extends GetView<OtpController> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   CommonWidgets.commonElevatedButton(
-                    onPressed: () => controller.clickOnNextButton(),
+                    onPressed: () => controller.checkOtpType(),
                     childText: Text(
                       StringConstants.next.tr,
                       style: Theme.of(context)

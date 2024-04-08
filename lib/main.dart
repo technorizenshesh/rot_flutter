@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -14,6 +15,7 @@ Future<void> main() async {
   final String savedLanguageCode = prefs.getString('languageCode') ?? 'en';
   final String savedCountryCode = prefs.getString('countryCode') ?? 'US';
   final savedLocale = Locale(savedLanguageCode, savedCountryCode);
+  await Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
   CommonMethods.unFocsKeyBoard();
   runApp(

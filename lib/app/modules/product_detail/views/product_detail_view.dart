@@ -107,7 +107,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
                                                   decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            4.px),
+                                                            5.px),
                                                     color: controller
                                                                 .cardIndex.value ==
                                                             index

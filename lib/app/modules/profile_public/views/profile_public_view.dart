@@ -418,7 +418,7 @@ class PublishedView extends GetView<ProfilePublicController> {
                                   child: CommonWidgets.imageView(
                                     height: 170.px,
                                     image: item.productImage!.isNotEmpty
-                                        ? item.productImage![0].image ?? ""
+                                        ? item.productImage![index].image ?? ""
                                         : '',
                                   ),
                                 ),

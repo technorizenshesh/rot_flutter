@@ -10,7 +10,7 @@ class CategoriesController extends GetxController {
   final count = 0.obs;
   final inAsyncCall = false.obs;
   List<Data> data = [];
-  Map<String, String> parameters = {};
+  Map<String, String?> parameters = Get.parameters;
   GetCategoryModel? getCategoryModel;
 
   @override
@@ -34,11 +34,12 @@ class CategoriesController extends GetxController {
   void increment() => count.value++;
 
   clickOnCard({required int index}) {
-    parameters = {
+    Map<String, String> passParameters = {
       StringConstants.title: data[index].categoryName ?? '',
-      ApiKeyConstants.categoryId: data[index].id ?? ''
+      ApiKeyConstants.categoryId: data[index].id ?? '',
+      ApiKeyConstants.type: parameters[ApiKeyConstants.type] ?? ''
     };
-    Get.toNamed(Routes.SUB_CATEGORY, parameters: parameters);
+    Get.toNamed(Routes.SUB_CATEGORY, parameters: passParameters);
   }
 
   Future<void> onInitWork() async {

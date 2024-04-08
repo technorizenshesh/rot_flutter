@@ -161,11 +161,15 @@ class DeliverySummaryView extends GetView<DeliverySummaryController> {
                     ),
                   ],
                 ),
-                title: Text(
-                  'PS CLOSER TELECOM, Plaza\nBatallas 3-LOCAL 2, 47005\nValladolid, Spain',
-                  style: Theme.of(Get.context!).textTheme.titleMedium?.copyWith(
-                        fontSize: 14.px,
-                      ),
+                title: Obx(
+                  () => Text(
+                    controller.deliveryAddress.value,
+                    maxLines: 3,
+                    style:
+                        Theme.of(Get.context!).textTheme.titleMedium?.copyWith(
+                              fontSize: 14.px,
+                            ),
+                  ),
                 ),
                 leading: CommonWidgets.appIcons(
                     height: 34.px,
@@ -301,19 +305,10 @@ class DeliverySummaryView extends GetView<DeliverySummaryController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 10.px),
-                    Text(
-                      StringConstants.myAddress.tr,
-                      maxLines: 1,
-                      style: Theme.of(Get.context!)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(
-                            fontSize: 16.px,
-                          ),
-                    ),
-                    SizedBox(height: 4.px),
                     InkWell(
-                      onTap: () => controller.clickOnToEdit(2),
+                      onTap: () {
+                        //  controller.clickOnToEdit(2);
+                      },
                       borderRadius: BorderRadius.circular(8.px),
                       child: Padding(
                         padding: EdgeInsets.all(8.px),

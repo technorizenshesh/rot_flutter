@@ -50,7 +50,7 @@ class PurchasesController extends GetxController
     showLoading.value = value;
   }
 
-  clickOnOngoing() {
+  clickOnOngoing(int index) {
     showModalBottomSheet(
       context: Get.context!,
       builder: (context) => Padding(
@@ -67,14 +67,52 @@ class PurchasesController extends GetxController
             Expanded(
               child: ListView(
                 children: [
-                  listTile(
-                      assetName: 'assets/un_used_images/collage2.png',
-                      title: 'Item',
-                      subtitle: 'iphone XR'),
+                  Column(
+                    children: [
+                      SizedBox(height: 20.px),
+                      ListTile(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.px)),
+                        leading: CommonWidgets.imageView(
+                          image: pendingDeliveryList[index].image ?? '',
+                          height: 50.px,
+                          width: 50.px,
+                          fit: BoxFit.fill,
+                          radius: 0.px,
+                        ),
+                        title: Text(
+                          'Item',
+                          maxLines: 1,
+                          style: Theme.of(Get.context!)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                fontSize: 12.px,
+                              ),
+                        ),
+                        subtitle: Text(
+                          pendingDeliveryList[index].productName ?? '',
+                          maxLines: 3,
+                          style: Theme.of(Get.context!)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(
+                                fontSize: 12.px,
+                              ),
+                        ),
+                      ),
+                      SizedBox(height: 10.px),
+                      Divider(
+                        height: 2.px,
+                        color: Theme.of(Get.context!).colorScheme.onSecondary,
+                        thickness: .2.px,
+                      ),
+                    ],
+                  ),
                   listTile(
                       assetName: IconConstants.icTotal,
                       title: 'Total',
-                      subtitle: '242.16€'),
+                      subtitle: '${pendingDeliveryList[index].amount} €'),
                   listTile(
                       assetName: IconConstants.icUserImage,
                       title: 'Sold by:',
@@ -82,12 +120,11 @@ class PurchasesController extends GetxController
                   listTile(
                       assetName: IconConstants.icAddressPin,
                       title: 'Shipping address:',
-                      subtitle:
-                          'Via del corso Rome 305 98168 Villaggio Annunziata'),
+                      subtitle: '${pendingDeliveryList[index].location}'),
                   listTile(
                       assetName: IconConstants.icBankCard,
                       title: 'Payment method: ',
-                      subtitle: 'Bank card'),
+                      subtitle: '${pendingDeliveryList[index].type}'),
                   SizedBox(height: 20.px),
                 ],
               ),

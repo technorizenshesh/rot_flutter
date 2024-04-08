@@ -37,7 +37,7 @@ class UploadView extends GetView<UploadController> {
                               fontSize: 24.px,
                               color: Theme.of(context).primaryColor),
                     ),
-                    SizedBox(height: 20.px),
+                    SizedBox(height: 19.px),
                     SingleChildScrollView(
                       child: Wrap(
                         children: List.generate(4, (index) {

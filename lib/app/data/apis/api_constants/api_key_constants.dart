@@ -10,7 +10,7 @@ class ApiKeyConstants {
   static const String dob = 'dob';
   static const String image = 'image';
   static const String whatsappNumber = 'whatsapp_number';
-  static const String sellerAddress = 'seller_address ';
+  static const String sellerAddress = 'seller_address';
   static const String type = 'type';
   static const String error = 'error';
   static const String message = 'message';

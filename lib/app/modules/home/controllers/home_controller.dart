@@ -12,6 +12,7 @@ import '../../../data/apis/api_models/user_model.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 import '../../../routes/app_pages.dart';
+import '../../nav_bar/controllers/nav_bar_controller.dart';
 
 class HomeController extends GetxController {
   final count = 0.obs;
@@ -193,6 +194,7 @@ class HomeController extends GetxController {
         getAllProductModel!.data != null &&
         getAllProductModel!.data!.isNotEmpty) {
       allProductData = getAllProductModel!.data ?? [];
+      areChangeProducts.value = false;
     }
   }
 

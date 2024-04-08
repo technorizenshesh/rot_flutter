@@ -266,7 +266,7 @@ class OngoingView extends GetView<PurchasesController> {
                     ),
                     SizedBox(width: 10.px),
                     InkWell(
-                      onTap: () => controller.clickOnOngoing(),
+                      onTap: () => controller.clickOnOngoing(index),
                       borderRadius: BorderRadius.circular(10.px),
                       child: Text(
                         'Ongoing',

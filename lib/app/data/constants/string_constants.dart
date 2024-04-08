@@ -92,6 +92,8 @@ class StringConstants {
   static const String productsStatus = 'Products Status';
   static const String notification = 'Notification';
   static const String upload = 'Upload';
+  static const String photos = 'Photos';
+  static const String adDetails = 'Ad Details';
   static const String submit = 'Submit';
   static const String placeAnAdHere = 'Place an ad here.';
   static const String search = 'Search';

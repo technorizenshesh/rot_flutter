@@ -35,10 +35,10 @@ class EditAddressView extends GetView<EditAddressController> {
                     SizedBox(height: 14.px),
                     CommonWidgets.commonTextFieldForLoginSignUP(
                       focusNode: controller.focusFullName,
-                      title: StringConstants.fullName.tr,
-                      controller: controller.fullNameController,
+                      title: StringConstants.myAddress.tr,
+                      controller: controller.fullAddressController,
                       isCard: controller.isFullName.value,
-                      hintText: StringConstants.enterYourFullName.tr,
+                      hintText: 'Enter your address',
                     ),
                     SizedBox(height: 14.px),
                     CommonWidgets.commonTextFieldForLoginSignUP(
@@ -61,6 +61,7 @@ class EditAddressView extends GetView<EditAddressController> {
                       focusNode: controller.focusZipCode,
                       title: StringConstants.zipCode.tr,
                       controller: controller.zipCodeController,
+                      keyboardType: TextInputType.number,
                       isCard: controller.isZipCode.value,
                       hintText: StringConstants.enterZipCode.tr,
                     ),
@@ -79,6 +80,7 @@ class EditAddressView extends GetView<EditAddressController> {
                       controller: controller.phoneNumberController,
                       isCard: controller.isPhoneNumber.value,
                       hintText: StringConstants.enterYourPhoneNumber.tr,
+                      keyboardType: TextInputType.number,
                       horizontalPadding: 0,
                       prefixIconHorizontal: 8,
                       prefixIcon: CommonWidgets.countryCodePicker(

@@ -20,7 +20,7 @@ class EditAddressController extends GetxController {
   final isCity = false.obs;
   final isCountry = false.obs;
 
-  TextEditingController fullNameController = TextEditingController();
+  TextEditingController fullAddressController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController streetNameAndNumberController = TextEditingController();
   TextEditingController floorAndDoorNumberController = TextEditingController();
@@ -64,5 +64,11 @@ class EditAddressController extends GetxController {
     isCountry.value = focusCountry.hasFocus;
   }
 
-  clickOnSaveButton() {}
+  clickOnSaveButton() {
+    String address =
+        '${fullAddressController.text},${streetNameAndNumberController.text},${zipCodeController.text},'
+        '${cityController.text},${countryController.text},${phoneNumberController.text}';
+
+    Get.back(result: address);
+  }
 }

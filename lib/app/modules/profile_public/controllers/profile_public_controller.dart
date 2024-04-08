@@ -107,7 +107,15 @@ class ProfilePublicController extends GetxController
     Get.toNamed(Routes.RATE_US, parameters: data);
   }
 
-  clickOnCard({required int index}) {}
+  clickOnCard({required int index}) {
+    Map<String, String> parameters = {
+      ApiKeyConstants.productId: products[index].id ?? '',
+      ApiKeyConstants.otherUserId: products[index].userId ?? '',
+      'userName': getProfilePublicData!.userName ?? '',
+      'userImage': getProfilePublicData!.image ?? ''
+    };
+    Get.toNamed(Routes.PUBLIC_USER_PRODUCT_DETAILS, parameters: parameters);
+  }
 
   Future<void> getProfilePublicApi() async {
     getPublicProfileQueryParams = {

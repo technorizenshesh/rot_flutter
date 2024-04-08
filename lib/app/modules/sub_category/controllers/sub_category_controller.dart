@@ -63,6 +63,24 @@ class SubCategoryController extends GetxController {
       ApiKeyConstants.subCategoryId: data[index].id ?? '',
       ApiKeyConstants.categoryId: data[index].categoryId ?? '',
     };
-    Get.toNamed(Routes.SUB_CATEGORY_PRODUCTS, parameters: parametersPass);
+    //Get.toNamed(Routes.SUB_CATEGORY_PRODUCTS, parameters: parametersPass);
+    openProductUploadPage(parametersPass);
+  }
+
+  openProductUploadPage(Map<String, String> data) {
+    print('Category name:-${parameters[StringConstants.title]}');
+    switch (parameters[StringConstants.title] ?? '') {
+      case 'cars':
+        Get.toNamed(Routes.UPLOAD_CAR_SUB_CATEGORY, parameters: data);
+        break;
+      case 'motorcycle':
+        {
+          Get.toNamed(Routes.UPLOAD_CAR_SUB_CATEGORY, parameters: data);
+        }
+        break;
+      default:
+        Get.toNamed(Routes.SUB_CATEGORY_PRODUCTS, arguments: data);
+        break;
+    }
   }
 }

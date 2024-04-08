@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:rot_application/app/modules/home/controllers/home_controller.dart';
 
 import '../../chats/views/chats_view.dart';
 import '../../favorites/views/favorites_view.dart';
@@ -6,6 +7,7 @@ import '../../home/views/home_view.dart';
 import '../../profile/views/profile_view.dart';
 import '../../upload/views/upload_view.dart';
 
+final areChangeProducts = false.obs;
 final selectedIndex = 0.obs;
 
 class NavBarController extends GetxController {
@@ -31,10 +33,24 @@ class NavBarController extends GetxController {
   body() {
     switch (selectedIndex.value) {
       case 0:
-        return const HomeView();
+        if (areChangeProducts.value) {
+          print("CHANGE PRODUCT......");
+          Get.delete<HomeController>();
+          Get.lazyPut<HomeController>(
+            () => HomeController(),
+          );
+          return const HomeView();
+        } else {
+          print("NOT CHANGE PRODUCT......");
+          return const HomeView();
+        }
       case 1:
         return const FavoritesView();
       case 2:
+        // Get.lazyPut<CategoriesController>(
+        //   () => CategoriesController(),
+        // );
+        // return const CategoriesView();
         return const UploadView();
       case 3:
         return const ChatsView();

@@ -31,7 +31,8 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   CommonWidgets.commonElevatedButton(
-                    onPressed: () => controller.clickOnNextButton(),
+                    //onPressed: () => controller.clickOnNextButton(),
+                    onPressed: () => controller.verifyPhoneNumber(),
                     childText: Text(
                       StringConstants.next,
                       style: Theme.of(context)

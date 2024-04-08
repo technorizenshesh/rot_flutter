@@ -45,6 +45,7 @@ class HelpChatView extends GetView<HelpChatController> {
                         .textTheme
                         .titleMedium
                         ?.copyWith(color: Theme.of(Get.context!).primaryColor),
+                    controller: controller.messageController,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: "Type Here",
@@ -53,16 +54,29 @@ class HelpChatView extends GetView<HelpChatController> {
                   ),
                 ),
                 SizedBox(height: 20.px),
-                CommonWidgets.commonElevatedButton(
-                  onPressed: () => controller.clickOnSubmitButton(),
-                  childText: Text(
-                    StringConstants.submit.tr,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineSmall
-                        ?.copyWith(fontWeight: FontWeight.w700),
-                  ),
-                ),
+                Obx(
+                  () => controller.inAsyncCall.value
+                      ? Container(
+                          height: 50.px,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.px),
+                              color: Colors.teal),
+                          child: const CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        )
+                      : CommonWidgets.commonElevatedButton(
+                          onPressed: () => controller.clickOnSubmitButton(),
+                          childText: Text(
+                            StringConstants.submit.tr,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall
+                                ?.copyWith(fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                )
               ],
             ),
           ),

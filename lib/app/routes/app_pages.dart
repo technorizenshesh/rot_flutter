@@ -1,8 +1,4 @@
 import 'package:get/get.dart';
-import 'package:rot_application/app/modules/add_new_card/bindings/AddNewCardBinding.dart';
-import 'package:rot_application/app/modules/add_new_card/views/AddNewCardView.dart';
-import 'package:rot_application/app/modules/my_add_product_detail/bindings/my_add_product_binding.dart';
-import 'package:rot_application/app/modules/my_add_product_detail/views/my_add_product_detail_view.dart';
 
 import '../modules/accounts/bindings/accounts_binding.dart';
 import '../modules/accounts/views/accounts_view.dart';
@@ -12,6 +8,8 @@ import '../modules/add_new_account/bindings/add_new_account_binding.dart';
 import '../modules/add_new_account/views/add_new_account_view.dart';
 import '../modules/add_new_bank/bindings/add_new_bank_binding.dart';
 import '../modules/add_new_bank/views/add_new_bank_view.dart';
+import '../modules/add_new_card/bindings/AddNewCardBinding.dart';
+import '../modules/add_new_card/views/AddNewCardView.dart';
 import '../modules/app_unlock/bindings/app_unlock_binding.dart';
 import '../modules/app_unlock/views/app_unlock_view.dart';
 import '../modules/bank_information/bindings/bank_information_binding.dart';
@@ -84,6 +82,8 @@ import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/login_with_email/bindings/login_with_email_binding.dart';
 import '../modules/login_with_email/views/login_with_email_view.dart';
+import '../modules/my_add_product_detail/bindings/my_add_product_binding.dart';
+import '../modules/my_add_product_detail/views/my_add_product_detail_view.dart';
 import '../modules/my_profile/bindings/my_profile_binding.dart';
 import '../modules/my_profile/views/my_profile_view.dart';
 import '../modules/my_qr_code/bindings/my_qr_code_binding.dart';
@@ -108,6 +108,8 @@ import '../modules/profile_detail/bindings/profile_detail_binding.dart';
 import '../modules/profile_detail/views/profile_detail_view.dart';
 import '../modules/profile_public/bindings/profile_public_binding.dart';
 import '../modules/profile_public/views/profile_public_view.dart';
+import '../modules/public_user_product_details/bindings/public_user_product_details_binding.dart';
+import '../modules/public_user_product_details/views/public_user_product_details_view.dart';
 import '../modules/purchases/bindings/purchases_binding.dart';
 import '../modules/purchases/views/purchases_view.dart';
 import '../modules/purchases_status/bindings/purchases_status_binding.dart';
@@ -150,6 +152,8 @@ import '../modules/two_step_verification_two/bindings/two_step_verification_two_
 import '../modules/two_step_verification_two/views/two_step_verification_two_view.dart';
 import '../modules/upload/bindings/upload_binding.dart';
 import '../modules/upload/views/upload_view.dart';
+import '../modules/upload_car_sub_category/bindings/upload_car_sub_category_binding.dart';
+import '../modules/upload_car_sub_category/views/upload_car_sub_category_view.dart';
 import '../modules/wallet/bindings/wallet_binding.dart';
 import '../modules/wallet/views/wallet_view.dart';
 import '../modules/withdraw/bindings/withdraw_binding.dart';
@@ -547,6 +551,16 @@ class AppPages {
       name: _Paths.GET_START,
       page: () => const GetStartView(),
       binding: GetStartBinding(),
+    ),
+    GetPage(
+      name: _Paths.UPLOAD_CAR_SUB_CATEGORY,
+      page: () => const UploadCarSubCategoryView(),
+      binding: UploadCarSubCategoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.PUBLIC_USER_PRODUCT_DETAILS,
+      page: () => const PublicUserProductDetailsView(),
+      binding: PublicUserProductDetailsBinding(),
     ),
   ];
 }

@@ -12,6 +12,7 @@ import 'package:rot_application/app/data/apis/api_models/get_notification_model.
 import 'package:rot_application/app/data/apis/api_models/get_product_delivery_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_review_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_simple_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_subscription_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_token_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_wallet_history_model.dart';
 
@@ -821,6 +822,39 @@ class ApiMethods {
     if (response != null) {
       helpCenterModel = HelpCenterModel.fromJson(jsonDecode(response.body));
       return helpCenterModel;
+    }
+    return null;
+  }
+
+  /// Add Help Chat Message Api....
+  static Future<http.Response?> submitHelpChat({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfAddHelpChat,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      return response;
+    }
+    return null;
+  }
+
+  /// Get Get Subscription List Model .....
+  static Future<GetSubscriptionModel?> getSubscriptionApi(
+      {void Function(int)? checkResponse}) async {
+    GetSubscriptionModel? subscriptionModel;
+    http.Response? response = await MyHttp.getMethod(
+      url: ApiUrlConstants.endPointOfGetSubscription,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      subscriptionModel =
+          GetSubscriptionModel.fromJson(jsonDecode(response.body));
+      return subscriptionModel;
     }
     return null;
   }

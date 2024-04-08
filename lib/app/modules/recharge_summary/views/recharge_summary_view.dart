@@ -47,7 +47,7 @@ class RechargeSummaryView extends GetView<RechargeSummaryController> {
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium
-                    ?.copyWith(fontSize: 14.px, fontWeight: FontWeight.w400),
+                    ?.copyWith(fontSize: 15.px, fontWeight: FontWeight.w400),
               ),
             ),
             SizedBox(height: 20.px),

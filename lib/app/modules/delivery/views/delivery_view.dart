@@ -36,7 +36,7 @@ class DeliveryView extends GetView<DeliveryController> {
                             .textTheme
                             .titleMedium
                             ?.copyWith(
-                              fontSize: 14.px,
+                              fontSize: 15.px,
                             ),
                       ),
                       title: Text(

@@ -4,6 +4,7 @@ import 'package:rot_application/app/data/apis/api_constants/api_key_constants.da
 import 'package:rot_application/app/data/apis/api_models/get_product_details_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../common/common_widgets.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/apis/api_models/get_profile_public_model.dart';
 import '../../../routes/app_pages.dart';
@@ -65,7 +66,12 @@ class ProductDetailController extends GetxController {
   }
 
   clickOnBuyButton() {
-    Get.toNamed(Routes.DELIVERY, arguments: getProductDetailsModel);
+    if (userId == otherUserId) {
+      CommonWidgets.showMyToastMessage(
+          'You can not buy products because this product is your own ...');
+    } else {
+      Get.toNamed(Routes.DELIVERY, arguments: getProductDetailsModel);
+    }
   }
 
   clickOnReportProduct() {}

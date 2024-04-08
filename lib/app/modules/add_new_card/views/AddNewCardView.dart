@@ -40,7 +40,7 @@ class AddNewCardView extends GetView<AddNewCardController> {
                 onCreditCardWidgetChange: (creditCardBrand) {},
               );
             }),
-            SizedBox(height: 20.px),
+            SizedBox(height: 18.px),
             CreditCardForm(
               cardNumber: controller.cardNumber,
               expiryDate: controller.expiryDate,

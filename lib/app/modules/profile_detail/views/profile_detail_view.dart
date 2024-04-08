@@ -419,7 +419,7 @@ class AccountView extends GetView<ProfileDetailController> {
                     ),
                   )
                 : SizedBox(
-                    height: 2.px,
+                    height: 4.px,
                   )),
             SizedBox(height: 14.px),
             CommonWidgets.commonTextFieldForLoginSignUP(

@@ -77,7 +77,7 @@ class SignUpView extends GetView<SignUpController> {
                                     .onSecondaryContainer,
                           ),
                         ),
-                        SizedBox(height: 14.px),
+                        SizedBox(height: 15.px),
                         CommonWidgets.commonTextFieldForLoginSignUP(
                           focusNode: controller.focusPhoneNumber,
                           title: StringConstants.phoneNumber.tr,

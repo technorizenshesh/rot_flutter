@@ -567,7 +567,7 @@ class PaymentMethodView extends GetView<PaymentMethodController> {
               const Expanded(child: SizedBox()),
             ],
           ),
-          SizedBox(height: 8.px)
+          SizedBox(height: 5.px)
         ],
       );
     } else {

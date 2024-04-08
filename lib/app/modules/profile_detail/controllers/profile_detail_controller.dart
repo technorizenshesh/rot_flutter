@@ -162,7 +162,7 @@ class ProfileDetailController extends GetxController
       selectedFile = File(pickedFile.path);
       increment();
     } else {
-      print('No image selected.');
+      print('No image selected ...');
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -70,6 +71,41 @@ class ResetPasswordController extends GetxController {
         Get.toNamed(Routes.OTP, parameters: parameters);
       }
       inAsyncCall.value = false;
+    } else {
+      CommonWidgets.snackBarView(title: StringConstants.allFieldsRequired);
+    }
+  }
+
+  Future<void> verifyPhoneNumber() async {
+    if (phoneController.text.trim().isNotEmpty) {
+      inAsyncCall.value = true;
+      try {
+        await FirebaseAuth.instance.verifyPhoneNumber(
+          phoneNumber: phoneController.text,
+          verificationCompleted: (PhoneAuthCredential credential) async {
+            print("Auto-retrieval completed: $credential");
+          },
+          verificationFailed: (FirebaseAuthException authException) {
+            print('Error: ${authException.message}');
+            CommonWidgets.showMyToastMessage('Error: ${authException.message}');
+          },
+          codeSent: (String verificationId, int? forceResendingToken) {
+            Map<String, String> parameters = {
+              ApiKeyConstants.userId: '',
+              ApiKeyConstants.type: StringConstants.resetPassword,
+              ApiKeyConstants.otp: verificationId,
+              'From': 'Firebase'
+            };
+            Get.toNamed(Routes.OTP, parameters: parameters);
+          },
+          codeAutoRetrievalTimeout: (String verificationId) {
+            print("Auto-retrieval timeout: $verificationId");
+          },
+        );
+      } catch (e) {
+        print('Error: $e');
+        CommonWidgets.showMyToastMessage('Error: $e');
+      }
     } else {
       CommonWidgets.snackBarView(title: StringConstants.allFieldsRequired);
     }
