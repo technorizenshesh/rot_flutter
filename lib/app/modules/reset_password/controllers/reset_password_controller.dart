@@ -81,7 +81,7 @@ class ResetPasswordController extends GetxController {
       inAsyncCall.value = true;
       try {
         await FirebaseAuth.instance.verifyPhoneNumber(
-          phoneNumber: phoneController.text,
+          phoneNumber: '${countryCode.value}${phoneController.text}',
           verificationCompleted: (PhoneAuthCredential credential) async {
             print("Auto-retrieval completed: $credential");
           },
@@ -103,7 +103,7 @@ class ResetPasswordController extends GetxController {
           },
         );
       } catch (e) {
-        print('Error: $e');
+        print('Error:- $e');
         CommonWidgets.showMyToastMessage('Error: $e');
       }
     } else {

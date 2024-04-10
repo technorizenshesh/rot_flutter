@@ -40,7 +40,7 @@ class LoginWithEmailView extends GetView<LoginWithEmailController> {
                     height: 90.px,
                     width: 250.px,
                   ),
-                  SizedBox(height: 60.px),
+                  SizedBox(height: 65.px),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.px),
                     child: Column(

@@ -93,15 +93,42 @@ class OtpController extends GetxController {
       );
       await FirebaseAuth.instance.signInWithCredential(credential);
       CommonWidgets.showMyToastMessage("Opt verification successful...");
-      Map<String, String> parameter = {
-        ApiKeyConstants.userId: '',
-        ApiKeyConstants.type: StringConstants.resetPassword,
-      };
-      Get.toNamed(Routes.CREATE_NEW_PASSWORD, parameters: parameter);
+      if (parameters['Come_From'] == 'SignUp') {
+        callingSigUpProcess();
+      } else {
+        Map<String, String> parameter = {
+          ApiKeyConstants.userId: '',
+          ApiKeyConstants.type: StringConstants.resetPassword,
+        };
+        Get.offNamed(Routes.CREATE_NEW_PASSWORD, parameters: parameter);
+      }
     } catch (e) {
       print('Error: $e');
-      // Handle error
+      inAsyncCall.value = false;
     }
+  }
+
+  callingSigUpProcess() async {
+    bodyParams = {
+      ApiKeyConstants.userName: parameters[ApiKeyConstants.userName] ?? '',
+      ApiKeyConstants.countryCode:
+          parameters[ApiKeyConstants.countryCode] ?? '',
+      ApiKeyConstants.mobile: parameters[ApiKeyConstants.mobile] ?? '',
+      ApiKeyConstants.password: parameters[ApiKeyConstants.password] ?? '',
+      ApiKeyConstants.type: ApiKeyConstants.mobile,
+    };
+    UserModel? userModel = await ApiMethods.userSignup(bodyParams: bodyParams);
+    if (userModel != null &&
+        userModel.userData != null &&
+        userModel.userData!.id != null &&
+        userModel.userData!.id!.isNotEmpty) {
+      CommonWidgets.snackBarView(
+          title: 'Registration Successfully completed ...');
+    } else {
+      CommonWidgets.snackBarView(
+          title: userModel!.message ?? 'Registration Failure ...');
+    }
+    Get.back();
     inAsyncCall.value = false;
   }
 }

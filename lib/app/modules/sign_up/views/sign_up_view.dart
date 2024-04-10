@@ -122,7 +122,10 @@ class SignUpView extends GetView<SignUpController> {
                         ),
                         SizedBox(height: 10.px),
                         CommonWidgets.commonElevatedButton(
-                          onPressed: () => controller.clickOnSignUpButton(),
+                          onPressed: () {
+                            //controller.clickOnSignUpButton();
+                            controller.verifyPhoneNumber();
+                          },
                           childText: Text(
                             StringConstants.signUp.tr,
                             style: Theme.of(context)

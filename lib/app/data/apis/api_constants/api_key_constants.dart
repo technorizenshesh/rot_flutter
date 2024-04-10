@@ -54,4 +54,5 @@ class ApiKeyConstants {
   static const String wallet = 'wallet';
   static const String cardId = 'card_id';
   static const String paymentType = 'payment_type';
+  static const String google = 'google';
 }

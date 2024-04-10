@@ -1,12 +1,11 @@
 import 'package:country_code_picker/src/country_code.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rot_application/app/data/apis/api_constants/api_key_constants.dart';
-import 'package:rot_application/app/data/apis/api_methods/api_methods.dart';
 import 'package:rot_application/app/data/constants/string_constants.dart';
 import 'package:rot_application/common/common_widgets.dart';
 
-import '../../../data/apis/api_models/user_model.dart';
 import '../../../routes/app_pages.dart';
 
 class SignUpController extends GetxController {
@@ -59,35 +58,6 @@ class SignUpController extends GetxController {
     Get.back();
   }
 
-  clickOnSignUpButton() async {
-    if (fullNameController.text.trim().isNotEmpty &&
-        phoneNumberController.text.trim().isNotEmpty &&
-        passwordController.text.trim().isNotEmpty) {
-      inAsyncCall.value = true;
-      bodyParams = {
-        ApiKeyConstants.userName: fullNameController.text,
-        ApiKeyConstants.countryCode: countryCode.value,
-        ApiKeyConstants.mobile: phoneNumberController.text,
-        ApiKeyConstants.password: passwordController.text,
-        ApiKeyConstants.type: ApiKeyConstants.mobile,
-      };
-      UserModel? userModel =
-          await ApiMethods.userSignup(bodyParams: bodyParams);
-      if (userModel != null &&
-          userModel.userData != null &&
-          userModel.userData!.id != null &&
-          userModel.userData!.id!.isNotEmpty) {
-        Map<String, String> parameters = {
-          ApiKeyConstants.userId: userModel.userData!.id.toString()
-        };
-        Get.toNamed(Routes.OTP, parameters: parameters);
-      }
-      inAsyncCall.value = false;
-    } else {
-      CommonWidgets.snackBarView(title: StringConstants.allFieldsRequired);
-    }
-  }
-
   void startListener() {
     focusFullName.addListener(onFocusChange);
     focusPhoneNumber.addListener(onFocusChange);
@@ -107,5 +77,46 @@ class SignUpController extends GetxController {
 
   clickOnCountryCode({required CountryCode value}) {
     countryCode.value = value.toString();
+  }
+
+  Future<void> verifyPhoneNumber() async {
+    if (phoneNumberController.text.trim().isNotEmpty &&
+        passwordController.text.isNotEmpty &&
+        fullNameController.text.isNotEmpty) {
+      inAsyncCall.value = true;
+      try {
+        await FirebaseAuth.instance.verifyPhoneNumber(
+          phoneNumber: '${countryCode.value}${phoneNumberController.text}',
+          verificationCompleted: (PhoneAuthCredential credential) async {
+            print("Auto-retrieval completed: $credential");
+          },
+          verificationFailed: (FirebaseAuthException authException) {
+            print('Error: ${authException.message}');
+            CommonWidgets.showMyToastMessage('Error: ${authException.message}');
+          },
+          codeSent: (String verificationId, int? forceResendingToken) {
+            Map<String, String> parameters = {
+              ApiKeyConstants.userName: fullNameController.text,
+              ApiKeyConstants.countryCode: countryCode.value,
+              ApiKeyConstants.mobile: phoneNumberController.text,
+              ApiKeyConstants.password: passwordController.text,
+              ApiKeyConstants.type: ApiKeyConstants.mobile,
+              ApiKeyConstants.otp: verificationId,
+              'Come_From': 'SignUp',
+              'From': 'Firebase'
+            };
+            Get.offNamed(Routes.OTP, parameters: parameters);
+          },
+          codeAutoRetrievalTimeout: (String verificationId) {
+            print("Auto-retrieval timeout: $verificationId");
+          },
+        );
+      } catch (e) {
+        print('Error:- $e');
+        CommonWidgets.showMyToastMessage('Error: $e');
+      }
+    } else {
+      CommonWidgets.snackBarView(title: StringConstants.allFieldsRequired);
+    }
   }
 }

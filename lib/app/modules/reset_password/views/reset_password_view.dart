@@ -41,7 +41,7 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
                           ?.copyWith(fontWeight: FontWeight.w700),
                     ),
                   ),
-                  SizedBox(height: 10.px),
+                  SizedBox(height: 12.px),
                 ],
               ),
             ),

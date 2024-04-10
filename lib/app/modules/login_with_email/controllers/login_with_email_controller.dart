@@ -17,6 +17,7 @@ class LoginWithEmailController extends GetxController {
   final isEmail = false.obs;
   final isPassword = false.obs;
   final passwordHide = true.obs;
+  String type = '';
 
   final inAsyncCall = false.obs;
   Map<String, dynamic> bodyParams = {};

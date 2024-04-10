@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "967963436259",
-    "project_id": "fir-chat-70d02",
-    "storage_bucket": "fir-chat-70d02.appspot.com"
+    "project_number": "403174944899",
+    "project_id": "rotapp-fc784",
+    "storage_bucket": "rotapp-fc784.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:967963436259:android:06bfbe0099c90befae91d6",
+        "mobilesdk_app_id": "1:403174944899:android:10dda8507c8aa136cbabb6",
         "android_client_info": {
           "package_name": "com.rot_application"
         }
       },
       "oauth_client": [
         {
-          "client_id": "967963436259-72nenqnhdioiujvvtl8akn4a9asog6fh.apps.googleusercontent.com",
+          "client_id": "403174944899-2ha9ot44ubqj1bav1sqsiadna38obu65.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCkkVTFCjfIRP571c0wzwQkgzSR6-F8W5o"
+          "current_key": "AIzaSyC6d-7kfELL3HeZmqMWuc5xDK47bYpsl34"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "967963436259-72nenqnhdioiujvvtl8akn4a9asog6fh.apps.googleusercontent.com",
+              "client_id": "403174944899-2ha9ot44ubqj1bav1sqsiadna38obu65.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
