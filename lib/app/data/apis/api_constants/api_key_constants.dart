@@ -55,4 +55,6 @@ class ApiKeyConstants {
   static const String cardId = 'card_id';
   static const String paymentType = 'payment_type';
   static const String google = 'google';
+  static const String subscriptionId = 'subscription_id';
+  static const String subscriptionName = 'subscription_name';
 }

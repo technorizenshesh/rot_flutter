@@ -63,7 +63,9 @@ class WalletController extends GetxController {
     Get.toNamed(Routes.WITHDRAW);
   }
 
-  clickOnCharge() {}
+  clickOnChange() {
+    // Get.toNamed(Routes.CHANGE);
+  }
 
   clickOnRecharge() async {
     Map<String, String> data = {

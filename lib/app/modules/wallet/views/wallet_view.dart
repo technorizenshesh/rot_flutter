@@ -92,8 +92,8 @@ class WalletView extends GetView<WalletController> {
                             ),
                             card(
                               assetName: IconConstants.icCharge,
-                              text: StringConstants.charge,
-                              onTap: () => controller.clickOnCharge(),
+                              text: StringConstants.change,
+                              onTap: () => controller.clickOnChange(),
                             ),
                             card(
                               assetName: IconConstants.icSendMoney,

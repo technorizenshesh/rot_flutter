@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 
 class RechargeDoneController extends GetxController {
-
   final count = 0.obs;
   @override
   void onInit() {
@@ -20,5 +19,7 @@ class RechargeDoneController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnGoToWallet() {}
+  clickOnGoToWallet() {
+    Get.back();
+  }
 }

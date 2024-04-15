@@ -47,6 +47,7 @@ class StringConstants {
   static const String chats = 'Chats';
   static const String sales = 'Sales';
   static const String purchases = 'Purchases';
+  static const String unPurchase = 'UnPurchase';
   static const String wallet = 'Wallet';
   static const String delete = 'Delete';
   static const String subscription = 'Subscription';
@@ -279,6 +280,7 @@ class StringConstants {
   static const String accounts = 'Accounts';
   static const String recharge = 'Recharge';
   static const String charge = 'Charge';
+  static const String change = 'Change';
   static const String sendMoney = 'Send Money';
   static const String pay = 'Pay';
   static const String withdraw = 'Withdraw';
@@ -373,6 +375,7 @@ class StringConstants {
   static const String getNotifiedAboutPromotionsAndOther =
       'Get notified about promotions and other contents of your interest';
   static const String payment = 'Payment';
+  static const String purchaseSubscription = 'Purchase Subscription';
   static const String cardNumber = "Card Number";
   static const String enterDigitCardNumber = "Enter 12 digit card number";
   static const String validThru = "Valid Thru";

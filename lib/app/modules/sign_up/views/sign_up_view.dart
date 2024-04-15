@@ -121,18 +121,33 @@ class SignUpView extends GetView<SignUpController> {
                           ),
                         ),
                         SizedBox(height: 10.px),
-                        CommonWidgets.commonElevatedButton(
-                          onPressed: () {
-                            //controller.clickOnSignUpButton();
-                            controller.verifyPhoneNumber();
-                          },
-                          childText: Text(
-                            StringConstants.signUp.tr,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall
-                                ?.copyWith(fontWeight: FontWeight.w700),
-                          ),
+                        Obx(
+                          () => controller.btnLoading.value
+                              ? Container(
+                                  height: 50.px,
+                                  width: double.infinity,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.px),
+                                    color: Theme.of(Get.context!).primaryColor,
+                                  ),
+                                  child: const Center(
+                                      child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )))
+                              : CommonWidgets.commonElevatedButton(
+                                  onPressed: () {
+                                    //controller.clickOnSignUpButton();
+                                    controller.verifyPhoneNumber();
+                                  },
+                                  childText: Text(
+                                    StringConstants.signUp.tr,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall
+                                        ?.copyWith(fontWeight: FontWeight.w700),
+                                  ),
+                                ),
                         ),
                         SizedBox(height: 20.px),
                         Align(

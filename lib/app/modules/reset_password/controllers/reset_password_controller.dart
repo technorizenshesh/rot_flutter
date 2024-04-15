@@ -94,6 +94,8 @@ class ResetPasswordController extends GetxController {
               ApiKeyConstants.userId: '',
               ApiKeyConstants.type: StringConstants.resetPassword,
               ApiKeyConstants.otp: verificationId,
+              ApiKeyConstants.countryCode: countryCode.value,
+              ApiKeyConstants.mobile: phoneController.text,
               'From': 'Firebase'
             };
             Get.toNamed(Routes.OTP, parameters: parameters);

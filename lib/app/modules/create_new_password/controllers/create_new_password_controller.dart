@@ -83,6 +83,10 @@ class CreateNewPasswordController extends GetxController {
             Get.toNamed(Routes.NAV_BAR);
           }
           inAsyncCall.value = false;
+        } else {
+          if (parameters['from'] == 'Firebase') {
+            createNewPasswordWithFirebase();
+          }
         }
       } else {
         CommonWidgets.snackBarView(title: StringConstants.passwordNotMatch);
@@ -90,6 +94,28 @@ class CreateNewPasswordController extends GetxController {
     } else {
       CommonWidgets.snackBarView(title: StringConstants.allFieldsRequired);
     }
+  }
+
+  void createNewPasswordWithFirebase() async {
+    Map<String, dynamic> bodyParamsForResetPasswordWithFirebase = {
+      ApiKeyConstants.password: newPasswordController.text,
+      ApiKeyConstants.mobile: parameters[ApiKeyConstants.mobile],
+    };
+    inAsyncCall.value = true;
+    UserModel? userModel = await ApiMethods.createNewPassword(
+        bodyParams: bodyParamsForResetPasswordWithFirebase);
+    if (userModel != null &&
+        userModel.token != null &&
+        userModel.token!.isNotEmpty &&
+        userModel.userData != null &&
+        userModel.userData!.id != null &&
+        userModel.userData!.id!.isNotEmpty) {
+      SharedPreferences sp = await SharedPreferences.getInstance();
+      sp.setString(ApiKeyConstants.token, userModel.token!);
+      sp.setString(ApiKeyConstants.userId, userModel.userData!.id!);
+      Get.toNamed(Routes.NAV_BAR);
+    }
+    inAsyncCall.value = false;
   }
 
   clickOnEyeNewPasswordButton() {

@@ -81,6 +81,7 @@ class RechargeSummaryController extends GetxController {
         print('Successfully  payment completed....');
         CommonWidgets.showMyToastMessage(
             'Successfully completed add to wallet money....');
+        Get.back();
         Get.offAndToNamed(Routes.RECHARGE_DONE);
       } else {
         print('Failed to recharge....');

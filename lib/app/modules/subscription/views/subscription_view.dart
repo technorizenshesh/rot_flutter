@@ -22,7 +22,7 @@ class SubscriptionView extends GetView<SubscriptionController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 20.px),
+                    SizedBox(height: 10.px),
                     Text(
                       StringConstants.rotPro,
                       style:
@@ -31,7 +31,7 @@ class SubscriptionView extends GetView<SubscriptionController> {
                                 color: Theme.of(context).primaryColor,
                               ),
                     ),
-                    SizedBox(height: 20.px),
+                    SizedBox(height: 10.px),
                     Text(
                       StringConstants.itOffersYouSolutions,
                       style: Theme.of(context)
@@ -39,7 +39,7 @@ class SubscriptionView extends GetView<SubscriptionController> {
                           .displayMedium
                           ?.copyWith(fontSize: 14.px),
                     ),
-                    SizedBox(height: 20.px),
+                    SizedBox(height: 10.px),
                     Text(
                       'Find the best subscription plan that best suits your goals!',
                       style: Theme.of(context)
@@ -47,7 +47,51 @@ class SubscriptionView extends GetView<SubscriptionController> {
                           .titleMedium
                           ?.copyWith(fontSize: 16.px),
                     ),
-                    SizedBox(height: 20.px),
+                    SizedBox(height: 10.px),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              StringConstants.purchases,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(fontSize: 14.px),
+                            ),
+                            SizedBox(
+                              width: 10.px,
+                            ),
+                            Icon(
+                              Icons.circle,
+                              color: Colors.green,
+                              size: 20.px,
+                            )
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              StringConstants.unPurchase,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(fontSize: 14.px),
+                            ),
+                            SizedBox(
+                              width: 10.px,
+                            ),
+                            Icon(
+                              Icons.circle,
+                              color: Colors.purpleAccent.withOpacity(0.2),
+                              size: 20.px,
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10.px),
                   ],
                 )
                 /* Container(
@@ -194,57 +238,75 @@ class SubscriptionView extends GetView<SubscriptionController> {
         itemBuilder: (context, index) {
           GetSubscriptionData item = controller.subscriptionList[index];
           return Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.px),
+            ),
+            clipBehavior: Clip.hardEdge,
             elevation: .2.px,
-            child: Container(
-              height: 220.px,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    ImageConstants.imageBackgroundCardPink,
-                  ),
+            margin: EdgeInsets.only(
+                left: 10.px, right: 10.px, top: 5.px, bottom: 5.px),
+            child: GestureDetector(
+              onTap: () {
+                controller.onClickOnSubscription(index);
+              },
+              child: Container(
+                height: 180.px,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(
+                        controller.mySubscriptionPresent.value
+                            ? controller.checkSubscriptionPurchased(index)
+                                ? ImageConstants.imageBackgroundCardGreen
+                                : ImageConstants.imageBackgroundCardPink
+                            : ImageConstants.imageBackgroundCardPink,
+                      ),
+                      fit: BoxFit.fill),
                 ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(20.px),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      StringConstants.rot,
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(
-                            fontSize: 16.px,
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                          ),
-                    ),
-                    Text(
-                      '\$ ${item.amount}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(
-                            fontSize: 24.px,
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                          ),
-                    ),
-                    Text(
-                      item.name ?? '',
-                      style:
-                          Theme.of(context).textTheme.displayMedium?.copyWith(
-                                fontSize: 20.px,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                    ),
-                    Text(
-                      item.description ?? '',
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                          ),
-                    ),
-                  ],
+                child: Padding(
+                  padding: EdgeInsets.all(20.px),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        StringConstants.rot,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(
+                              fontSize: 16.px,
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                            ),
+                      ),
+                      Text(
+                        '\$ ${item.amount}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(
+                              fontSize: 24.px,
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                            ),
+                      ),
+                      Text(
+                        item.name ?? '',
+                        style:
+                            Theme.of(context).textTheme.displayMedium?.copyWith(
+                                  fontSize: 20.px,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                      ),
+                      Text(
+                        item.description ?? '',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                            ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

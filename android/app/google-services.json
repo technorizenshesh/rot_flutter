@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "403174944899",
-    "project_id": "rotapp-fc784",
-    "storage_bucket": "rotapp-fc784.appspot.com"
+    "project_number": "576043335304",
+    "project_id": "rotnew-7b60c",
+    "storage_bucket": "rotnew-7b60c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:403174944899:android:10dda8507c8aa136cbabb6",
+        "mobilesdk_app_id": "1:576043335304:android:83e262b07e5ad1207b293d",
         "android_client_info": {
-          "package_name": "com.rot_application"
+          "package_name": "com.rot.aplication"
         }
       },
       "oauth_client": [
         {
-          "client_id": "403174944899-2ha9ot44ubqj1bav1sqsiadna38obu65.apps.googleusercontent.com",
+          "client_id": "576043335304-tu8ajoiteas58gcbvb60jstvr5tcoho0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rot.aplication",
+            "certificate_hash": "b6413540fc2d2fc3548d4b27aacda311eb5af158"
+          }
+        },
+        {
+          "client_id": "576043335304-04a3d1esf1skt8jb8p53vjiebk2qh5fd.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC6d-7kfELL3HeZmqMWuc5xDK47bYpsl34"
+          "current_key": "AIzaSyAv2_iZFIl45AnYdGRYvjl8RPrrMNgwLp8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "403174944899-2ha9ot44ubqj1bav1sqsiadna38obu65.apps.googleusercontent.com",
+              "client_id": "576043335304-04a3d1esf1skt8jb8p53vjiebk2qh5fd.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

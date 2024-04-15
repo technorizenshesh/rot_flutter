@@ -110,6 +110,8 @@ import '../modules/profile_public/bindings/profile_public_binding.dart';
 import '../modules/profile_public/views/profile_public_view.dart';
 import '../modules/public_user_product_details/bindings/public_user_product_details_binding.dart';
 import '../modules/public_user_product_details/views/public_user_product_details_view.dart';
+import '../modules/purchase_subscription/bindings/purchase_subscription_binding.dart';
+import '../modules/purchase_subscription/views/purchase_subscription_view.dart';
 import '../modules/purchases/bindings/purchases_binding.dart';
 import '../modules/purchases/views/purchases_view.dart';
 import '../modules/purchases_status/bindings/purchases_status_binding.dart';
@@ -561,6 +563,11 @@ class AppPages {
       name: _Paths.PUBLIC_USER_PRODUCT_DETAILS,
       page: () => const PublicUserProductDetailsView(),
       binding: PublicUserProductDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.PURCHASE_SUBSCRIPTION,
+      page: () => const PurchaseSubscriptionView(),
+      binding: PurchaseSubscriptionBinding(),
     ),
   ];
 }

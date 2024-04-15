@@ -1,3 +1,4 @@
+import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -78,10 +79,17 @@ class ProfileView extends GetView<ProfileController> {
                                                   color: Theme.of(context)
                                                       .primaryColor),
                                         ),
-                                        CommonWidgets.appIcons(
+                                        CountryFlag.fromCountryCode(
+                                          controller.userData!.countryCode ??
+                                              'IN',
+                                          height: 20.px,
+                                          width: 25.px,
+                                          borderRadius: 3,
+                                        ),
+                                        /*CommonWidgets.appIcons(
                                             assetName: IconConstants.icFlag1,
                                             width: 25,
-                                            height: 20)
+                                            height: 20)*/
                                       ],
                                     ),
                                     SizedBox(height: 4.px),

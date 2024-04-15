@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:rot_application/app/data/constants/image_constants.dart';
+import 'package:rot_application/common/login_with_google.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/common_widgets.dart';
@@ -81,7 +82,7 @@ class ProfileController extends GetxController {
         Get.toNamed(Routes.WALLET, parameters: data);
         break;
       case 3:
-        Get.toNamed(Routes.SUBSCRIPTION);
+        Get.toNamed(Routes.SUBSCRIPTION, parameters: data);
         break;
       case 4:
         Get.toNamed(Routes.GENERAL_SETTING);
@@ -104,6 +105,7 @@ class ProfileController extends GetxController {
   }
 
   clickOnYes() async {
+    MyGoogleAuthentication.signOut(context: Get.context!);
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString(ApiKeyConstants.token, '');
     sharedPreferences.clear();

@@ -7,9 +7,12 @@ class ApiUrlConstants {
   static const String endPointOfUserVerification =
       '${baseUrl}user_verification';
   static const String endPointOfLogin = '${baseUrl}login';
+  static const String endPointOfLoginWithGoogle = '${baseUrl}login_with_google';
   static const String endPointOfForgetPassword = '${baseUrl}forget_password';
   static const String endPointOfCreateNewPassword =
       '${baseUrl}create_new_password';
+  static const String endPointOfCreateNewPasswordWithMobile =
+      '${baseUrl}create_newpassword_with_mobile';
   static const String endPointOfChangePassword = '${baseUrl}change_password';
   static const String endPointOfGetCategory = '${baseUrl}get_category';
   static const String endPointOfGetCurrency = '${baseUrl}get_currency';
@@ -40,6 +43,10 @@ class ApiUrlConstants {
   static const String endPointOfGetConversation = '${baseUrl}get_conversation';
   static const String endPointOfGetChat = '${baseUrl}get_chat';
   static const String endPointOfInsertChat = '${baseUrl}insert_chat';
+  static const String endPointOfSubscriptionPurchase =
+      '${baseUrl}subcription_purcharge';
+  static const String endPointOfGetMyPurchasedSubscription =
+      '/rot/api/get_my_purcharge';
   static const String endPointOfAddProduct = '${baseUrl}add_product';
   static const String endPointOfBuyProductDelivery =
       '/rot/api/product_delivery';

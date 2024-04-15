@@ -26,9 +26,11 @@ class SignUpController extends GetxController {
 
   Map<String, dynamic> bodyParams = {};
 
-  final countryCode = '+91'.obs;
+  final countryDailCode = '+91'.obs;
+  final countryCode = 'IN'.obs;
 
   final inAsyncCall = false.obs;
+  final btnLoading = false.obs;
 
   @override
   void onInit() {
@@ -76,23 +78,27 @@ class SignUpController extends GetxController {
   }
 
   clickOnCountryCode({required CountryCode value}) {
-    countryCode.value = value.toString();
+    countryDailCode.value = value.toString();
+    countryCode.value = value.code.toString();
   }
 
   Future<void> verifyPhoneNumber() async {
     if (phoneNumberController.text.trim().isNotEmpty &&
         passwordController.text.isNotEmpty &&
         fullNameController.text.isNotEmpty) {
-      inAsyncCall.value = true;
+      print(
+          'Phone Number:- ${countryDailCode.value}${phoneNumberController.text}');
+      btnLoading.value = true;
       try {
         await FirebaseAuth.instance.verifyPhoneNumber(
-          phoneNumber: '${countryCode.value}${phoneNumberController.text}',
+          phoneNumber: '${countryDailCode.value}${phoneNumberController.text}',
           verificationCompleted: (PhoneAuthCredential credential) async {
             print("Auto-retrieval completed: $credential");
           },
           verificationFailed: (FirebaseAuthException authException) {
             print('Error: ${authException.message}');
             CommonWidgets.showMyToastMessage('Error: ${authException.message}');
+            btnLoading.value = false;
           },
           codeSent: (String verificationId, int? forceResendingToken) {
             Map<String, String> parameters = {
@@ -105,6 +111,7 @@ class SignUpController extends GetxController {
               'Come_From': 'SignUp',
               'From': 'Firebase'
             };
+            btnLoading.value = false;
             Get.offNamed(Routes.OTP, parameters: parameters);
           },
           codeAutoRetrievalTimeout: (String verificationId) {
@@ -114,6 +121,7 @@ class SignUpController extends GetxController {
       } catch (e) {
         print('Error:- $e');
         CommonWidgets.showMyToastMessage('Error: $e');
+        btnLoading.value = false;
       }
     } else {
       CommonWidgets.snackBarView(title: StringConstants.allFieldsRequired);

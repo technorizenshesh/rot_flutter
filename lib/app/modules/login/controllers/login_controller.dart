@@ -92,7 +92,8 @@ class LoginController extends GetxController {
         ApiKeyConstants.userName: user.displayName,
         ApiKeyConstants.type: ApiKeyConstants.google,
       };
-      UserModel? userModel = await ApiMethods.login(bodyParams: bodyParams);
+      UserModel? userModel =
+          await ApiMethods.loginWithGoogle(bodyParams: bodyParams);
       if (userModel != null &&
           userModel.token != null &&
           userModel.token!.isNotEmpty &&
@@ -102,11 +103,14 @@ class LoginController extends GetxController {
         SharedPreferences sp = await SharedPreferences.getInstance();
         sp.setString(ApiKeyConstants.token, userModel.token!);
         sp.setString(ApiKeyConstants.userId, userModel.userData!.id!);
-        Get.toNamed(Routes.NAV_BAR);
+        print("Open Nav Bar Activity---------->>>>>>>");
+        Get.offNamed(Routes.NAV_BAR);
       } else {
+        print("Failed 1------<<>>>>>>>>>>>");
         CommonWidgets.showMyToastMessage("Signup with google failed ...");
       }
     } catch (e) {
+      print("Failed for catch------<<>>>>>>>>>>>");
       CommonWidgets.showMyToastMessage("Error:-${e.toString()}");
     }
     inAsyncCall.value = false;

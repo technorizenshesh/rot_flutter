@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -46,6 +47,7 @@ class ProfileDetailController extends GetxController
   final isGender = false.obs;
   final isEmail = false.obs;
   final icPhone = false.obs;
+  final countryCode = 'IN'.obs;
   TextEditingController dobController = TextEditingController();
   TextEditingController genderController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -130,6 +132,10 @@ class ProfileDetailController extends GetxController
     }
   }
 
+  clickOnCountryCode({required CountryCode value}) {
+    countryCode.value = value.code.toString();
+  }
+
   clickOnSubmitButton() async {
     if (fullNameController.text.trim().isNotEmpty &&
         sellersAddressController.text.trim().isNotEmpty) {
@@ -138,6 +144,7 @@ class ProfileDetailController extends GetxController
         ApiKeyConstants.userId: userId,
         ApiKeyConstants.email: emailController.text,
         ApiKeyConstants.gender: genderController.text,
+        ApiKeyConstants.countryCode: countryCode.value,
         ApiKeyConstants.mobile: phoneController.text,
         ApiKeyConstants.dob: dobController.text,
         ApiKeyConstants.userName: fullNameController.text,

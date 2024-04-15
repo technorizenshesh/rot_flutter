@@ -1,3 +1,4 @@
+import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -89,10 +90,13 @@ class ProfileDetailView extends GetView<ProfileDetailController> {
                                                   color: Theme.of(context)
                                                       .primaryColor),
                                         ),
-                                        CommonWidgets.appIcons(
-                                            assetName: IconConstants.icFlag1,
-                                            width: 25,
-                                            height: 20)
+                                        CountryFlag.fromCountryCode(
+                                          controller.userData!.countryCode ??
+                                              'IN',
+                                          height: 20.px,
+                                          width: 25.px,
+                                          borderRadius: 3,
+                                        ),
                                       ],
                                     ),
                                   SizedBox(height: 4.px),
@@ -275,7 +279,10 @@ class ProfileDetailsView extends GetView<ProfileDetailController> {
           ),
           SizedBox(height: 14.px),
           CommonWidgets.commonElevatedButton(
-            onPressed: () => controller.clickOnSubmitButton(),
+            onPressed: () async {
+              print('Country name:-${controller.countryCode.value.toString()}');
+              controller.clickOnSubmitButton();
+            },
             childText: Text(
               StringConstants.submit.tr,
               style: Theme.of(context)
@@ -439,8 +446,10 @@ class AccountView extends GetView<ProfileDetailController> {
               horizontalPadding: 0,
               prefixIconHorizontal: 8,
               prefixIcon: CommonWidgets.countryCodePicker(
-                onChanged: (value) {},
-              ),
+                  onChanged: (value) {
+                    controller.clickOnCountryCode(value: value);
+                  },
+                  initialSelection: controller.userData!.countryCode ?? 'IN'),
             ),
             SizedBox(height: 14.px),
           ],

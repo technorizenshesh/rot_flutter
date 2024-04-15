@@ -648,7 +648,8 @@ class CommonWidgets {
         autoDismissKeyboard: autoDismissKeyboard,
       );
 
-  static countryCodePicker({ValueChanged<CountryCode>? onChanged}) {
+  static countryCodePicker(
+      {ValueChanged<CountryCode>? onChanged, String? initialSelection}) {
     return CountryCodePicker(
       boxDecoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.px),
@@ -691,7 +692,7 @@ class CommonWidgets {
       padding: EdgeInsets.zero,
       showFlagMain: true,
       onChanged: onChanged,
-      initialSelection: 'IN',
+      initialSelection: initialSelection ?? 'IN',
       showCountryOnly: false,
       showDropDownButton: false,
       showOnlyCountryWhenClosed: false,

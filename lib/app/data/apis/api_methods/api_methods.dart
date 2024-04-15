@@ -8,6 +8,7 @@ import 'package:rot_application/app/data/apis/api_models/get_chat_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_conversation_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_help_center_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_like_users_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_my_purchase_subscription_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_notification_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_product_delivery_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_review_model.dart';
@@ -90,6 +91,23 @@ class ApiMethods {
     return null;
   }
 
+  static Future<UserModel?> loginWithGoogle({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    UserModel? userModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfLoginWithGoogle,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      userModel = UserModel.fromJson(jsonDecode(response.body));
+      return userModel;
+    }
+    return null;
+  }
+
   static Future<UserModel?> forgetPassword({
     void Function(int)? checkResponse,
     Map<String, dynamic>? bodyParams,
@@ -115,6 +133,23 @@ class ApiMethods {
     http.Response? response = await MyHttp.postMethod(
       bodyParams: bodyParams,
       url: ApiUrlConstants.endPointOfCreateNewPassword,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      userModel = UserModel.fromJson(jsonDecode(response.body));
+      return userModel;
+    }
+    return null;
+  }
+
+  static Future<UserModel?> createNewPasswordWithMobile({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    UserModel? userModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfCreateNewPasswordWithMobile,
       checkResponse: checkResponse,
     );
     if (response != null) {
@@ -570,6 +605,43 @@ class ApiMethods {
     );
     if (response != null) {
       return response;
+    }
+    return null;
+  }
+
+  /// Purchase subscription api .....
+  static Future<http.Response?> purchaseSubscriptionApi({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: queryParameters,
+      url: ApiUrlConstants.endPointOfSubscriptionPurchase,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      return response;
+    }
+    return null;
+  }
+
+  /// Get My purchased subscription ....
+  static Future<MyPurchaseSubscriptionModel?> getMyPurchasedSubscriptionApi({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    MyPurchaseSubscriptionModel? myPurchaseSubscriptionModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetMyPurchasedSubscription,
+      checkResponse: checkResponse,
+    );
+
+    if (response != null) {
+      myPurchaseSubscriptionModel =
+          MyPurchaseSubscriptionModel.fromJson(jsonDecode(response.body));
+      return myPurchaseSubscriptionModel;
     }
     return null;
   }

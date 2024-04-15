@@ -1,15 +1,15 @@
-class WalletHistoryModel {
-  List<WalletHistoryData>? data;
+class MyPurchaseSubscriptionModel {
+  List<MyPurchaseSubscriptionData>? data;
   String? message;
   String? status;
 
-  WalletHistoryModel({this.data, this.message, this.status});
+  MyPurchaseSubscriptionModel({this.data, this.message, this.status});
 
-  WalletHistoryModel.fromJson(Map<String, dynamic> json) {
+  MyPurchaseSubscriptionModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <WalletHistoryData>[];
+      data = <MyPurchaseSubscriptionData>[];
       json['data'].forEach((v) {
-        data!.add(WalletHistoryData.fromJson(v));
+        data!.add(MyPurchaseSubscriptionData.fromJson(v));
       });
     }
     message = json['message'];
@@ -27,39 +27,43 @@ class WalletHistoryModel {
   }
 }
 
-class WalletHistoryData {
+class MyPurchaseSubscriptionData {
   String? id;
   String? userId;
+  String? subscriptionId;
+  String? subscriptionName;
   String? amount;
-  String? cardId;
+  String? paymentType;
   String? dateTime;
-  String? type;
 
-  WalletHistoryData(
+  MyPurchaseSubscriptionData(
       {this.id,
       this.userId,
+      this.subscriptionId,
+      this.subscriptionName,
       this.amount,
-      this.cardId,
-      this.dateTime,
-      this.type});
+      this.paymentType,
+      this.dateTime});
 
-  WalletHistoryData.fromJson(Map<String, dynamic> json) {
+  MyPurchaseSubscriptionData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     userId = json['user_id'];
+    subscriptionId = json['subscription_id'];
+    subscriptionName = json['subscription_name'];
     amount = json['amount'];
-    cardId = json['card_id'];
+    paymentType = json['payment_type'];
     dateTime = json['date_time'];
-    type = json['type'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['user_id'] = userId;
+    data['subscription_id'] = subscriptionId;
+    data['subscription_name'] = subscriptionName;
     data['amount'] = amount;
-    data['card_id'] = cardId;
+    data['payment_type'] = paymentType;
     data['date_time'] = dateTime;
-    data['type'] = type;
     return data;
   }
 }

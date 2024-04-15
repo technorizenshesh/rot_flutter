@@ -1,0 +1,450 @@
+import 'package:dropdown_search/dropdown_search.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
+
+import '../../../../common/common_widgets.dart';
+import '../../../../common/progress_bar.dart';
+import '../../../data/constants/icons_constant.dart';
+import '../../../data/constants/string_constants.dart';
+import '../controllers/upload_car_sub_category_controller.dart';
+
+class UploadCarSubCategoryView extends GetView<UploadCarSubCategoryController> {
+  const UploadCarSubCategoryView({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      controller.count.value;
+      return Scaffold(
+        appBar: CommonWidgets.appBar(title: controller.title),
+        body: ProgressBar(
+          inAsyncCall: controller.inAsyncCall.value,
+          child: ListView(
+            children: [
+              SizedBox(height: 10.px),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.px),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      StringConstants.photos.tr,
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(
+                              fontSize: 20.px,
+                              color: Theme.of(context).primaryColor),
+                    ),
+                    SizedBox(height: 10.px),
+                    SingleChildScrollView(
+                      child: Wrap(
+                        children: List.generate(4, (index) {
+                          return SizedBox(
+                            width: MediaQuery.of(context).size.width / 4.5,
+                            child: InkWell(
+                              onTap: () => controller.clickOnCard(index: index),
+                              borderRadius: BorderRadius.circular(8.px),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 2.px, vertical: 4.px),
+                                child: controller.imageList[index] != null
+                                    ? Container(
+                                        height: 75.px,
+                                        width: 75.px,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15.px)),
+                                        clipBehavior: Clip.hardEdge,
+                                        child: Image.file(
+                                            controller.imageList[index]!,
+                                            fit: BoxFit.fill),
+                                      )
+                                    : Center(
+                                        child: CommonWidgets.appIcons(
+                                          height: 75.px,
+                                          width: 75.px,
+                                          assetName: IconConstants.icAddDotted,
+                                        ),
+                                      ),
+                              ),
+                            ),
+                          );
+                        }),
+                      ),
+                    ),
+                    SizedBox(height: 10.px),
+                    Text(
+                      StringConstants.adDetails.tr,
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(
+                              fontSize: 18.px,
+                              color: Theme.of(context).primaryColor),
+                    ),
+                    SizedBox(height: 20.px),
+                    textFormField(
+                        hintText: StringConstants.title.tr,
+                        controller: controller.titleController),
+                    SizedBox(height: 10.px),
+                    textFormField(
+                        hintText: StringConstants.description.tr,
+                        controller: controller.descriptionController,
+                        maxLines: 4),
+                    SizedBox(height: 10.px),
+                    if (controller.data.isNotEmpty)
+                      dropDown(
+                        hintText: StringConstants.category.tr,
+                        onChanged: (value) =>
+                            controller.onChangedCategoryField(value: value),
+                        items: List.generate(
+                            controller.data.length,
+                            (index) =>
+                                controller.data[index].categoryName.toString()),
+                      ),
+                    if (controller.data.isNotEmpty) SizedBox(height: 10.px),
+                    if (controller.getSubCategoryData.isNotEmpty)
+                      dropDown(
+                        hintText: StringConstants.subCategory.tr,
+                        onChanged: (value) =>
+                            controller.onChangedCategoryField(value: value),
+                        items: List.generate(
+                            controller.getSubCategoryData.length,
+                            (index) => controller
+                                .getSubCategoryData[index].subCatName
+                                .toString()),
+                      ),
+                    if (controller.getSubCategoryData.isNotEmpty)
+                      SizedBox(height: 10.px),
+                    textFormField(
+                        hintText: StringConstants.productLocation.tr,
+                        controller: controller.productLocationController),
+                    SizedBox(height: 10.px),
+                    if (controller.countryData.isNotEmpty)
+                      dropDown(
+                        hintText: StringConstants.country.tr,
+                        onChanged: (value) =>
+                            controller.onChangedCountryField(value: value),
+                        items: List.generate(
+                            controller.countryData.length,
+                            (index) =>
+                                controller.countryData[index].name.toString()),
+                      ),
+                    if (controller.countryData.isNotEmpty)
+                      SizedBox(height: 10.px),
+                    if (controller.stateData.isNotEmpty)
+                      dropDown(
+                        hintText: StringConstants.state.tr,
+                        onChanged: (value) =>
+                            controller.onChangedStateField(value: value),
+                        items: List.generate(
+                            controller.stateData.length,
+                            (index) =>
+                                controller.stateData[index].name.toString()),
+                      ),
+                    if (controller.stateData.isNotEmpty)
+                      SizedBox(height: 10.px),
+                    if (controller.cityData.isNotEmpty)
+                      dropDown(
+                        hintText: StringConstants.city.tr,
+                        onChanged: (value) =>
+                            controller.onChangedCityField(value: value),
+                        items: List.generate(
+                            controller.cityData.length,
+                            (index) =>
+                                controller.cityData[index].name.toString()),
+                      ),
+                    if (controller.cityData.isNotEmpty) SizedBox(height: 10.px),
+                    textFormField(
+                        hintText: StringConstants.zipCode.tr,
+                        controller: controller.zipCodeController),
+                    SizedBox(height: 10.px),
+                    textFormField(
+                      hintText: StringConstants.productsStatus.tr,
+                      readOnly: true,
+                      showSuffix: true,
+                      controller: controller.productStatusController,
+                      onTap: () => controller.clickOnProductsStatus(),
+                    ),
+                    SizedBox(height: 10.px),
+                    textFormField(
+                      hintText: StringConstants.hashtag.tr,
+                      readOnly: true,
+                      showSuffix: true,
+                      controller: controller.hashTagController,
+                      onTap: () => controller.clickOnHashtag(),
+                    ),
+                    SizedBox(height: 10.px),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: textFormField(
+                              hintText: StringConstants.price.tr,
+                              controller: controller.priceController),
+                        ),
+                        SizedBox(width: 10.px),
+                        if (controller.currencyData.isNotEmpty)
+                          Expanded(
+                            child: dropDown(
+                              hintText: StringConstants.currency.tr,
+                              onChanged: (value) => controller
+                                  .onChangedCurrencyField(value: value),
+                              items: List.generate(
+                                  controller.currencyData.length,
+                                  (index) => controller
+                                      .currencyData[index].currencyName
+                                      .toString()),
+                            ),
+                          ),
+                      ],
+                    ),
+                    SizedBox(height: 20.px),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          StringConstants.enableShipping.tr,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(color: Theme.of(context).primaryColor),
+                        ),
+                        CupertinoSwitch(
+                          value: controller.switchValue.value,
+                          activeColor: Theme.of(context).primaryColor,
+                          onChanged: (bool? value) {
+                            controller.switchValue.value = value ?? false;
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20.px),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return Obx(() {
+                          controller.count.value;
+                          return Padding(
+                            padding: EdgeInsets.symmetric(vertical: 4.px),
+                            child: Theme(
+                              data: ThemeData(
+                                unselectedWidgetColor: Theme.of(Get.context!)
+                                    .primaryColor, // Set the inactive color here
+                              ),
+                              child: RadioListTile(
+                                controlAffinity:
+                                    ListTileControlAffinity.trailing,
+                                shape: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16.px),
+                                  borderSide: BorderSide(
+                                    color: Theme.of(Get.context!)
+                                        .colorScheme
+                                        .surface,
+                                    width: .4.px,
+                                  ),
+                                ),
+                                activeColor: Theme.of(context).primaryColor,
+                                onChanged: (value) {
+                                  controller.selectedValue.value =
+                                      controller.list[index];
+                                },
+                                title: Text(
+                                  controller.list[index],
+                                  style: Theme.of(Get.context!)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(
+                                          fontSize: 14.px,
+                                          color: Theme.of(Get.context!)
+                                              .primaryColor),
+                                ),
+                                value: controller.selectedValue.value,
+                                groupValue: controller.list[index],
+                              ),
+                            ),
+                          );
+                        });
+                      },
+                      itemCount: controller.list.length,
+                    ),
+                    SizedBox(height: 10.px),
+                    CommonWidgets.commonElevatedButton(
+                      onPressed: () => controller.clickOnPostAddButton(),
+                      childText: Text(
+                        StringConstants.postAdd.tr,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall
+                            ?.copyWith(fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                    SizedBox(height: 10.px),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    });
+  }
+
+  textFormField(
+      {required String hintText,
+      required TextEditingController controller,
+      int? maxLines,
+      bool? readOnly,
+      bool showSuffix = false,
+      GestureTapCallback? onTap}) {
+    return TextField(
+      maxLines: maxLines ?? 1,
+      onTap: onTap,
+      readOnly: readOnly ?? false,
+      controller: controller,
+      style: Theme.of(Get.context!)
+          .textTheme
+          .headlineMedium
+          ?.copyWith(fontSize: 14.px),
+      decoration: InputDecoration(
+          disabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: Theme.of(Get.context!).colorScheme.onSurface,
+                width: 2.px),
+            borderRadius: BorderRadius.circular(14.px),
+          ),
+          border: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: Theme.of(Get.context!).primaryColor, width: 2.px),
+              borderRadius: BorderRadius.circular(14.px)),
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color:
+                      Theme.of(Get.context!).colorScheme.onSecondaryContainer,
+                  width: 2.px),
+              borderRadius: BorderRadius.circular(14.px)),
+          errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: Theme.of(Get.context!).colorScheme.onError,
+                  width: 2.px),
+              borderRadius: BorderRadius.circular(14.px)),
+          hintText: hintText,
+          labelText: hintText,
+          hintStyle: Theme.of(Get.context!).textTheme.titleMedium,
+          labelStyle: Theme.of(Get.context!).textTheme.titleMedium,
+          suffixIcon: showSuffix
+              ? Icon(
+                  Icons.arrow_forward_ios,
+                  size: 15,
+                  color: Theme.of(Get.context!).primaryColor,
+                )
+              : null),
+    );
+  }
+
+  dropDown(
+      {required String hintText,
+      required List<String> items,
+      ValueChanged? onChanged}) {
+    return DropdownSearch<String>(
+      dropdownButtonProps: DropdownButtonProps(
+        color: Theme.of(Get.context!).primaryColor,
+        icon: Icon(
+          Icons.keyboard_arrow_down_rounded,
+          size: 24.px,
+        ),
+      ),
+      popupProps: PopupProps.menu(
+        showSelectedItems: true,
+        showSearchBox: true,
+        menuProps: MenuProps(borderRadius: BorderRadius.circular(20.px)),
+        searchFieldProps: TextFieldProps(
+          decoration: InputDecoration(
+            disabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: Theme.of(Get.context!).colorScheme.onSurface,
+                  width: 2.px),
+              borderRadius: BorderRadius.circular(14.px),
+            ),
+            border: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Theme.of(Get.context!).primaryColor, width: 2.px),
+                borderRadius: BorderRadius.circular(14.px)),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color:
+                        Theme.of(Get.context!).colorScheme.onSecondaryContainer,
+                    width: 2.px),
+                borderRadius: BorderRadius.circular(14.px)),
+            errorBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Theme.of(Get.context!).colorScheme.onError,
+                    width: 2.px),
+                borderRadius: BorderRadius.circular(14.px)),
+            hintText: StringConstants.search.tr,
+            labelText: StringConstants.search.tr,
+            hintStyle: Theme.of(Get.context!).textTheme.titleMedium,
+            labelStyle: Theme.of(Get.context!).textTheme.titleMedium,
+          ),
+        ),
+        itemBuilder: (context, item, isSelected) {
+          return ListTile(
+            title: Text(
+              item,
+              style: Theme.of(Get.context!).textTheme.displayMedium?.copyWith(
+                  fontSize: 14.px,
+                  color:
+                      isSelected ? Theme.of(Get.context!).primaryColor : null),
+            ),
+          );
+        },
+        title: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.px, vertical: 20.px),
+          child: Text(
+            hintText,
+            style: Theme.of(Get.context!).textTheme.displayMedium?.copyWith(
+                fontSize: 18.px, color: Theme.of(Get.context!).primaryColor),
+          ),
+        ),
+        // disabledItemFn: (String s) => s.startsWith('I'),
+      ),
+      items: items,
+      dropdownDecoratorProps: DropDownDecoratorProps(
+        baseStyle: Theme.of(Get.context!)
+            .textTheme
+            .headlineMedium
+            ?.copyWith(fontSize: 14.px),
+        dropdownSearchDecoration: InputDecoration(
+          disabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: Theme.of(Get.context!).colorScheme.onSurface,
+                width: 2.px),
+            borderRadius: BorderRadius.circular(14.px),
+          ),
+          border: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: Theme.of(Get.context!).primaryColor, width: 2.px),
+              borderRadius: BorderRadius.circular(14.px)),
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color:
+                      Theme.of(Get.context!).colorScheme.onSecondaryContainer,
+                  width: 2.px),
+              borderRadius: BorderRadius.circular(14.px)),
+          errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: Theme.of(Get.context!).colorScheme.onError,
+                  width: 2.px),
+              borderRadius: BorderRadius.circular(14.px)),
+          hintText: hintText,
+          labelText: hintText,
+          hintStyle: Theme.of(Get.context!).textTheme.titleMedium,
+          labelStyle: Theme.of(Get.context!).textTheme.titleMedium,
+        ),
+      ),
+      onChanged: onChanged,
+    );
+  }
+}

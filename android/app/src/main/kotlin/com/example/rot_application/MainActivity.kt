@@ -1,4 +1,4 @@
-package com.rot_application
+package com.rot.aplication
 
 import io.flutter.embedding.android.FlutterActivity
 

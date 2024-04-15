@@ -50,6 +50,7 @@ class UserData {
   String? createdAt;
   String? wallet;
   String? reviewCount;
+  String? subscriptionDate;
 
   UserData(
       {this.id,
@@ -74,7 +75,8 @@ class UserData {
       this.updatedAt,
       this.createdAt,
       this.wallet,
-      this.reviewCount});
+      this.reviewCount,
+      this.subscriptionDate});
 
   UserData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -100,6 +102,7 @@ class UserData {
     createdAt = json['created_at'];
     wallet = json['wallet'];
     reviewCount = json['review_count'];
+    subscriptionDate = json['subcription_date'];
   }
 
   Map<String, dynamic> toJson() {
@@ -127,6 +130,7 @@ class UserData {
     data['created_at'] = createdAt;
     data['wallet'] = wallet;
     data['review_count'] = reviewCount;
+    data['subcription_date'] = subscriptionDate;
     return data;
   }
 }

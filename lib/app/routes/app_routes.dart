@@ -88,6 +88,7 @@ abstract class Routes {
   static const GET_START = _Paths.GET_START;
   static const UPLOAD_CAR_SUB_CATEGORY = _Paths.UPLOAD_CAR_SUB_CATEGORY;
   static const PUBLIC_USER_PRODUCT_DETAILS = _Paths.PUBLIC_USER_PRODUCT_DETAILS;
+  static const PURCHASE_SUBSCRIPTION = _Paths.PURCHASE_SUBSCRIPTION;
 }
 
 abstract class _Paths {
@@ -175,4 +176,5 @@ abstract class _Paths {
   static const GET_START = '/get-start';
   static const UPLOAD_CAR_SUB_CATEGORY = '/upload-car-sub-category';
   static const PUBLIC_USER_PRODUCT_DETAILS = '/public-user-product-details';
+  static const PURCHASE_SUBSCRIPTION = '/purchase-subscription';
 }

@@ -99,6 +99,8 @@ class OtpController extends GetxController {
         Map<String, String> parameter = {
           ApiKeyConstants.userId: '',
           ApiKeyConstants.type: StringConstants.resetPassword,
+          ApiKeyConstants.mobile: parameters[ApiKeyConstants.mobile] ?? '+91',
+          'from': 'Firebase'
         };
         Get.offNamed(Routes.CREATE_NEW_PASSWORD, parameters: parameter);
       }

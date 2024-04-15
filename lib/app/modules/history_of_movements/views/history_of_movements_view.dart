@@ -148,7 +148,7 @@ class AllView extends GetView<HistoryOfMovementsController> {
                         ],
                       ),
                       title: Text(
-                        'Recharge',
+                        item.type ?? '',
                         style: Theme.of(context)
                             .textTheme
                             .displayMedium
@@ -239,7 +239,7 @@ class AppetizerView extends GetView<HistoryOfMovementsController> {
                         ],
                       ),
                       title: Text(
-                        'Recharge',
+                        item.type ?? '',
                         style: Theme.of(context)
                             .textTheme
                             .displayMedium
