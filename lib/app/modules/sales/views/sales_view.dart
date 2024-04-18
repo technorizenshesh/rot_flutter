@@ -119,7 +119,7 @@ class InWindView extends GetView<SalesController> {
                                     image: controller.inWindProductList[index]
                                             .productImage!.isNotEmpty
                                         ? controller.inWindProductList[index]
-                                                .productImage![0].image ??
+                                                .productImage![index].image ??
                                             ''
                                         : '',
                                     width: 180.px,
@@ -178,7 +178,7 @@ class InWindView extends GetView<SalesController> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 10.px),
+                              SizedBox(height: 5.px),
                               Text(
                                 controller.inWindProductList[index].title ?? '',
                                 maxLines: 1,
@@ -189,15 +189,16 @@ class InWindView extends GetView<SalesController> {
                                       fontSize: 14.px,
                                     ),
                               ),
-                              SizedBox(height: 10.px),
+                              SizedBox(height: 5.px),
                               Text(
                                 controller
                                         .inWindProductList[index].description ??
                                     '',
                                 maxLines: 2,
                                 style: Theme.of(context).textTheme.titleMedium,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              SizedBox(height: 10.px),
+                              SizedBox(height: 5.px),
                             ],
                           ),
                         ],

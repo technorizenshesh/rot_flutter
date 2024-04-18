@@ -15,218 +15,93 @@ class SubscriptionView extends GetView<SubscriptionController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CommonWidgets.appBar(title: StringConstants.subscription),
-        body: Column(
-          children: [
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.px),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 10.px),
-                    Text(
-                      StringConstants.rotPro,
-                      style:
-                          Theme.of(context).textTheme.displayMedium?.copyWith(
-                                fontSize: 28.px,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                    ),
-                    SizedBox(height: 10.px),
-                    Text(
-                      StringConstants.itOffersYouSolutions,
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(fontSize: 14.px),
-                    ),
-                    SizedBox(height: 10.px),
-                    Text(
-                      'Find the best subscription plan that best suits your goals!',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium
-                          ?.copyWith(fontSize: 16.px),
-                    ),
-                    SizedBox(height: 10.px),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              StringConstants.purchases,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayMedium
-                                  ?.copyWith(fontSize: 14.px),
-                            ),
-                            SizedBox(
-                              width: 10.px,
-                            ),
-                            Icon(
-                              Icons.circle,
-                              color: Colors.green,
-                              size: 20.px,
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              StringConstants.unPurchase,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayMedium
-                                  ?.copyWith(fontSize: 14.px),
-                            ),
-                            SizedBox(
-                              width: 10.px,
-                            ),
-                            Icon(
-                              Icons.circle,
-                              color: Colors.purpleAccent.withOpacity(0.2),
-                              size: 20.px,
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10.px),
-                  ],
-                )
-                /* Container(
-                  height: 220.px,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(
-                        ImageConstants.imageBackgroundCardGreen,
+        body: Obx(() {
+          controller.count.value;
+          return Column(
+            children: [
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.px),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 10.px),
+                      Text(
+                        StringConstants.rotPro,
+                        style:
+                            Theme.of(context).textTheme.displayMedium?.copyWith(
+                                  fontSize: 28.px,
+                                  color: Theme.of(context).primaryColor,
+                                ),
                       ),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(20.px),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          StringConstants.rot,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium
-                              ?.copyWith(
-                                fontSize: 16.px,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                              ),
-                        ),
-                        Text(
-                          '\$ 09.00',
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium
-                              ?.copyWith(
-                                fontSize: 24.px,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                              ),
-                        ),
-                        Text(
-                          'Start plan',
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium
-                              ?.copyWith(
-                                fontSize: 20.px,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                              ),
-                        ),
-                        Text(
-                          "Free service up to a maximum of 10 publications, with a quantity limit per article\nof 1. You will not be able to see the clients' contact details nor will theirs be visible.",
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.copyWith(
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                              ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 5,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20.px),
-                Container(
-                  height: 220.px,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(
-                        ImageConstants.imageBackgroundCardPink,
+                      SizedBox(height: 10.px),
+                      Text(
+                        StringConstants.itOffersYouSolutions,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(fontSize: 14.px),
                       ),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(20.px),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          StringConstants.rot,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium
-                              ?.copyWith(
-                                fontSize: 16.px,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
+                      SizedBox(height: 10.px),
+                      Text(
+                        'Find the best subscription plan that best suits your goals!',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(fontSize: 16.px),
+                      ),
+                      SizedBox(height: 10.px),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                StringConstants.purchases,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(fontSize: 14.px),
                               ),
-                        ),
-                        Text(
-                          '\$ 08.00',
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium
-                              ?.copyWith(
-                                fontSize: 24.px,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
+                              SizedBox(
+                                width: 10.px,
                               ),
-                        ),
-                        Text(
-                          'Basic Plan',
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium
-                              ?.copyWith(
-                                fontSize: 20.px,
-                                color: Theme.of(context).primaryColor,
+                              Icon(
+                                Icons.circle,
+                                color: Colors.green,
+                                size: 20.px,
+                              )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                StringConstants.unPurchase,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(fontSize: 14.px),
                               ),
-                        ),
-                        Text(
-                          "number of items 200 products maximum, you will pay X dollars per month, you\ncan use the ERP to import and export products, billing, inventory control.",
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.copyWith(
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
+                              SizedBox(
+                                width: 10.px,
                               ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20.px), */
-                ),
-            Obx(() => controller.dataPresent.value
-                ? Expanded(child: showAllSubscriptionsList())
-                : const Center(child: CircularProgressIndicator())),
-          ],
-        ));
+                              Icon(
+                                Icons.circle,
+                                color: Colors.purpleAccent.withOpacity(0.2),
+                                size: 20.px,
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10.px),
+                    ],
+                  )),
+              Obx(() => controller.dataPresent.value
+                  ? Expanded(child: showAllSubscriptionsList())
+                  : const Center(child: CircularProgressIndicator())),
+            ],
+          );
+        }));
   }
 
   Widget showAllSubscriptionsList() {

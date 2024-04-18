@@ -1,10 +1,16 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rot_application/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:rot_application/app/data/apis/api_models/get_product_details_model.dart';
 import 'package:rot_application/common/common_widgets.dart';
 
+import '../../../../common/common_pickImage.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/apis/api_models/get_delete_product_model.dart';
+import '../../../data/constants/string_constants.dart';
 
 class MyAddProductDetailController extends GetxController {
   final count = 0.obs;
@@ -82,5 +88,75 @@ class MyAddProductDetailController extends GetxController {
     } else {
       CommonWidgets.showMyToastMessage('Failed.....');
     }
+  }
+
+  Future<void> soldReservedProduct(String type) async {
+    Map<String, String> deleteQueryParameters = {
+      ApiKeyConstants.productId: productId,
+      ApiKeyConstants.availableAt: type,
+    };
+    print("queryParameters $deleteQueryParameters");
+    http.Response? response =
+        await ApiMethods.changeProductStatusSoldOrReserved(
+            queryParameters: deleteQueryParameters);
+    if (response != null) {
+      Get.back();
+      CommonWidgets.showMyToastMessage('Product successfully $type ...');
+    } else {
+      CommonWidgets.showMyToastMessage('Failed.....');
+    }
+  }
+
+  void showAlertDialog(String type) {
+    showDialog(
+      context: Get.context!,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return MyAlertDialog(
+          actions: [
+            CupertinoDialogAction(
+              isDefaultAction: true,
+              child: Text(
+                StringConstants.yes,
+                style: Theme.of(Get.context!)
+                    .textTheme
+                    .titleSmall
+                    ?.copyWith(fontSize: 10.px, color: Colors.redAccent),
+              ),
+              onPressed: () {
+                Get.back();
+                soldReservedProduct(type);
+              },
+            ),
+            CupertinoDialogAction(
+              isDefaultAction: true,
+              child: Text(
+                StringConstants.no,
+                style: Theme.of(Get.context!).textTheme.titleSmall?.copyWith(
+                    fontSize: 10.px,
+                    color: Theme.of(Get.context!).primaryColor),
+              ),
+              onPressed: () {
+                Get.back();
+              },
+            ),
+          ],
+          title: Text(
+            'Product $type',
+            style: Theme.of(Get.context!)
+                .textTheme
+                .displayMedium
+                ?.copyWith(fontSize: 18.px),
+          ),
+          content: Text(
+            'Do you want to $type',
+            style: Theme.of(Get.context!)
+                .textTheme
+                .titleSmall
+                ?.copyWith(fontSize: 14.px),
+          ),
+        );
+      },
+    );
   }
 }

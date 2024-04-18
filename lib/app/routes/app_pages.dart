@@ -132,6 +132,8 @@ import '../modules/sales/bindings/sales_binding.dart';
 import '../modules/sales/views/sales_view.dart';
 import '../modules/search/bindings/search_binding.dart';
 import '../modules/search/views/search_view.dart';
+import '../modules/send_money/bindings/send_money_binding.dart';
+import '../modules/send_money/views/send_money_view.dart';
 import '../modules/sign_up/bindings/sign_up_binding.dart';
 import '../modules/sign_up/views/sign_up_view.dart';
 import '../modules/sign_up_with_email/bindings/sign_up_with_email_binding.dart';
@@ -568,6 +570,11 @@ class AppPages {
       name: _Paths.PURCHASE_SUBSCRIPTION,
       page: () => const PurchaseSubscriptionView(),
       binding: PurchaseSubscriptionBinding(),
+    ),
+    GetPage(
+      name: _Paths.SEND_MONEY,
+      page: () => const SendMoneyView(),
+      binding: SendMoneyBinding(),
     ),
   ];
 }

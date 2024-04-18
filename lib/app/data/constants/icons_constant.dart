@@ -178,4 +178,6 @@ class IconConstants {
   static const String icFlagGpd = 'assets/icons/ic_flag_gpd.png';
   static const String icFlagUsd = 'assets/icons/ic_flag_usd.png';
   static const String icGreyCard = 'assets/icons/ic_grey_card.png';
+  static const String icGreenCart = 'assets/icons/ic_green_cart.png';
+  static const String icReserve = 'assets/icons/ic_reserve.png';
 }

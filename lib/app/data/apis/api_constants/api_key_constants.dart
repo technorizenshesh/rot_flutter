@@ -57,4 +57,5 @@ class ApiKeyConstants {
   static const String google = 'google';
   static const String subscriptionId = 'subscription_id';
   static const String subscriptionName = 'subscription_name';
+  static const String availableAt = 'available_at';
 }

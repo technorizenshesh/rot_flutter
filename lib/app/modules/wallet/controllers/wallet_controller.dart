@@ -55,7 +55,10 @@ class WalletController extends GetxController {
     }
   }
 
-  clickOnSendMoney() {}
+  clickOnSendMoney() {
+    Map<String, String> data = {ApiKeyConstants.wallet: walletAmount.value};
+    Get.toNamed(Routes.SEND_MONEY, parameters: data);
+  }
 
   clickOnPay() {}
 
@@ -64,7 +67,8 @@ class WalletController extends GetxController {
   }
 
   clickOnChange() {
-    // Get.toNamed(Routes.CHANGE);
+    Map<String, String> data = {ApiKeyConstants.wallet: walletAmount.value};
+    Get.toNamed(Routes.CHANGE, parameters: data);
   }
 
   clickOnRecharge() async {

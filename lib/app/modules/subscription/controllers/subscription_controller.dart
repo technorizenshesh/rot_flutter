@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:rot_application/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:rot_application/app/data/apis/api_models/get_my_purchase_subscription_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_subscription_model.dart';
+import 'package:rot_application/common/common_widgets.dart';
 
 import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../routes/app_pages.dart';
@@ -61,20 +62,46 @@ class SubscriptionController extends GetxController {
     }
   }
 
-  onClickOnSubscription(int index) {
-    Map<String, String> data = {
-      ApiKeyConstants.userId: parameters[ApiKeyConstants.userId] ?? ''
-    };
-    Get.toNamed(Routes.PURCHASE_SUBSCRIPTION,
-        parameters: data, arguments: subscriptionList[index]);
+  onClickOnSubscription(int index) async {
+    if (checkSubscriptionPurchased(index)) {
+      CommonWidgets.showMyToastMessage('Already you take this subscription...');
+    } else {
+      if (myPurchaseSubscriptionData.isNotEmpty &&
+          (int.parse(myPurchaseSubscriptionData[
+                              myPurchaseSubscriptionData.length - 1]
+                          .amount ??
+                      '0')
+                  .toInt() <
+              int.parse(subscriptionList[index].amount ?? '0').toInt())) {
+        Map<String, String> data = {
+          ApiKeyConstants.userId: parameters[ApiKeyConstants.userId] ?? '',
+          ApiKeyConstants.amount: myPurchaseSubscriptionData.isNotEmpty
+              ? myPurchaseSubscriptionData[
+                          myPurchaseSubscriptionData.length - 1]
+                      .amount ??
+                  '0'
+              : '0',
+        };
+        await Get.toNamed(Routes.PURCHASE_SUBSCRIPTION,
+            parameters: data, arguments: subscriptionList[index]);
+        getMyPurchasedSubscription();
+        increment();
+      } else {
+        CommonWidgets.showMyToastMessage(
+            'Already you take higher subscription...');
+      }
+    }
   }
 
   bool checkSubscriptionPurchased(index) {
-    for (int i = 0; i < myPurchaseSubscriptionData.length; i++) {
-      if (myPurchaseSubscriptionData[i].subscriptionId ==
+    if (myPurchaseSubscriptionData.isNotEmpty) {
+      if (myPurchaseSubscriptionData[myPurchaseSubscriptionData.length - 1]
+              .subscriptionId ==
           subscriptionList[index].id) {
         return true;
       }
+    } else {
+      return false;
     }
     return false;
   }

@@ -614,9 +614,11 @@ class HomeView extends GetView<HomeController> {
                                                           height: 40.px,
                                                         ),
                                                         CommonWidgets.appIcons(
-                                                          assetName: controller
-                                                                  .listOfCards2[
-                                                              0]['icon2'],
+                                                          assetName: getIcons(controller
+                                                                  .allProductData[
+                                                                      index]
+                                                                  .availableAt ??
+                                                              ''),
                                                           width: 40.px,
                                                           height: 40.px,
                                                         ),
@@ -712,5 +714,16 @@ class HomeView extends GetView<HomeController> {
         ),
       );
     });
+  }
+
+  String getIcons(String available) {
+    switch (available) {
+      case "sold":
+        return IconConstants.icTruck;
+      case "reserved":
+        return IconConstants.icReserve;
+      default:
+        return IconConstants.icGreenCart;
+    }
   }
 }

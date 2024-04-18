@@ -282,22 +282,11 @@ class PublicUserProductDetailsView
                                 child: Row(
                                   children: [
                                     if (controller.data!.price != null &&
-                                        controller.data!.price!.isNotEmpty &&
-                                        controller.data!.discount != null &&
-                                        controller.data!.discount!.isNotEmpty)
+                                        controller.data!.price!.isNotEmpty)
                                       Flexible(
                                         child: Text(
                                           CommonMethods.cur +
-                                              ((int.parse(controller
-                                                          .data!.price!)) -
-                                                      ((int.parse(controller
-                                                                  .data!
-                                                                  .price!) /
-                                                              100) *
-                                                          int.parse(controller
-                                                              .data!
-                                                              .discount!)))
-                                                  .toString(),
+                                              controller.data!.price.toString(),
                                           style: Theme.of(context)
                                               .textTheme
                                               .displayMedium
@@ -329,20 +318,6 @@ class PublicUserProductDetailsView
                                               ),
                                         ),
                                       ),
-                                    SizedBox(width: 10.px),
-                                    Flexible(
-                                      child: Text(
-                                        '${controller.data!.discount ?? ''} % Off',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium
-                                            ?.copyWith(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .error,
-                                            ),
-                                      ),
-                                    ),
                                   ],
                                 ),
                               ),

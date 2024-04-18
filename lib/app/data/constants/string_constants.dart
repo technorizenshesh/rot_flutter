@@ -281,6 +281,7 @@ class StringConstants {
   static const String recharge = 'Recharge';
   static const String charge = 'Charge';
   static const String change = 'Change';
+  static const String changeMoney = 'Change Money';
   static const String sendMoney = 'Send Money';
   static const String pay = 'Pay';
   static const String withdraw = 'Withdraw';
@@ -443,4 +444,13 @@ class StringConstants {
   static const String unlike = 'unlike';
   static const String okIAmReady = 'Ok i am ready';
   static const String nowYouCanShop = 'Now you can shop';
+  static const String rate = 'Rate';
+  static const String youSend = 'You send';
+  static const String recipientReceives = 'Recipient receives';
+  static const String begin = 'Begin';
+  static const String fee = 'Fee';
+  static const String totalToPay = 'Total to pay';
+  static const String payWithCardAndWallet = 'Pay with card and wallet';
+  static const String deliverToBankAccount = 'Deliver to bank account';
+  static const String whatsAppNumber = 'WhatsApp number';
 }

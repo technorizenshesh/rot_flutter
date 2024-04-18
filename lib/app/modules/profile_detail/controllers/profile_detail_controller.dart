@@ -43,15 +43,18 @@ class ProfileDetailController extends GetxController
   FocusNode focusGender = FocusNode();
   FocusNode focusEmail = FocusNode();
   FocusNode focusPhone = FocusNode();
+  FocusNode focusWhatsApp = FocusNode();
   final isDob = false.obs;
   final isGender = false.obs;
   final isEmail = false.obs;
   final icPhone = false.obs;
+  final icWhatsApp = false.obs;
   final countryCode = 'IN'.obs;
   TextEditingController dobController = TextEditingController();
   TextEditingController genderController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController whatsAppController = TextEditingController();
   File? selectedFile;
   String userId = '';
 
@@ -95,6 +98,7 @@ class ProfileDetailController extends GetxController
     focusGender.addListener(onFocusChange);
     focusEmail.addListener(onFocusChange);
     focusPhone.addListener(onFocusChange);
+    focusWhatsApp.addListener(onFocusChange);
   }
 
   void onFocusChange() {
@@ -106,6 +110,7 @@ class ProfileDetailController extends GetxController
     isGender.value = focusGender.hasFocus;
     isEmail.value = focusEmail.hasFocus;
     icPhone.value = focusPhone.hasFocus;
+    icWhatsApp.value = focusWhatsApp.hasFocus;
   }
 
   Future<void> onInitWork() async {
@@ -127,6 +132,7 @@ class ProfileDetailController extends GetxController
         genderController.text = userData!.gender ?? '';
         emailController.text = userData!.email ?? '';
         phoneController.text = userData!.mobile ?? '';
+        whatsAppController.text = userData!.whatsappNumber ?? '';
       }
       increment();
     }
@@ -146,6 +152,7 @@ class ProfileDetailController extends GetxController
         ApiKeyConstants.gender: genderController.text,
         ApiKeyConstants.countryCode: countryCode.value,
         ApiKeyConstants.mobile: phoneController.text,
+        ApiKeyConstants.whatsappNumber: whatsAppController.text,
         ApiKeyConstants.dob: dobController.text,
         ApiKeyConstants.userName: fullNameController.text,
         ApiKeyConstants.sellerAddress: sellersAddressController.text,

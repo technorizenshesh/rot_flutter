@@ -299,6 +299,23 @@ class ApiMethods {
     return null;
   }
 
+  /// product change status sold or reserved ......
+  static Future<http.Response?> changeProductStatusSoldOrReserved({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfProductSoldReserved,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      return response;
+    }
+    return null;
+  }
+
   ///Delete product api...
   static Future<DeleteProductModel?> deleteProductByProductId({
     required Map<String, dynamic> queryParameters,

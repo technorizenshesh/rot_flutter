@@ -430,6 +430,21 @@ class AccountView extends GetView<ProfileDetailController> {
                   )),
             SizedBox(height: 14.px),
             CommonWidgets.commonTextFieldForLoginSignUP(
+              focusNode: controller.focusPhone,
+              title: StringConstants.phoneNumber,
+              controller: controller.phoneController,
+              isCard: controller.icPhone.value,
+              hintText: StringConstants.enterYourPhoneNumber,
+              horizontalPadding: 0,
+              prefixIconHorizontal: 8,
+              prefixIcon: CommonWidgets.countryCodePicker(
+                  onChanged: (value) {
+                    controller.clickOnCountryCode(value: value);
+                  },
+                  initialSelection: controller.userData!.countryCode ?? 'IN'),
+            ),
+            SizedBox(height: 14.px),
+            CommonWidgets.commonTextFieldForLoginSignUP(
               focusNode: controller.focusEmail,
               title: StringConstants.email,
               controller: controller.emailController,
@@ -438,11 +453,11 @@ class AccountView extends GetView<ProfileDetailController> {
             ),
             SizedBox(height: 14.px),
             CommonWidgets.commonTextFieldForLoginSignUP(
-              focusNode: controller.focusPhone,
-              title: StringConstants.phoneNumber,
-              controller: controller.phoneController,
-              isCard: controller.icPhone.value,
-              hintText: StringConstants.enterYourPhoneNumber,
+              focusNode: controller.focusWhatsApp,
+              title: StringConstants.whatsAppNumber,
+              controller: controller.whatsAppController,
+              isCard: controller.icWhatsApp.value,
+              hintText: StringConstants.whatsAppNumber,
               horizontalPadding: 0,
               prefixIconHorizontal: 8,
               prefixIcon: CommonWidgets.countryCodePicker(

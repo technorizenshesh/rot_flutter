@@ -24,6 +24,7 @@ class ApiUrlConstants {
   static const String endPointOfDeleteProduct = '/rot/api/delete_product';
   static const String endPointOfProductLikeUnlike =
       '/rot/api/product_like_unlike';
+  static const String endPointOfProductSoldReserved = '/rot/api/sold_reserved';
   static const String endPointOfGetFavoriteProduct =
       '/rot/api/get_like_product';
   static const String endPointOfGetProductByUserId =

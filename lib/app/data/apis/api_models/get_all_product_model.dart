@@ -48,6 +48,7 @@ class AllProductData {
   String? productName;
   String? subCategoryId;
   String? image;
+  String? availableAt;
 
   AllProductData(
       {this.id,
@@ -69,6 +70,7 @@ class AllProductData {
       this.dateTime,
       this.productName,
       this.subCategoryId,
+      this.availableAt,
       this.image});
 
   AllProductData.fromJson(Map<String, dynamic> json) {
@@ -91,6 +93,7 @@ class AllProductData {
     dateTime = json['date_time'];
     productName = json['product_name'];
     subCategoryId = json['sub_category_id'];
+    availableAt = json['available_at'];
     image = json['image'];
   }
 
@@ -115,6 +118,7 @@ class AllProductData {
     data['date_time'] = dateTime;
     data['product_name'] = productName;
     data['sub_category_id'] = subCategoryId;
+    data['available_at'] = availableAt;
     data['image'] = image;
     return data;
   }
