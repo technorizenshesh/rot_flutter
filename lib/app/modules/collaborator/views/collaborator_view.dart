@@ -15,6 +15,39 @@ class CollaboratorView extends GetView<CollaboratorController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonWidgets.appBar(title: StringConstants.collaborators.tr),
+      bottomNavigationBar: Container(
+        height: 150.px,
+        padding: EdgeInsets.all(5.px),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            CommonWidgets.commonElevatedButton(
+              onPressed: () => controller.clickOnInviteCollaboratorButton(),
+              childText: Text(
+                StringConstants.inviteCollaborator.tr,
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineSmall
+                    ?.copyWith(fontWeight: FontWeight.w700),
+              ),
+            ),
+            SizedBox(height: 10.px),
+            CommonWidgets.commonElevatedButton(
+              onPressed: () => controller.clickOnManageRolesButton(),
+              buttonColor:
+                  Theme.of(context).colorScheme.onSecondary.withOpacity(.6.px),
+              childText: Text(
+                StringConstants.manageRoles.tr,
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineSmall
+                    ?.copyWith(fontWeight: FontWeight.w700),
+              ),
+            ),
+            SizedBox(height: 10.px),
+          ],
+        ),
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.px),
         child: ListView(
@@ -38,7 +71,7 @@ class CollaboratorView extends GetView<CollaboratorController> {
             SizedBox(height: 20.px),
             ListView.builder(
               shrinkWrap: true,
-              itemCount: 2,
+              itemCount: 0,
               itemBuilder: (context, index) {
                 return ListTile(
                   contentPadding: EdgeInsets.zero,
@@ -122,30 +155,6 @@ class CollaboratorView extends GetView<CollaboratorController> {
               },
             ),
             SizedBox(height: 20.px),
-            CommonWidgets.commonElevatedButton(
-              onPressed: () => controller.clickOnInviteCollaboratorButton(),
-              childText: Text(
-                StringConstants.inviteCollaborator.tr,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(fontWeight: FontWeight.w700),
-              ),
-            ),
-            SizedBox(height: 10.px),
-            CommonWidgets.commonElevatedButton(
-              onPressed: () => controller.clickOnManageRolesButton(),
-              buttonColor:
-                  Theme.of(context).colorScheme.onSecondary.withOpacity(.6.px),
-              childText: Text(
-                StringConstants.manageRoles.tr,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(fontWeight: FontWeight.w700),
-              ),
-            ),
-            SizedBox(height: 10.px),
           ],
         ),
       ),

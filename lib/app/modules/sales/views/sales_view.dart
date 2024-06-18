@@ -132,14 +132,18 @@ class InWindView extends GetView<SalesController> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     CommonWidgets.appIcons(
-                                      assetName: controller.listOfCards[index]
-                                          ['icon1'],
+                                      assetName: controller.productIconStatus(
+                                          controller.inWindProductList[index]
+                                                  .availableAt ??
+                                              ''),
                                       width: 40.px,
                                       height: 40.px,
                                     ),
                                     CommonWidgets.appIcons(
-                                      assetName: controller.listOfCards[index]
-                                          ['icon2'],
+                                      assetName: controller.getIcons(controller
+                                              .inWindProductList[index]
+                                              .shipping ??
+                                          'Yes'),
                                       width: 40.px,
                                       height: 40.px,
                                     ),

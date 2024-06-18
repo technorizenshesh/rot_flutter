@@ -12,34 +12,37 @@ class DeliveryNearbyPointsView extends GetView<DeliveryNearbyPointsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonWidgets.appBar(title: StringConstants.nearbyPoints.tr),
-      body: Stack(
-        children: [
-          GoogleMap(
-            /* markers: {
+        appBar: CommonWidgets.appBar(title: StringConstants.nearbyPoints.tr),
+        body: Obx(() {
+          controller.count.value;
+          return Stack(
+            children: [
+              GoogleMap(
+                /* markers: {
               Marker(
                 markerId: const MarkerId('ll'),
                 position: LatLng(controller.lat, controller.long),
                 infoWindow: InfoWindow(title: "address"),
               )
             },*/
-            mapType: MapType.normal,
-            zoomGesturesEnabled: true,
-            tiltGesturesEnabled: false,
-            onCameraMove: (CameraPosition cameraPosition) {
-              print(cameraPosition.zoom);
-            },
-            minMaxZoomPreference: MinMaxZoomPreference(13, 17),
-            initialCameraPosition: CameraPosition(
-              target: LatLng(controller.lat, controller.long),
-              zoom: 14.4746,
-            ),
-            onMapCreated: (GoogleMapController googlecontroller) {
-              controller.mapController.complete(googlecontroller);
-            },
-          ),
-        ],
-      ),
-    );
+                mapType: MapType.normal,
+                zoomGesturesEnabled: true,
+                tiltGesturesEnabled: false,
+                onCameraMove: (CameraPosition cameraPosition) {
+                  print(cameraPosition.zoom);
+                },
+                minMaxZoomPreference: MinMaxZoomPreference(13, 17),
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(double.parse(controller.lat.value),
+                      double.parse(controller.long.value)),
+                  zoom: 14.4746,
+                ),
+                onMapCreated: (GoogleMapController googlecontroller) {
+                  controller.mapController.complete(googlecontroller);
+                },
+              ),
+            ],
+          );
+        }));
   }
 }

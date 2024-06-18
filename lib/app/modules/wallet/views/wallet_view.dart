@@ -1,9 +1,9 @@
+import 'package:currency_symbols/currency_symbols.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rot_application/app/data/constants/icons_constant.dart';
 import 'package:rot_application/app/data/constants/string_constants.dart';
-import 'package:rot_application/common/common_methods.dart';
 import 'package:rot_application/common/common_widgets.dart';
 
 import '../controllers/wallet_controller.dart';
@@ -14,155 +14,189 @@ class WalletView extends GetView<WalletController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonWidgets.appBar(title: StringConstants.wallet),
-      body: ListView(
-        children: [
-          SizedBox(height: 20.px),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.px),
-            child: Card(
-              elevation: .4.px,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14.px)),
-              child: Padding(
-                padding: EdgeInsets.all(20.px),
-                child: Column(
-                  children: [
-                    Text(
-                      'Principal. USD',
-                      style:
-                          Theme.of(context).textTheme.displayMedium?.copyWith(
+        appBar: CommonWidgets.appBar(title: StringConstants.wallet),
+        body: Obx(() {
+          controller.count.value;
+          return ListView(
+            children: [
+              SizedBox(height: 20.px),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.px),
+                child: Card(
+                  elevation: .4.px,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14.px)),
+                  child: Padding(
+                    padding: EdgeInsets.all(20.px),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Principal. ${controller.currencyName.value}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
                                 color: Theme.of(context).primaryColor,
                                 fontSize: 14.px,
                               ),
-                    ),
-                    SizedBox(height: 12.px),
-                    Obx(
-                      () => Text.rich(
-                        TextSpan(children: [
-                          TextSpan(
-                            text: CommonMethods.cur,
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
-                                  fontSize: 14.px,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                          ),
-                          TextSpan(
-                            text: controller.walletAmount.value,
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
-                                  fontSize: 60.px,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                          ),
-                        ]),
-                      ),
-                    ),
-                    SizedBox(height: 10.px),
-                    CommonWidgets.commonElevatedButton(
-                      wantContentSizeButton: true,
-                      decoration: const BoxDecoration(),
-                      onPressed: () => controller.clickOnAccounts(),
-                      childText: Text(
-                        StringConstants.accounts,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall
-                            ?.copyWith(fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                    SizedBox(height: 10.px),
-                    SizedBox(
-                      height: 70.px,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            card(
-                              assetName: IconConstants.icRecharge,
-                              text: StringConstants.recharge,
-                              onTap: () => controller.clickOnRecharge(),
-                            ),
-                            card(
-                              assetName: IconConstants.icCharge,
-                              text: StringConstants.change,
-                              onTap: () => controller.clickOnChange(),
-                            ),
-                            card(
-                              assetName: IconConstants.icSendMoney,
-                              text: StringConstants.send,
-                              onTap: () => controller.clickOnSendMoney(),
-                            ),
-                            card(
-                              assetName: IconConstants.icPay,
-                              text: StringConstants.pay,
-                              onTap: () => controller.clickOnPay(),
-                            ),
-                            card(
-                              assetName: IconConstants.icWithdraw,
-                              text: StringConstants.withdraw,
-                              onTap: () => controller.clickOnWithDraw(),
-                            ),
-                          ],
                         ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          SizedBox(height: 20.px),
-          ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8.px),
-                    child: Column(
-                      children: [
-                        ListTile(
-                          onTap: () => controller.clickOnListTile(index: index),
-                          leading: CommonWidgets.appIcons(
-                            assetName: controller.listOfListTile[index]['icon'],
-                            height: 40.px,
-                            width: 40.px,
-                          ),
-                          trailing: Image.asset(
-                            IconConstants.icRightArrow,
-                            height: 24.px,
-                            width: 24.px,
-                            fit: BoxFit.cover,
-                          ),
-                          title: Text(
-                            controller.listOfListTile[index]['title'],
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
-                                    fontSize: 14.px,
-                                    color: Theme.of(context).primaryColor),
+                        SizedBox(height: 12.px),
+                        Obx(
+                          () => Text.rich(
+                            TextSpan(children: [
+                              TextSpan(
+                                text: cSymbol(controller.currencyName.value),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(
+                                      fontSize: 14.px,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                              ),
+                              TextSpan(
+                                text: '${controller.integerAmount.value}.',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(
+                                      fontSize: 50.px,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                              ),
+                              TextSpan(
+                                text: controller.decimalAmount.value,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(
+                                      fontSize: 25.px,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                              ),
+                            ]),
                           ),
                         ),
-                        Divider(
-                          height: 2.px,
-                          color: Theme.of(context).colorScheme.onSecondary,
-                          thickness: .2.px,
+                        SizedBox(height: 10.px),
+                        CommonWidgets.commonElevatedButton(
+                          wantContentSizeButton: true,
+                          decoration: const BoxDecoration(),
+                          onPressed: () => controller.clickOnAccounts(),
+                          childText: Text(
+                            StringConstants.accounts,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall
+                                ?.copyWith(fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                        if (controller.myWalletList.isNotEmpty)
+                          Container(
+                            height: 36.px,
+                            width: 36.px,
+                            decoration: BoxDecoration(
+                              color: Colors.teal,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(18.px)),
+                            ),
+                            child: GestureDetector(
+                              onTap: () => controller.clickOnThreeDots(),
+                              child: Icon(
+                                Icons.more_horiz_outlined,
+                                size: 30.px,
+                                color: Colors.tealAccent,
+                              ),
+                            ),
+                          ),
+                        SizedBox(height: 5.px),
+                        SizedBox(
+                          height: 70.px,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                card(
+                                  assetName: IconConstants.icRecharge,
+                                  text: StringConstants.recharge,
+                                  onTap: () => controller.clickOnRecharge(),
+                                ),
+                                card(
+                                  assetName: IconConstants.icCharge,
+                                  text: StringConstants.change,
+                                  onTap: () => controller.clickOnChange(),
+                                ),
+                                card(
+                                  assetName: IconConstants.icSendMoney,
+                                  text: StringConstants.send,
+                                  onTap: () => controller.clickOnSendMoney(),
+                                ),
+                                card(
+                                  assetName: IconConstants.icPay,
+                                  text: StringConstants.pay,
+                                  onTap: () => controller.clickOnPay(),
+                                ),
+                                card(
+                                  assetName: IconConstants.icWithdraw,
+                                  text: StringConstants.withdraw,
+                                  onTap: () => controller.clickOnWithDraw(),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ],
                     ),
                   ),
-              itemCount: controller.listOfListTile.length),
-          SizedBox(height: 12.px),
-        ],
-      ),
-    );
+                ),
+              ),
+              SizedBox(height: 20.px),
+              ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) => Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8.px),
+                        child: Column(
+                          children: [
+                            ListTile(
+                              onTap: () =>
+                                  controller.clickOnListTile(index: index),
+                              leading: CommonWidgets.appIcons(
+                                assetName: controller.listOfListTile[index]
+                                    ['icon'],
+                                height: 40.px,
+                                width: 40.px,
+                              ),
+                              trailing: Image.asset(
+                                IconConstants.icRightArrow,
+                                height: 24.px,
+                                width: 24.px,
+                                fit: BoxFit.cover,
+                              ),
+                              title: Text(
+                                controller.listOfListTile[index]['title'],
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(
+                                        fontSize: 14.px,
+                                        color: Theme.of(context).primaryColor),
+                              ),
+                            ),
+                            Divider(
+                              height: 2.px,
+                              color: Theme.of(context).colorScheme.onSecondary,
+                              thickness: .2.px,
+                            ),
+                          ],
+                        ),
+                      ),
+                  itemCount: controller.listOfListTile.length),
+              SizedBox(height: 12.px),
+            ],
+          );
+        }));
   }
 
   Widget card(

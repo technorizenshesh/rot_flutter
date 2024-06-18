@@ -18,6 +18,8 @@ class RechargeController extends GetxController {
   List<CardListData> cardList = [];
   final showLoading = true.obs;
   final presentData = true.obs;
+  final currencyName = 'USD'.obs;
+  final walletId = '0'.obs;
   List listOfListTile = [
     {
       'title': 'Axis Bank **** **** **** 8395',
@@ -54,6 +56,8 @@ class RechargeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    currencyName.value = parameters[ApiKeyConstants.currency] ?? 'USD';
+    walletId.value = parameters[ApiKeyConstants.walletId] ?? '0';
     getMyCardList();
   }
 
@@ -68,6 +72,10 @@ class RechargeController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  clickOnQrCodeButton() {
+    Get.toNamed(Routes.SCAN_QR_CODE);
+  }
 
   Future<void> getMyCardList() async {
     try {
@@ -98,8 +106,11 @@ class RechargeController extends GetxController {
         ApiKeyConstants.userId: parameters[ApiKeyConstants.userId]!,
         ApiKeyConstants.amount: amountController.text.isNotEmpty
             ? amountController.text.toString()
-            : '0'
+            : '0',
+        ApiKeyConstants.currency: currencyName.value,
+        ApiKeyConstants.walletId: walletId.value
       };
+
       Get.toNamed(Routes.RECHARGE_SUMMARY,
           parameters: data, arguments: cardList[index]);
     } else {

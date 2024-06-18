@@ -91,7 +91,7 @@ class CompletedView extends GetView<PurchasesController> {
     return ListView(
       children: [
         SizedBox(height: 20.px),
-        Text(
+        /*  Text(
           '2023',
           maxLines: 1,
           style: Theme.of(context)
@@ -107,7 +107,7 @@ class CompletedView extends GetView<PurchasesController> {
               .textTheme
               .displayMedium
               ?.copyWith(fontSize: 16.px),
-        ),
+        ),*/
         SizedBox(height: 20.px),
         controller.completeDeliveryList.isNotEmpty
             ? ListView.builder(

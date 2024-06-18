@@ -471,16 +471,15 @@ class HomeView extends GetView<HomeController> {
                                                               .spaceBetween,
                                                       children: [
                                                         CommonWidgets.appIcons(
-                                                          assetName: controller
-                                                                  .listOfCards2[
-                                                              0]['icon1'],
+                                                          assetName: IconConstants
+                                                              .icMoneyReceived,
                                                           width: 40.px,
                                                           height: 40.px,
                                                         ),
                                                         CommonWidgets.appIcons(
-                                                          assetName: controller
-                                                                  .listOfCards2[
-                                                              0]['icon2'],
+                                                          assetName:
+                                                              IconConstants
+                                                                  .icTruck,
                                                           width: 40.px,
                                                           height: 40.px,
                                                         ),
@@ -607,18 +606,22 @@ class HomeView extends GetView<HomeController> {
                                                               .spaceBetween,
                                                       children: [
                                                         CommonWidgets.appIcons(
-                                                          assetName: controller
-                                                                  .listOfCards2[
-                                                              0]['icon1'],
+                                                          assetName: productIconStatus(
+                                                              controller
+                                                                      .allProductData[
+                                                                          index]
+                                                                      .availableAt ??
+                                                                  ''),
                                                           width: 40.px,
                                                           height: 40.px,
                                                         ),
                                                         CommonWidgets.appIcons(
-                                                          assetName: getIcons(controller
-                                                                  .allProductData[
-                                                                      index]
-                                                                  .availableAt ??
-                                                              ''),
+                                                          assetName: getIcons(
+                                                              controller
+                                                                      .allProductData[
+                                                                          index]
+                                                                      .shipping ??
+                                                                  'Yes'),
                                                           width: 40.px,
                                                           height: 40.px,
                                                         ),
@@ -668,11 +671,11 @@ class HomeView extends GetView<HomeController> {
                                                   ),
                                                   SizedBox(height: 10.px),
                                                   Text(
-                                                    controller
+                                                    removeHtmlTags(controller
                                                             .allProductData[
                                                                 index]
                                                             .title ??
-                                                        '',
+                                                        ''),
                                                     maxLines: 1,
                                                     style: Theme.of(context)
                                                         .textTheme
@@ -682,11 +685,11 @@ class HomeView extends GetView<HomeController> {
                                                   ),
                                                   SizedBox(height: 10.px),
                                                   Text(
-                                                    controller
+                                                    removeHtmlTags(controller
                                                             .allProductData[
                                                                 index]
                                                             .description ??
-                                                        '',
+                                                        ''),
                                                     maxLines: 2,
                                                     style: Theme.of(context)
                                                         .textTheme
@@ -718,12 +721,31 @@ class HomeView extends GetView<HomeController> {
 
   String getIcons(String available) {
     switch (available) {
-      case "sold":
+      case "Yes":
         return IconConstants.icTruck;
+      case "No":
+        return IconConstants.icPersonMoney;
+      default:
+        return IconConstants.icTruck;
+    }
+  }
+
+  String productIconStatus(String available) {
+    switch (available) {
+      case "sold":
+        return IconConstants.icPaid;
       case "reserved":
         return IconConstants.icReserve;
+      case "paid":
+        return IconConstants.icPaid;
+      case "process":
+        return IconConstants.icMoneyReceived;
       default:
-        return IconConstants.icGreenCart;
+        return IconConstants.icMoneyReceived;
     }
+  }
+
+  static String removeHtmlTags(String text) {
+    return text.replaceAll(RegExp(r'<[^>]*>|&[^;]+;'), ' ');
   }
 }

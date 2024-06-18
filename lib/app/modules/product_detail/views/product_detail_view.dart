@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rot_application/common/progress_bar.dart';
 
@@ -200,7 +202,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
                             children: [
                               Expanded(
                                 child: Text(
-                                  controller.data!.productName ?? '',
+                                  controller.data!.title ?? '',
                                   style: Theme.of(context)
                                       .textTheme
                                       .displayMedium
@@ -246,7 +248,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
                                     SizedBox(width: 4.px),
                                     Expanded(
                                       child: Text(
-                                        '285',
+                                        controller.getRandomView().toString(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleMedium,
@@ -264,7 +266,10 @@ class ProductDetailView extends GetView<ProductDetailController> {
                                     SizedBox(width: 4.px),
                                     Expanded(
                                       child: Text(
-                                        '150',
+                                        controller.getProductDetailsModel!.data!
+                                                .productLikeUnlikeCount
+                                                .toString() ??
+                                            '0',
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleMedium,
@@ -294,27 +299,6 @@ class ProductDetailView extends GetView<ProductDetailController> {
                                                 fontSize: 14.px,
                                                 color: Theme.of(context)
                                                     .primaryColor,
-                                              ),
-                                        ),
-                                      ),
-                                    SizedBox(width: 10.px),
-                                    if (controller.data!.price != null &&
-                                        controller.data!.price!.isNotEmpty)
-                                      Flexible(
-                                        child: Text(
-                                          CommonMethods.cur +
-                                              controller.data!.price!
-                                                  .toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleMedium
-                                              ?.copyWith(
-                                                decoration:
-                                                    TextDecoration.lineThrough,
-                                                decorationColor:
-                                                    Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondary,
                                               ),
                                         ),
                                       ),
@@ -352,33 +336,61 @@ class ProductDetailView extends GetView<ProductDetailController> {
                             ],
                           ),
                           SizedBox(height: 20.px),
-                          ListTile(
+                          Card(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.px),
                             ),
-                            onTap: () => controller.clickOnUserProfileTile(),
-                            leading: CommonWidgets.imageView(
-                              image:
-                                  controller.getProfilePublicData!.image ?? '',
-                              height: 50.px,
-                              width: 50.px,
-                              radius: 25.px,
-                            ),
-                            title: Text(
-                              controller.getProfilePublicData!.userName ?? '',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineMedium
-                                  ?.copyWith(fontSize: 18.px),
-                            ),
-                            subtitle: Text(
-                              '⭐⭐⭐⭐⭐ 5 (${controller.getProfilePublicData!.reviewCount} reviews)',
-                              style: Theme.of(context).textTheme.titleMedium,
+                            margin: EdgeInsets.zero,
+                            child: ListTile(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.px),
+                              ),
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 6.px, vertical: 2.px),
+                              onTap: () => controller.clickOnUserProfileTile(),
+                              leading: CommonWidgets.imageView(
+                                image: controller.getProfilePublicData!.image ??
+                                    '',
+                                height: 50.px,
+                                width: 50.px,
+                                radius: 25.px,
+                              ),
+                              title: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      controller
+                                              .getProfilePublicData!.userName ??
+                                          '',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineMedium
+                                          ?.copyWith(fontSize: 18.px),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 30.px,
+                                    child: CountryFlag.fromCountryCode(
+                                      controller.getProfilePublicData!
+                                              .countryCode ??
+                                          '',
+                                      height: 20.px,
+                                      width: 25.px,
+                                      borderRadius: 3,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              subtitle: Text(
+                                '⭐⭐⭐⭐⭐ 5 (${controller.getProfilePublicData!.reviewCount} reviews)',
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
                             ),
                           ),
                           SizedBox(height: 20.px),
                           ReadMoreText(
-                            controller.data!.description ?? '',
+                            removeHtmlTags(controller.data!.description ?? ''),
                             style: Theme.of(context).textTheme.titleMedium,
                             lessStyle: Theme.of(context)
                                 .textTheme
@@ -390,6 +402,8 @@ class ProductDetailView extends GetView<ProductDetailController> {
                                 ?.copyWith(fontSize: 14.px),
                           ),
                           SizedBox(height: 20.px),
+                          productDetails(context),
+                          SizedBox(height: 10.px),
                           Container(
                             padding: EdgeInsets.all(16.px),
                             decoration: BoxDecoration(
@@ -422,20 +436,25 @@ class ProductDetailView extends GetView<ProductDetailController> {
                                           ),
                                     ),
                                     SizedBox(height: 10.px),
-                                    Text(
-                                      'More information',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium
-                                          ?.copyWith(
-                                            decorationColor:
-                                                Theme.of(context).primaryColor,
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            fontSize: 14.px,
-                                            decoration:
-                                                TextDecoration.underline,
-                                          ),
+                                    InkWell(
+                                      onTap: () {
+                                        controller.clickOnLearnMoreButton();
+                                      },
+                                      child: Text(
+                                        'More information',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium
+                                            ?.copyWith(
+                                              decorationColor: Theme.of(context)
+                                                  .primaryColor,
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              fontSize: 14.px,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                            ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -443,94 +462,147 @@ class ProductDetailView extends GetView<ProductDetailController> {
                             ]),
                           ),
                           SizedBox(height: 20.px),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  'Delivery in 3-7 days',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayMedium
-                                      ?.copyWith(fontSize: 20.px),
+                          controller.presentUserAddress.value
+                              ? Column(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        controller.clickOnDeliveryTime();
+                                      },
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Flexible(
+                                            child: Text(
+                                              controller.deliveryTime.value,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayMedium
+                                                  ?.copyWith(fontSize: 20.px),
+                                            ),
+                                          ),
+                                          SizedBox(width: 10.px),
+                                          Icon(
+                                            Icons.keyboard_arrow_down,
+                                            size: 30.px,
+                                            color: Colors.teal,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 20.px),
+                                    ListTile(
+                                      onTap: () {
+                                        controller.clickOnPickPoint();
+                                      },
+                                      leading: CommonWidgets.appIcons(
+                                        assetName: IconConstants.icAddressPin,
+                                        height: 44.px,
+                                        width: 44.px,
+                                        borderRadius: 0.px,
+                                      ),
+                                      title: Text(
+                                        'At collection point from €2.99',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium
+                                            ?.copyWith(fontSize: 20.px),
+                                      ),
+                                      subtitle: Text(
+                                        'See nearby points',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium
+                                            ?.copyWith(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              fontSize: 14.px,
+                                            ),
+                                      ),
+                                    ),
+                                    Divider(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSecondary
+                                          .withOpacity(.4.px),
+                                      thickness: .6,
+                                    ),
+                                    SizedBox(height: 4.px),
+                                    ListTile(
+                                      onTap: () {
+                                        controller.clickOnMyAddress();
+                                      },
+                                      leading: CommonWidgets.appIcons(
+                                        assetName: IconConstants.icAddressPin,
+                                        height: 44.px,
+                                        width: 44.px,
+                                        borderRadius: 0.px,
+                                      ),
+                                      title: Text(
+                                        'At my address from € ${controller.deliveryCharge.value}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium
+                                            ?.copyWith(fontSize: 20.px),
+                                      ),
+                                      subtitle: Text(
+                                        controller.myAddress.value != null
+                                            ? controller.myAddress.value
+                                            : 'To Edit My Address',
+                                        maxLines: 2,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium
+                                            ?.copyWith(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              fontSize: 14.px,
+                                            ),
+                                      ),
+                                    ),
+                                    Divider(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSecondary
+                                          .withOpacity(.4.px),
+                                      thickness: .6,
+                                    ),
+                                    SizedBox(height: 20.px),
+                                  ],
+                                )
+                              : Column(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        controller.clickOnMyAddress();
+                                      },
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Flexible(
+                                            child: Text(
+                                              StringConstants.addYourLocation,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayMedium
+                                                  ?.copyWith(fontSize: 20.px),
+                                            ),
+                                          ),
+                                          SizedBox(width: 10.px),
+                                          Icon(
+                                            Icons.arrow_forward_ios,
+                                            size: 30.px,
+                                            color: Colors.teal,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 20.px),
+                                  ],
                                 ),
-                              ),
-                              SizedBox(width: 10.px),
-                              CommonWidgets.appIcons(
-                                assetName: IconConstants.icInfo,
-                                height: 24.px,
-                                width: 24.px,
-                                borderRadius: 0.px,
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20.px),
-                          ListTile(
-                            leading: CommonWidgets.appIcons(
-                              assetName: IconConstants.icAddressPin,
-                              height: 44.px,
-                              width: 44.px,
-                              borderRadius: 0.px,
-                            ),
-                            title: Text(
-                              'At collection point from €2.99',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayMedium
-                                  ?.copyWith(fontSize: 20.px),
-                            ),
-                            subtitle: Text(
-                              'See nearby points',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(
-                                    color: Theme.of(context).primaryColor,
-                                    fontSize: 14.px,
-                                  ),
-                            ),
-                          ),
-                          Divider(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSecondary
-                                .withOpacity(.4.px),
-                            thickness: .6,
-                          ),
-                          SizedBox(height: 4.px),
-                          ListTile(
-                            leading: CommonWidgets.appIcons(
-                              assetName: IconConstants.icAddressPin,
-                              height: 44.px,
-                              width: 44.px,
-                              borderRadius: 0.px,
-                            ),
-                            title: Text(
-                              'At my address from €3.49',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayMedium
-                                  ?.copyWith(fontSize: 20.px),
-                            ),
-                            subtitle: Text(
-                              'Send to 47011 Valladolid',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(
-                                    color: Theme.of(context).primaryColor,
-                                    fontSize: 14.px,
-                                  ),
-                            ),
-                          ),
-                          Divider(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSecondary
-                                .withOpacity(.4.px),
-                            thickness: .6,
-                          ),
-                          SizedBox(height: 20.px),
+
                           Card(
                             child: Padding(
                               padding: EdgeInsets.all(8.px),
@@ -551,16 +623,21 @@ class ProductDetailView extends GetView<ProductDetailController> {
                                             ?.copyWith(fontSize: 14.px),
                                       ),
                                       const Spacer(),
-                                      Text(
-                                        '+ Info',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displayMedium
-                                            ?.copyWith(
-                                              fontSize: 14.px,
-                                              color: Theme.of(context)
-                                                  .primaryColor,
-                                            ),
+                                      InkWell(
+                                        onTap: () {
+                                          controller.clickOnLearnMoreButton();
+                                        },
+                                        child: Text(
+                                          '+ Info',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displayMedium
+                                              ?.copyWith(
+                                                fontSize: 14.px,
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                              ),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -619,22 +696,53 @@ class ProductDetailView extends GetView<ProductDetailController> {
                             ),
                           ),
                           SizedBox(height: 20.px),
-                          Text(
-                            '46100, Burjassot',
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(fontSize: 20.px),
+                          Row(
+                            children: [
+                              CommonWidgets.appIcons(
+                                  assetName: IconConstants.icLocation,
+                                  height: 25.px,
+                                  width: 25.px),
+                              Flexible(
+                                child: Text(
+                                  '${controller.getProductDetailsModel!.data!.zipCode ?? ''},${controller.getProductDetailsModel!.data!.productLocation}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(fontSize: 16.px),
+                                ),
+                              ),
+                            ],
                           ),
                           SizedBox(height: 20.px),
-                          CommonWidgets.appIcons(
-                            assetName: 'assets/un_used_images/map.png',
-                            height: 100.px,
+                          Container(
+                            height: 150.px,
                             width: double.infinity,
-                            borderRadius: 8.px,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.px)),
+                            clipBehavior: Clip.hardEdge,
+                            child: GoogleMap(
+                              mapType: MapType.normal,
+                              zoomGesturesEnabled: false,
+                              tiltGesturesEnabled: false,
+                              onCameraMove: (CameraPosition cameraPosition) {
+                                print(cameraPosition.zoom);
+                              },
+                              minMaxZoomPreference:
+                                  MinMaxZoomPreference(13, 17),
+                              initialCameraPosition: CameraPosition(
+                                target: LatLng(
+                                    controller.lat.value, controller.lon.value),
+                                zoom: 14.4746,
+                              ),
+                              onMapCreated:
+                                  (GoogleMapController googlecontroller) {
+                                controller.mapController
+                                    .complete(googlecontroller);
+                              },
+                            ),
                           ),
                           SizedBox(height: 20.px),
-                          Text(
+                          /*          Text(
                             StringConstants.keepExploring.tr,
                             style: Theme.of(context)
                                 .textTheme
@@ -675,7 +783,10 @@ class ProductDetailView extends GetView<ProductDetailController> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 20.px),
+                          SizedBox(height: 20.px),*/
+
+                          //Report Product...
+
                           Center(
                             child: InkWell(
                               onTap: () => controller.clickOnReportProduct(),
@@ -696,6 +807,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
                               ),
                             ),
                           ),
+
                           SizedBox(height: 20.px),
                           CommonWidgets.commonElevatedButton(
                             onPressed: () => controller.clickOnBuyButton(),
@@ -719,5 +831,170 @@ class ProductDetailView extends GetView<ProductDetailController> {
         ),
       );
     });
+  }
+
+  static String removeHtmlTags(String text) {
+    return text.replaceAll(RegExp(r'<[^>]*>|&[^;]+;'), ' ');
+  }
+
+  Widget productDetails(BuildContext context) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (controller.getProductDetailsModel!.data!.color != '')
+            Padding(
+              padding: EdgeInsets.only(top: 5.px),
+              child: Text(
+                  '* ${StringConstants.colour} ${controller.getProductDetailsModel!.data!.color}',
+                  style: Theme.of(context).textTheme.titleMedium),
+            ),
+
+          /// model name....
+          if (controller.getProductDetailsModel!.data!.modelName != '')
+            Padding(
+              padding: EdgeInsets.only(top: 5.px),
+              child: Text(
+                '* ${modelName(controller.getProductDetailsModel!.data!.categoryId ?? '')}: ${controller.getProductDetailsModel!.data!.modelName}',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+
+          /// Type of engine....
+          if (controller.getProductDetailsModel!.data!.modelName != '')
+            Padding(
+              padding: EdgeInsets.only(top: 5.px),
+              child: Text(
+                '* ${enginType(controller.getProductDetailsModel!.data!.categoryId ?? '')}: ${controller.getProductDetailsModel!.data!.typeEngine}',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+
+          /// Shipping home....
+          if (controller.getProductDetailsModel!.data!.shipping != '')
+            Padding(
+              padding: EdgeInsets.only(top: 5.px),
+              child: Text(
+                  '* ${StringConstants.shipping}: ${controller.getProductDetailsModel!.data!.shipping}',
+                  style: Theme.of(context).textTheme.titleMedium),
+            ),
+
+          /// part Number .....
+          if (controller.getProductDetailsModel!.data!.partNumber != '')
+            Padding(
+              padding: EdgeInsets.only(top: 5.px),
+              child: Text(
+                  '* ${StringConstants.partNumber}: ${controller.getProductDetailsModel!.data!.partNumber}',
+                  style: Theme.of(context).textTheme.titleMedium),
+            ),
+
+          /// registration year ....
+          if (controller.getProductDetailsModel!.data!.registrationYear != '')
+            Padding(
+              padding: EdgeInsets.only(top: 5.px),
+              child: Text(
+                  '* ${registrationYear(controller.getProductDetailsModel!.data!.categoryId ?? '')}: ${controller.getProductDetailsModel!.data!.registrationYear}',
+                  style: Theme.of(context).textTheme.titleMedium),
+            ),
+
+          /// transmission ....
+          if (controller.getProductDetailsModel!.data!.transmission != '')
+            Padding(
+              padding: EdgeInsets.only(top: 5.px),
+              child: Text(
+                  '* ${transmission(controller.getProductDetailsModel!.data!.categoryId ?? '')}: ${controller.getProductDetailsModel!.data!.transmission}',
+                  style: Theme.of(context).textTheme.titleMedium),
+            ),
+
+          ///motor....
+          if (controller.getProductDetailsModel!.data!.motor != '')
+            Padding(
+              padding: EdgeInsets.only(top: 5.px),
+              child: Text(
+                  '* ${motor(controller.getProductDetailsModel!.data!.categoryId ?? '')}: ${controller.getProductDetailsModel!.data!.motor}',
+                  style: Theme.of(context).textTheme.titleMedium),
+            ),
+
+          /// kilometers....
+          if (controller.getProductDetailsModel!.data!.kilometer != '')
+            Padding(
+              padding: EdgeInsets.only(top: 5.px),
+              child: Text(
+                  '* ${kilometer(controller.getProductDetailsModel!.data!.categoryId ?? '')}: ${controller.getProductDetailsModel!.data!.kilometer}',
+                  style: Theme.of(context).textTheme.titleMedium),
+            ),
+
+          /// weight....
+          if (controller.getProductDetailsModel!.data!.weight != '')
+            Padding(
+              padding: EdgeInsets.only(top: 5.px),
+              child: Text(
+                  '* ${StringConstants.weight}: ${controller.getProductDetailsModel!.data!.weight} ${controller.getProductDetailsModel!.data!.weightDim}',
+                  style: Theme.of(context).textTheme.titleMedium),
+            ),
+
+          /// volume....
+          if (controller.getProductDetailsModel!.data!.productVolume !=
+                  ' cm x  cmx  cm' &&
+              controller.getProductDetailsModel!.data!.productVolume != '')
+            Padding(
+              padding: EdgeInsets.only(top: 5.px),
+              child: Text(
+                  '* Product Volume: ${controller.getProductDetailsModel!.data!.productVolume}',
+                  style: Theme.of(context).textTheme.titleMedium),
+            ),
+
+          /// product status ....
+          Padding(
+            padding: EdgeInsets.only(top: 5.px),
+            child: Text(
+                '* Product Status: ${controller.getProductDetailsModel!.data!.availableAt}',
+                style: Theme.of(context).textTheme.titleMedium),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String modelName(String categoryId) {
+    if (categoryId == '3') return StringConstants.bedRooms;
+    if (categoryId == '23') return StringConstants.category;
+
+    return StringConstants.model;
+  }
+
+  String enginType(String categoryId) {
+    if (categoryId == '3') return StringConstants.bathRooms;
+    if (categoryId == '23') return StringConstants.denomination;
+
+    return StringConstants.typeOfEngines;
+  }
+
+  String registrationYear(String categoryId) {
+    if (categoryId == '3') return StringConstants.packing;
+    if (categoryId == '23') return StringConstants.year;
+
+    return StringConstants.registrationYear;
+  }
+
+  String transmission(String categoryId) {
+    if (categoryId == '3') return StringConstants.terrace;
+    if (categoryId == '23') return StringConstants.reference1;
+
+    return StringConstants.transmission;
+  }
+
+  String motor(String categoryId) {
+    if (categoryId == '3') return StringConstants.size;
+    if (categoryId == '23') return StringConstants.era;
+
+    return StringConstants.motor;
+  }
+
+  String kilometer(String categoryId) {
+    if (categoryId == '3') return StringConstants.storage;
+    if (categoryId == '23') return StringConstants.diameter;
+
+    return StringConstants.kilometers;
   }
 }

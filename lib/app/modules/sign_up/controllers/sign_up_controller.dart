@@ -5,7 +5,11 @@ import 'package:get/get.dart';
 import 'package:rot_application/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:rot_application/app/data/constants/string_constants.dart';
 import 'package:rot_application/common/common_widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../common/login_with_google.dart';
+import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/user_model.dart';
 import '../../../routes/app_pages.dart';
 
 class SignUpController extends GetxController {
@@ -126,5 +130,52 @@ class SignUpController extends GetxController {
     } else {
       CommonWidgets.snackBarView(title: StringConstants.allFieldsRequired);
     }
+  }
+
+  clickOnGoogleButton() async {
+    inAsyncCall.value = true;
+    User? user =
+        await MyGoogleAuthentication.signInWithGoogle(context: Get.context!);
+    if (user != null) {
+      loginWithGoogleApi(user);
+      print('Successfully complete login with google.....:-');
+      CommonWidgets.showMyToastMessage(
+          "Successfully complete login with google.....:-");
+      //Navigator.pop(context);
+    } else {
+      CommonWidgets.showMyToastMessage("Signup with google failed ...");
+      inAsyncCall.value = false;
+    }
+  }
+
+  void loginWithGoogleApi(User user) async {
+    try {
+      bodyParams = {
+        ApiKeyConstants.email: user.email,
+        ApiKeyConstants.userName: user.displayName,
+        ApiKeyConstants.type: ApiKeyConstants.google,
+      };
+      UserModel? userModel =
+          await ApiMethods.loginWithGoogle(bodyParams: bodyParams);
+      if (userModel != null &&
+          userModel.token != null &&
+          userModel.token!.isNotEmpty &&
+          userModel.userData != null &&
+          userModel.userData!.id != null &&
+          userModel.userData!.id!.isNotEmpty) {
+        SharedPreferences sp = await SharedPreferences.getInstance();
+        sp.setString(ApiKeyConstants.token, userModel.token!);
+        sp.setString(ApiKeyConstants.userId, userModel.userData!.id!);
+        print("Open Nav Bar Activity---------->>>>>>>");
+        Get.offNamed(Routes.NAV_BAR);
+      } else {
+        print("Failed 1------<<>>>>>>>>>>>");
+        CommonWidgets.showMyToastMessage("Signup with google failed ...");
+      }
+    } catch (e) {
+      print("Failed for catch------<<>>>>>>>>>>>");
+      CommonWidgets.showMyToastMessage("Error:-${e.toString()}");
+    }
+    inAsyncCall.value = false;
   }
 }

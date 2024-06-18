@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rot_application/app/data/apis/api_constants/api_key_constants.dart';
 
 import '../../../../common/common_widgets.dart';
 import '../../../../common/progress_bar.dart';
@@ -89,100 +90,316 @@ class UploadCarSubCategoryView extends GetView<UploadCarSubCategoryController> {
                         hintText: StringConstants.title.tr,
                         controller: controller.titleController),
                     SizedBox(height: 10.px),
-                    textFormField(
-                        hintText: StringConstants.description.tr,
-                        controller: controller.descriptionController,
-                        maxLines: 4),
-                    SizedBox(height: 10.px),
-                    if (controller.data.isNotEmpty)
+                    if (controller.brandData.isNotEmpty)
                       dropDown(
-                        hintText: StringConstants.category.tr,
+                        hintText: StringConstants.brand.tr,
                         onChanged: (value) =>
-                            controller.onChangedCategoryField(value: value),
+                            controller.onChangedBrandField(value: value),
                         items: List.generate(
-                            controller.data.length,
-                            (index) =>
-                                controller.data[index].categoryName.toString()),
-                      ),
-                    if (controller.data.isNotEmpty) SizedBox(height: 10.px),
-                    if (controller.getSubCategoryData.isNotEmpty)
-                      dropDown(
-                        hintText: StringConstants.subCategory.tr,
-                        onChanged: (value) =>
-                            controller.onChangedCategoryField(value: value),
-                        items: List.generate(
-                            controller.getSubCategoryData.length,
-                            (index) => controller
-                                .getSubCategoryData[index].subCatName
+                            controller.brandData.length,
+                            (index) => controller.brandData[index].brandName
                                 .toString()),
                       ),
-                    if (controller.getSubCategoryData.isNotEmpty)
+                    if (controller.getBrandModelData.isNotEmpty)
                       SizedBox(height: 10.px),
-                    textFormField(
-                        hintText: StringConstants.productLocation.tr,
-                        controller: controller.productLocationController),
-                    SizedBox(height: 10.px),
-                    if (controller.countryData.isNotEmpty)
+                    if (controller.getBrandModelData.isNotEmpty)
                       dropDown(
-                        hintText: StringConstants.country.tr,
+                        hintText: StringConstants.model.tr,
                         onChanged: (value) =>
-                            controller.onChangedCountryField(value: value),
+                            controller.onChangedBrandModeField(value: value),
                         items: List.generate(
-                            controller.countryData.length,
-                            (index) =>
-                                controller.countryData[index].name.toString()),
+                            controller.getBrandModelData.length,
+                            (index) => controller
+                                .getBrandModelData[index].modelName
+                                .toString()),
                       ),
-                    if (controller.countryData.isNotEmpty)
+                    if (controller.engineTypeData.isNotEmpty)
                       SizedBox(height: 10.px),
-                    if (controller.stateData.isNotEmpty)
-                      dropDown(
-                        hintText: StringConstants.state.tr,
-                        onChanged: (value) =>
-                            controller.onChangedStateField(value: value),
-                        items: List.generate(
-                            controller.stateData.length,
-                            (index) =>
-                                controller.stateData[index].name.toString()),
+                    if (controller.parameters[ApiKeyConstants.categoryId] ==
+                            '1' ||
+                        controller.parameters[ApiKeyConstants.categoryId] ==
+                            '2')
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          if (controller.engineTypeData.isNotEmpty)
+                            dropDown(
+                              hintText: StringConstants.typeOfEngines.tr,
+                              onChanged: (value) => controller
+                                  .onChangedEngineTypeField(value: value),
+                              items: List.generate(
+                                  controller.engineTypeData.length,
+                                  (index) => controller
+                                      .engineTypeData[index].name
+                                      .toString()),
+                            ),
+                          if (controller.engineTypeData.isNotEmpty)
+                            SizedBox(
+                              height: 10.px,
+                            ),
+                          dropDown(
+                            hintText: StringConstants.registrationYear.tr,
+                            onChanged: (value) => controller
+                                .onChangedRegistrationYearField(value: value),
+                            items: List.generate(
+                                controller.registrationYearList.length,
+                                (index) =>
+                                    controller.registrationYearList[index]),
+                          ),
+                          SizedBox(height: 10.px),
+                          textFormField(
+                            hintText: StringConstants.motor.tr,
+                            controller: controller.motorController,
+                          ),
+                          SizedBox(height: 10.px),
+                          textFormField(
+                            hintText: StringConstants.kilometers.tr,
+                            controller: controller.kiloMetersController,
+                          ),
+                          if (controller.transmissionData.isNotEmpty)
+                            SizedBox(
+                              height: 10.px,
+                            ),
+                          if (controller.transmissionData.isNotEmpty)
+                            dropDown(
+                              hintText: StringConstants.transmission.tr,
+                              onChanged: (value) => controller
+                                  .onChangedTransmissionField(value: value),
+                              items: List.generate(
+                                  controller.transmissionData.length,
+                                  (index) =>
+                                      controller.transmissionData[index].name ??
+                                      ''),
+                            ),
+                        ],
                       ),
-                    if (controller.stateData.isNotEmpty)
-                      SizedBox(height: 10.px),
-                    if (controller.cityData.isNotEmpty)
-                      dropDown(
-                        hintText: StringConstants.city.tr,
-                        onChanged: (value) =>
-                            controller.onChangedCityField(value: value),
-                        items: List.generate(
-                            controller.cityData.length,
-                            (index) =>
-                                controller.cityData[index].name.toString()),
-                      ),
-                    if (controller.cityData.isNotEmpty) SizedBox(height: 10.px),
-                    textFormField(
-                        hintText: StringConstants.zipCode.tr,
-                        controller: controller.zipCodeController),
+                    SizedBox(
+                      height: 10.px,
+                    ),
+                    dropDown(
+                      hintText: StringConstants.colorExterior.tr,
+                      onChanged: (value) =>
+                          controller.onChangedColorField(value: value),
+                      items: List.generate(controller.colorsList.length,
+                          (index) => controller.colorsList[index]),
+                    ),
                     SizedBox(height: 10.px),
                     textFormField(
                       hintText: StringConstants.productsStatus.tr,
                       readOnly: true,
                       showSuffix: true,
-                      controller: controller.productStatusController,
+                      controller: controller.productConditionController,
                       onTap: () => controller.clickOnProductsStatus(),
+                    ),
+                    if (controller.parameters[ApiKeyConstants.categoryId] !=
+                            '11' &&
+                        controller.parameters[ApiKeyConstants.categoryId] !=
+                            '1' &&
+                        controller.parameters[ApiKeyConstants.categoryId] !=
+                            '2')
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 10.px),
+                          textFormField(
+                              hintText: StringConstants.partNumber.tr,
+                              controller: controller.partNumberController),
+                        ],
+                      ),
+                    SizedBox(height: 10.px),
+                    textFormField(
+                        hintText: StringConstants.description.tr,
+                        controller: controller.descriptionController,
+                        maxLines: 4),
+                    if (controller.parameters[ApiKeyConstants.categoryId] !=
+                            '1' &&
+                        controller.parameters[ApiKeyConstants.categoryId] !=
+                            '2')
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 10.px),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: textFormField(
+                                    hintText: StringConstants.length.tr,
+                                    textInputType: TextInputType.number,
+                                    controller: controller.lengthController),
+                              ),
+                              SizedBox(width: 10.px),
+                              Expanded(
+                                child: dropDown(
+                                  hintText: StringConstants.dimension.tr,
+                                  onChanged: (value) =>
+                                      controller.onChangeDimensions(0, value),
+                                  items: List.generate(
+                                      controller.volumeDimensionList.length,
+                                      (index) => controller
+                                          .volumeDimensionList[index]),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10.px),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: textFormField(
+                                    hintText: StringConstants.width.tr,
+                                    textInputType: TextInputType.number,
+                                    controller: controller.widthController),
+                              ),
+                              SizedBox(width: 10.px),
+                              Expanded(
+                                child: dropDown(
+                                  hintText: StringConstants.dimension.tr,
+                                  onChanged: (value) =>
+                                      controller.onChangeDimensions(1, value),
+                                  items: List.generate(
+                                      controller.volumeDimensionList.length,
+                                      (index) => controller
+                                          .volumeDimensionList[index]),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10.px),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: textFormField(
+                                    hintText: StringConstants.height.tr,
+                                    textInputType: TextInputType.number,
+                                    controller: controller.heightController),
+                              ),
+                              SizedBox(width: 10.px),
+                              Expanded(
+                                child: dropDown(
+                                  hintText: StringConstants.dimension.tr,
+                                  onChanged: (value) =>
+                                      controller.onChangeDimensions(2, value),
+                                  items: List.generate(
+                                      controller.volumeDimensionList.length,
+                                      (index) => controller
+                                          .volumeDimensionList[index]),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10.px),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: textFormField(
+                                    hintText: StringConstants.weight.tr,
+                                    textInputType: TextInputType.number,
+                                    controller: controller.weightController),
+                              ),
+                              SizedBox(width: 10.px),
+                              Expanded(
+                                child: dropDown(
+                                  hintText: StringConstants.dimension.tr,
+                                  onChanged: (value) =>
+                                      controller.onChangeDimensions(3, value),
+                                  items: List.generate(
+                                      controller.weightDimensionList.length,
+                                      (index) => controller
+                                          .weightDimensionList[index]),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    SizedBox(height: 10.px),
+                    textFormField(
+                        hintText: StringConstants.whatsAppOptional.tr,
+                        controller: controller.whatsAppCodeController),
+                    SizedBox(height: 10.px),
+                    textFormField(
+                        hintText: StringConstants.telPhoneOptional.tr,
+                        controller: controller.telPhoneCodeController),
+                    SizedBox(height: 5.px),
+                    Row(
+                      children: [
+                        CupertinoCheckbox(
+                            value: controller.publicPhoneValue.value,
+                            side: BorderSide(color: Colors.teal, width: 1.px),
+                            onChanged: (value) {
+                              print('Press...${value.toString()}');
+                              controller.publicPhoneValue.value = value!;
+                              controller.increment();
+                            }),
+                        Text(
+                          StringConstants.makeMyPhonePublicInTheAd.tr,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall
+                              ?.copyWith(
+                                  fontSize: 12.px, color: Colors.black54),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10.px),
+                    Text(
+                      StringConstants.adLocation.tr,
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(fontSize: 18.px, color: Colors.black87),
+                    ),
+                    SizedBox(height: 5.px),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          StringConstants.enableMyDefaultLocation.tr,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(color: Theme.of(context).primaryColor),
+                        ),
+                        CupertinoSwitch(
+                          value: controller.switchValue.value,
+                          activeColor: Theme.of(context).primaryColor,
+                          onChanged: (bool? value) {
+                            controller.checkLocation(value!);
+                          },
+                        ),
+                      ],
                     ),
                     SizedBox(height: 10.px),
                     textFormField(
-                      hintText: StringConstants.hashtag.tr,
-                      readOnly: true,
-                      showSuffix: true,
-                      controller: controller.hashTagController,
-                      onTap: () => controller.clickOnHashtag(),
+                        hintText: StringConstants.productIsOtherLocation.tr,
+                        controller: controller.productLocationController,
+                        showSuffix: true,
+                        readOnly: true,
+                        onTap: () {
+                          controller.setLocation();
+                        }),
+                    SizedBox(height: 2.px),
+                    Text(
+                      StringConstants
+                          .toPreserveYourPrivacyYourExactLocationWillNeverBePublic
+                          .tr,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall
+                          ?.copyWith(fontSize: 12.px, color: Colors.black38),
                     ),
-                    SizedBox(height: 10.px),
+                    SizedBox(height: 15.px),
                     Row(
                       children: [
                         Expanded(
                           child: textFormField(
                               hintText: StringConstants.price.tr,
-                              controller: controller.priceController),
+                              controller: controller.priceController,
+                              currencySymbol: controller.currencySymbol.value,
+                              showPrefix: true),
                         ),
                         SizedBox(width: 10.px),
                         if (controller.currencyData.isNotEmpty)
@@ -200,77 +417,38 @@ class UploadCarSubCategoryView extends GetView<UploadCarSubCategoryController> {
                           ),
                       ],
                     ),
-                    SizedBox(height: 20.px),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          StringConstants.enableShipping.tr,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall
-                              ?.copyWith(color: Theme.of(context).primaryColor),
-                        ),
-                        CupertinoSwitch(
-                          value: controller.switchValue.value,
-                          activeColor: Theme.of(context).primaryColor,
-                          onChanged: (bool? value) {
-                            controller.switchValue.value = value ?? false;
-                          },
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 20.px),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return Obx(() {
-                          controller.count.value;
-                          return Padding(
-                            padding: EdgeInsets.symmetric(vertical: 4.px),
-                            child: Theme(
-                              data: ThemeData(
-                                unselectedWidgetColor: Theme.of(Get.context!)
-                                    .primaryColor, // Set the inactive color here
+                    if (controller.parameters[ApiKeyConstants.categoryId] !=
+                            '1' &&
+                        controller.parameters[ApiKeyConstants.categoryId] !=
+                            '2')
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 10.px),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                StringConstants.enableShipping.tr,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall
+                                    ?.copyWith(
+                                        color: Theme.of(context).primaryColor),
                               ),
-                              child: RadioListTile(
-                                controlAffinity:
-                                    ListTileControlAffinity.trailing,
-                                shape: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(16.px),
-                                  borderSide: BorderSide(
-                                    color: Theme.of(Get.context!)
-                                        .colorScheme
-                                        .surface,
-                                    width: .4.px,
-                                  ),
-                                ),
+                              CupertinoSwitch(
+                                value: controller.enableShipping.value,
                                 activeColor: Theme.of(context).primaryColor,
-                                onChanged: (value) {
-                                  controller.selectedValue.value =
-                                      controller.list[index];
+                                onChanged: (bool? value) {
+                                  controller.enableShipping.value = value!;
                                 },
-                                title: Text(
-                                  controller.list[index],
-                                  style: Theme.of(Get.context!)
-                                      .textTheme
-                                      .displayMedium
-                                      ?.copyWith(
-                                          fontSize: 14.px,
-                                          color: Theme.of(Get.context!)
-                                              .primaryColor),
-                                ),
-                                value: controller.selectedValue.value,
-                                groupValue: controller.list[index],
                               ),
-                            ),
-                          );
-                        });
-                      },
-                      itemCount: controller.list.length,
-                    ),
-                    SizedBox(height: 10.px),
+                            ],
+                          ),
+                        ],
+                      ),
+                    SizedBox(height: 20.px),
                     CommonWidgets.commonElevatedButton(
                       onPressed: () => controller.clickOnPostAddButton(),
                       childText: Text(
@@ -292,55 +470,71 @@ class UploadCarSubCategoryView extends GetView<UploadCarSubCategoryController> {
     });
   }
 
-  textFormField(
-      {required String hintText,
-      required TextEditingController controller,
-      int? maxLines,
-      bool? readOnly,
-      bool showSuffix = false,
-      GestureTapCallback? onTap}) {
+  textFormField({
+    required String hintText,
+    required TextEditingController controller,
+    int? maxLines,
+    bool? readOnly,
+    TextInputType? textInputType,
+    bool showSuffix = false,
+    bool showPrefix = false,
+    String? currencySymbol,
+    GestureTapCallback? onTap,
+    ValueChanged<String>? onChanged,
+  }) {
     return TextField(
       maxLines: maxLines ?? 1,
       onTap: onTap,
+      onChanged: onChanged,
       readOnly: readOnly ?? false,
       controller: controller,
+      keyboardType: textInputType,
       style: Theme.of(Get.context!)
           .textTheme
           .headlineMedium
           ?.copyWith(fontSize: 14.px),
       decoration: InputDecoration(
-          disabledBorder: OutlineInputBorder(
+        disabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: Theme.of(Get.context!).colorScheme.onSurface, width: 2.px),
+          borderRadius: BorderRadius.circular(14.px),
+        ),
+        border: OutlineInputBorder(
             borderSide: BorderSide(
-                color: Theme.of(Get.context!).colorScheme.onSurface,
+                color: Theme.of(Get.context!).primaryColor, width: 2.px),
+            borderRadius: BorderRadius.circular(14.px)),
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: Theme.of(Get.context!).colorScheme.onSecondaryContainer,
                 width: 2.px),
-            borderRadius: BorderRadius.circular(14.px),
-          ),
-          border: OutlineInputBorder(
-              borderSide: BorderSide(
-                  color: Theme.of(Get.context!).primaryColor, width: 2.px),
-              borderRadius: BorderRadius.circular(14.px)),
-          enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                  color:
-                      Theme.of(Get.context!).colorScheme.onSecondaryContainer,
-                  width: 2.px),
-              borderRadius: BorderRadius.circular(14.px)),
-          errorBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                  color: Theme.of(Get.context!).colorScheme.onError,
-                  width: 2.px),
-              borderRadius: BorderRadius.circular(14.px)),
-          hintText: hintText,
-          labelText: hintText,
-          hintStyle: Theme.of(Get.context!).textTheme.titleMedium,
-          labelStyle: Theme.of(Get.context!).textTheme.titleMedium,
-          suffixIcon: showSuffix
-              ? Icon(
-                  Icons.arrow_forward_ios,
-                  size: 15,
-                  color: Theme.of(Get.context!).primaryColor,
-                )
-              : null),
+            borderRadius: BorderRadius.circular(14.px)),
+        errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: Theme.of(Get.context!).colorScheme.onError, width: 2.px),
+            borderRadius: BorderRadius.circular(14.px)),
+        hintText: hintText,
+        labelText: hintText,
+        hintStyle: Theme.of(Get.context!).textTheme.titleMedium,
+        labelStyle: Theme.of(Get.context!).textTheme.titleMedium,
+        suffixIcon: showSuffix
+            ? Icon(
+                Icons.arrow_forward_ios,
+                size: 15,
+                color: Theme.of(Get.context!).primaryColor,
+              )
+            : null,
+        prefixIconConstraints:
+            BoxConstraints(maxWidth: 25.px, maxHeight: 25.px),
+        prefixIcon: showPrefix
+            ? Padding(
+                padding: EdgeInsets.only(left: 7.px, top: 0.px, right: 3.px),
+                child: Text(
+                  currencySymbol ?? '\$',
+                  style: Theme.of(Get.context!).textTheme.titleMedium,
+                ),
+              )
+            : null,
+      ),
     );
   }
 

@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 import 'package:rot_application/app/modules/home/controllers/home_controller.dart';
+import 'package:rot_application/app/modules/wish/views/wish_view.dart';
 
 import '../../chats/views/chats_view.dart';
 import '../../favorites/views/favorites_view.dart';
 import '../../home/views/home_view.dart';
 import '../../profile/views/profile_view.dart';
-import '../../upload/views/upload_view.dart';
 
 final areChangeProducts = false.obs;
 final selectedIndex = 0.obs;
@@ -51,7 +51,8 @@ class NavBarController extends GetxController {
         //   () => CategoriesController(),
         // );
         // return const CategoriesView();
-        return const UploadView();
+        //return const UploadView();
+        return const WishView();
       case 3:
         return const ChatsView();
       case 4:

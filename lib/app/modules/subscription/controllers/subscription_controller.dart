@@ -66,7 +66,7 @@ class SubscriptionController extends GetxController {
     if (checkSubscriptionPurchased(index)) {
       CommonWidgets.showMyToastMessage('Already you take this subscription...');
     } else {
-      if (myPurchaseSubscriptionData.isNotEmpty &&
+      /* if (myPurchaseSubscriptionData.isNotEmpty &&
           (int.parse(myPurchaseSubscriptionData[
                               myPurchaseSubscriptionData.length - 1]
                           .amount ??
@@ -89,7 +89,19 @@ class SubscriptionController extends GetxController {
       } else {
         CommonWidgets.showMyToastMessage(
             'Already you take higher subscription...');
-      }
+      } */
+      Map<String, String> data = {
+        ApiKeyConstants.userId: parameters[ApiKeyConstants.userId] ?? '',
+        ApiKeyConstants.amount: myPurchaseSubscriptionData.isNotEmpty
+            ? myPurchaseSubscriptionData[myPurchaseSubscriptionData.length - 1]
+                    .amount ??
+                '0'
+            : '0',
+      };
+      await Get.toNamed(Routes.PURCHASE_SUBSCRIPTION,
+          parameters: data, arguments: subscriptionList[index]);
+      getMyPurchasedSubscription();
+      increment();
     }
   }
 

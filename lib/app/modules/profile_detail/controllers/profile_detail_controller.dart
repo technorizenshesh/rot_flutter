@@ -5,11 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:rot_application/app/routes/app_pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/common_widgets.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/get_my_address_model.dart';
+import '../../../data/apis/api_models/get_sells_country_model.dart';
 import '../../../data/apis/api_models/user_model.dart';
 import '../../../data/constants/string_constants.dart';
 
@@ -50,6 +53,7 @@ class ProfileDetailController extends GetxController
   final icPhone = false.obs;
   final icWhatsApp = false.obs;
   final countryCode = 'IN'.obs;
+  final whatsAppCountryCode = 'IN'.obs;
   TextEditingController dobController = TextEditingController();
   TextEditingController genderController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -64,6 +68,7 @@ class ProfileDetailController extends GetxController
   UserData? userData;
 
   Map<String, dynamic> bodyParams = {};
+  List<SellsCountrData> countryList = [];
 
   @override
   Future<void> onInit() async {
@@ -115,6 +120,8 @@ class ProfileDetailController extends GetxController
 
   Future<void> onInitWork() async {
     await getProfileApi();
+    await getMyAddress();
+    await getCountrySell();
   }
 
   Future<void> getProfileApi() async {
@@ -127,7 +134,7 @@ class ProfileDetailController extends GetxController
       userData = userModel.userData;
       if (userData != null) {
         fullNameController.text = userData!.userName ?? '';
-        sellersAddressController.text = userData!.sellerAddress ?? '';
+        //sellersAddressController.text = userData!.sellerAddress ?? '';
         dobController.text = userData!.dob ?? '';
         genderController.text = userData!.gender ?? '';
         emailController.text = userData!.email ?? '';
@@ -138,8 +145,12 @@ class ProfileDetailController extends GetxController
     }
   }
 
-  clickOnCountryCode({required CountryCode value}) {
-    countryCode.value = value.code.toString();
+  clickOnCountryCode({required CountryCode value, required index}) {
+    if (index == 0) {
+      countryCode.value = value.code.toString();
+    } else {
+      whatsAppCountryCode.value = value.code.toString();
+    }
   }
 
   clickOnSubmitButton() async {
@@ -153,6 +164,7 @@ class ProfileDetailController extends GetxController
         ApiKeyConstants.countryCode: countryCode.value,
         ApiKeyConstants.mobile: phoneController.text,
         ApiKeyConstants.whatsappNumber: whatsAppController.text,
+        ApiKeyConstants.whatsappCountryCode: whatsAppCountryCode.value,
         ApiKeyConstants.dob: dobController.text,
         ApiKeyConstants.userName: fullNameController.text,
         ApiKeyConstants.sellerAddress: sellersAddressController.text,
@@ -178,5 +190,42 @@ class ProfileDetailController extends GetxController
     } else {
       print('No image selected ...');
     }
+  }
+
+  clickOnSellerAddress() async {
+    dynamic result = await Get.toNamed(Routes.EDIT_ADDRESS);
+    if (result != null) {
+      sellersAddressController.text = result.toString();
+      increment();
+    }
+  }
+
+  getMyAddress() async {
+    Map<String, dynamic> bodyParams = {
+      ApiKeyConstants.userId: userId,
+    };
+    MyAddressModel? myAddressModel =
+        await ApiMethods.getAddressApi(bodyParams: bodyParams);
+    if (myAddressModel != null &&
+        myAddressModel.status == '1' &&
+        myAddressModel.data != null) {
+      sellersAddressController.text =
+          '${myAddressModel.data![0].street},${myAddressModel.data![0].city},${myAddressModel.data![0].zipcode},'
+          '${myAddressModel.data![0].state},${myAddressModel.data![0].country}';
+    }
+  }
+
+  getCountrySell() async {
+    Map<String, dynamic> bodyParams = {
+      ApiKeyConstants.userId: userId,
+    };
+    SellsCountryModel? sellsCountryModel =
+        await ApiMethods.getMyProductSellCountryApi(bodyParams: bodyParams);
+    if (sellsCountryModel != null &&
+        sellsCountryModel.status == '1' &&
+        sellsCountryModel.data != null) {
+      countryList = sellsCountryModel.data!;
+    }
+    increment();
   }
 }

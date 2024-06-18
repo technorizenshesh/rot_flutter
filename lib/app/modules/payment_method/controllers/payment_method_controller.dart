@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:rot_application/app/data/apis/api_models/get_friends_model.dart';
 import 'package:rot_application/app/data/constants/icons_constant.dart';
 import 'package:rot_application/app/data/constants/string_constants.dart';
 import 'package:rot_application/app/routes/app_pages.dart';
@@ -10,16 +11,22 @@ import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/apis/api_models/get_card_list_model.dart';
 import '../../../data/apis/api_models/get_product_details_model.dart';
-import '../../../data/apis/api_models/user_model.dart';
+import '../../../data/apis/api_models/get_simple_model.dart';
+import '../../../data/apis/api_models/get_wallet_list_model.dart';
 
 class PaymentMethodController extends GetxController {
   final count = 0.obs;
   final upValue = 0.obs;
+  final showFriendList = true.obs;
   final selectedCard = 0.obs;
   final walletAmount = '0'.obs;
+  final walletId = '0'.obs;
+  final currencyName = 'USD'.obs;
   final cardDataPresent = false.obs;
   GetProductDetailsModel productDetailsModel = Get.arguments;
+  Map<String, String?> parameters = Get.parameters;
   List<CardListData> cardList = [];
+  List<GetFriendsData> friendList = [];
   String userId = '';
 
   ///TODO Card
@@ -41,6 +48,7 @@ class PaymentMethodController extends GetxController {
   final isYear = false.obs;
   final isCvv = false.obs;
   final hideCvv = false.obs;
+  final inAsyncCall = false.obs;
 
   ///TODO Pay for friend
   FocusNode focusFullName = FocusNode();
@@ -121,20 +129,25 @@ class PaymentMethodController extends GetxController {
             'card_number': cardList[selectedCard.value].cardNumber.toString(),
             'cvcCode': cardList[selectedCard.value].cvc.toString(),
             'expire_Date': cardList[selectedCard.value].expireDate.toString(),
+            'shipping_charge': parameters['shipping_charge'] ?? '0',
+            'wallet_id': '',
           };
           Get.toNamed(Routes.DELIVERY_SUMMARY,
               arguments: productDetailsModel, parameters: data);
         }
         break;
       case 1:
-        {}
+        {
+          submitFriendRequest();
+        }
         break;
       case 2:
         {
           Map<String, String> data = {
             'method': 'Wallet',
-            'card_id': '',
-            'amount': walletAmount.toString()
+            'wallet_id': walletId.value,
+            'amount': walletAmount.toString(),
+            'shipping_charge': parameters['shipping_charge'] ?? '0'
           };
           Get.toNamed(Routes.DELIVERY_SUMMARY,
               arguments: productDetailsModel, parameters: data);
@@ -143,9 +156,9 @@ class PaymentMethodController extends GetxController {
     }
   }
 
-  clickOnEyeButton() {}
-
-  clickOnShareButton() {}
+  clickOnShareButton() {
+    submitFriendRequest();
+  }
 
   clickOnListTile({required int index}) {
     upValue.value = index;
@@ -166,13 +179,25 @@ class PaymentMethodController extends GetxController {
     SharedPreferences sp = await SharedPreferences.getInstance();
     userId = sp.getString(ApiKeyConstants.userId) ?? '';
     getMyCardList(userId);
+    getWalletListApi();
+    getMyFriendList();
+  }
+
+  Future<void> getWalletListApi() async {
     Map<String, String> queryParameters = {
       ApiKeyConstants.userId: userId,
     };
-    UserModel? userModel =
-        await ApiMethods.getProfile(queryParameters: queryParameters);
-    if (userModel != null) {
-      walletAmount.value = userModel.userData!.wallet ?? '0';
+    GetWalletListModel? getWalletListModel =
+        await ApiMethods.getMyWalletListApi(queryParameters: queryParameters);
+    if (getWalletListModel != null &&
+        getWalletListModel.status == "1" &&
+        getWalletListModel.data!.isNotEmpty) {
+      walletAmount.value =
+          double.parse(getWalletListModel.data![0].amount ?? '0')
+              .toStringAsFixed(2);
+      currencyName.value = getWalletListModel.data![0].name ?? 'USD';
+      walletId.value = getWalletListModel.data![0].id ?? '0';
+      increment();
     }
   }
 
@@ -195,6 +220,59 @@ class PaymentMethodController extends GetxController {
       cardDataPresent.value = false;
       print('Error:- ${e.toString()}');
       CommonWidgets.showMyToastMessage('Card are not added till now ...');
+    }
+  }
+
+  Future<void> submitFriendRequest() async {
+    if (emailController.text.isNotEmpty &&
+        fullNameController.text.isNotEmpty &&
+        phoneNumberController.text.isNotEmpty) {
+      try {
+        Map<String, dynamic> addFriendRequestParameters = {
+          ApiKeyConstants.userId: userId,
+          ApiKeyConstants.email: emailController.text,
+          ApiKeyConstants.fullName: fullNameController.text,
+          ApiKeyConstants.phone: phoneNumberController.text,
+        };
+        print("bodyParam:-$addFriendRequestParameters");
+        inAsyncCall.value = true;
+        SimpleResponseModel? simpleResponseModel =
+            await ApiMethods.addFriendRequestApi(
+                bodyParams: addFriendRequestParameters);
+        if (simpleResponseModel != null && simpleResponseModel.status == 1) {
+          inAsyncCall.value = false;
+          CommonWidgets.showMyToastMessage(simpleResponseModel!.messages ?? '');
+        } else {
+          inAsyncCall.value = false;
+          CommonWidgets.showMyToastMessage(simpleResponseModel!.messages ?? '');
+        }
+      } catch (e) {
+        inAsyncCall.value = false;
+        print('Error:- ${e.toString()}');
+        CommonWidgets.showMyToastMessage('Failed to send request ...');
+      }
+    } else {
+      CommonWidgets.showMyToastMessage('Please fill all the fields.');
+    }
+  }
+
+  Future<void> getMyFriendList() async {
+    try {
+      Map<String, dynamic> getFriendsParameters = {
+        ApiKeyConstants.userId: userId,
+        ApiKeyConstants.status: 'Accept'
+      };
+      print("bodyParam:-$getFriendsParameters");
+      GetFriendsModel? getFriendsModel =
+          await ApiMethods.getFriendsApi(bodyParams: getFriendsParameters);
+      if (getFriendsModel != null && getFriendsModel.status == '1') {
+        friendList = getFriendsModel.data!;
+      } else {
+        CommonWidgets.showMyToastMessage('Friends are not presents ...');
+      }
+    } catch (e) {
+      print('Error:- ${e.toString()}');
+      CommonWidgets.showMyToastMessage('Friends are not presents ...');
     }
   }
 }

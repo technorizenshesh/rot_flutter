@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rot_application/app/data/constants/icons_constant.dart';
 import 'package:rot_application/app/data/constants/image_constants.dart';
 
 import '../../../../common/common_widgets.dart';
@@ -327,6 +328,455 @@ class BankInformationView extends GetView<BankInformationController> {
                       ),
                     ),
                     SizedBox(height: 15.px),
+                    if (controller.showLocalCard.value)
+                      Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 16.px, vertical: 10.px),
+                          child: Obx(() {
+                            controller.count.value;
+                            return controller.accountCard1.value
+                                ? Stack(
+                                    children: [
+                                      CommonWidgets.appIcons(
+                                          assetName: ImageConstants.imageCard2,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          height: 200.px,
+                                          borderRadius: 15.px),
+                                      Padding(
+                                        padding: const EdgeInsets.all(15),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  StringConstants.local,
+                                                  style: Theme.of(Get.context!)
+                                                      .textTheme
+                                                      .displayMedium
+                                                      ?.copyWith(
+                                                          fontSize: 16.px,
+                                                          color: Colors.white),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    CommonWidgets.appIcons(
+                                                        assetName: IconConstants
+                                                            .icBank,
+                                                        width: 30.px,
+                                                        height: 30.px,
+                                                        color: Colors.white,
+                                                        fit: BoxFit.fill),
+                                                    SizedBox(
+                                                      width: 8.px,
+                                                    ),
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        controller.accountCard1
+                                                            .value = false;
+                                                        controller.increment();
+                                                      },
+                                                      child: Container(
+                                                        height: 30,
+                                                        width: 30,
+                                                        alignment:
+                                                            Alignment.center,
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        15),
+                                                            color: Colors.grey
+                                                                .withOpacity(
+                                                                    0.6)),
+                                                        child: const Icon(
+                                                            Icons.more_vert,
+                                                            size: 20,
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 50.px,
+                                            ),
+                                            Text(
+                                              controller.localAccount!.data!
+                                                          .were!.length >=
+                                                      4
+                                                  ? '******${controller.localAccount!.data!.were!.substring(controller.localAccount!.data!.were!.length - 4, controller.localAccount!.data!.were!.length)}'
+                                                  : controller.localAccount!
+                                                          .data!.were ??
+                                                      '',
+                                              style: Theme.of(Get.context!)
+                                                  .textTheme
+                                                  .displayMedium
+                                                  ?.copyWith(
+                                                      fontSize: 16.px,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white),
+                                            ),
+                                            SizedBox(
+                                              height: 15.px,
+                                            ),
+                                            Text(
+                                              controller.localAccount!.data!
+                                                      .recipient ??
+                                                  '',
+                                              style: Theme.of(Get.context!)
+                                                  .textTheme
+                                                  .displayMedium
+                                                  ?.copyWith(
+                                                      fontSize: 16.px,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                : Stack(
+                                    children: [
+                                      Container(
+                                          height: 180.px,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          margin: EdgeInsets.all(10.px),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            gradient: const LinearGradient(
+                                              begin: Alignment.topLeft,
+                                              end: Alignment.bottomRight,
+                                              colors: [
+                                                Colors.blueAccent,
+                                                Colors.teal
+                                              ],
+                                            ),
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  controller.editAccount(0);
+                                                },
+                                                child: Container(
+                                                  height: 40.px,
+                                                  width: 170.px,
+                                                  margin: EdgeInsets.only(
+                                                      top: 30.px),
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25.px),
+                                                    color: Colors.white,
+                                                  ),
+                                                  child: const Text(
+                                                    'Edit Account',
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        color: Colors.black87),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 30.px,
+                                              ),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  controller.deleteAccount(0);
+                                                },
+                                                child: Container(
+                                                  height: 40.px,
+                                                  width: 170.px,
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25.px),
+                                                    color: Colors.white,
+                                                  ),
+                                                  child: const Text(
+                                                    'Delete Account',
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        color: Colors.black87),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          )),
+                                      Positioned(
+                                          top: 0,
+                                          left: 0,
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              controller.accountCard1.value =
+                                                  true;
+                                              controller.increment();
+                                            },
+                                            child: Container(
+                                              height: 36.px,
+                                              width: 36.px,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(18),
+                                                color: Colors.grey
+                                                    .withOpacity(0.8),
+                                              ),
+                                              child: const Icon(
+                                                Icons.arrow_back,
+                                                color: Colors.white,
+                                                size: 30,
+                                              ),
+                                            ),
+                                          ))
+                                    ],
+                                  );
+                          })),
+                    SizedBox(height: 15.px),
+                    if (controller.showInternationalCard.value)
+                      Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 16.px, vertical: 10.px),
+                          child: Obx(() {
+                            controller.count.value;
+                            return controller.accountCard2.value
+                                ? Stack(
+                                    children: [
+                                      CommonWidgets.appIcons(
+                                          assetName: ImageConstants.imageCard1,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          height: 200.px,
+                                          borderRadius: 15.px),
+                                      Padding(
+                                        padding: const EdgeInsets.all(15),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  StringConstants.swift,
+                                                  style: Theme.of(Get.context!)
+                                                      .textTheme
+                                                      .displayMedium
+                                                      ?.copyWith(
+                                                          fontSize: 16.px,
+                                                          color: Colors.white),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    CommonWidgets.appIcons(
+                                                        assetName: IconConstants
+                                                            .icBank,
+                                                        width: 30.px,
+                                                        height: 30.px,
+                                                        color: Colors.white,
+                                                        fit: BoxFit.fill),
+                                                    SizedBox(
+                                                      width: 8.px,
+                                                    ),
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        controller.accountCard2
+                                                            .value = false;
+                                                        controller.increment();
+                                                      },
+                                                      child: Container(
+                                                        height: 30,
+                                                        width: 30,
+                                                        alignment:
+                                                            Alignment.center,
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        15),
+                                                            color: Colors.grey
+                                                                .withOpacity(
+                                                                    0.6)),
+                                                        child: const Icon(
+                                                            Icons.more_vert,
+                                                            size: 20,
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 50.px,
+                                            ),
+                                            Text(
+                                              controller.internationalAccount!
+                                                          .data!.were!.length >=
+                                                      4
+                                                  ? '************${controller.internationalAccount!.data!.were!.substring(controller.internationalAccount!.data!.were!.length - 4, controller.internationalAccount!.data!.were!.length)}'
+                                                  : controller
+                                                          .internationalAccount!
+                                                          .data!
+                                                          .were ??
+                                                      '',
+                                              style: Theme.of(Get.context!)
+                                                  .textTheme
+                                                  .displayMedium
+                                                  ?.copyWith(
+                                                      fontSize: 16.px,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white),
+                                            ),
+                                            SizedBox(
+                                              height: 15.px,
+                                            ),
+                                            Text(
+                                              controller.internationalAccount!
+                                                      .data!.recipient ??
+                                                  '',
+                                              style: Theme.of(Get.context!)
+                                                  .textTheme
+                                                  .displayMedium
+                                                  ?.copyWith(
+                                                      fontSize: 16.px,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                : Stack(
+                                    children: [
+                                      Container(
+                                          height: 180.px,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          margin: EdgeInsets.all(10.px),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            gradient: const LinearGradient(
+                                              begin: Alignment.topLeft,
+                                              end: Alignment.bottomRight,
+                                              colors: [
+                                                Colors.blueAccent,
+                                                Colors.teal
+                                              ],
+                                            ),
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  controller.editAccount(1);
+                                                },
+                                                child: Container(
+                                                  height: 40.px,
+                                                  width: 170.px,
+                                                  margin: EdgeInsets.only(
+                                                      top: 30.px),
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25.px),
+                                                    color: Colors.white,
+                                                  ),
+                                                  child: const Text(
+                                                    'Edit Account',
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        color: Colors.black87),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 30.px,
+                                              ),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  controller.deleteAccount(1);
+                                                },
+                                                child: Container(
+                                                  height: 40.px,
+                                                  width: 170.px,
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25.px),
+                                                    color: Colors.white,
+                                                  ),
+                                                  child: const Text(
+                                                    'Delete Account',
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        color: Colors.black87),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          )),
+                                      Positioned(
+                                          top: 0,
+                                          left: 0,
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              controller.accountCard2.value =
+                                                  true;
+                                              controller.increment();
+                                            },
+                                            child: Container(
+                                              height: 36.px,
+                                              width: 36.px,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(18),
+                                                color: Colors.grey
+                                                    .withOpacity(0.8),
+                                              ),
+                                              child: const Icon(
+                                                Icons.arrow_back,
+                                                color: Colors.white,
+                                                size: 30,
+                                              ),
+                                            ),
+                                          ))
+                                    ],
+                                  );
+                          })),
                     SizedBox(height: 24.px),
                   ],
                 ),

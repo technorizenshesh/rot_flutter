@@ -16,6 +16,19 @@ class DeliveryPurchasesDoneView
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonWidgets.appBar(title: StringConstants.purchasesStatus.tr),
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.px.px),
+        child: CommonWidgets.commonElevatedButton(
+          onPressed: () => controller.clickOnHomeButton(),
+          childText: Text(
+            StringConstants.backHome.tr,
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall
+                ?.copyWith(fontWeight: FontWeight.w700),
+          ),
+        ),
+      ),
       body: ListView(
         children: [
           Padding(
@@ -56,7 +69,9 @@ class DeliveryPurchasesDoneView
                     children: [
                       SizedBox(height: 14.px),
                       InkWell(
-                        onTap: () => controller.clickOnKnowMore(),
+                        onTap: () {
+                          //controller.clickOnKnowMore();
+                        },
                         borderRadius: BorderRadius.circular(8.px),
                         child: Padding(
                           padding: EdgeInsets.all(8.px),
@@ -98,8 +113,8 @@ class DeliveryPurchasesDoneView
                     children: [
                       SizedBox(height: 10.px),
                       Text(
-                        '318307723054454',
-                        maxLines: 3,
+                        controller.parameters['shipping_id'] ?? '',
+                        maxLines: 1,
                         style: Theme.of(Get.context!)
                             .textTheme
                             .displayMedium
@@ -150,11 +165,14 @@ class DeliveryPurchasesDoneView
                   child: Row(children: [
                     Expanded(
                       flex: 1,
-                      child: CommonWidgets.appIcons(
-                        assetName:
-                            'assets/un_used_images/image_head _phones.png',
+                      child: CommonWidgets.imageView(
+                        image: controller.productDetailsModel.data!
+                                .productImage!.isNotEmpty
+                            ? controller.productDetailsModel.data!
+                                .productImage![0].image!
+                            : '',
                         height: 100.px,
-                        borderRadius: 14.px,
+                        radius: 14.px,
                       ),
                     ),
                     SizedBox(width: 10.px),
@@ -165,7 +183,8 @@ class DeliveryPurchasesDoneView
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Mackbook Pro',
+                            controller.productDetailsModel.data!.productName ??
+                                '',
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineMedium
@@ -181,7 +200,7 @@ class DeliveryPurchasesDoneView
                             children: [
                               Flexible(
                                 child: Text(
-                                  '${CommonMethods.cur}949.00',
+                                  '${CommonMethods.cur}  ${int.parse(controller.productDetailsModel.data!.price!) + double.parse(controller.parameters['shipping_charge'] ?? '0') + 3.39}',
                                   style: Theme.of(context)
                                       .textTheme
                                       .displayMedium
@@ -192,20 +211,6 @@ class DeliveryPurchasesDoneView
                                 ),
                               ),
                               SizedBox(width: 10.px),
-                              Flexible(
-                                child: Text(
-                                  '${CommonMethods.cur}465.00',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium
-                                      ?.copyWith(
-                                        decoration: TextDecoration.lineThrough,
-                                        decorationColor: Theme.of(context)
-                                            .colorScheme
-                                            .onSecondary,
-                                      ),
-                                ),
-                              ),
                             ],
                           ),
                         ],

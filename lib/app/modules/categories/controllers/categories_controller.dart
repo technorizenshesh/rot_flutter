@@ -37,9 +37,21 @@ class CategoriesController extends GetxController {
     Map<String, String> passParameters = {
       StringConstants.title: data[index].categoryName ?? '',
       ApiKeyConstants.categoryId: data[index].id ?? '',
+      ApiKeyConstants.categoryName: data[index].categoryName ?? '',
+      ApiKeyConstants.wishId: parameters[ApiKeyConstants.wishId] ?? '',
+      ApiKeyConstants.wishName: parameters[ApiKeyConstants.wishName] ?? '',
       ApiKeyConstants.type: parameters[ApiKeyConstants.type] ?? ''
     };
-    Get.toNamed(Routes.SUB_CATEGORY, parameters: passParameters);
+
+    if (parameters[ApiKeyConstants.type] == 'Post') {
+      Get.toNamed(Routes.SUB_CATEGORY, parameters: passParameters);
+    } else {
+      openProductsViewPageBaseOnCategory(passParameters);
+    }
+  }
+
+  openProductsViewPageBaseOnCategory(Map<String, String> data) {
+    Get.toNamed(Routes.PRODUCTS_ACCORDING_CATEGORY, parameters: data);
   }
 
   Future<void> onInitWork() async {

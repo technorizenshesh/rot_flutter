@@ -84,6 +84,98 @@ class UploadView extends GetView<UploadController> {
                         controller: controller.descriptionController,
                         maxLines: 4),
                     SizedBox(height: 10.px),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: textFormField(
+                              hintText: StringConstants.length.tr,
+                              textInputType: TextInputType.number,
+                              controller: controller.lengthController),
+                        ),
+                        SizedBox(width: 10.px),
+                        Expanded(
+                          child: dropDown(
+                            hintText: StringConstants.dimension.tr,
+                            onChanged: (value) =>
+                                controller.onChangeDimensions(0, value),
+                            items: List.generate(
+                                controller.volumeDimensionList.length,
+                                (index) =>
+                                    controller.volumeDimensionList[index]),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10.px),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: textFormField(
+                              hintText: StringConstants.width.tr,
+                              textInputType: TextInputType.number,
+                              controller: controller.widthController),
+                        ),
+                        SizedBox(width: 10.px),
+                        Expanded(
+                          child: dropDown(
+                            hintText: StringConstants.dimension.tr,
+                            onChanged: (value) =>
+                                controller.onChangeDimensions(1, value),
+                            items: List.generate(
+                                controller.volumeDimensionList.length,
+                                (index) =>
+                                    controller.volumeDimensionList[index]),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10.px),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: textFormField(
+                              hintText: StringConstants.height.tr,
+                              textInputType: TextInputType.number,
+                              controller: controller.heightController),
+                        ),
+                        SizedBox(width: 10.px),
+                        Expanded(
+                          child: dropDown(
+                            hintText: StringConstants.dimension.tr,
+                            onChanged: (value) =>
+                                controller.onChangeDimensions(2, value),
+                            items: List.generate(
+                                controller.volumeDimensionList.length,
+                                (index) =>
+                                    controller.volumeDimensionList[index]),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10.px),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: textFormField(
+                              hintText: StringConstants.weight.tr,
+                              textInputType: TextInputType.number,
+                              controller: controller.weightController),
+                        ),
+                        SizedBox(width: 10.px),
+                        Expanded(
+                          child: dropDown(
+                            hintText: StringConstants.dimension.tr,
+                            onChanged: (value) =>
+                                controller.onChangeDimensions(3, value),
+                            items: List.generate(
+                                controller.weightDimensionList.length,
+                                (index) =>
+                                    controller.weightDimensionList[index]),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10.px),
                     if (controller.data.isNotEmpty)
                       dropDown(
                         hintText: StringConstants.category.tr,
@@ -149,7 +241,13 @@ class UploadView extends GetView<UploadController> {
                     if (controller.cityData.isNotEmpty) SizedBox(height: 10.px),
                     textFormField(
                         hintText: StringConstants.zipCode.tr,
-                        controller: controller.zipCodeController),
+                        controller: controller.zipCodeController,
+                        textInputType: TextInputType.text,
+                        onChanged: (value) {
+                          if (value.length >= 4) {
+                            controller.getPlaceFromApi();
+                          }
+                        }),
                     SizedBox(height: 10.px),
                     textFormField(
                       hintText: StringConstants.productsStatus.tr,
@@ -282,18 +380,23 @@ class UploadView extends GetView<UploadController> {
     });
   }
 
-  textFormField(
-      {required String hintText,
-      required TextEditingController controller,
-      int? maxLines,
-      bool? readOnly,
-      bool showSuffix = false,
-      GestureTapCallback? onTap}) {
+  textFormField({
+    required String hintText,
+    required TextEditingController controller,
+    int? maxLines,
+    bool? readOnly,
+    TextInputType? textInputType,
+    bool showSuffix = false,
+    GestureTapCallback? onTap,
+    ValueChanged<String>? onChanged,
+  }) {
     return TextField(
       maxLines: maxLines ?? 1,
       onTap: onTap,
+      onChanged: onChanged,
       readOnly: readOnly ?? false,
       controller: controller,
+      keyboardType: textInputType,
       style: Theme.of(Get.context!)
           .textTheme
           .headlineMedium

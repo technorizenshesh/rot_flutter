@@ -93,6 +93,23 @@ class Product {
   String? status;
   String? dateTime;
   String? productName;
+  String? subCategoryId;
+  String? availableAt;
+  String? countryCode;
+  String? weight;
+  String? weightDim;
+  String? productVolume;
+  String? wishId;
+  String? typeEngine;
+  String? registrationYear;
+  String? motor;
+  String? kilometer;
+  String? transmission;
+  String? color;
+  String? publicPhone;
+  String? modelName;
+  String? shipping;
+  String? partNumber;
 
   Product(
       {this.id,
@@ -112,7 +129,24 @@ class Product {
       this.price,
       this.status,
       this.dateTime,
-      this.productName});
+      this.productName,
+      this.subCategoryId,
+      this.availableAt,
+      this.countryCode,
+      this.weight,
+      this.weightDim,
+      this.productVolume,
+      this.wishId,
+      this.typeEngine,
+      this.registrationYear,
+      this.motor,
+      this.kilometer,
+      this.transmission,
+      this.color,
+      this.publicPhone,
+      this.modelName,
+      this.shipping,
+      this.partNumber});
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -133,6 +167,23 @@ class Product {
     status = json['status'];
     dateTime = json['date_time'];
     productName = json['product_name'];
+    subCategoryId = json['sub_category_id'];
+    availableAt = json['available_at'];
+    countryCode = json['country_code'];
+    weight = json['weight'];
+    weightDim = json['weight_dim'];
+    productVolume = json['product_volume'];
+    wishId = json['wish_id'];
+    typeEngine = json['type_engine'];
+    registrationYear = json['registration_year'];
+    motor = json['motor'];
+    kilometer = json['kilometer'];
+    transmission = json['transmission'];
+    color = json['color'];
+    publicPhone = json['public_phone'];
+    modelName = json['model_name'];
+    shipping = json['shipping'];
+    partNumber = json['part_number'];
   }
 
   Map<String, dynamic> toJson() {
@@ -155,6 +206,23 @@ class Product {
     data['status'] = status;
     data['date_time'] = dateTime;
     data['product_name'] = productName;
+    data['sub_category_id'] = subCategoryId;
+    data['available_at'] = availableAt;
+    data['country_code'] = countryCode;
+    data['weight'] = weight;
+    data['weight_dim'] = weightDim;
+    data['product_volume'] = productVolume;
+    data['wish_id'] = wishId;
+    data['type_engine'] = typeEngine;
+    data['registration_year'] = registrationYear;
+    data['motor'] = motor;
+    data['kilometer'] = kilometer;
+    data['transmission'] = transmission;
+    data['color'] = color;
+    data['public_phone'] = publicPhone;
+    data['model_name'] = modelName;
+    data['shipping'] = shipping;
+    data['part_number'] = partNumber;
     return data;
   }
 }

@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
+import 'package:rot_application/app/modules/wish/controllers/wish_controller.dart';
 
 import '../../chats/controllers/chats_controller.dart';
 import '../../favorites/controllers/favorites_controller.dart';
 import '../../home/controllers/home_controller.dart';
 import '../../profile/controllers/profile_controller.dart';
-import '../../upload/controllers/upload_controller.dart';
 import '../controllers/nav_bar_controller.dart';
 
 class NavBarBinding extends Bindings {
@@ -19,8 +19,11 @@ class NavBarBinding extends Bindings {
     Get.lazyPut<FavoritesController>(
       () => FavoritesController(),
     );
-    Get.lazyPut<UploadController>(
+    /*  Get.lazyPut<UploadController>(
       () => UploadController(),
+    ); */
+    Get.lazyPut<WishController>(
+      () => WishController(),
     );
     Get.lazyPut<ChatsController>(
       () => ChatsController(),

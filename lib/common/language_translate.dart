@@ -4,11 +4,10 @@ import '../app/data/constants/string_constants.dart';
 
 class LanguageTranslate extends Translations {
   @override
-  Map<String, Map<String, String>> get keys =>
-      {
+  Map<String, Map<String, String>> get keys => {
         'en_US': {
-          StringConstants.chooseTheLanguageFamiliarToYou: StringConstants
-              .chooseTheLanguageFamiliarToYou,
+          StringConstants.chooseTheLanguageFamiliarToYou:
+              StringConstants.chooseTheLanguageFamiliarToYou,
           StringConstants.english: StringConstants.english,
           StringConstants.rot: StringConstants.rot,
           StringConstants.spanish: StringConstants.spanish,
@@ -21,24 +20,24 @@ class LanguageTranslate extends Translations {
           StringConstants.loginWithPhone: StringConstants.loginWithPhone,
           StringConstants.signUpWithPhone: StringConstants.signUpWithPhone,
           StringConstants.signUpWithEmail: StringConstants.signUpWithEmail,
-          StringConstants.doNotHaveAnAccount: StringConstants
-              .doNotHaveAnAccount,
-          StringConstants.enterYourPhoneNumber: StringConstants
-              .enterYourPhoneNumber,
+          StringConstants.doNotHaveAnAccount:
+              StringConstants.doNotHaveAnAccount,
+          StringConstants.enterYourPhoneNumber:
+              StringConstants.enterYourPhoneNumber,
           StringConstants.enterYourFullName: StringConstants.enterYourFullName,
           StringConstants.enterYourEmail: StringConstants.enterYourEmail,
           StringConstants.enterYourGender: StringConstants.enterYourGender,
           StringConstants.gender: StringConstants.gender,
           StringConstants.enterYourDob: StringConstants.enterYourDob,
-          StringConstants.enterYourEmailAndPassword: StringConstants
-              .enterYourEmailAndPassword,
-          StringConstants.pleaseEnterPassword: StringConstants
-              .pleaseEnterPassword,
-          StringConstants.enterYourFirstName: StringConstants
-              .enterYourFirstName,
+          StringConstants.enterYourEmailAndPassword:
+              StringConstants.enterYourEmailAndPassword,
+          StringConstants.pleaseEnterPassword:
+              StringConstants.pleaseEnterPassword,
+          StringConstants.enterYourFirstName:
+              StringConstants.enterYourFirstName,
           StringConstants.enterYourLastName: StringConstants.enterYourLastName,
-          StringConstants.enterYourSellersAddress: StringConstants
-              .enterYourSellersAddress,
+          StringConstants.enterYourSellersAddress:
+              StringConstants.enterYourSellersAddress,
           StringConstants.firstName: StringConstants.firstName,
           StringConstants.lastName: StringConstants.lastName,
           StringConstants.dob: StringConstants.dob,
@@ -46,15 +45,14 @@ class LanguageTranslate extends Translations {
           StringConstants.resetPassword: StringConstants.resetPassword,
           StringConstants.checkYourSms: StringConstants.checkYourSms,
           StringConstants.checkYourMail: StringConstants.checkYourMail,
-          StringConstants
-              .pleasePutYourMobileNumberToResetYourPassword: StringConstants
-              .pleasePutYourMobileNumberToResetYourPassword,
-          StringConstants.pleasePutYourEmailToResetYourPassword: StringConstants
-              .pleasePutYourEmailToResetYourPassword,
+          StringConstants.pleasePutYourMobileNumberToResetYourPassword:
+              StringConstants.pleasePutYourMobileNumberToResetYourPassword,
+          StringConstants.pleasePutYourEmailToResetYourPassword:
+              StringConstants.pleasePutYourEmailToResetYourPassword,
           StringConstants.profile: StringConstants.profile,
           StringConstants.publicInformation: StringConstants.publicInformation,
-          StringConstants.personalInformation: StringConstants
-              .personalInformation,
+          StringConstants.personalInformation:
+              StringConstants.personalInformation,
           StringConstants.reviews: StringConstants.reviews,
           StringConstants.account: StringConstants.account,
           StringConstants.home: StringConstants.home,
@@ -81,16 +79,17 @@ class LanguageTranslate extends Translations {
           StringConstants.or: StringConstants.or,
           StringConstants.next: StringConstants.next,
           StringConstants.profilePublic: StringConstants.profilePublic,
-          StringConstants.pleasePutTheSixDigitsSentToYou: StringConstants
-              .pleasePutTheSixDigitsSentToYou,
+          StringConstants.pleasePutTheSixDigitsSentToYou:
+              StringConstants.pleasePutTheSixDigitsSentToYou,
           StringConstants.createNewPassword: StringConstants.createNewPassword,
           StringConstants
-              .yourNewPasswordMustBeDifferentFromPreviousUsedPasswords: StringConstants
-              .yourNewPasswordMustBeDifferentFromPreviousUsedPasswords,
-          StringConstants.pleaseEnterNewPassword: StringConstants
-              .pleaseEnterNewPassword,
-          StringConstants.pleaseEnterConfirmPassword: StringConstants
-              .pleaseEnterConfirmPassword,
+                  .yourNewPasswordMustBeDifferentFromPreviousUsedPasswords:
+              StringConstants
+                  .yourNewPasswordMustBeDifferentFromPreviousUsedPasswords,
+          StringConstants.pleaseEnterNewPassword:
+              StringConstants.pleaseEnterNewPassword,
+          StringConstants.pleaseEnterConfirmPassword:
+              StringConstants.pleaseEnterConfirmPassword,
           StringConstants.currentPassword: StringConstants.currentPassword,
           StringConstants.newPassword: StringConstants.newPassword,
           StringConstants.confirmPassword: StringConstants.confirmPassword,
@@ -107,17 +106,17 @@ class LanguageTranslate extends Translations {
           StringConstants.placeAnAdHere: StringConstants.placeAnAdHere,
           StringConstants.search: StringConstants.search,
           StringConstants.cart: StringConstants.cart,
-          StringConstants.welcomeToFertileMate: StringConstants
-              .welcomeToFertileMate,
-          StringConstants.aIDrivenFertilityAnalysis: StringConstants
-              .aIDrivenFertilityAnalysis,
-          StringConstants.comprehensiveHealthAssessments: StringConstants
-              .comprehensiveHealthAssessments,
-          StringConstants.boostYourFertilityToday: StringConstants
-              .boostYourFertilityToday,
+          StringConstants.welcomeToFertileMate:
+              StringConstants.welcomeToFertileMate,
+          StringConstants.aIDrivenFertilityAnalysis:
+              StringConstants.aIDrivenFertilityAnalysis,
+          StringConstants.comprehensiveHealthAssessments:
+              StringConstants.comprehensiveHealthAssessments,
+          StringConstants.boostYourFertilityToday:
+              StringConstants.boostYourFertilityToday,
           StringConstants.getStarted: StringConstants.getStarted,
-          StringConstants.yourReproductiveHealthJourney: StringConstants
-              .yourReproductiveHealthJourney,
+          StringConstants.yourReproductiveHealthJourney:
+              StringConstants.yourReproductiveHealthJourney,
           StringConstants.support: StringConstants.support,
           StringConstants.supportText: StringConstants.supportText,
           StringConstants.availableNow: StringConstants.availableNow,
@@ -126,8 +125,8 @@ class LanguageTranslate extends Translations {
           StringConstants.healthAssessment: StringConstants.healthAssessment,
           StringConstants.bloodTests: StringConstants.bloodTests,
           StringConstants.result: StringConstants.result,
-          StringConstants.prediabetesAssessment: StringConstants
-              .prediabetesAssessment,
+          StringConstants.prediabetesAssessment:
+              StringConstants.prediabetesAssessment,
           StringConstants.document: StringConstants.document,
           StringConstants.personalInfo: StringConstants.personalInfo,
           StringConstants.yourName: StringConstants.yourName,
@@ -139,8 +138,8 @@ class LanguageTranslate extends Translations {
           StringConstants.buyWithoutWorries: StringConstants.buyWithoutWorries,
           StringConstants.edit: StringConstants.edit,
           StringConstants.shareYourOpinion: StringConstants.shareYourOpinion,
-          StringConstants.yourRatingForThisProductGood: StringConstants
-              .yourRatingForThisProductGood,
+          StringConstants.yourRatingForThisProductGood:
+              StringConstants.yourRatingForThisProductGood,
           StringConstants.typeHere: StringConstants.typeHere,
           StringConstants.send: StringConstants.send,
           StringConstants.categories: StringConstants.categories,
@@ -150,19 +149,19 @@ class LanguageTranslate extends Translations {
           StringConstants.nearYou: StringConstants.nearYou,
           StringConstants.bestSeller: StringConstants.bestSeller,
           StringConstants.share: StringConstants.share,
-          StringConstants.rotAllRightsReserved: StringConstants
-              .rotAllRightsReserved,
+          StringConstants.rotAllRightsReserved:
+              StringConstants.rotAllRightsReserved,
           StringConstants.changeOfConsent: StringConstants.changeOfConsent,
           StringConstants.privacyPolicies: StringConstants.privacyPolicies,
-          StringConstants.termsAndConditions: StringConstants
-              .termsAndConditions,
+          StringConstants.termsAndConditions:
+              StringConstants.termsAndConditions,
           StringConstants.legalWarning: StringConstants.legalWarning,
           StringConstants.legal: StringConstants.legal,
           StringConstants.coexistenceRules: StringConstants.coexistenceRules,
           StringConstants.securityAdvice: StringConstants.securityAdvice,
           StringConstants.tipsAndRules: StringConstants.tipsAndRules,
-          StringConstants.consultationInProgress: StringConstants
-              .consultationInProgress,
+          StringConstants.consultationInProgress:
+              StringConstants.consultationInProgress,
           StringConstants.helpCenter: StringConstants.helpCenter,
           StringConstants.medium: StringConstants.medium,
           StringConstants.addNewAccount: StringConstants.addNewAccount,
@@ -184,11 +183,11 @@ class LanguageTranslate extends Translations {
           StringConstants.training: StringConstants.training,
           StringConstants.imageAndSound: StringConstants.imageAndSound,
           StringConstants.sportsAndNautical: StringConstants.sportsAndNautical,
-          StringConstants.computerAndElectronic: StringConstants
-              .computerAndElectronic,
+          StringConstants.computerAndElectronic:
+              StringConstants.computerAndElectronic,
           StringConstants.hobbiesAndLeisure: StringConstants.hobbiesAndLeisure,
-          StringConstants.engineAndAccessories: StringConstants
-              .engineAndAccessories,
+          StringConstants.engineAndAccessories:
+              StringConstants.engineAndAccessories,
           StringConstants.homeAndGarden: StringConstants.homeAndGarden,
           StringConstants.collecting: StringConstants.collecting,
           StringConstants.tourism: StringConstants.tourism,
@@ -226,14 +225,14 @@ class LanguageTranslate extends Translations {
           StringConstants.forSecurity: StringConstants.forSecurity,
           StringConstants.getPaid: StringConstants.getPaid,
           StringConstants.purchasesStatus: StringConstants.purchasesStatus,
-          StringConstants.twoStepVerification: StringConstants
-              .twoStepVerification,
-          StringConstants.useVerificationMethods: StringConstants
-              .useVerificationMethods,
-          StringConstants.verifyThatThisAccount: StringConstants
-              .verifyThatThisAccount,
-          StringConstants.chooseHowToReceive: StringConstants
-              .chooseHowToReceive,
+          StringConstants.twoStepVerification:
+              StringConstants.twoStepVerification,
+          StringConstants.useVerificationMethods:
+              StringConstants.useVerificationMethods,
+          StringConstants.verifyThatThisAccount:
+              StringConstants.verifyThatThisAccount,
+          StringConstants.chooseHowToReceive:
+              StringConstants.chooseHowToReceive,
           StringConstants.appUnlock: StringConstants.appUnlock,
           StringConstants.linkedDevices: StringConstants.linkedDevices,
           StringConstants.collaborator: StringConstants.collaborator,
@@ -241,8 +240,8 @@ class LanguageTranslate extends Translations {
           StringConstants.youUseTouchId: StringConstants.youUseTouchId,
           StringConstants.myProducts: StringConstants.myProducts,
           StringConstants.addNewCard: StringConstants.addNewCard,
-          StringConstants.getNotifiedIfAnyOfYourProductsExpire: StringConstants
-              .getNotifiedIfAnyOfYourProductsExpire,
+          StringConstants.getNotifiedIfAnyOfYourProductsExpire:
+              StringConstants.getNotifiedIfAnyOfYourProductsExpire,
           StringConstants.expiredProducts: StringConstants.expiredProducts,
           StringConstants.mySearches: StringConstants.mySearches,
           StringConstants.myFavorites: StringConstants.myFavorites,
@@ -252,44 +251,44 @@ class LanguageTranslate extends Translations {
           StringConstants.favoritesReserved: StringConstants.favoritesReserved,
           StringConstants.newProducts: StringConstants.newProducts,
           StringConstants.additionalOptions: StringConstants.additionalOptions,
-          StringConstants.tipsTndSuggestions: StringConstants
-              .tipsTndSuggestions,
-          StringConstants.promotionsAndNewFeatures: StringConstants
-              .promotionsAndNewFeatures,
+          StringConstants.tipsTndSuggestions:
+              StringConstants.tipsTndSuggestions,
+          StringConstants.promotionsAndNewFeatures:
+              StringConstants.promotionsAndNewFeatures,
           StringConstants.collaborators: StringConstants.collaborators,
-          StringConstants.somethingWentWrong: StringConstants
-              .somethingWentWrong,
-          StringConstants.weAreWorkingToSolveIt: StringConstants
-              .weAreWorkingToSolveIt,
-          StringConstants.ifTheProblemPersists: StringConstants
-              .ifTheProblemPersists,
+          StringConstants.somethingWentWrong:
+              StringConstants.somethingWentWrong,
+          StringConstants.weAreWorkingToSolveIt:
+              StringConstants.weAreWorkingToSolveIt,
+          StringConstants.ifTheProblemPersists:
+              StringConstants.ifTheProblemPersists,
           StringConstants.code: StringConstants.code,
           StringConstants.retry: StringConstants.retry,
           StringConstants.useAnotherMethod: StringConstants.useAnotherMethod,
           StringConstants.eliminate: StringConstants.eliminate,
           StringConstants.readyWeSendYour: StringConstants.readyWeSendYour,
-          StringConstants.theInvitationIsValidUntilSunday: StringConstants
-              .theInvitationIsValidUntilSunday,
+          StringConstants.theInvitationIsValidUntilSunday:
+              StringConstants.theInvitationIsValidUntilSunday,
           StringConstants.resendInvitation: StringConstants.resendInvitation,
-          StringConstants.createAnotherInvitation: StringConstants
-              .createAnotherInvitation,
-          StringConstants.seeYourCollaborators: StringConstants
-              .seeYourCollaborators,
+          StringConstants.createAnotherInvitation:
+              StringConstants.createAnotherInvitation,
+          StringConstants.seeYourCollaborators:
+              StringConstants.seeYourCollaborators,
           StringConstants.seeDetails: StringConstants.seeDetails,
-          StringConstants.inviteCollaborator: StringConstants
-              .inviteCollaborator,
+          StringConstants.inviteCollaborator:
+              StringConstants.inviteCollaborator,
           StringConstants.manageRoles: StringConstants.manageRoles,
-          StringConstants.enterTheEmailOfTheCollaborator: StringConstants
-              .enterTheEmailOfTheCollaborator,
-          StringConstants.keepInMindThatYourEmailMust: StringConstants
-              .keepInMindThatYourEmailMust,
+          StringConstants.enterTheEmailOfTheCollaborator:
+              StringConstants.enterTheEmailOfTheCollaborator,
+          StringConstants.keepInMindThatYourEmailMust:
+              StringConstants.keepInMindThatYourEmailMust,
           StringConstants.continueText: StringConstants.continueText,
-          StringConstants.protectedByReCAPTCHA: StringConstants
-              .protectedByReCAPTCHA,
+          StringConstants.protectedByReCAPTCHA:
+              StringConstants.protectedByReCAPTCHA,
           StringConstants.privacy: StringConstants.privacy,
           StringConstants.chooseARole: StringConstants.chooseARole,
-          StringConstants.enterTheVerificationCode: StringConstants
-              .enterTheVerificationCode,
+          StringConstants.enterTheVerificationCode:
+              StringConstants.enterTheVerificationCode,
           StringConstants.youReceived: StringConstants.youReceived,
           StringConstants.resendCode: StringConstants.resendCode,
           StringConstants.administrator: StringConstants.administrator,
@@ -302,18 +301,18 @@ class LanguageTranslate extends Translations {
           StringConstants.sendMoney: StringConstants.sendMoney,
           StringConstants.pay: StringConstants.pay,
           StringConstants.withdraw: StringConstants.withdraw,
-          StringConstants.historyOfMovements: StringConstants
-              .historyOfMovements,
+          StringConstants.historyOfMovements:
+              StringConstants.historyOfMovements,
           StringConstants.bankInformation: StringConstants.bankInformation,
           StringConstants.confirm: StringConstants.confirm,
-          StringConstants.editRolePermissions: StringConstants
-              .editRolePermissions,
+          StringConstants.editRolePermissions:
+              StringConstants.editRolePermissions,
           StringConstants.changeEmail: StringConstants.changeEmail,
           StringConstants.changeRole: StringConstants.changeRole,
           StringConstants.iAcceptThe: StringConstants.iAcceptThe,
           StringConstants.converter: StringConstants.converter,
-          StringConstants.forTheUseOfTheCollaboratorsTool: StringConstants
-              .forTheUseOfTheCollaboratorsTool,
+          StringConstants.forTheUseOfTheCollaboratorsTool:
+              StringConstants.forTheUseOfTheCollaboratorsTool,
           StringConstants.cancel: StringConstants.cancel,
           StringConstants.keepInWallet: StringConstants.keepInWallet,
           StringConstants.withdrawBalance: StringConstants.withdrawBalance,
@@ -328,8 +327,8 @@ class LanguageTranslate extends Translations {
           StringConstants.local: StringConstants.local,
           StringConstants.swift: StringConstants.swift,
           StringConstants.bicSwiftCode: StringConstants.bicSwiftCode,
-          StringConstants.bankNameAndAddress: StringConstants
-              .bankNameAndAddress,
+          StringConstants.bankNameAndAddress:
+              StringConstants.bankNameAndAddress,
           StringConstants.recipient: StringConstants.recipient,
           StringConstants.useThisData: StringConstants.useThisData,
           StringConstants.provideThisData: StringConstants.provideThisData,
@@ -337,64 +336,65 @@ class LanguageTranslate extends Translations {
           StringConstants.ifYourEmployer: StringConstants.ifYourEmployer,
           StringConstants.documents: StringConstants.documents,
           StringConstants.bankStatement: StringConstants.bankStatement,
-          StringConstants.accountConfirmation: StringConstants
-              .accountConfirmation,
-          StringConstants.onlyForInternationalTransfers: StringConstants
-              .onlyForInternationalTransfers,
-          StringConstants.onlyForLocalTransfers: StringConstants
-              .onlyForLocalTransfers,
+          StringConstants.accountConfirmation:
+              StringConstants.accountConfirmation,
+          StringConstants.onlyForInternationalTransfers:
+              StringConstants.onlyForInternationalTransfers,
+          StringConstants.onlyForLocalTransfers:
+              StringConstants.onlyForLocalTransfers,
           StringConstants.currencyAccount: StringConstants.currencyAccount,
           StringConstants.flexibleAccount: StringConstants.flexibleAccount,
           StringConstants.pockets: StringConstants.pockets,
-          StringConstants.saveMoneyAndManage: StringConstants
-              .saveMoneyAndManage,
+          StringConstants.saveMoneyAndManage:
+              StringConstants.saveMoneyAndManage,
           StringConstants.jointAccount: StringConstants.jointAccount,
-          StringConstants.anAccountForAllTypes: StringConstants
-              .anAccountForAllTypes,
+          StringConstants.anAccountForAllTypes:
+              StringConstants.anAccountForAllTypes,
           StringConstants.getUpTo: StringConstants.getUpTo,
           StringConstants.proAccount: StringConstants.proAccount,
-          StringConstants.howMuchMoneyDoYouWantToRecharge: StringConstants
-              .howMuchMoneyDoYouWantToRecharge,
-          StringConstants.rateAccordingToTheAmountOfTheRecharge: StringConstants
-              .rateAccordingToTheAmountOfTheRecharge,
+          StringConstants.howMuchMoneyDoYouWantToRecharge:
+              StringConstants.howMuchMoneyDoYouWantToRecharge,
+          StringConstants.rateAccordingToTheAmountOfTheRecharge:
+              StringConstants.rateAccordingToTheAmountOfTheRecharge,
           StringConstants.reloadWallet: StringConstants.reloadWallet,
-          StringConstants.transferToBank: StringConstants.transferToBank,
+          StringConstants.transferToLocalBank:
+              StringConstants.transferToLocalBank,
           StringConstants.howMuchMoney: StringConstants.howMuchMoney,
           StringConstants.rechargeSummary: StringConstants.rechargeSummary,
           StringConstants.rechargeFee: StringConstants.rechargeFee,
-          StringConstants.rechargeCarriedOut: StringConstants
-              .rechargeCarriedOut,
+          StringConstants.rechargeCarriedOut:
+              StringConstants.rechargeCarriedOut,
           StringConstants.goToWallet: StringConstants.goToWallet,
           StringConstants.theMoneyIsAlready: StringConstants.theMoneyIsAlready,
           StringConstants.aReadyToUse: StringConstants.aReadyToUse,
           StringConstants.credit: StringConstants.credit,
-          StringConstants.discoverLoansAndCreditCards: StringConstants
-              .discoverLoansAndCreditCards,
-          StringConstants.accountGreaterThanEighteen: StringConstants
-              .accountGreaterThanEighteen,
+          StringConstants.discoverLoansAndCreditCards:
+              StringConstants.discoverLoansAndCreditCards,
+          StringConstants.accountGreaterThanEighteen:
+              StringConstants.accountGreaterThanEighteen,
           StringConstants.linkedAccount: StringConstants.linkedAccount,
-          StringConstants.checkAllYourBankAccountsInOnePlace: StringConstants
-              .checkAllYourBankAccountsInOnePlace,
-          StringConstants.accountsForChildren: StringConstants
-              .accountsForChildren,
-          StringConstants.moreThanThirtyCurrencies: StringConstants
-              .moreThanThirtyCurrencies,
-          StringConstants.itOffersYouSolutions: StringConstants
-              .itOffersYouSolutions,
-          StringConstants.findTheBestSubscription: StringConstants
-              .findTheBestSubscription,
-          StringConstants.searchForCollaborator: StringConstants
-              .searchForCollaborator,
-          StringConstants.getNotifiedWhenNewProductsFit: StringConstants
-              .getNotifiedWhenNewProductsFit,
-          StringConstants.getNotifiedAboutAnyNewsRegarding: StringConstants
-              .getNotifiedAboutAnyNewsRegarding,
-          StringConstants.getNotifiedAboutPromotionsAndOther: StringConstants
-              .getNotifiedAboutPromotionsAndOther,
+          StringConstants.checkAllYourBankAccountsInOnePlace:
+              StringConstants.checkAllYourBankAccountsInOnePlace,
+          StringConstants.accountsForChildren:
+              StringConstants.accountsForChildren,
+          StringConstants.moreThanThirtyCurrencies:
+              StringConstants.moreThanThirtyCurrencies,
+          StringConstants.itOffersYouSolutions:
+              StringConstants.itOffersYouSolutions,
+          StringConstants.findTheBestSubscription:
+              StringConstants.findTheBestSubscription,
+          StringConstants.searchForCollaborator:
+              StringConstants.searchForCollaborator,
+          StringConstants.getNotifiedWhenNewProductsFit:
+              StringConstants.getNotifiedWhenNewProductsFit,
+          StringConstants.getNotifiedAboutAnyNewsRegarding:
+              StringConstants.getNotifiedAboutAnyNewsRegarding,
+          StringConstants.getNotifiedAboutPromotionsAndOther:
+              StringConstants.getNotifiedAboutPromotionsAndOther,
           StringConstants.payment: StringConstants.payment,
           StringConstants.cardNumber: StringConstants.cardNumber,
-          StringConstants.enterDigitCardNumber: StringConstants
-              .enterDigitCardNumber,
+          StringConstants.enterDigitCardNumber:
+              StringConstants.enterDigitCardNumber,
           StringConstants.validThru: StringConstants.validThru,
           StringConstants.cvv: StringConstants.cvv,
           StringConstants.month: StringConstants.month,
@@ -407,10 +407,10 @@ class LanguageTranslate extends Translations {
           StringConstants.available: StringConstants.available,
           StringConstants.youPay: StringConstants.youPay,
           StringConstants.address: StringConstants.address,
-          StringConstants.streetNameAndNumber: StringConstants
-              .streetNameAndNumber,
-          StringConstants.floorAndDoorNumber: StringConstants
-              .floorAndDoorNumber,
+          StringConstants.streetNameAndNumber:
+              StringConstants.streetNameAndNumber,
+          StringConstants.floorAndDoorNumber:
+              StringConstants.floorAndDoorNumber,
           StringConstants.nearbyPoints: StringConstants.nearbyPoints,
           StringConstants.inPerson: StringConstants.inPerson,
           StringConstants.meetAndPay: StringConstants.meetAndPay,
@@ -418,20 +418,19 @@ class LanguageTranslate extends Translations {
           StringConstants.viewPickUpPoint: StringConstants.viewPickUpPoint,
           StringConstants.myAddress: StringConstants.myAddress,
           StringConstants.colour: StringConstants.colour,
-          StringConstants.deliveryExpectedIn: StringConstants
-              .deliveryExpectedIn,
+          StringConstants.deliveryExpectedIn:
+              StringConstants.deliveryExpectedIn,
           StringConstants.purchaseMade: StringConstants.purchaseMade,
           StringConstants.theSellerHas: StringConstants.theSellerHas,
-          StringConstants.weProtectYourPurchase: StringConstants
-              .weProtectYourPurchase,
+          StringConstants.weProtectYourPurchase:
+              StringConstants.weProtectYourPurchase,
           StringConstants.editAddress: StringConstants.editAddress,
           StringConstants.summary: StringConstants.summary,
           StringConstants.toEdit: StringConstants.toEdit,
           StringConstants.paymentMethod: StringConstants.paymentMethod,
           StringConstants.promotionalCode: StringConstants.promotionalCode,
-          StringConstants
-              .theTransportCompanyAlreadyHasYourPackage: StringConstants
-              .theTransportCompanyAlreadyHasYourPackage,
+          StringConstants.theTransportCompanyAlreadyHasYourPackage:
+              StringConstants.theTransportCompanyAlreadyHasYourPackage,
           StringConstants.weWillNotify: StringConstants.weWillNotify,
           StringConstants.shippingCade: StringConstants.shippingCade,
           StringConstants.knowMore: StringConstants.knowMore,
@@ -442,8 +441,8 @@ class LanguageTranslate extends Translations {
           StringConstants.theMoney: StringConstants.theMoney,
         },
         'es_US': {
-          StringConstants
-              .chooseTheLanguageFamiliarToYou: 'Elige el idioma\nfamiliar para ti.',
+          StringConstants.chooseTheLanguageFamiliarToYou:
+              'Elige el idioma\nfamiliar para ti.',
           StringConstants.english: 'inglés',
           StringConstants.rot: 'PUDRIR',
           StringConstants.spanish: 'Español ',
@@ -452,12 +451,12 @@ class LanguageTranslate extends Translations {
           StringConstants.orderDetails: 'Detalles del pedido',
           StringConstants.loginWithGoogle: 'Iniciar sesión con Google',
           StringConstants.loginWithFacebook: 'Iniciar sesión con Facebook',
-          StringConstants
-              .loginWithEmail: 'Iniciar sesión con correo electrónico',
+          StringConstants.loginWithEmail:
+              'Iniciar sesión con correo electrónico',
           StringConstants.loginWithPhone: 'Iniciar sesión con teléfono',
           StringConstants.signUpWithPhone: 'Regístrate con el teléfono',
-          StringConstants
-              .signUpWithEmail: 'Regístrate con el correo electrónico',
+          StringConstants.signUpWithEmail:
+              'Regístrate con el correo electrónico',
           StringConstants.doNotHaveAnAccount: 'No tienes una cuenta?',
           StringConstants.enterYourPhoneNumber: 'Ingrese su número de teléfono',
           StringConstants.enterYourFullName: 'Ingrese su nombre completo',
@@ -465,13 +464,13 @@ class LanguageTranslate extends Translations {
           StringConstants.enterYourGender: 'Ingresa tu género',
           StringConstants.gender: 'Género',
           StringConstants.enterYourDob: 'Entra en tu dob',
-          StringConstants
-              .enterYourEmailAndPassword: '‘Ingrese su correo electrónico y contraseña’',
+          StringConstants.enterYourEmailAndPassword:
+              '‘Ingrese su correo electrónico y contraseña’',
           StringConstants.pleaseEnterPassword: 'Ingresar Ingresar Contraseña',
           StringConstants.enterYourFirstName: 'Ingrese su nombre',
           StringConstants.enterYourLastName: 'Ingresa tu apellido',
-          StringConstants
-              .enterYourSellersAddress: "Ingrese la dirección de su vendedor",
+          StringConstants.enterYourSellersAddress:
+              "Ingrese la dirección de su vendedor",
           StringConstants.firstName: 'Nombre',
           StringConstants.lastName: 'Apellido',
           StringConstants.dob: 'Fecha de nacimiento',
@@ -479,10 +478,10 @@ class LanguageTranslate extends Translations {
           StringConstants.resetPassword: 'Restablecer contraseña ?',
           StringConstants.checkYourSms: 'Consulta tus sms',
           StringConstants.checkYourMail: 'Consulta tu correo',
-          StringConstants
-              .pleasePutYourMobileNumberToResetYourPassword: 'Por favor, ponga su número de móvil para restablecer su contraseña',
-          StringConstants
-              .pleasePutYourEmailToResetYourPassword: 'Por favor, ponga su correo electrónico para restablecer su contraseña',
+          StringConstants.pleasePutYourMobileNumberToResetYourPassword:
+              'Por favor, ponga su número de móvil para restablecer su contraseña',
+          StringConstants.pleasePutYourEmailToResetYourPassword:
+              'Por favor, ponga su correo electrónico para restablecer su contraseña',
           StringConstants.profile: 'Perfil',
           StringConstants.publicInformation: 'Información Pública',
           StringConstants.personalInformation: 'Información Personal',
@@ -512,15 +511,16 @@ class LanguageTranslate extends Translations {
           StringConstants.or: 'O',
           StringConstants.next: 'Siguiente',
           StringConstants.profilePublic: 'Perfil Público',
-          StringConstants
-              .pleasePutTheSixDigitsSentToYou: '‘Por favor, pon los 6 dígitos que te han enviado’',
+          StringConstants.pleasePutTheSixDigitsSentToYou:
+              '‘Por favor, pon los 6 dígitos que te han enviado’',
           StringConstants.createNewPassword: 'Crear nueva contraseña',
           StringConstants
-              .yourNewPasswordMustBeDifferentFromPreviousUsedPasswords: '‘Su nueva contraseña debe ser diferente de las contraseñas utilizadas anteriormente’.',
-          StringConstants
-              .pleaseEnterNewPassword: 'Por favor ingrese una nueva contraseña',
-          StringConstants
-              .pleaseEnterConfirmPassword: 'Por favor ingrese confirmar contraseña',
+                  .yourNewPasswordMustBeDifferentFromPreviousUsedPasswords:
+              '‘Su nueva contraseña debe ser diferente de las contraseñas utilizadas anteriormente’.',
+          StringConstants.pleaseEnterNewPassword:
+              'Por favor ingrese una nueva contraseña',
+          StringConstants.pleaseEnterConfirmPassword:
+              'Por favor ingrese confirmar contraseña',
           StringConstants.currentPassword: 'Contraseña actual',
           StringConstants.newPassword: 'Nueva contraseña',
           StringConstants.confirmPassword: 'Confirmar contraseña',
@@ -538,14 +538,14 @@ class LanguageTranslate extends Translations {
           StringConstants.search: 'Buscar',
           StringConstants.cart: 'Carrito',
           StringConstants.welcomeToFertileMate: 'Bienvenido a Fertilemate',
-          StringConstants
-              .aIDrivenFertilityAnalysis: 'Análisis de fertilidad impulsado por IA',
-          StringConstants
-              .comprehensiveHealthAssessments: 'Evaluaciones sanitarias integrales',
+          StringConstants.aIDrivenFertilityAnalysis:
+              'Análisis de fertilidad impulsado por IA',
+          StringConstants.comprehensiveHealthAssessments:
+              'Evaluaciones sanitarias integrales',
           StringConstants.boostYourFertilityToday: 'Impulsa tu fertilidad hoy!',
           StringConstants.getStarted: 'Empezar',
-          StringConstants
-              .yourReproductiveHealthJourney: '‘Tu viaje de salud reproductiva’',
+          StringConstants.yourReproductiveHealthJourney:
+              '‘Tu viaje de salud reproductiva’',
           StringConstants.support: 'Apoyo 24 horas al día, 7 días a la semana',
           StringConstants.supportText: 'Apoyo',
           StringConstants.availableNow: 'Disponible ahora',
@@ -563,12 +563,12 @@ class LanguageTranslate extends Translations {
           StringConstants.usCitizen: 'ciudadano estadounidense',
           StringConstants.contactInfo: 'Información de contacto',
           StringConstants.rotProtection: 'protección ROT',
-          StringConstants
-              .buyWithoutWorries: 'Compre sin preocupaciones a través de nuestro servicio de envío. Transacción protegida con reembolsos, pagos seguros y ayuda cuando la necesite.',
+          StringConstants.buyWithoutWorries:
+              'Compre sin preocupaciones a través de nuestro servicio de envío. Transacción protegida con reembolsos, pagos seguros y ayuda cuando la necesite.',
           StringConstants.edit: 'Editar',
           StringConstants.shareYourOpinion: 'Comparte tu opinión',
-          StringConstants
-              .yourRatingForThisProductGood: '‘Tu valoración para este producto: Bueno’',
+          StringConstants.yourRatingForThisProductGood:
+              '‘Tu valoración para este producto: Bueno’',
           StringConstants.typeHere: 'Tipo aquí',
           StringConstants.send: 'Enviar',
           StringConstants.categories: 'Categorías',
@@ -578,8 +578,8 @@ class LanguageTranslate extends Translations {
           StringConstants.nearYou: 'Cerca de ti',
           StringConstants.bestSeller: 'Mejor Vendedor',
           StringConstants.share: 'Compartir',
-          StringConstants
-              .rotAllRightsReserved: ' RoT Todos los derechos reservados',
+          StringConstants.rotAllRightsReserved:
+              ' RoT Todos los derechos reservados',
           StringConstants.changeOfConsent: 'Cambio de consentimiento',
           StringConstants.privacyPolicies: 'Políticas de privacidad',
           StringConstants.termsAndConditions: 'Términos y Condiciones',
@@ -647,27 +647,27 @@ class LanguageTranslate extends Translations {
           StringConstants.searches: 'Búsquedas',
           StringConstants.friend: 'Amigo',
           StringConstants.editPrice: 'Editar precio',
-          StringConstants
-              .forSecurity: '‘Por razones de seguridad,\nunca compartas datos privados’',
+          StringConstants.forSecurity:
+              '‘Por razones de seguridad,\nunca compartas datos privados’',
           StringConstants.getPaid: 'Obtener pago en persona',
           StringConstants.purchasesStatus: 'Estado de las compras',
           StringConstants.twoStepVerification: 'Verificación de dos pasos',
-          StringConstants
-              .useVerificationMethods: '‘Utilice métodos de verificación para confirmar que la cuenta le pertenece, por ejemplo, iniciando sesión desde un dispositivo desconocido o cambiando su información personal’.',
-          StringConstants
-              .verifyThatThisAccount: '‘Verifica que esta cuenta te pertenece’',
-          StringConstants
-              .chooseHowToReceive: '‘Elija cómo recibir el código de verificación’.',
+          StringConstants.useVerificationMethods:
+              '‘Utilice métodos de verificación para confirmar que la cuenta le pertenece, por ejemplo, iniciando sesión desde un dispositivo desconocido o cambiando su información personal’.',
+          StringConstants.verifyThatThisAccount:
+              '‘Verifica que esta cuenta te pertenece’',
+          StringConstants.chooseHowToReceive:
+              '‘Elija cómo recibir el código de verificación’.',
           StringConstants.appUnlock: 'Desbloqueo de aplicación',
           StringConstants.linkedDevices: 'Dispositivos vinculados',
           StringConstants.collaborator: 'Colaborador',
           StringConstants.unlockingTheApp: 'Desbloqueando la aplicación',
-          StringConstants
-              .youUseTouchId: 'Utiliza Touch ID para acceder a su cuenta.',
+          StringConstants.youUseTouchId:
+              'Utiliza Touch ID para acceder a su cuenta.',
           StringConstants.myProducts: 'Mis productos',
           StringConstants.addNewCard: 'Agregar nueva tarjeta',
-          StringConstants
-              .getNotifiedIfAnyOfYourProductsExpire: 'Obtener notificaciones si alguno de sus productos caduca. ¡Puedes volver a publicarlo!',
+          StringConstants.getNotifiedIfAnyOfYourProductsExpire:
+              'Obtener notificaciones si alguno de sus productos caduca. ¡Puedes volver a publicarlo!',
           StringConstants.expiredProducts: 'Productos caducados',
           StringConstants.mySearches: 'Mis búsquedas',
           StringConstants.myFavorites: 'Mis favoritos',
@@ -681,35 +681,35 @@ class LanguageTranslate extends Translations {
           StringConstants.promotionsAndNewFeatures: '‘Promociones y novedades’',
           StringConstants.collaborators: 'Colaboradores',
           StringConstants.somethingWentWrong: 'Algo salió mal',
-          StringConstants
-              .weAreWorkingToSolveIt: '‘Estamos trabajando para resolverlo’.',
-          StringConstants
-              .ifTheProblemPersists: '‘Si el problema persiste, puedes reportarlo en la sección Ayuda con el siguiente código:’:',
+          StringConstants.weAreWorkingToSolveIt:
+              '‘Estamos trabajando para resolverlo’.',
+          StringConstants.ifTheProblemPersists:
+              '‘Si el problema persiste, puedes reportarlo en la sección Ayuda con el siguiente código:’:',
           StringConstants.code: 'Código: ',
           StringConstants.retry: 'Retroceso',
           StringConstants.useAnotherMethod: 'Utilice otro método',
           StringConstants.eliminate: 'Eliminar',
           StringConstants.readyWeSendYour: 'Listo! Enviamos tu invitación a',
-          StringConstants
-              .theInvitationIsValidUntilSunday: 'La invitación es válida hasta el domingo 4 de febrero. Una vez que lo aceptes, podrás empezar a colaborar en tu cuenta.',
+          StringConstants.theInvitationIsValidUntilSunday:
+              'La invitación es válida hasta el domingo 4 de febrero. Una vez que lo aceptes, podrás empezar a colaborar en tu cuenta.',
           StringConstants.resendInvitation: 'Renviar invitación',
           StringConstants.createAnotherInvitation: 'Crear otra invitación',
           StringConstants.seeYourCollaborators: '‘Vea a sus colaboradores’',
           StringConstants.seeDetails: 'Ver detalles',
           StringConstants.inviteCollaborator: 'Invitar colaborador',
           StringConstants.manageRoles: 'Gestionar roles',
-          StringConstants
-              .enterTheEmailOfTheCollaborator: '‘Entra en el email del colaborador al que quieres invitar’',
-          StringConstants
-              .keepInMindThatYourEmailMust: '‘Ten en cuenta que tu correo electrónico no debe estar registrado en Mercado Pago o Mercado Libre, porque lo utilizarás exclusivamente para tu negocio’.',
+          StringConstants.enterTheEmailOfTheCollaborator:
+              '‘Entra en el email del colaborador al que quieres invitar’',
+          StringConstants.keepInMindThatYourEmailMust:
+              '‘Ten en cuenta que tu correo electrónico no debe estar registrado en Mercado Pago o Mercado Libre, porque lo utilizarás exclusivamente para tu negocio’.',
           StringConstants.continueText: 'Continuar',
           StringConstants.protectedByReCAPTCHA: 'Protegido por reCAPTCHA-',
           StringConstants.privacy: 'Privacidad',
           StringConstants.chooseARole: 'Elige un papel',
-          StringConstants
-              .enterTheVerificationCode: '‘Ingrese el código de verificación’',
-          StringConstants
-              .youReceived: '‘Recibiste un número de 6 dígitos a través de WhatsApp’.',
+          StringConstants.enterTheVerificationCode:
+              '‘Ingrese el código de verificación’',
+          StringConstants.youReceived:
+              '‘Recibiste un número de 6 dígitos a través de WhatsApp’.',
           StringConstants.resendCode: 'Renviar código',
           StringConstants.administrator: 'Administrador',
           StringConstants.supervisor: 'Supervisor',
@@ -729,13 +729,13 @@ class LanguageTranslate extends Translations {
           StringConstants.changeRole: 'Cambiar rol',
           StringConstants.iAcceptThe: 'Acepto el ',
           StringConstants.converter: 'Convertidor',
-          StringConstants
-              .forTheUseOfTheCollaboratorsTool: ' ‘para el uso de la herramienta Colaboradores’.',
+          StringConstants.forTheUseOfTheCollaboratorsTool:
+              ' ‘para el uso de la herramienta Colaboradores’.',
           StringConstants.cancel: 'Cancelar',
           StringConstants.keepInWallet: 'Mantén la cartera',
           StringConstants.withdrawBalance: 'Retirar saldo',
-          StringConstants
-              .useTheConverter: '‘Usar el convertidor para comparar valores actuales’',
+          StringConstants.useTheConverter:
+              '‘Usar el convertidor para comparar valores actuales’',
           StringConstants.conditions: 'Condiciones',
           StringConstants.sendInvitation: 'Enviar invitación',
           StringConstants.rotPro: 'ROTPRO',
@@ -748,112 +748,121 @@ class LanguageTranslate extends Translations {
           StringConstants.bicSwiftCode: 'ERAN',
           StringConstants.bankNameAndAddress: 'Nombre y dirección del banco',
           StringConstants.recipient: 'Receptor',
-          StringConstants
-              .useThisData: '‘Utilice estos datos para recibir su salario y transferencias desde una cuenta bancaria en euros’.',
-          StringConstants
-              .provideThisData: 'Proporcionar estos datos a las empresas para que establezcan adeudos domiciliados y liquiden automáticamente facturas recurrentes',
-          StringConstants
-              .ifTheIssuingBank: 'Si el banco emisor admite pagos instantáneos, el pago llegará en cuestión de segundos. Si no, tardará hasta 2 días hábiles.',
-          StringConstants
-              .ifYourEmployer: 'Si su empleador o una empresa rechaza su IBAN porque no es "local", es ilegal. Descubre qué puedes hacer en nuestro blog.',
+          StringConstants.useThisData:
+              '‘Utilice estos datos para recibir su salario y transferencias desde una cuenta bancaria en euros’.',
+          StringConstants.provideThisData:
+              'Proporcionar estos datos a las empresas para que establezcan adeudos domiciliados y liquiden automáticamente facturas recurrentes',
+          StringConstants.ifTheIssuingBank:
+              'Si el banco emisor admite pagos instantáneos, el pago llegará en cuestión de segundos. Si no, tardará hasta 2 días hábiles.',
+          StringConstants.ifYourEmployer:
+              'Si su empleador o una empresa rechaza su IBAN porque no es "local", es ilegal. Descubre qué puedes hacer en nuestro blog.',
           StringConstants.documents: 'Documentos',
           StringConstants.bankStatement: 'Declaración bancaria',
           StringConstants.accountConfirmation: 'Confirmación de cuenta',
-          StringConstants
-              .onlyForInternationalTransfers: '‘Solo para transferencias internacionales’',
+          StringConstants.onlyForInternationalTransfers:
+              '‘Solo para transferencias internacionales’',
           StringConstants.onlyForLocalTransfers: 'ERAN',
           StringConstants.currencyAccount: 'Sólo para transferencias locales',
           StringConstants.flexibleAccount: 'Cuenta Moneda',
           StringConstants.pockets: 'Cuenta flexible',
           StringConstants.saveMoneyAndManage: 'bolsillos',
-          StringConstants
-              .jointAccount: '‘Guarda dinero y administralo por tu cuenta > o con amigos’',
+          StringConstants.jointAccount:
+              '‘Guarda dinero y administralo por tu cuenta > o con amigos’',
           StringConstants.anAccountForAllTypes: 'Cuenta Conjunta',
-          StringConstants
-              .getUpTo: '‘Una cuenta para todo tipo de dúos, con IBAN y tarjetas’',
-          StringConstants
-              .proAccount: 'Llegar hasta el 5,39%. Revolut Securities Europe UAB proporciona este servicio',
+          StringConstants.getUpTo:
+              '‘Una cuenta para todo tipo de dúos, con IBAN y tarjetas’',
+          StringConstants.proAccount:
+              'Llegar hasta el 5,39%. Revolut Securities Europe UAB proporciona este servicio',
           StringConstants.howMuchMoneyDoYouWantToRecharge: 'Cuenta profesional',
-          StringConstants
-              .rateAccordingToTheAmountOfTheRecharge: '‘¿Cuánto dinero quieres recargar?’?',
-          StringConstants
-              .reloadWallet: '‘Tarifa según el importe de la recarga’',
-          StringConstants.transferToBank: 'Cargar billetera',
+          StringConstants.rateAccordingToTheAmountOfTheRecharge:
+              '‘¿Cuánto dinero quieres recargar?’?',
+          StringConstants.reloadWallet:
+              '‘Tarifa según el importe de la recarga’',
+          StringConstants.transferToLocalBank: 'Cargar billetera',
           StringConstants.howMuchMoney: 'Transferencia a banco',
-          StringConstants
-              .rechargeSummary: '‘¿Cuánto dinero quieres transferir?’?',
+          StringConstants.rechargeSummary:
+              '‘¿Cuánto dinero quieres transferir?’?',
           StringConstants.rechargeFee: 'Resumen de recarga',
           StringConstants.rechargeCarriedOut: 'Tarifa de recarga',
           StringConstants.goToWallet: 'Recargo realizado',
           StringConstants.theMoneyIsAlready: 'Ir a la billetera',
-          StringConstants
-              .aReadyToUse: 'El dinero ya está en tu billetera. Disfruta de tus próximas compras en ROT.',
-          StringConstants
-              .credit: 'Una cuenta comercial lista para usar con hasta un 1,2% de reembolso',
+          StringConstants.aReadyToUse:
+              'El dinero ya está en tu billetera. Disfruta de tus próximas compras en ROT.',
+          StringConstants.credit:
+              'Una cuenta comercial lista para usar con hasta un 1,2% de reembolso',
           StringConstants.discoverLoansAndCreditCards: 'crédito',
-          StringConstants
-              .accountGreaterThanEighteen: '‘Descubre préstamos y tarjetas de crédito’',
+          StringConstants.accountGreaterThanEighteen:
+              '‘Descubre préstamos y tarjetas de crédito’',
           StringConstants.linkedAccount: 'Cuenta <18',
-          StringConstants
-              .checkAllYourBankAccountsInOnePlace: 'Cuenta vinculada',
-          StringConstants
-              .accountsForChildren: '‘Consulta todas tus cuentas bancarias en un solo lugar’',
-          StringConstants
-              .moreThanThirtyCurrencies: '‘Cuentas para niños y adolescentes entre 6 y 17 años’',
-          StringConstants
-              .itOffersYouSolutions: '‘Más de 30 monedas para que puedas pagar en casa incluso en el extranjero’',
-          StringConstants
-              .findTheBestSubscription: '‘Te ofrece soluciones para vender más, facturar, rastrear inventario, todo en una sola aplicación y muchas más ventajas’.',
-          StringConstants
-              .searchForCollaborator: '‘¡Encuentra el mejor plan de suscripción que mejor se adapte a tus objetivos!’!',
-          StringConstants
-              .getNotifiedWhenNewProductsFit: 'Búsqueda de colaborador',
-          StringConstants
-              .getNotifiedAboutAnyNewsRegarding: 'Obtener notificaciones cuando los nuevos productos se ajusten a sus criterios de búsqueda',
-          StringConstants
-              .getNotifiedAboutPromotionsAndOther: '‘Obtener notificaciones sobre cualquier novedad con respecto a sus productos favoritos y vendedores’.',
-          StringConstants.payment:'Pago',
-          StringConstants.cardNumber:"Número de tarjeta",
-          StringConstants.enterDigitCardNumber:"Ingrese el número de tarjeta de 12 dígitos",
-          StringConstants.validThru:"Válido a través",
-          StringConstants.cvv:"CVV",
-          StringConstants.month:"mes",
-          StringConstants.year:"año",
-          StringConstants.ok:"Está bien",
-          StringConstants.cardHoldersName:"Nombre del Titular de la Tarjeta",
-          StringConstants.nameOnCard:"Nombre de la tarjeta",
-          StringConstants.payMyFriend:'Paga a mi amigo',
-          StringConstants.cardPayment:'Pago de Tarjetas',
-          StringConstants.available:'Disponible',
-          StringConstants.youPay:'tú pagas',
-          StringConstants.address:'Dirección',
-          StringConstants.streetNameAndNumber:'Nombre y número de la calle',
-          StringConstants.floorAndDoorNumber:'Número de piso y puerta',
-          StringConstants.nearbyPoints:'Puntos cercanos',
-          StringConstants.inPerson:'En persona',
-          StringConstants.meetAndPay:'‘Conoce y paga sin salir de la app cuando estés con el vendedor’',
-          StringConstants.pickUpPoint:'Punto de recogida',
-          StringConstants.viewPickUpPoint:'Ver puntos de recogida',
-          StringConstants.myAddress:'Mi dirección',
-          StringConstants.colour:'Color:',
-          StringConstants.deliveryExpectedIn:'Entrega esperada',
-          StringConstants.purchaseMade:'Compra realizada',
-          StringConstants.theSellerHas:'‘El vendedor tiene 24 horas para confirmar que enviará’.',
-          StringConstants.weProtectYourPurchase:'Protegemos su compra con RoT Protection. Lea cómo funciona',
-          StringConstants.editAddress:'Editar dirección',
-          StringConstants.summary:'Resumen',
-          StringConstants.toEdit:'Editar',
-          StringConstants.paymentMethod:'Método de pago',
-          StringConstants.promotionalCode:'Código promocional',
-          StringConstants.theTransportCompanyAlreadyHasYourPackage:'‘La empresa de transporte ya tiene su paquete’.',
-          StringConstants.weWillNotify:'‘Le avisaremos cuando el paquete esté en entrega, hay menos para ga’',
-          StringConstants.shippingCade:'cade marítimo',
-          StringConstants.knowMore:'Sabes más',
-          StringConstants.protectYour:'‘Protege tu compra con esa protección PRO’',
-          StringConstants.followUp:'Seguir',
-          StringConstants.enjoyYourPurchase:'Disfruta de tu compra',
-          StringConstants.oneThingThanks:'‘Una cosa gracias por hacer de este mundo un lugar un poco mejor’.',
-          StringConstants.theMoney:'El dinero que pagaste con la billetera ya está en tu cuenta. Recibirá el resto en el método que utilizó en un plazo de 24 a 48 horas',
+          StringConstants.checkAllYourBankAccountsInOnePlace:
+              'Cuenta vinculada',
+          StringConstants.accountsForChildren:
+              '‘Consulta todas tus cuentas bancarias en un solo lugar’',
+          StringConstants.moreThanThirtyCurrencies:
+              '‘Cuentas para niños y adolescentes entre 6 y 17 años’',
+          StringConstants.itOffersYouSolutions:
+              '‘Más de 30 monedas para que puedas pagar en casa incluso en el extranjero’',
+          StringConstants.findTheBestSubscription:
+              '‘Te ofrece soluciones para vender más, facturar, rastrear inventario, todo en una sola aplicación y muchas más ventajas’.',
+          StringConstants.searchForCollaborator:
+              '‘¡Encuentra el mejor plan de suscripción que mejor se adapte a tus objetivos!’!',
+          StringConstants.getNotifiedWhenNewProductsFit:
+              'Búsqueda de colaborador',
+          StringConstants.getNotifiedAboutAnyNewsRegarding:
+              'Obtener notificaciones cuando los nuevos productos se ajusten a sus criterios de búsqueda',
+          StringConstants.getNotifiedAboutPromotionsAndOther:
+              '‘Obtener notificaciones sobre cualquier novedad con respecto a sus productos favoritos y vendedores’.',
+          StringConstants.payment: 'Pago',
+          StringConstants.cardNumber: "Número de tarjeta",
+          StringConstants.enterDigitCardNumber:
+              "Ingrese el número de tarjeta de 12 dígitos",
+          StringConstants.validThru: "Válido a través",
+          StringConstants.cvv: "CVV",
+          StringConstants.month: "mes",
+          StringConstants.year: "año",
+          StringConstants.ok: "Está bien",
+          StringConstants.cardHoldersName: "Nombre del Titular de la Tarjeta",
+          StringConstants.nameOnCard: "Nombre de la tarjeta",
+          StringConstants.payMyFriend: 'Paga a mi amigo',
+          StringConstants.cardPayment: 'Pago de Tarjetas',
+          StringConstants.available: 'Disponible',
+          StringConstants.youPay: 'tú pagas',
+          StringConstants.address: 'Dirección',
+          StringConstants.streetNameAndNumber: 'Nombre y número de la calle',
+          StringConstants.floorAndDoorNumber: 'Número de piso y puerta',
+          StringConstants.nearbyPoints: 'Puntos cercanos',
+          StringConstants.inPerson: 'En persona',
+          StringConstants.meetAndPay:
+              '‘Conoce y paga sin salir de la app cuando estés con el vendedor’',
+          StringConstants.pickUpPoint: 'Punto de recogida',
+          StringConstants.viewPickUpPoint: 'Ver puntos de recogida',
+          StringConstants.myAddress: 'Mi dirección',
+          StringConstants.colour: 'Color:',
+          StringConstants.deliveryExpectedIn: 'Entrega esperada',
+          StringConstants.purchaseMade: 'Compra realizada',
+          StringConstants.theSellerHas:
+              '‘El vendedor tiene 24 horas para confirmar que enviará’.',
+          StringConstants.weProtectYourPurchase:
+              'Protegemos su compra con RoT Protection. Lea cómo funciona',
+          StringConstants.editAddress: 'Editar dirección',
+          StringConstants.summary: 'Resumen',
+          StringConstants.toEdit: 'Editar',
+          StringConstants.paymentMethod: 'Método de pago',
+          StringConstants.promotionalCode: 'Código promocional',
+          StringConstants.theTransportCompanyAlreadyHasYourPackage:
+              '‘La empresa de transporte ya tiene su paquete’.',
+          StringConstants.weWillNotify:
+              '‘Le avisaremos cuando el paquete esté en entrega, hay menos para ga’',
+          StringConstants.shippingCade: 'cade marítimo',
+          StringConstants.knowMore: 'Sabes más',
+          StringConstants.protectYour:
+              '‘Protege tu compra con esa protección PRO’',
+          StringConstants.followUp: 'Seguir',
+          StringConstants.enjoyYourPurchase: 'Disfruta de tu compra',
+          StringConstants.oneThingThanks:
+              '‘Una cosa gracias por hacer de este mundo un lugar un poco mejor’.',
+          StringConstants.theMoney:
+              'El dinero que pagaste con la billetera ya está en tu cuenta. Recibirá el resto en el método que utilizó en un plazo de 24 a 48 horas',
         },
       };
 }

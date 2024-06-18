@@ -81,7 +81,7 @@ class ProfileView extends GetView<ProfileController> {
                                         ),
                                         CountryFlag.fromCountryCode(
                                           controller.userData!.countryCode ??
-                                              'IN',
+                                              '',
                                           height: 20.px,
                                           width: 25.px,
                                           borderRadius: 3,

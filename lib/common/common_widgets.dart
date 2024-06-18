@@ -120,7 +120,7 @@ class CommonWidgets {
                   .displayMedium
                   ?.copyWith(fontWeight: FontWeight.w700),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius ?? 14.px),
+            borderRadius: BorderRadius.circular(borderRadius ?? 13.px),
           ),
           backgroundColor:
               buttonColor ?? Theme.of(Get.context!).colorScheme.primary,

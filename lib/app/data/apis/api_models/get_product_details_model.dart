@@ -43,7 +43,23 @@ class Data {
   String? productName;
   String? subCategoryId;
   String? availableAt;
+  String? countryCode;
+  String? weight;
+  String? weightDim;
+  String? productVolume;
+  String? wishId;
+  String? typeEngine;
+  String? registrationYear;
+  String? motor;
+  String? kilometer;
+  String? transmission;
+  String? color;
+  String? publicPhone;
+  String? modelName;
+  String? shipping;
+  String? partNumber;
   String? productLikeUnlike;
+  int? productLikeUnlikeCount;
   List<ProductImage>? productImage;
 
   Data(
@@ -67,7 +83,23 @@ class Data {
       this.productName,
       this.subCategoryId,
       this.availableAt,
+      this.countryCode,
+      this.weight,
+      this.weightDim,
+      this.productVolume,
+      this.wishId,
+      this.typeEngine,
+      this.registrationYear,
+      this.motor,
+      this.kilometer,
+      this.transmission,
+      this.color,
+      this.publicPhone,
+      this.modelName,
+      this.shipping,
+      this.partNumber,
       this.productLikeUnlike,
+      this.productLikeUnlikeCount,
       this.productImage});
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -91,7 +123,23 @@ class Data {
     productName = json['product_name'];
     subCategoryId = json['sub_category_id'];
     availableAt = json['available_at'];
+    countryCode = json['country_code'];
+    weight = json['weight'];
+    weightDim = json['weight_dim'];
+    productVolume = json['product_volume'];
+    wishId = json['wish_id'];
+    typeEngine = json['type_engine'];
+    registrationYear = json['registration_year'];
+    motor = json['motor'];
+    kilometer = json['kilometer'];
+    transmission = json['transmission'];
+    color = json['color'];
+    publicPhone = json['public_phone'];
+    modelName = json['model_name'];
+    shipping = json['shipping'];
+    partNumber = json['part_number'];
     productLikeUnlike = json['product_like_unlike'];
+    productLikeUnlikeCount = json['product_like_unlike_count'];
     if (json['product_image'] != null) {
       productImage = <ProductImage>[];
       json['product_image'].forEach((v) {
@@ -122,7 +170,23 @@ class Data {
     data['product_name'] = productName;
     data['sub_category_id'] = subCategoryId;
     data['available_at'] = availableAt;
+    data['country_code'] = countryCode;
+    data['weight'] = weight;
+    data['weight_dim'] = weightDim;
+    data['product_volume'] = productVolume;
+    data['wish_id'] = wishId;
+    data['type_engine'] = typeEngine;
+    data['registration_year'] = registrationYear;
+    data['motor'] = motor;
+    data['kilometer'] = kilometer;
+    data['transmission'] = transmission;
+    data['color'] = color;
+    data['public_phone'] = publicPhone;
+    data['model_name'] = modelName;
+    data['shipping'] = shipping;
+    data['part_number'] = partNumber;
     data['product_like_unlike'] = productLikeUnlike;
+    data['product_like_unlike_count'] = productLikeUnlikeCount;
     if (productImage != null) {
       data['product_image'] = productImage!.map((v) => v.toJson()).toList();
     }

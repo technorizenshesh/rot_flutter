@@ -2,31 +2,48 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:rot_application/app/data/apis/api_models/get_account_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_add_wallet_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_brand_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_card_list_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_chat_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_conversation_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_engine_type_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_friends_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_help_center_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_like_users_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_model_by_brand_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_my_address_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_my_purchase_subscription_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_notification_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_place_by_zipcode_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_product_delivery_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_review_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_sells_country_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_services_type_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_shipping_charge_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_simple_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_subscription_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_token_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_transmission_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_wallet_history_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_wallet_list_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_wish_category_model.dart';
 
 import '../../../../common/http_methods.dart';
 import '../api_constants/api_url_constants.dart';
 import '../api_models/get_all_product_model.dart';
 import '../api_models/get_banner_model.dart';
+import '../api_models/get_buy_product_model.dart';
 import '../api_models/get_category_model.dart';
+import '../api_models/get_check_qrcode_model.dart';
 import '../api_models/get_city_model.dart';
 import '../api_models/get_country_model.dart';
 import '../api_models/get_currency_model.dart';
+import '../api_models/get_delete_account_model.dart';
 import '../api_models/get_delete_card_model.dart';
 import '../api_models/get_delete_product_model.dart';
+import '../api_models/get_exist_email_phone_model.dart';
 import '../api_models/get_favorite_product_model.dart';
 import '../api_models/get_hash_tag_model.dart';
 import '../api_models/get_product_details_model.dart';
@@ -36,6 +53,7 @@ import '../api_models/get_profile_public_model.dart';
 import '../api_models/get_profile_public_products_model.dart';
 import '../api_models/get_state_model.dart';
 import '../api_models/get_sub_category_model.dart';
+import '../api_models/get_wallet_by_currency_model.dart';
 import '../api_models/response_model.dart';
 import '../api_models/user_model.dart';
 
@@ -209,6 +227,108 @@ class ApiMethods {
     return null;
   }
 
+  static Future<WishCategoryModel?> getWishCategory({
+    void Function(int)? checkResponse,
+  }) async {
+    WishCategoryModel? wishCategoryModel;
+    http.Response? response = await MyHttp.getMethod(
+      url: ApiUrlConstants.endPointOfGetWishCategory,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      wishCategoryModel = WishCategoryModel.fromJson(jsonDecode(response.body));
+      return wishCategoryModel;
+    }
+    return null;
+  }
+
+  /// Get Brand list .....
+  static Future<GetBrandModel?> getBrandList({
+    void Function(int)? checkResponse,
+  }) async {
+    GetBrandModel? getBrandModel;
+    http.Response? response = await MyHttp.getMethod(
+      url: ApiUrlConstants.endPointOfGetBrand,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getBrandModel = GetBrandModel.fromJson(jsonDecode(response.body));
+      return getBrandModel;
+    }
+    return null;
+  }
+
+  /// Get Model by Brand id list .....
+  static Future<GetModelByBrandModel?> getModelByBrandIdList({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> queryParameters,
+  }) async {
+    GetModelByBrandModel? getModelByBrandModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetModelByBrand,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getModelByBrandModel =
+          GetModelByBrandModel.fromJson(jsonDecode(response.body));
+      return getModelByBrandModel;
+    }
+    return null;
+  }
+
+  /// Get Engine Type list .....
+  static Future<GetEngineTypeModel?> getEngineTypeList({
+    void Function(int)? checkResponse,
+  }) async {
+    GetEngineTypeModel? getEngineTypeModel;
+    http.Response? response = await MyHttp.getMethod(
+      url: ApiUrlConstants.endPointOfGetTypeEngines,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getEngineTypeModel =
+          GetEngineTypeModel.fromJson(jsonDecode(response.body));
+      return getEngineTypeModel;
+    }
+    return null;
+  }
+
+  /// Get Services Type list .....
+  static Future<GetServicesTypeModel?> getServicesTypeList({
+    void Function(int)? checkResponse,
+  }) async {
+    GetServicesTypeModel? getServicesTypeModel;
+    http.Response? response = await MyHttp.getMethod(
+      url: ApiUrlConstants.endPointOfGetServiceType,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getServicesTypeModel =
+          GetServicesTypeModel.fromJson(jsonDecode(response.body));
+      return getServicesTypeModel;
+    }
+    return null;
+  }
+
+  /// Get Transmission List list .....
+  static Future<GetTransmissionModel?> getTransmissionList({
+    void Function(int)? checkResponse,
+  }) async {
+    GetTransmissionModel? getTransmissionModel;
+    http.Response? response = await MyHttp.getMethod(
+      url: ApiUrlConstants.endPointOfGetTransmission,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getTransmissionModel =
+          GetTransmissionModel.fromJson(jsonDecode(response.body));
+      return getTransmissionModel;
+    }
+    return null;
+  }
+
   static Future<GetCurrencyModel?> getCurrency({
     void Function(int)? checkResponse,
   }) async {
@@ -280,6 +400,26 @@ class ApiMethods {
     return null;
   }
 
+  /// Get product base on categoryId
+  static Future<GetAllProductModel?> getCategoryProductList({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    GetAllProductModel? getAllProductModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetCategoryProduct,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getAllProductModel =
+          GetAllProductModel.fromJson(jsonDecode(response.body));
+      return getAllProductModel;
+    }
+    return null;
+  }
+
   static Future<GetProductDetailsModel?> getProductDetail({
     required Map<String, dynamic> queryParameters,
     void Function(int)? checkResponse,
@@ -331,6 +471,25 @@ class ApiMethods {
     if (response != null) {
       deleteProductModel =
           DeleteProductModel.fromJson(jsonDecode(response.body));
+      return deleteProductModel;
+    }
+    return null;
+  }
+
+  ///Change  product status api...
+  static Future<SimpleResponseModel?> changeProductStatusByProductId({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    SimpleResponseModel? deleteProductModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: queryParameters,
+      url: ApiUrlConstants.endPointOfUpdateProjectStatus,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      deleteProductModel =
+          SimpleResponseModel.fromJson(jsonDecode(response.body));
       return deleteProductModel;
     }
     return null;
@@ -610,10 +769,11 @@ class ApiMethods {
     return null;
   }
 
-  static Future<http.Response?> buyProduct({
+  static Future<BuyProductModel?> buyProduct({
     required Map<String, dynamic> queryParameters,
     void Function(int)? checkResponse,
   }) async {
+    BuyProductModel buyProductModel;
     http.Response? response = await MyHttp.getMethodParams(
       queryParameters: queryParameters,
       baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
@@ -621,7 +781,8 @@ class ApiMethods {
       checkResponse: checkResponse,
     );
     if (response != null) {
-      return response;
+      buyProductModel = BuyProductModel.fromJson(jsonDecode(response.body));
+      return buyProductModel;
     }
     return null;
   }
@@ -896,6 +1057,85 @@ class ApiMethods {
     return null;
   }
 
+  /// Get ALL MY Wallet List Money Api....
+  static Future<GetWalletListModel?> getMyWalletListApi({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    GetWalletListModel? getWalletListModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetWallet,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getWalletListModel =
+          GetWalletListModel.fromJson(jsonDecode(response.body));
+      return getWalletListModel;
+    }
+    return null;
+  }
+
+  /// Get MY Wallet Money By Currency Api....
+  static Future<GetWalletByCurrencyModel?> getMyWalletByCurrencyApi({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    GetWalletByCurrencyModel? getWalletByCurrencyModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetWalletByCurrency,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getWalletByCurrencyModel =
+          GetWalletByCurrencyModel.fromJson(jsonDecode(response.body));
+      return getWalletByCurrencyModel;
+    }
+    return null;
+  }
+
+  /// Check Email and phone exist Api....
+  static Future<ExistEmailPhoneModel?> checkEmailPhoneExistApi({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    ExistEmailPhoneModel? existEmailPhoneModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetExistEmailPhone,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      existEmailPhoneModel =
+          ExistEmailPhoneModel.fromJson(jsonDecode(response.body));
+      return existEmailPhoneModel;
+    }
+    return null;
+  }
+
+  /// Add Sell Money Api....
+  static Future<ResponseModel?> submitSellMoneyApi({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    ResponseModel? responseModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfAddWalletsExchangeAmount,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      responseModel = ResponseModel.fromJson(jsonDecode(response.body));
+      return responseModel;
+    }
+    return null;
+  }
+
   /// Get Help Center Model .....
   static Future<HelpCenterModel?> getHelpCenterApi({
     void Function(int)? checkResponse,
@@ -944,6 +1184,318 @@ class ApiMethods {
       subscriptionModel =
           GetSubscriptionModel.fromJson(jsonDecode(response.body));
       return subscriptionModel;
+    }
+    return null;
+  }
+
+  /// Add Send QrCode Api....
+  static Future<ResponseModel?> sendQrCodeApi({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    ResponseModel? responseModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfSendQrCode,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      responseModel = ResponseModel.fromJson(jsonDecode(response.body));
+      return responseModel;
+    }
+    return null;
+  }
+
+  /// Check Qr Code  Model .....
+  static Future<CheckQrCodeModel?> checkQrCodeApi(
+      {required Map<String, dynamic> queryParameters,
+      void Function(int)? checkResponse}) async {
+    CheckQrCodeModel? checkQrCodeModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfCheckQrCode,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      checkQrCodeModel = CheckQrCodeModel.fromJson(jsonDecode(response.body));
+      return checkQrCodeModel;
+    }
+    return null;
+  }
+
+  static Future<ResponseModel?> createLocalInternationalAccount({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> queryParameters,
+  }) async {
+    ResponseModel? responseModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfLocalInternationAccount,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      responseModel = ResponseModel.fromJson(jsonDecode(response.body));
+      return responseModel;
+    }
+    return null;
+  }
+
+  /// Check Qr Code  Model .....
+  static Future<GetAccountModel?> getAccountApi(
+      {required Map<String, dynamic> queryParameters,
+      void Function(int)? checkResponse}) async {
+    GetAccountModel? getAccountModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetLocalInternationalAccount,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getAccountModel = GetAccountModel.fromJson(jsonDecode(response.body));
+      return getAccountModel;
+    }
+    return null;
+  }
+
+  /// Check Qr Code  Model .....
+  static Future<DeleteAccountModel?> deleteLocalInternationalAccountApi(
+      {required Map<String, dynamic> queryParameters,
+      void Function(int)? checkResponse}) async {
+    DeleteAccountModel? deleteAccountModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfDeleteLocalInternationalAccount,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      deleteAccountModel =
+          DeleteAccountModel.fromJson(jsonDecode(response.body));
+      return deleteAccountModel;
+    }
+    return null;
+  }
+
+  /// send Otp for Account Verification api  .....
+  static Future<SimpleResponseModel?> sendOtpForAccountVerificationApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    SimpleResponseModel? simpleResponseModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfSendOtpForAccountVerification,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      simpleResponseModel =
+          SimpleResponseModel.fromJson(jsonDecode(response.body));
+      return simpleResponseModel;
+    }
+    return null;
+  }
+
+  /// Check Otp for Account Verification api  .....
+  static Future<UserModel?> checkOtpForAccountVerificationApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    UserModel? userModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfCheckOtpForAccountVerification,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      userModel = UserModel.fromJson(jsonDecode(response.body));
+      return userModel;
+    }
+    return null;
+  }
+
+  /// Get sHIPPING CHARGE Model .....
+  static Future<GetShippingChargeModel?> getShippingChargeApi(
+      {required Map<String, dynamic> queryParameters,
+      void Function(int)? checkResponse}) async {
+    GetShippingChargeModel? getShippingChargeModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetShippingCharge,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getShippingChargeModel =
+          GetShippingChargeModel.fromJson(jsonDecode(response.body));
+      return getShippingChargeModel;
+    }
+    return null;
+  }
+
+  /// Get Place by using zipcode List Model .....
+  static Future<GetPlacesByZipcodeModel?> getPlaceByZipCodeApi(
+      {void Function(int)? checkResponse,
+      required String countryCode,
+      String? zipcode}) async {
+    GetPlacesByZipcodeModel? getPlacesByZipcodeModel;
+    http.Response? response = await MyHttp.getMethod(
+      url: 'https://api.zippopotam.us/$countryCode/$zipcode',
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getPlacesByZipcodeModel =
+          GetPlacesByZipcodeModel.fromJson(jsonDecode(response.body));
+      return getPlacesByZipcodeModel;
+    }
+    return null;
+  }
+
+  /// Add My Address  Model .....
+  static Future<SimpleResponseModel?> addAddressApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    SimpleResponseModel? simpleResponseModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfAddAddress,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      simpleResponseModel =
+          SimpleResponseModel.fromJson(jsonDecode(response.body));
+      return simpleResponseModel;
+    }
+    return null;
+  }
+
+  /// Get My Address  Model .....
+  static Future<MyAddressModel?> getAddressApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    MyAddressModel? myAddressModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: bodyParams,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetMyAddress,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      myAddressModel = MyAddressModel.fromJson(jsonDecode(response.body));
+      return myAddressModel;
+    }
+    return null;
+  }
+
+  /// Get My Product Sell Country  Model .....
+  static Future<SellsCountryModel?> getMyProductSellCountryApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    SellsCountryModel? sellsCountryModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: bodyParams,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetAllProductCountry,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      sellsCountryModel = SellsCountryModel.fromJson(jsonDecode(response.body));
+      return sellsCountryModel;
+    }
+    return null;
+  }
+
+  /// Add Friend Request api  .....
+  static Future<SimpleResponseModel?> addFriendRequestApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    SimpleResponseModel? simpleResponseModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfAddSendFriendRequest,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      simpleResponseModel =
+          SimpleResponseModel.fromJson(jsonDecode(response.body));
+      return simpleResponseModel;
+    }
+    return null;
+  }
+
+  /// Get FriendList  Model .....
+  static Future<GetFriendsModel?> getFriendsApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    GetFriendsModel? getFriendsModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: bodyParams,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetMyFriendList,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getFriendsModel = GetFriendsModel.fromJson(jsonDecode(response.body));
+      return getFriendsModel;
+    }
+    return null;
+  }
+
+  /// Accept Reject  Friend Request api  .....
+  static Future<SimpleResponseModel?> acceptRejectFriendRequestApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    SimpleResponseModel? simpleResponseModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfFriendRequestAcceptReject,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      simpleResponseModel =
+          SimpleResponseModel.fromJson(jsonDecode(response.body));
+      return simpleResponseModel;
+    }
+    return null;
+  }
+
+  /// Send Shipment request
+  static Future<http.Response?> sendShipmentContactRequest({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfAddShipmentContactRequest,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      return response;
+    }
+    return null;
+  }
+
+  /// Add Report Product request...
+  static Future<http.Response?> addReportProduct({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfAddReportProduct,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      return response;
     }
     return null;
   }

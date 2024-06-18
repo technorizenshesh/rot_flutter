@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rot_application/app/data/apis/api_models/get_friends_model.dart';
 
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
@@ -162,14 +163,14 @@ class ProductsView extends GetView<FavoritesController> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       CommonWidgets.appIcons(
-                                        assetName: controller.listOfCards[index]
-                                            ['icon1'],
+                                        assetName: productIconStatus(
+                                            item.product!.availableAt ?? ''),
                                         width: 40.px,
                                         height: 40.px,
                                       ),
                                       CommonWidgets.appIcons(
-                                        assetName: controller.listOfCards[index]
-                                            ['icon2'],
+                                        assetName: getIcons(
+                                            item.product!.shipping ?? 'Yes'),
                                         width: 40.px,
                                         height: 40.px,
                                       ),
@@ -241,6 +242,32 @@ class ProductsView extends GetView<FavoritesController> {
                 }),
               )
             : CommonWidgets.dataNotFound());
+  }
+
+  String getIcons(String available) {
+    switch (available) {
+      case "Yes":
+        return IconConstants.icTruck;
+      case "No":
+        return IconConstants.icPersonMoney;
+      default:
+        return IconConstants.icTruck;
+    }
+  }
+
+  String productIconStatus(String available) {
+    switch (available) {
+      case "sold":
+        return IconConstants.icPaid;
+      case "reserved":
+        return IconConstants.icReserve;
+      case "paid":
+        return IconConstants.icPaid;
+      case "process":
+        return IconConstants.icMoneyReceived;
+      default:
+        return IconConstants.icMoneyReceived;
+    }
   }
 }
 
@@ -481,49 +508,72 @@ class FriendView extends GetView<FavoritesController> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: EdgeInsets.zero,
-      itemCount: 2,
-      itemBuilder: (context, index) => Card(
-        elevation: .2.px,
-        child: ListTile(
-          // contentPadding: EdgeInsets.zero,
-          title: Text(
-            'Jordyn Dokidis',
-            style: Theme.of(context)
-                .textTheme
-                .displayMedium
-                ?.copyWith(fontSize: 20.px),
-          ),
-          subtitle: Text(
-            '01-29-2024',
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontSize: 14.px,
-                ),
-          ),
-          trailing: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CommonWidgets.commonElevatedButton(
-                wantContentSizeButton: true,
-                decoration: const BoxDecoration(),
-                onPressed: () {},
-                borderRadius: 4.px,
-                contentPadding: EdgeInsets.zero,
-                height: 24.px,
-                childText: Text(
-                  'Done',
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 10.px,
+    return controller.friendList.isNotEmpty
+        ? ListView.builder(
+            padding: EdgeInsets.zero,
+            itemCount: controller.friendList.length,
+            itemBuilder: (context, index) {
+              GetFriendsData item = controller.friendList[index];
+              return Card(
+                elevation: .2.px,
+                child: ListTile(
+                  // contentPadding: EdgeInsets.zero,
+                  title: Text(
+                    item.fullName ?? '',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(fontSize: 20.px),
+                  ),
+                  subtitle: Text(
+                    item.dateTime.toString().substring(0, 10),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontSize: 14.px,
+                        ),
+                  ),
+                  trailing: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CommonWidgets.commonElevatedButton(
+                        wantContentSizeButton: true,
+                        decoration: const BoxDecoration(),
+                        onPressed: () {
+                          if (controller.userId == item.userId) {
+                          } else {
+                            controller.showAlertBox(item.id ?? '');
+                          }
+                        },
+                        borderRadius: 4.px,
+                        contentPadding: EdgeInsets.zero,
+                        buttonColor: item.status == 'Pending'
+                            ? Colors.orangeAccent
+                            : item.status == 'Accept'
+                                ? Colors.teal
+                                : Colors.redAccent,
+                        height: 24.px,
+                        childText: Text(
+                          item.status == 'Pending'
+                              ? controller.userId == item.userId
+                                  ? 'Waiting'
+                                  : 'Pending'
+                              : item.status ?? '',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 10.px,
+                              ),
+                        ),
                       ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+              );
+            },
+          )
+        : SizedBox(
+            height: 200.px, width: 200.px, child: CommonWidgets.dataNotFound());
   }
 }

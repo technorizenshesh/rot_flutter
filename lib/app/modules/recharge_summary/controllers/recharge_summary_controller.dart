@@ -12,10 +12,12 @@ class RechargeSummaryController extends GetxController {
   final count = 0.obs;
   Map<String, String?> parameters = Get.parameters;
   final btnLoading = false.obs;
+  final currencyName = 'USD'.obs;
   CardListData cardListData = Get.arguments;
   @override
   void onInit() {
     super.onInit();
+    currencyName.value = parameters[ApiKeyConstants.currency] ?? 'USD';
   }
 
   @override
@@ -73,6 +75,8 @@ class RechargeSummaryController extends GetxController {
         ApiKeyConstants.token: token,
         ApiKeyConstants.amount: parameters[ApiKeyConstants.amount] ?? '0',
         ApiKeyConstants.cardId: cardListData.id,
+        ApiKeyConstants.currency: currencyName.value,
+        ApiKeyConstants.walletId: parameters[ApiKeyConstants.walletId]
       };
       print("bodyParamForSubmitRecharge:-$submitRechargeParameters");
       AddWalletModel? addWalletModel = await ApiMethods.addToWalletAmountApi(

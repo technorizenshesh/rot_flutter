@@ -116,7 +116,7 @@ class PurchasesController extends GetxController
                   listTile(
                       assetName: IconConstants.icUserImage,
                       title: 'Sold by:',
-                      subtitle: 'JAVI-GTI..'),
+                      subtitle: '${pendingDeliveryList[index].userName}'),
                   listTile(
                       assetName: IconConstants.icAddressPin,
                       title: 'Shipping address:',
@@ -124,7 +124,7 @@ class PurchasesController extends GetxController
                   listTile(
                       assetName: IconConstants.icBankCard,
                       title: 'Payment method: ',
-                      subtitle: '${pendingDeliveryList[index].type}'),
+                      subtitle: '${pendingDeliveryList[index].paymentType}'),
                   SizedBox(height: 20.px),
                 ],
               ),

@@ -19,7 +19,7 @@ class LoginController extends GetxController {
   final passwordHide = true.obs;
 
   final inAsyncCall = false.obs;
-  final countryCode = '+91'.obs;
+  final countryCode = 'IN'.obs;
 
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -151,6 +151,8 @@ class LoginController extends GetxController {
   }
 
   clickOnCountryCode({required CountryCode value}) {
-    countryCode.value = value.toString();
+    print(
+        'Country code:${value.toString()},${value.code.toString()},${value.dialCode.toString()}');
+    countryCode.value = value.code.toString();
   }
 }

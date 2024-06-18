@@ -179,5 +179,12 @@ class IconConstants {
   static const String icFlagUsd = 'assets/icons/ic_flag_usd.png';
   static const String icGreyCard = 'assets/icons/ic_grey_card.png';
   static const String icGreenCart = 'assets/icons/ic_green_cart.png';
-  static const String icReserve = 'assets/icons/ic_reserve.png';
+  static const String icReserve = 'assets/icons/ic_reserved.png';
+  static const String icTransaction = 'assets/icons/ic_transaction.png';
+  static const String icBarCode = 'assets/icons/ic_barcode.png';
+  static const String icBank = 'assets/icons/ic_bank.png';
+  static const String icWhatsApp = 'assets/icons/ic_whatsapp.png';
+  static const String icDelivered = 'assets/icons/ic_delivered.png';
+  static const String icPaid = 'assets/icons/ic_paid.png';
+  static const String icPersonMoney = 'assets/icons/ic_inpersion.png';
 }

@@ -33,7 +33,7 @@ class ProfileController extends GetxController {
     },
     {'title': StringConstants.help.tr, 'icon': IconConstants.icHelp},
     {'title': StringConstants.myQRCode.tr, 'icon': IconConstants.icMyRrCode},
-    {'title': StringConstants.user.tr, 'icon': IconConstants.icUserProfile},
+    /*  {'title': StringConstants.user.tr, 'icon': IconConstants.icUserProfile},*/
     {'title': StringConstants.logOut.tr, 'icon': IconConstants.icLogOut},
   ];
 
@@ -94,9 +94,9 @@ class ProfileController extends GetxController {
         Get.toNamed(Routes.HELP);
         break;
       case 7:
-        Get.toNamed(Routes.MY_QR_CODE);
+        Get.toNamed(Routes.MY_QR_CODE, parameters: data);
         break;
-      case 9:
+      case 8:
         CommonWidgets.showAlertDialog(
           onPressedYes: () => clickOnYes(),
         );

@@ -228,43 +228,15 @@ class ChatNotificationView extends GetView<ChatsController> {
                     item.message ?? '',
                     maxLines: 4,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontSize: 14.px,
+                          fontSize: 12.px,
                         ),
                   ),
-                  trailing: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        getTimeAgo(item.dateTime!),
-                        style:
-                            Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontSize: 12.px,
-                                ),
-                      ),
-                      SizedBox(height: 5.px),
-                      Container(
-                        height: 24.px,
-                        width: 24.px,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                          borderRadius: BorderRadius.circular(12.px),
+                  trailing: Text(
+                    getTimeAgo(item.dateTime!),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontSize: 12.px,
                         ),
-                        child: Center(
-                          child: Text(
-                            '2',
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
-                                  fontSize: 14.px,
-                                  color:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                ),
-                          ),
-                        ),
-                      )
-                    ],
+                    textAlign: TextAlign.end,
                   ),
                 ),
               );

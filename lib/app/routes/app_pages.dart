@@ -1,5 +1,9 @@
 import 'package:get/get.dart';
 
+import '../modules/account_verification_otp/bindings/account_verification_otp_binding.dart';
+import '../modules/account_verification_otp/views/account_verification_otp_view.dart';
+import '../modules/account_verification_type/bindings/account_verification_type_binding.dart';
+import '../modules/account_verification_type/views/account_verification_type_view.dart';
 import '../modules/accounts/bindings/accounts_binding.dart';
 import '../modules/accounts/views/accounts_view.dart';
 import '../modules/add_delivery_address/bindings/add_delivery_address_binding.dart';
@@ -66,6 +70,8 @@ import '../modules/help_chat/bindings/help_chat_binding.dart';
 import '../modules/help_chat/views/help_chat_view.dart';
 import '../modules/history_of_movements/bindings/history_of_movements_binding.dart';
 import '../modules/history_of_movements/views/history_of_movements_view.dart';
+import '../modules/hobbies_product_details/bindings/hobbies_product_details_binding.dart';
+import '../modules/hobbies_product_details/views/hobbies_product_details_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/invite_collaborator/bindings/invite_collaborator_binding.dart';
@@ -96,10 +102,14 @@ import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
 import '../modules/package_preparation/bindings/package_preparation_binding.dart';
 import '../modules/package_preparation/views/package_preparation_view.dart';
+import '../modules/pay/bindings/pay_binding.dart';
+import '../modules/pay/views/pay_view.dart';
 import '../modules/payment_method/bindings/payment_method_binding.dart';
 import '../modules/payment_method/views/payment_method_view.dart';
 import '../modules/product_detail/bindings/product_detail_binding.dart';
 import '../modules/product_detail/views/product_detail_view.dart';
+import '../modules/products_according_category/bindings/products_according_category_binding.dart';
+import '../modules/products_according_category/views/products_according_category_view.dart';
 import '../modules/products_status/bindings/products_status_binding.dart';
 import '../modules/products_status/views/products_status_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
@@ -128,12 +138,22 @@ import '../modules/reset_password/bindings/reset_password_binding.dart';
 import '../modules/reset_password/views/reset_password_view.dart';
 import '../modules/reset_password_mail/bindings/reset_password_mail_binding.dart';
 import '../modules/reset_password_mail/views/reset_password_mail_view.dart';
+import '../modules/rot_protection/bindings/rot_protection_binding.dart';
+import '../modules/rot_protection/views/rot_protection_view.dart';
 import '../modules/sales/bindings/sales_binding.dart';
 import '../modules/sales/views/sales_view.dart';
+import '../modules/scan_qr_code/bindings/scan_qr_code_binding.dart';
+import '../modules/scan_qr_code/views/scan_qr_code_view.dart';
 import '../modules/search/bindings/search_binding.dart';
 import '../modules/search/views/search_view.dart';
+import '../modules/sell_money_review/bindings/sell_money_review_binding.dart';
+import '../modules/sell_money_review/views/sell_money_review_view.dart';
 import '../modules/send_money/bindings/send_money_binding.dart';
 import '../modules/send_money/views/send_money_view.dart';
+import '../modules/set_product_location/bindings/set_product_location_binding.dart';
+import '../modules/set_product_location/views/set_product_location_view.dart';
+import '../modules/shipment_request/bindings/shipment_request_binding.dart';
+import '../modules/shipment_request/views/shipment_request_view.dart';
 import '../modules/sign_up/bindings/sign_up_binding.dart';
 import '../modules/sign_up/views/sign_up_view.dart';
 import '../modules/sign_up_with_email/bindings/sign_up_with_email_binding.dart';
@@ -158,8 +178,16 @@ import '../modules/upload/bindings/upload_binding.dart';
 import '../modules/upload/views/upload_view.dart';
 import '../modules/upload_car_sub_category/bindings/upload_car_sub_category_binding.dart';
 import '../modules/upload_car_sub_category/views/upload_car_sub_category_view.dart';
+import '../modules/upload_coin_backnotes/bindings/upload_coin_backnotes_binding.dart';
+import '../modules/upload_coin_backnotes/views/upload_coin_backnotes_view.dart';
+import '../modules/upload_hobbies_leisure/bindings/upload_hobbies_leisure_binding.dart';
+import '../modules/upload_hobbies_leisure/views/upload_hobbies_leisure_view.dart';
+import '../modules/upload_real_estate/bindings/upload_real_estate_binding.dart';
+import '../modules/upload_real_estate/views/upload_real_estate_view.dart';
 import '../modules/wallet/bindings/wallet_binding.dart';
 import '../modules/wallet/views/wallet_view.dart';
+import '../modules/wish/bindings/wish_binding.dart';
+import '../modules/wish/views/wish_view.dart';
 import '../modules/withdraw/bindings/withdraw_binding.dart';
 import '../modules/withdraw/views/withdraw_view.dart';
 
@@ -575,6 +603,76 @@ class AppPages {
       name: _Paths.SEND_MONEY,
       page: () => const SendMoneyView(),
       binding: SendMoneyBinding(),
+    ),
+    GetPage(
+      name: _Paths.SELL_MONEY_REVIEW,
+      page: () => const SellMoneyReviewView(),
+      binding: SellMoneyReviewBinding(),
+    ),
+    GetPage(
+      name: _Paths.SCAN_QR_CODE,
+      page: () => const ScanQrCodeView(),
+      binding: ScanQrCodeBinding(),
+    ),
+    GetPage(
+      name: _Paths.PAY,
+      page: () => const PayView(),
+      binding: PayBinding(),
+    ),
+    GetPage(
+      name: _Paths.ACCOUNT_VERIFICATION_TYPE,
+      page: () => const AccountVerificationTypeView(),
+      binding: AccountVerificationTypeBinding(),
+    ),
+    GetPage(
+      name: _Paths.ACCOUNT_VERIFICATION_OTP,
+      page: () => const AccountVerificationOtpView(),
+      binding: AccountVerificationOtpBinding(),
+    ),
+    GetPage(
+      name: _Paths.ROT_PROTECTION,
+      page: () => const RotProtectionView(),
+      binding: RotProtectionBinding(),
+    ),
+    GetPage(
+      name: _Paths.WISH,
+      page: () => const WishView(),
+      binding: WishBinding(),
+    ),
+    GetPage(
+      name: _Paths.SET_PRODUCT_LOCATION,
+      page: () => const SetProductLocationView(),
+      binding: SetProductLocationBinding(),
+    ),
+    GetPage(
+      name: _Paths.UPLOAD_HOBBIES_LEISURE,
+      page: () => const UploadHobbiesLeisureView(),
+      binding: UploadHobbiesLeisureBinding(),
+    ),
+    GetPage(
+      name: _Paths.UPLOAD_REAL_ESTATE,
+      page: () => const UploadRealEstateView(),
+      binding: UploadRealEstateBinding(),
+    ),
+    GetPage(
+      name: _Paths.UPLOAD_COIN_BACKNOTES,
+      page: () => const UploadCoinBacknotesView(),
+      binding: UploadCoinBacknotesBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRODUCTS_ACCORDING_CATEGORY,
+      page: () => const ProductsAccordingCategoryView(),
+      binding: ProductsAccordingCategoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.HOBBIES_PRODUCT_DETAILS,
+      page: () => const HobbiesProductDetailsView(),
+      binding: HobbiesProductDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.SHIPMENT_REQUEST,
+      page: () => const ShipmentRequestView(),
+      binding: ShipmentRequestBinding(),
     ),
   ];
 }

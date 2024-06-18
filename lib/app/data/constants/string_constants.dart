@@ -282,6 +282,7 @@ class StringConstants {
   static const String charge = 'Charge';
   static const String change = 'Change';
   static const String changeMoney = 'Change Money';
+  static const String sellMoney = 'Sell Money';
   static const String sendMoney = 'Send Money';
   static const String pay = 'Pay';
   static const String withdraw = 'Withdraw';
@@ -309,7 +310,7 @@ class StringConstants {
   static const String all = 'All';
   static const String local = 'Local';
   static const String swift = 'Swift';
-  static const String bicSwiftCode = 'WERE';
+  static const String bicSwiftCode = 'BIC/SWIFT code';
   static const String bankNameAndAddress = 'Bank name and address';
   static const String recipient = 'Recipient';
   static const String useThisData =
@@ -343,7 +344,9 @@ class StringConstants {
   static const String rateAccordingToTheAmountOfTheRecharge =
       'Rate according to the amount of the recharge';
   static const String reloadWallet = 'Reload wallet';
-  static const String transferToBank = 'Transfer to bank';
+  static const String transferToLocalBank = 'Transfer to Local Bank';
+  static const String transferToInternationalBank =
+      'Transfer to International Bank';
   static const String howMuchMoney = 'How much money do you want to transfer?';
   static const String rechargeSummary = 'Recharge Summary';
   static const String rechargeFee = 'Recharge fee';
@@ -391,8 +394,8 @@ class StringConstants {
   static const String available = 'Available';
   static const String youPay = 'You Pay';
   static const String address = 'Address';
-  static const String streetNameAndNumber = 'Street name and number';
-  static const String floorAndDoorNumber = 'Floor and door number';
+  static const String streetNameAndNumber = 'Street name';
+  static const String floorAndDoorNumber = 'Floor ';
   static const String nearbyPoints = 'Nearby points';
   static const String inPerson = 'In person';
   static const String meetAndPay =
@@ -428,7 +431,7 @@ class StringConstants {
   static const String theMoney =
       'The money you paid with the wallet is already in your account. You will receive the rest in the method you used within 24 to 48 hours';
   static const String enterStreetNameAndNumber = 'Enter street name and number';
-  static const String enterFloorAndDoorNumber = 'Enter floor and door number';
+  static const String enterFloorAndDoorNumber = 'Enter floor';
   static const String enterZipCode = 'Enter zip code';
   static const String enterCity = 'Enter city';
   static const String enterCountry = 'Enter country';
@@ -448,9 +451,101 @@ class StringConstants {
   static const String youSend = 'You send';
   static const String recipientReceives = 'Recipient receives';
   static const String begin = 'Begin';
+  static const String reviewOrder = 'Review Order';
   static const String fee = 'Fee';
+  static const String availableLater = 'Available Later';
   static const String totalToPay = 'Total to pay';
-  static const String payWithCardAndWallet = 'Pay with card and wallet';
-  static const String deliverToBankAccount = 'Deliver to bank account';
+  static const String payWithCardAndWallet = 'Pay with card / wallet';
+  static const String originOfFunds = 'Origin of funds';
+  static const String fundsDestination = 'Funds destination';
+  static const String deliverToWalletMultiCurrency =
+      'Deliver to Wallet Multi Currency';
   static const String whatsAppNumber = 'WhatsApp number';
+  static const String deliverToBankAccount = 'Deliver to Bank Account';
+  static const String isSendingTo = 'Is sending to';
+  static const String availableWallets = 'Available Wallets';
+  static const String emailPhoneNumber = 'Email/Phone Number';
+  static const String enterMoney = 'Enter Money';
+  static const String shareQR = 'Share QR';
+  static const String specifyAnAmount = 'Specify an Amount';
+  static const String transactionHistory = 'Transaction History';
+  static const String fromQrCode = 'From Qr Code';
+  static const String selectType = 'Select Type';
+  static const String open = 'Open';
+  static const String receivePayment = 'Receive payment';
+  static const String secureAndVerifiedPayment = 'Secure and verified payments';
+  static const String havingTroubleScanning = 'Having trouble scanning?';
+  static const String addManualCode = 'Add manual code';
+  static const String manualCode = 'Manual code';
+  static const String youWillReceive = 'You will receive';
+  static const String add = 'Add';
+  static const String accept = 'Accept';
+  static const String number = 'Number';
+  static const String enterDoor = 'Enter Door';
+  static const String sms = 'SMS';
+  static const String dniCiPassword = 'DNI /CI / Passport';
+  static const String receivePaymentFromPedroPerez =
+      'Receive payment from Pedro Perez';
+  static const String confirmBeforeContinuing = 'Confirm before continuing';
+  static const String ifTheSenderHasNotVerifiedThisTransaction =
+      'If the sender has not verified this transaction, it could take longer than expected or fail.';
+  static const String addTheManualCodeLocatedInTheQrCode =
+      'Add the manual code located in the QR code';
+
+  static const String verityThatThisAccountBelongsToYou =
+      'Verify that this account belongs to you';
+  static const String chooseHowToReceiveTheVerificationCode =
+      'Choose how to receive the verification code';
+
+  static const String whatsApp = 'WhatsApp';
+  static const String phoneCall = 'Phone Call';
+  static const String backHome = 'Back Home';
+  static const String mail = 'Mail';
+  static const String newText = 'New';
+  static const String friendList = 'Friend List';
+  static const String userAnotherMethod = 'User Another Method';
+  static const String length = 'Length';
+  static const String width = 'Width';
+  static const String height = 'Height';
+  static const String weight = 'Weight';
+  static const String dimension = 'Dimension';
+  static const String wish = 'Wish';
+  static const String enableMyDefaultLocation = 'Enable my default location';
+  static const String adLocation = 'Ad Location';
+  static const String productIsOtherLocation = 'Product is other location';
+  static const String toPreserveYourPrivacyYourExactLocationWillNeverBePublic =
+      'To preserve your privacy,your exact location will never be public.';
+  static const String makeMyPhonePublicInTheAd =
+      'Make my phone public in the ad.';
+  static const String telPhoneOptional = 'TelPhone (Optional)';
+  static const String whatsAppOptional = 'WhatsApp (Optional)';
+  static const String model = 'Model';
+  static const String typeOfEngines = 'Type of Engines';
+  static const String registrationYear = 'RegistrationYear';
+  static const String kilometers = 'Kilometers';
+  static const String motor = 'Motor';
+  static const String transmission = 'Transmission';
+  static const String colorExterior = 'Color Exterior';
+  static const String partNumber = 'Part Number';
+  static const String time = 'Time';
+  static const String iCanMove = 'I can move';
+  static const String bedRooms = 'BedRooms';
+  static const String bathRooms = 'BathRooms';
+  static const String packing = 'packing';
+  static const String size = 'size(square meters)';
+  static const String storage = 'Storage(square meters)';
+  static const String terrace = 'Terrace(square meters)';
+  static const String denomination = 'Denomination';
+  static const String era = 'ERA';
+  static const String issuer = 'Issuer';
+  static const String material = 'Material';
+  static const String yearMinted = 'Year minted';
+  static const String reference1 = 'reference 1';
+  static const String reference2 = 'reference 2';
+  static const String diameter = 'Diameter';
+  static const String chatWithProvider = 'Chat With Provider';
+  static const String addYourLocation = 'Add Your Location First Please';
+  static const String shippingRequest = 'Shipping Request';
+  static const String shipmentAreNotPresentAtYourAddress =
+      'Shipment are not present at your address';
 }

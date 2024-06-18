@@ -1,3 +1,4 @@
+import 'package:currency_symbols/currency_symbols.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -36,7 +37,7 @@ class RechargeSummaryView extends GetView<RechargeSummaryController> {
                 width: 40.px,
               ),
               trailing: Text(
-                '\$ ${getPercentage(controller.parameters[ApiKeyConstants.amount] ?? '0')}',
+                '${cSymbol(controller.currencyName.value)} ${getPercentage(controller.parameters[ApiKeyConstants.amount] ?? '0')}',
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium
@@ -53,7 +54,7 @@ class RechargeSummaryView extends GetView<RechargeSummaryController> {
             SizedBox(height: 20.px),
             ListTile(
               trailing: Text(
-                '\$ ${controller.parameters[ApiKeyConstants.amount] ?? '0'}',
+                '${cSymbol(controller.currencyName.value)} ${controller.parameters[ApiKeyConstants.amount] ?? '0'}',
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium
@@ -68,7 +69,7 @@ class RechargeSummaryView extends GetView<RechargeSummaryController> {
             SizedBox(height: 20.px),
             ListTile(
               trailing: Text(
-                '\$ ${totalAmount(controller.parameters[ApiKeyConstants.amount] ?? '0')}',
+                '${cSymbol(controller.currencyName.value)} ${totalAmount(controller.parameters[ApiKeyConstants.amount] ?? '0')}',
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium

@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rot_application/app/modules/my_add_product_detail/controllers/my_add_product_detail_controller.dart';
 import 'package:rot_application/common/progress_bar.dart';
@@ -319,7 +320,7 @@ class MyAddProductDetailView extends GetView<MyAddProductDetailController> {
                                     SizedBox(width: 4.px),
                                     Expanded(
                                       child: Text(
-                                        '285',
+                                        controller.getRandomView().toString(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleMedium,
@@ -337,7 +338,9 @@ class MyAddProductDetailView extends GetView<MyAddProductDetailController> {
                                     SizedBox(width: 4.px),
                                     Expanded(
                                       child: Text(
-                                        '150',
+                                        controller.getProductDetailsModel!.data!
+                                            .productLikeUnlikeCount
+                                            .toString(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleMedium,
@@ -443,20 +446,25 @@ class MyAddProductDetailView extends GetView<MyAddProductDetailController> {
                                           ),
                                     ),
                                     SizedBox(height: 10.px),
-                                    Text(
-                                      'More information',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium
-                                          ?.copyWith(
-                                            decorationColor:
-                                                Theme.of(context).primaryColor,
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            fontSize: 14.px,
-                                            decoration:
-                                                TextDecoration.underline,
-                                          ),
+                                    InkWell(
+                                      onTap: () {
+                                        controller.clickOnLearnMoreButton();
+                                      },
+                                      child: Text(
+                                        'More information',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium
+                                            ?.copyWith(
+                                              decorationColor: Theme.of(context)
+                                                  .primaryColor,
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              fontSize: 14.px,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                            ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -465,6 +473,16 @@ class MyAddProductDetailView extends GetView<MyAddProductDetailController> {
                           ),
                           SizedBox(height: 20.px),
                           ListTile(
+                            onTap: () {
+                              CommonWidgets.showAlertDialog(
+                                  title: StringConstants.edit,
+                                  content:
+                                      'Do you want to change product status?',
+                                  onPressedYes: () {
+                                    controller.changeProductStatus();
+                                    Get.back();
+                                  });
+                            },
                             leading: CommonWidgets.appIcons(
                               assetName: IconConstants.icBike,
                               height: 30.px,
@@ -473,7 +491,9 @@ class MyAddProductDetailView extends GetView<MyAddProductDetailController> {
                               borderRadius: 0.px,
                             ),
                             title: Text(
-                              'Shipping Activated',
+                              controller.data!.status == 'Active'
+                                  ? 'Shipping Activated'
+                                  : 'Shipping Deativated',
                               style: Theme.of(context)
                                   .textTheme
                                   .displayMedium
@@ -514,7 +534,7 @@ class MyAddProductDetailView extends GetView<MyAddProductDetailController> {
                                   ?.copyWith(fontSize: 16.px),
                             ),
                             subtitle: Text(
-                              '47011 Valladolid,Span',
+                              '${controller.getProductDetailsModel!.data!.zipCode},${controller.getProductDetailsModel!.data!.productLocation}',
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium
@@ -543,18 +563,39 @@ class MyAddProductDetailView extends GetView<MyAddProductDetailController> {
                           ),
                           SizedBox(height: 20.px),
                           Text(
-                            '46100, Burjassot',
+                            '${controller.getProductDetailsModel!.data!.zipCode},${controller.getProductDetailsModel!.data!.productLocation}',
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium
                                 ?.copyWith(fontSize: 20.px),
                           ),
                           SizedBox(height: 20.px),
-                          CommonWidgets.appIcons(
-                            assetName: 'assets/un_used_images/map.png',
-                            height: 100.px,
+                          Container(
+                            height: 150.px,
                             width: double.infinity,
-                            borderRadius: 8.px,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.px)),
+                            clipBehavior: Clip.hardEdge,
+                            child: GoogleMap(
+                              mapType: MapType.normal,
+                              zoomGesturesEnabled: false,
+                              tiltGesturesEnabled: false,
+                              onCameraMove: (CameraPosition cameraPosition) {
+                                print(cameraPosition.zoom);
+                              },
+                              minMaxZoomPreference:
+                                  MinMaxZoomPreference(13, 17),
+                              initialCameraPosition: CameraPosition(
+                                target: LatLng(
+                                    controller.lat.value, controller.lon.value),
+                                zoom: 14.4746,
+                              ),
+                              onMapCreated:
+                                  (GoogleMapController googlecontroller) {
+                                controller.mapController
+                                    .complete(googlecontroller);
+                              },
+                            ),
                           ),
                           SizedBox(height: 20.px),
                           CommonWidgets.commonElevatedButton(

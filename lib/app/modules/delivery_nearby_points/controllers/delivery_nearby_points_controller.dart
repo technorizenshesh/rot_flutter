@@ -9,14 +9,19 @@ class DeliveryNearbyPointsController extends GetxController {
 
   final count = 0.obs;
 
-  double lat = 22.702;
-  double long = 75.869;
+  final lat = '22.702'.obs;
+  final long = '75.869'.obs;
 
   Map<String, dynamic> parameters = Get.parameters;
 
   @override
   void onInit() {
     super.onInit();
+    if (parameters['lat'] != '' && parameters['lon'] != '') {
+      lat.value = parameters['lat'];
+      long.value = parameters['lon'];
+      increment();
+    }
   }
 
   @override

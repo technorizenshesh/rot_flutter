@@ -1,29 +1,56 @@
+import 'dart:async';
+import 'dart:math';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rot_application/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:rot_application/app/data/apis/api_models/get_product_details_model.dart';
 import 'package:rot_application/common/common_widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../common/text_styles.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/get_my_address_model.dart';
+import '../../../data/apis/api_models/get_shipping_charge_model.dart';
+import '../../../data/constants/icons_constant.dart';
+import '../../../data/constants/string_constants.dart';
 import '../../../routes/app_pages.dart';
 
 class PublicUserProductDetailsController extends GetxController {
-  final count = 0.obs;
+  final Completer<GoogleMapController> mapController =
+      Completer<GoogleMapController>();
+  GetShippingChargeModel? getShippingChargeModel;
 
+  final count = 0.obs;
+  final lat = 22.7196.obs;
+  final lon = 75.8577.obs;
+  final userLat = '22.7196'.obs;
+  final userLon = '75.8577'.obs;
+  final userCountryCode = ''.obs;
+  final userZipCode = ''.obs;
+  final userCountry = ''.obs;
+  final deliveryCharge = '3.49'.obs;
+  final deliveryTime = 'Delivery in 3-7 business days'.obs;
   final cardIndex = 0.obs;
+  final myAddress = ''.obs;
   String productId = '';
   String userId = '';
-  String userName = '';
-  String userImage = '';
   String otherUserId = '';
   Map<String, String?> parameters = Get.parameters;
   final inAsyncCall = false.obs;
+  final presentUserAddress = false.obs;
+  final presentShipment = false.obs;
   Map<String, dynamic> queryParameters = {};
+  Map<String, dynamic> getPublicProfileQueryParams = {};
 
   GetProductDetailsModel? getProductDetailsModel;
+  //GetProfilePublicData? getProfilePublicData;
 
   Data? data;
+  List<Map<String, String>> deliveryChargeList = [];
 
   @override
   Future<void> onInit() async {
@@ -31,8 +58,6 @@ class PublicUserProductDetailsController extends GetxController {
     userId = sp.getString(ApiKeyConstants.userId) ?? '';
     otherUserId = parameters[ApiKeyConstants.otherUserId] ?? '';
     productId = parameters[ApiKeyConstants.productId] ?? '';
-    userImage = parameters['userImage'] ?? '';
-    userName = parameters['userName'] ?? '';
     super.onInit();
     inAsyncCall.value = true;
     await onInitWork();
@@ -49,16 +74,36 @@ class PublicUserProductDetailsController extends GetxController {
     super.onClose();
   }
 
+  int getRandomView() {
+    Random random = Random();
+    int randomNumber = random.nextInt(20);
+    return randomNumber;
+  }
+
   void increment() => count.value++;
 
   clickOnBackIcon() {
     Get.back();
   }
 
+  clickOnPickPoint() {
+    Map<String, String> data = {
+      'lat': userLat.value,
+      'lon': userLon.value,
+    };
+    Get.toNamed(Routes.DELIVERY_NEARBY_POINTS, parameters: data);
+  }
+
+  clickOnMyAddress() async {
+    await Get.toNamed(Routes.EDIT_ADDRESS);
+    getMyAddress();
+    getShippingChargeList();
+  }
+
   clickOnChat() {
     Map<String, String> detailForChat = {
-      'userName': userName,
-      'userImage': userImage,
+      'userName': parameters['userName'] ?? '',
+      'userImage': parameters['userImage'] ?? '',
       'userAmount': getProductDetailsModel!.data!.price ?? '',
       'otherUserId': otherUserId,
       'userId': userId
@@ -71,13 +116,31 @@ class PublicUserProductDetailsController extends GetxController {
       CommonWidgets.showMyToastMessage(
           'You can not buy products because this product is your own ...');
     } else {
-      Get.toNamed(Routes.DELIVERY, arguments: getProductDetailsModel);
+      if (presentUserAddress.value) {
+        Map<String, String> data = {
+          'my_address': myAddress.value,
+          'lat': userLat.value,
+          'lon': userLon.value,
+          'country': userCountry.value,
+          'country_code': userCountryCode.value,
+          'zip_code': userZipCode.value,
+          'userName': parameters['userName'] ?? '',
+          'userImage': parameters['userImage'] ?? '',
+        };
+        Get.toNamed(Routes.DELIVERY,
+            arguments: getProductDetailsModel, parameters: data);
+      } else {
+        CommonWidgets.showMyToastMessage('Please select your address first');
+        clickOnMyAddress();
+      }
     }
   }
 
   clickOnReportProduct() {}
 
-  clickOnLearnMoreButton() {}
+  clickOnLearnMoreButton() {
+    Get.toNamed(Routes.ROT_PROTECTION);
+  }
 
   clickOnUserProfileTile() {
     Map<String, String> data = {ApiKeyConstants.otherUserId: otherUserId};
@@ -86,6 +149,7 @@ class PublicUserProductDetailsController extends GetxController {
 
   Future<void> onInitWork() async {
     await getProductDetailApi();
+    await getMyAddress();
   }
 
   Future<void> getProductDetailApi() async {
@@ -98,6 +162,14 @@ class PublicUserProductDetailsController extends GetxController {
     if (getProductDetailsModel != null &&
         getProductDetailsModel!.data != null) {
       data = getProductDetailsModel!.data!;
+      try {
+        lat.value = double.parse(data!.productLat ?? '22.7196');
+        lon.value = double.parse(data!.productLon ?? '75.8577');
+      } catch (e) {
+        lat.value = 22.7196;
+        lon.value = 75.8577;
+        print('Error :- lat long error');
+      }
     }
   }
 
@@ -116,5 +188,160 @@ class PublicUserProductDetailsController extends GetxController {
       await onInitWork();
       increment();
     }
+  }
+
+  getMyAddress() async {
+    Map<String, dynamic> bodyParams = {
+      ApiKeyConstants.userId: userId,
+    };
+    MyAddressModel? myAddressModel =
+        await ApiMethods.getAddressApi(bodyParams: bodyParams);
+    if (myAddressModel != null &&
+        myAddressModel.status == '1' &&
+        myAddressModel.data != null) {
+      myAddress.value =
+          '${myAddressModel.data![0].street},${myAddressModel.data![0].city},'
+          '${myAddressModel.data![0].zipcode},${myAddressModel.data![0].state},${myAddressModel.data![0].country}';
+      userLat.value = myAddressModel.data![0].lat != ''
+          ? myAddressModel.data![0].lat.toString()
+          : '22.7196';
+      userLon.value = myAddressModel.data![0].lon != ''
+          ? myAddressModel.data![0].lon.toString()
+          : '75.8577';
+      userCountryCode.value = myAddressModel.data![0].countryCode ?? '';
+      userZipCode.value = myAddressModel.data![0].zipcode ?? '';
+      userCountry.value = myAddressModel.data![0].country ?? '';
+      presentUserAddress.value = true;
+      getShippingChargeList();
+    } else {
+      presentUserAddress.value = false;
+    }
+    increment();
+  }
+
+  Future<void> getShippingChargeList() async {
+    try {
+      Map<String, dynamic> getShippingChargeParameters = {
+        ApiKeyConstants.countryCode: userCountryCode.value,
+        ApiKeyConstants.zipCode: userZipCode.value,
+        ApiKeyConstants.kg: data!.weight ?? '1',
+      };
+      print("bodyParam:-$getShippingChargeParameters");
+      getShippingChargeModel = await ApiMethods.getShippingChargeApi(
+          queryParameters: getShippingChargeParameters);
+      if (getShippingChargeModel != null &&
+          getShippingChargeModel!.status == '1') {
+        presentShipment.value = true;
+        setCharge(getShippingChargeModel!);
+      } else {
+        presentShipment.value = false;
+        CommonWidgets.showMyToastMessage("${getShippingChargeModel!.message}");
+      }
+    } catch (e) {
+      presentShipment.value = false;
+      print('Error:- ${e.toString()}');
+      CommonWidgets.showMyToastMessage(
+          'Shipping charge not available in your country ...');
+    }
+  }
+
+  setCharge(GetShippingChargeModel model) {
+    List<String> typeList = [
+      'ExpressPlus Courier',
+      'ExpressPlus Courier',
+      'Expedited',
+      'Standard',
+      'Express Freight'
+    ];
+    List<String> subTitleList = [
+      'delivery time 9 to 12 business days',
+      'delivery time 9 to 12 business days',
+      'delivery time 5 to 7 business days',
+      'delivery time of 20 to 45 working days',
+      'delivery time of 1 to 3 working days'
+    ];
+    List<String> titleList = [
+      model.data![0].expressPlus ?? '0',
+      model.data![0].expressSaver ?? '0',
+      model.data![0].expedited ?? '0',
+      model.data![0].standard ?? '0',
+      model.data![0].expressFreight ?? '0'
+    ];
+
+    for (int i = 0; i < 5; i++) {
+      if (titleList[i] != '0') {
+        deliveryChargeList.add({
+          'title': titleList[i],
+          'type': typeList[i],
+          'subtitle': subTitleList[i],
+          'icon': IconConstants.icLocation
+        });
+      }
+    }
+  }
+
+  clickOnDeliveryTime() {
+    showModalBottomSheet(
+      context: Get.context!,
+      constraints: BoxConstraints(maxHeight: 600.px, minHeight: 300.px),
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 20.px,
+            ),
+            Text(
+              StringConstants.deliveryExpectedIn,
+              style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                    color: Theme.of(context).primaryColor,
+                    fontSize: 16.px,
+                  ),
+            ),
+            ListView.builder(
+              itemCount: deliveryChargeList.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.all(10.px),
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    onTap: () {
+                      deliveryCharge.value =
+                          deliveryChargeList[index]['title'] ?? '0';
+                      deliveryTime.value =
+                          deliveryChargeList[index]['subtitle'] ?? '';
+                      Get.back();
+                      increment();
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.px),
+                      side: BorderSide(
+                          color: Theme.of(context).primaryColor, width: 1.px),
+                    ),
+                    leading: CommonWidgets.appIcons(
+                        assetName: IconConstants.icLocation),
+                    title: Text(
+                      '${deliveryChargeList[index]['type']} ${deliveryChargeList[index]['title']} € ',
+                      style: MTextThemeStyle.titleMedium(
+                        color: Colors.black87,
+                      ),
+                    ),
+                    subtitle: Text(
+                      '${deliveryChargeList[index]['subtitle']}',
+                      style: MTextThemeStyle.titleMedium(
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

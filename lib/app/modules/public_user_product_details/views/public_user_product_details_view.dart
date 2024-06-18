@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rot_application/common/progress_bar.dart';
 
@@ -191,6 +192,574 @@ class PublicUserProductDetailsView
                         controller.data!.productImage!.isNotEmpty)
                       SizedBox(height: 20.px),
                     Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.px),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  controller.data!.title ?? '',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(fontSize: 20.px),
+                                ),
+                              ),
+                              if (controller.data!.productLikeUnlike != null)
+                                GestureDetector(
+                                  onTap: () => controller.clickOnLikeButton(),
+                                  child: Icon(
+                                    (StringConstants.unlike ==
+                                            controller.data!.productLikeUnlike)
+                                        ? Icons.favorite_border_rounded
+                                        : Icons.favorite_rounded,
+                                    size: 24,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                )
+                            ],
+                          ),
+                          SizedBox(height: 20.px),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                flex: 2,
+                                child: Text(
+                                  controller.data!.dateTime ?? '',
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
+                              ),
+                              Expanded(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    CommonWidgets.appIcons(
+                                      assetName: IconConstants.icView,
+                                      height: 24.px,
+                                      width: 24.px,
+                                      borderRadius: 24.px,
+                                    ),
+                                    SizedBox(width: 4.px),
+                                    Expanded(
+                                      child: Text(
+                                        controller.getRandomView().toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium,
+                                      ),
+                                    ),
+                                    SizedBox(width: 10.px),
+                                    CommonWidgets.appIcons(
+                                        assetName: IconConstants.icLikePrimary,
+                                        height: 24.px,
+                                        width: 24.px,
+                                        borderRadius: 0.px,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .error),
+                                    SizedBox(width: 4.px),
+                                    Expanded(
+                                      child: Text(
+                                        controller.getProductDetailsModel!.data!
+                                                .productLikeUnlikeCount
+                                                .toString() ??
+                                            '0',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(height: 20.px),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Row(
+                                  children: [
+                                    if (controller.data!.price != null &&
+                                        controller.data!.price!.isNotEmpty)
+                                      Flexible(
+                                        child: Text(
+                                          CommonMethods.cur +
+                                              controller.data!.price.toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displayMedium
+                                              ?.copyWith(
+                                                fontSize: 14.px,
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                              ),
+                                        ),
+                                      ),
+                                    SizedBox(width: 10.px),
+                                  ],
+                                ),
+                              ),
+                              CommonWidgets.commonElevatedButton(
+                                decoration: const BoxDecoration(),
+                                wantContentSizeButton: true,
+                                // width: 100.px,
+                                height: 44.px,
+                                borderRadius: 22.px,
+                                onPressed: () => controller.clickOnChat(),
+                                childText: Row(
+                                  children: [
+                                    Text(
+                                      StringConstants.chat.tr,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall
+                                          ?.copyWith(
+                                              fontWeight: FontWeight.w700),
+                                    ),
+                                    SizedBox(width: 10.px),
+                                    CommonWidgets.appIcons(
+                                      assetName: IconConstants.icSms,
+                                      height: 24.px,
+                                      width: 24.px,
+                                      borderRadius: 0.px,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20.px),
+                          ReadMoreText(
+                            controller.data!.description ?? '',
+                            style: Theme.of(context).textTheme.titleMedium,
+                            lessStyle: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(fontSize: 14.px),
+                            moreStyle: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(fontSize: 14.px),
+                          ),
+                          SizedBox(height: 20.px),
+                          Container(
+                            padding: EdgeInsets.all(16.px),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14.px),
+                              color: Theme.of(context)
+                                  .primaryColor
+                                  .withOpacity(.1.px),
+                            ),
+                            child: Row(children: [
+                              CommonWidgets.appIcons(
+                                assetName: IconConstants.icPlanet,
+                                height: 28.px,
+                                width: 28.px,
+                                borderRadius: 0.px,
+                              ),
+                              SizedBox(width: 20.px),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'You can save money and help the planet when you buy second-hand products',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            fontSize: 14.px,
+                                          ),
+                                    ),
+                                    SizedBox(height: 10.px),
+                                    InkWell(
+                                      onTap: () {
+                                        controller.clickOnLearnMoreButton();
+                                      },
+                                      child: Text(
+                                        'More information',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium
+                                            ?.copyWith(
+                                              decorationColor: Theme.of(context)
+                                                  .primaryColor,
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              fontSize: 14.px,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ]),
+                          ),
+                          SizedBox(height: 20.px),
+                          controller.presentUserAddress.value
+                              ? Column(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        controller.clickOnDeliveryTime();
+                                      },
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Flexible(
+                                            child: Text(
+                                              controller.deliveryTime.value,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayMedium
+                                                  ?.copyWith(fontSize: 20.px),
+                                            ),
+                                          ),
+                                          SizedBox(width: 10.px),
+                                          Icon(
+                                            Icons.keyboard_arrow_down,
+                                            size: 30.px,
+                                            color: Colors.teal,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 20.px),
+                                    ListTile(
+                                      onTap: () {
+                                        controller.clickOnPickPoint();
+                                      },
+                                      leading: CommonWidgets.appIcons(
+                                        assetName: IconConstants.icAddressPin,
+                                        height: 44.px,
+                                        width: 44.px,
+                                        borderRadius: 0.px,
+                                      ),
+                                      title: Text(
+                                        'At collection point from €2.99',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium
+                                            ?.copyWith(fontSize: 20.px),
+                                      ),
+                                      subtitle: Text(
+                                        'See nearby points',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium
+                                            ?.copyWith(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              fontSize: 14.px,
+                                            ),
+                                      ),
+                                    ),
+                                    Divider(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSecondary
+                                          .withOpacity(.4.px),
+                                      thickness: .6,
+                                    ),
+                                    SizedBox(height: 4.px),
+                                    ListTile(
+                                      onTap: () {
+                                        controller.clickOnMyAddress();
+                                      },
+                                      leading: CommonWidgets.appIcons(
+                                        assetName: IconConstants.icAddressPin,
+                                        height: 44.px,
+                                        width: 44.px,
+                                        borderRadius: 0.px,
+                                      ),
+                                      title: Text(
+                                        'At my address from € ${controller.deliveryCharge.value}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium
+                                            ?.copyWith(fontSize: 20.px),
+                                      ),
+                                      subtitle: Text(
+                                        controller.myAddress.value != null
+                                            ? controller.myAddress.value
+                                            : 'To Edit My Address',
+                                        maxLines: 2,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium
+                                            ?.copyWith(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              fontSize: 14.px,
+                                            ),
+                                      ),
+                                    ),
+                                    Divider(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSecondary
+                                          .withOpacity(.4.px),
+                                      thickness: .6,
+                                    ),
+                                    SizedBox(height: 20.px),
+                                  ],
+                                )
+                              : Column(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        controller.clickOnMyAddress();
+                                      },
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Flexible(
+                                            child: Text(
+                                              StringConstants.addYourLocation,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayMedium
+                                                  ?.copyWith(fontSize: 20.px),
+                                            ),
+                                          ),
+                                          SizedBox(width: 10.px),
+                                          Icon(
+                                            Icons.arrow_forward_ios,
+                                            size: 30.px,
+                                            color: Colors.teal,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 20.px),
+                                  ],
+                                ),
+
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.px),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      CommonWidgets.appIcons(
+                                        assetName:
+                                            IconConstants.icRotProtection,
+                                      ),
+                                      SizedBox(width: 10.px),
+                                      Text(
+                                        StringConstants.rotProtection.tr,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium
+                                            ?.copyWith(fontSize: 14.px),
+                                      ),
+                                      const Spacer(),
+                                      InkWell(
+                                        onTap: () {
+                                          controller.clickOnLearnMoreButton();
+                                        },
+                                        child: Text(
+                                          '+ Info',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displayMedium
+                                              ?.copyWith(
+                                                fontSize: 14.px,
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 10.px),
+                                  Text(
+                                    StringConstants.buyWithoutWorries.tr,
+                                    style:
+                                        Theme.of(context).textTheme.titleMedium,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 20.px),
+                          Card(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.px),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Buy at ${CommonMethods.cur}186.00',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium
+                                        ?.copyWith(fontSize: 20.px),
+                                  ),
+                                  SizedBox(height: 10.px),
+                                  Text(
+                                    'Original G084SN05 V.8 AUO Screen 8.4 800',
+                                    style:
+                                        Theme.of(context).textTheme.titleMedium,
+                                  ),
+                                  SizedBox(height: 10.px),
+                                  Text(
+                                    'Original AUO 8.4 800X600 LCD in Stock & 1 Year Warranty displaysscreen.com',
+                                    style:
+                                        Theme.of(context).textTheme.titleMedium,
+                                  ),
+                                  SizedBox(height: 10.px),
+                                  CommonWidgets.commonElevatedButton(
+                                    onPressed: () =>
+                                        controller.clickOnLearnMoreButton(),
+                                    childText: Text(
+                                      StringConstants.learnMore.tr,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall
+                                          ?.copyWith(
+                                              fontWeight: FontWeight.w700),
+                                    ),
+                                  ),
+                                  SizedBox(height: 20.px),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 20.px),
+                          Text(
+                            '${controller.getProductDetailsModel!.data!.zipCode},${controller.getProductDetailsModel!.data!.productLocation}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(fontSize: 20.px),
+                          ),
+                          SizedBox(height: 20.px),
+                          Container(
+                            height: 150.px,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.px)),
+                            clipBehavior: Clip.hardEdge,
+                            child: GoogleMap(
+                              mapType: MapType.normal,
+                              zoomGesturesEnabled: false,
+                              tiltGesturesEnabled: false,
+                              onCameraMove: (CameraPosition cameraPosition) {
+                                print(cameraPosition.zoom);
+                              },
+                              minMaxZoomPreference:
+                                  MinMaxZoomPreference(13, 17),
+                              initialCameraPosition: CameraPosition(
+                                target: LatLng(
+                                    controller.lat.value, controller.lon.value),
+                                zoom: 14.4746,
+                              ),
+                              onMapCreated:
+                                  (GoogleMapController googlecontroller) {
+                                controller.mapController
+                                    .complete(googlecontroller);
+                              },
+                            ),
+                          ),
+                          SizedBox(height: 20.px),
+                          /*          Text(
+                            StringConstants.keepExploring.tr,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(fontSize: 20.px),
+                          ),
+                          SizedBox(height: 10.px),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.px),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSecondary
+                                  .withOpacity(.4),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(8.px),
+                              child: Text(
+                                'Other computer accessories',
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 10.px),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.px),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSecondary
+                                  .withOpacity(.4),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(8.px),
+                              child: Text(
+                                'Computer accessories',
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 20.px),*/
+
+                          //Report Product...
+
+                          /*
+                           Center(
+                            child: InkWell(
+                              onTap: () => controller.clickOnReportProduct(),
+                              borderRadius: BorderRadius.circular(8.px),
+                              child: Padding(
+                                padding: EdgeInsets.all(8.px),
+                                child: Text(
+                                  StringConstants.reportProduct.tr,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(
+                                        fontSize: 16.px,
+                                        color:
+                                            Theme.of(Get.context!).primaryColor,
+                                      ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          */
+
+                          SizedBox(height: 20.px),
+                          CommonWidgets.commonElevatedButton(
+                            onPressed: () => controller.clickOnBuyButton(),
+                            childText: Text(
+                              StringConstants.buy.tr,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall
+                                  ?.copyWith(fontWeight: FontWeight.w700),
+                            ),
+                          ),
+                          SizedBox(height: 20.px),
+                        ],
+                      ),
+                    )
+                    /*  Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.px),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -684,7 +1253,7 @@ class PublicUserProductDetailsView
                           SizedBox(height: 20.px),
                         ],
                       ),
-                    )
+                    )*/
                   ],
                 )
               : controller.getProductDetailsModel == null

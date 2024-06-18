@@ -13,6 +13,7 @@ class HistoryOfMovementsController extends GetxController
   late TabController tabController;
   final showProgress = true.obs;
   final presentData = true.obs;
+  final departureData = false.obs;
   Map<String, String?> parameters = Get.parameters;
 
   List<WalletHistoryData> walletHistoryList = [];

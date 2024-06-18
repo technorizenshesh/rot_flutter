@@ -92,7 +92,7 @@ class ProfileDetailView extends GetView<ProfileDetailController> {
                                         ),
                                         CountryFlag.fromCountryCode(
                                           controller.userData!.countryCode ??
-                                              'IN',
+                                              '',
                                           height: 20.px,
                                           width: 25.px,
                                           borderRadius: 3,
@@ -259,12 +259,22 @@ class ProfileDetailsView extends GetView<ProfileDetailController> {
           ),
           SizedBox(height: 14.px),
           CommonWidgets.commonTextFieldForLoginSignUP(
-            focusNode: controller.focusSellersAddress,
-            title: StringConstants.sellersAddress,
-            controller: controller.sellersAddressController,
-            isCard: controller.isSellersAddress.value,
-            hintText: StringConstants.enterYourSellersAddress,
-          ),
+              focusNode: controller.focusSellersAddress,
+              title: StringConstants.sellersAddress,
+              controller: controller.sellersAddressController,
+              isCard: controller.isSellersAddress.value,
+              hintText: StringConstants.enterYourSellersAddress,
+              readOnly: true,
+              suffixIcon: Icon(
+                Icons.arrow_forward_ios,
+                size: 20.px,
+                color: controller.isSellersAddress.value
+                    ? Colors.teal
+                    : Colors.grey,
+              ),
+              onTap: () {
+                controller.clickOnSellerAddress();
+              }),
           SizedBox(height: 20.px),
           Text(
             'Sells In',
@@ -273,10 +283,37 @@ class ProfileDetailsView extends GetView<ProfileDetailController> {
                 ),
           ),
           SizedBox(height: 14.px),
-          CommonWidgets.appIcons(
-            assetName: IconConstants.icFlagGroup,
-            height: 70,
-          ),
+          SizedBox(
+              height: 70,
+              child: controller.countryList.isNotEmpty
+                  ? ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      padding: EdgeInsets.symmetric(vertical: 4.px),
+                      itemCount: controller.countryList.length,
+                      itemBuilder: (context, index) => Card(
+                        elevation: .2.px,
+                        child: Column(
+                          children: [
+                            CountryFlag.fromCountryCode(
+                              controller.countryList[index].countryCode ?? '',
+                              height: 50.px,
+                              width: 70.px,
+                              borderRadius: 3,
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  : SizedBox(
+                      height: 70,
+                      child: Text(
+                        'Your product are not available.',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall
+                            ?.copyWith(fontWeight: FontWeight.w700),
+                      ),
+                    )),
           SizedBox(height: 14.px),
           CommonWidgets.commonElevatedButton(
             onPressed: () async {
@@ -439,7 +476,7 @@ class AccountView extends GetView<ProfileDetailController> {
               prefixIconHorizontal: 8,
               prefixIcon: CommonWidgets.countryCodePicker(
                   onChanged: (value) {
-                    controller.clickOnCountryCode(value: value);
+                    controller.clickOnCountryCode(value: value, index: 0);
                   },
                   initialSelection: controller.userData!.countryCode ?? 'IN'),
             ),
@@ -458,11 +495,12 @@ class AccountView extends GetView<ProfileDetailController> {
               controller: controller.whatsAppController,
               isCard: controller.icWhatsApp.value,
               hintText: StringConstants.whatsAppNumber,
+              keyboardType: TextInputType.number,
               horizontalPadding: 0,
               prefixIconHorizontal: 8,
               prefixIcon: CommonWidgets.countryCodePicker(
                   onChanged: (value) {
-                    controller.clickOnCountryCode(value: value);
+                    controller.clickOnCountryCode(value: value, index: 1);
                   },
                   initialSelection: controller.userData!.countryCode ?? 'IN'),
             ),

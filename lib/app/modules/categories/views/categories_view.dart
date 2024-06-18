@@ -85,7 +85,7 @@ class CategoriesView extends GetView<CategoriesController> {
                                               controller.data[index]
                                                       .categoryName ??
                                                   '',
-                                              maxLines: 1,
+                                              maxLines: 2,
                                               textAlign: TextAlign.center,
                                               style: Theme.of(context)
                                                   .textTheme

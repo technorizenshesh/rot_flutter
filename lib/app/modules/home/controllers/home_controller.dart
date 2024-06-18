@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:rot_application/app/data/apis/api_models/get_all_product_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../common/common_methods.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/apis/api_models/get_banner_model.dart';
@@ -23,95 +22,6 @@ class HomeController extends GetxController {
     {'title': 'Electronics', 'icon': IconConstants.icComputerAndElectronic},
     {'title': 'Sports', 'icon': IconConstants.icSports},
     {'title': 'Furniture', 'icon': IconConstants.icFurniture},
-  ];
-
-  List listOfCards = [
-    {
-      'title': 'electric kettle',
-      'price': '${CommonMethods.cur}29.00',
-      'subTitle': 'Via del corso Rome 305, 98168 Villaggio..',
-      'icon1': IconConstants.icMoneyReceived,
-      'icon2': IconConstants.icTruck,
-      'image': 'assets/un_used_images/image1.png',
-    },
-    {
-      'title': 'boAt Rockerz 551 ANC...',
-      'price': '${CommonMethods.cur}20.00',
-      'subTitle': 'Via del corso Rome 305, 98168 Villaggio..',
-      'icon1': IconConstants.icSaving,
-      'icon2': IconConstants.icTruck,
-      'image': 'assets/un_used_images/image2.png',
-    },
-    {
-      'title': 'Badminton',
-      'price': '${CommonMethods.cur}05.00',
-      'subTitle': 'Rua dos Ingleses, 355 - Bela Vista 01327-000',
-      'icon1': IconConstants.icHands,
-      'icon2': IconConstants.icTruck,
-      'image': 'assets/un_used_images/image3.png',
-    },
-    {
-      'title': 'Canon D7500 DSLR Camera Body',
-      'price': '${CommonMethods.cur}449.00',
-      'subTitle': 'Via del corso Rome 305, 98168 Villaggio..',
-      'icon1': IconConstants.icHands,
-      'icon2': IconConstants.icTruck,
-      'image': 'assets/un_used_images/image4.png',
-    },
-  ];
-
-  List listOfCards2 = [
-    {
-      'title': 'electric kettle',
-      'price': '${CommonMethods.cur}29.00',
-      'subTitle': 'Via del corso Rome 305, 98168 Villaggio..',
-      'icon1': IconConstants.icMoneyReceived,
-      'icon2': IconConstants.icTruck,
-      'image': 'assets/un_used_images/image5.png',
-    },
-    {
-      'title': 'boAt Rockerz 551 ANC...',
-      'price': '${CommonMethods.cur}20.00',
-      'subTitle': 'Via del corso Rome 305, 98168 Villaggio..',
-      'icon1': IconConstants.icSaving,
-      'icon2': IconConstants.icTruck,
-      'image': 'assets/un_used_images/image6.png',
-    },
-    {
-      'title': 'Badminton',
-      'price': '${CommonMethods.cur}05.00',
-      'subTitle': 'Rua dos Ingleses, 355 - Bela Vista 01327-000',
-      'icon1': IconConstants.icHands,
-      'icon2': IconConstants.icTruck,
-      'image': 'assets/un_used_images/image3.png',
-    },
-  ];
-
-  List listOfCards3 = [
-    {
-      'title': 'electric kettle',
-      'price': '${CommonMethods.cur}29.00',
-      'subTitle': 'Via del corso Rome 305, 98168 Villaggio..',
-      'icon1': IconConstants.icMoneyReceived,
-      'icon2': IconConstants.icTruck,
-      'image': 'assets/un_used_images/image7.png',
-    },
-    {
-      'title': 'boAt Rockerz 551 ANC...',
-      'price': '${CommonMethods.cur}20.00',
-      'subTitle': 'Via del corso Rome 305, 98168 Villaggio..',
-      'icon1': IconConstants.icSaving,
-      'icon2': IconConstants.icTruck,
-      'image': 'assets/un_used_images/image8.png',
-    },
-    {
-      'title': 'Badminton',
-      'price': '${CommonMethods.cur}05.00',
-      'subTitle': 'Rua dos Ingleses, 355 - Bela Vista 01327-000',
-      'icon1': IconConstants.icHands,
-      'icon2': IconConstants.icTruck,
-      'image': 'assets/un_used_images/image5.png',
-    },
   ];
 
   final inAsyncCall = false.obs;
@@ -157,11 +67,14 @@ class HomeController extends GetxController {
       ApiKeyConstants.productId: allProductData[index].id ?? '',
       ApiKeyConstants.otherUserId: allProductData[index].userId ?? ''
     };
-    Get.toNamed(Routes.PRODUCT_DETAIL, parameters: parametersPass);
+    // Get.toNamed(Routes.PRODUCT_DETAIL, parameters: parametersPass);
+    openProductUploadPage(
+        parametersPass, allProductData[index].categoryId ?? '');
   }
 
   seeAll() {
-    Get.toNamed(Routes.CATEGORIES);
+    Map<String, String> data = {ApiKeyConstants.type: 'ForSee'};
+    Get.toNamed(Routes.CATEGORIES, parameters: data);
   }
 
   clickOnSearchTextField() {
@@ -219,9 +132,11 @@ class HomeController extends GetxController {
   clickOnCategoryCard({required int index}) {
     parameters = {
       StringConstants.title: data[index].categoryName ?? '',
-      ApiKeyConstants.categoryId: data[index].id ?? ''
+      ApiKeyConstants.categoryId: data[index].id ?? '',
+      ApiKeyConstants.categoryName: data[index].categoryName ?? '',
+      ApiKeyConstants.type: 'ForSee'
     };
-    Get.toNamed(Routes.SUB_CATEGORY, parameters: parameters);
+    Get.toNamed(Routes.PRODUCTS_ACCORDING_CATEGORY, parameters: parameters);
   }
 
   searchMethod({required String value}) {
@@ -238,5 +153,124 @@ class HomeController extends GetxController {
       }
     });
     increment();
+  }
+
+  openProductUploadPage(Map<String, String> data, String categoryId) {
+    print('Category id:-$categoryId');
+    switch (categoryId) {
+      case '1':
+
+        /// For Car....
+        Get.toNamed(Routes.PRODUCT_DETAIL, parameters: data);
+        break;
+      case '2':
+        {
+          /// For Motorcycle....
+          Get.toNamed(Routes.PRODUCT_DETAIL, parameters: data);
+        }
+        break;
+      case '3':
+        {
+          /// For Real and estate....
+          Get.toNamed(Routes.PRODUCT_DETAIL, parameters: data);
+        }
+        break;
+      case '7':
+        {
+          /// For Computer....
+          Get.toNamed(Routes.PRODUCT_DETAIL, parameters: data);
+        }
+        break;
+      case '8':
+        {
+          /// For Phone....
+          Get.toNamed(Routes.PRODUCT_DETAIL, parameters: data);
+        }
+        break;
+      case '9':
+        {
+          /// For Baby....
+          Get.toNamed(Routes.PRODUCT_DETAIL, parameters: data);
+        }
+        break;
+      case '10':
+        {
+          /// For Game....
+          Get.toNamed(Routes.PRODUCT_DETAIL, parameters: data);
+        }
+        break;
+      case '11':
+        {
+          /// For Fation....
+          Get.toNamed(Routes.PRODUCT_DETAIL, parameters: data);
+        }
+        break;
+      case '14':
+        {
+          /// For Agriculture and pets....
+          Get.toNamed(Routes.HOBBIES_PRODUCT_DETAILS, parameters: data);
+        }
+        break;
+      case '16':
+        {
+          /// For Training And Books....
+          Get.toNamed(Routes.HOBBIES_PRODUCT_DETAILS, parameters: data);
+        }
+        break;
+      case '17':
+        {
+          /// For Image and Sound....
+          Get.toNamed(Routes.HOBBIES_PRODUCT_DETAILS, parameters: data);
+        }
+        break;
+      case '18':
+        {
+          /// For Sport and nautical....
+          Get.toNamed(Routes.PRODUCT_DETAIL, parameters: data);
+        }
+      case '19':
+        {
+          /// For Electronic....
+          Get.toNamed(Routes.PRODUCT_DETAIL, parameters: data);
+        }
+      case '21':
+        {
+          /// For Engine and accessories....
+          Get.toNamed(Routes.PRODUCT_DETAIL, parameters: data);
+        }
+      case '22':
+        {
+          /// For Home and garden....
+          Get.toNamed(Routes.PRODUCT_DETAIL, parameters: data);
+        }
+      case '20':
+        {
+          /// For Hobbies and Ieisure....
+          Get.toNamed(Routes.HOBBIES_PRODUCT_DETAILS, parameters: data);
+        }
+        break;
+      case '23':
+        {
+          /// For Collecting....
+          Get.toNamed(Routes.PRODUCT_DETAIL, parameters: data);
+        }
+        break;
+      case '29':
+        {
+          /// For Employment....
+          Get.toNamed(Routes.HOBBIES_PRODUCT_DETAILS, parameters: data);
+        }
+        break;
+      case '30':
+        {
+          /// For Services....
+          Get.toNamed(Routes.HOBBIES_PRODUCT_DETAILS, parameters: data);
+        }
+        break;
+
+      default:
+        Get.toNamed(Routes.PRODUCT_DETAIL, parameters: data);
+        break;
+    }
   }
 }

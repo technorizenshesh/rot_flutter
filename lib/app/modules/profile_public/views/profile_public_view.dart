@@ -1,5 +1,7 @@
+import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rot_application/app/data/apis/api_models/get_review_model.dart';
 
@@ -97,14 +99,37 @@ class ProfilePublicView extends GetView<ProfilePublicController> {
                                                     );
                                                   })
                                                 ]),
-                                            title: Text(
-                                              controller.getProfilePublicData!
-                                                      .userName ??
-                                                  '',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headlineMedium
-                                                  ?.copyWith(fontSize: 18.px),
+                                            title: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Flexible(
+                                                  child: Text(
+                                                    controller
+                                                            .getProfilePublicData!
+                                                            .userName ??
+                                                        '',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headlineMedium
+                                                        ?.copyWith(
+                                                            fontSize: 18.px),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 30.px,
+                                                  child: CountryFlag
+                                                      .fromCountryCode(
+                                                    controller
+                                                            .getProfilePublicData!
+                                                            .countryCode ??
+                                                        '',
+                                                    height: 20.px,
+                                                    width: 25.px,
+                                                    borderRadius: 3,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                             subtitle: Text(
                                               '⭐⭐⭐⭐⭐ 5 (${controller.getProfilePublicData!.reviewCount} reviews)',
@@ -133,7 +158,8 @@ class ProfilePublicView extends GetView<ProfilePublicController> {
                                                     TextSpan(
                                                       children: [
                                                         TextSpan(
-                                                          text: '326',
+                                                          text:
+                                                              '${controller.getProfilePublicData!.productCount}',
                                                           style: Theme.of(
                                                                   context)
                                                               .textTheme
@@ -164,7 +190,8 @@ class ProfilePublicView extends GetView<ProfilePublicController> {
                                                 TextSpan(
                                                   children: [
                                                     TextSpan(
-                                                      text: '61',
+                                                      text:
+                                                          '${controller.getProfilePublicData!.productDeliveryCount}',
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .headlineMedium
@@ -202,7 +229,8 @@ class ProfilePublicView extends GetView<ProfilePublicController> {
                                                 TextSpan(
                                                   children: [
                                                     TextSpan(
-                                                      text: '24',
+                                                      text:
+                                                          '${controller.getProfilePublicData!.productSoldCount}',
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .headlineMedium
@@ -230,81 +258,96 @@ class ProfilePublicView extends GetView<ProfilePublicController> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Row(
-                                                children: [
-                                                  CommonWidgets.appIcons(
-                                                    assetName: IconConstants
-                                                        .icLocation,
-                                                    width: 24.px,
-                                                    height: 24.px,
-                                                  ),
-                                                  SizedBox(width: 12.px),
-                                                  Text.rich(
-                                                    TextSpan(
+                                              Expanded(
+                                                flex: 5,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
                                                       children: [
-                                                        TextSpan(
-                                                          text: controller
-                                                                  .getProfilePublicData!
-                                                                  .sellerAddress ??
-                                                              '',
-                                                          style: Theme.of(
-                                                                  context)
-                                                              .textTheme
-                                                              .headlineMedium
-                                                              ?.copyWith(
-                                                                  fontSize:
-                                                                      10.px),
+                                                        CommonWidgets.appIcons(
+                                                          assetName:
+                                                              IconConstants
+                                                                  .icLocation,
+                                                          width: 24.px,
+                                                          height: 24.px,
                                                         ),
-                                                        TextSpan(
-                                                          text: 'View location',
-                                                          style: Theme.of(
-                                                                  context)
-                                                              .textTheme
-                                                              .headlineMedium
-                                                              ?.copyWith(
-                                                                fontSize: 12.px,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                color: Theme.of(
-                                                                        context)
-                                                                    .primaryColor,
-                                                              ),
+                                                        SizedBox(width: 12.px),
+                                                        Expanded(
+                                                          child: Text(
+                                                            controller
+                                                                    .getProfilePublicData!
+                                                                    .sellerAddress ??
+                                                                '',
+                                                            maxLines: 2,
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .headlineMedium
+                                                                ?.copyWith(
+                                                                    fontSize:
+                                                                        10.px),
+                                                          ),
                                                         ),
                                                       ],
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  controller.openRateUs();
-                                                },
-                                                child: Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons.star,
-                                                      size: 24.px,
-                                                      color:
-                                                          Colors.orangeAccent,
+                                                    Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 36.px,
+                                                          top: 3.px),
+                                                      child: Text(
+                                                        'View location',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .headlineMedium
+                                                            ?.copyWith(
+                                                              fontSize: 12.px,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .primaryColor,
+                                                            ),
+                                                      ),
                                                     ),
-                                                    SizedBox(width: 8.px),
-                                                    Text(
-                                                      'Rate Us',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .headlineMedium
-                                                          ?.copyWith(
-                                                            fontSize: 12.px,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .primaryColor,
-                                                          ),
-                                                    ),
-                                                    SizedBox(width: 10.px),
                                                   ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 2,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    controller.openRateUs();
+                                                  },
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.star,
+                                                        size: 24.px,
+                                                        color:
+                                                            Colors.orangeAccent,
+                                                      ),
+                                                      SizedBox(width: 5.px),
+                                                      Text(
+                                                        'Rate Us',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .headlineMedium
+                                                            ?.copyWith(
+                                                              fontSize: 12.px,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .primaryColor,
+                                                            ),
+                                                      ),
+                                                      SizedBox(width: 10.px),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -429,14 +472,14 @@ class PublishedView extends GetView<ProfilePublicController> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       CommonWidgets.appIcons(
-                                        assetName: controller.listOfCards[index]
-                                            ['icon1'],
+                                        assetName: productIconStatus(
+                                            item.availableAt ?? ''),
                                         width: 40.px,
                                         height: 40.px,
                                       ),
                                       CommonWidgets.appIcons(
-                                        assetName: controller.listOfCards[index]
-                                            ['icon2'],
+                                        assetName:
+                                            getIcons(item.shipping ?? 'Yes'),
                                         width: 40.px,
                                         height: 40.px,
                                       ),
@@ -486,7 +529,7 @@ class PublishedView extends GetView<ProfilePublicController> {
                                 ),
                                 SizedBox(height: 5.px),
                                 Text(
-                                  item.productName!,
+                                  item.productName ?? '',
                                   maxLines: 1,
                                   style:
                                       Theme.of(context).textTheme.titleMedium,
@@ -508,6 +551,32 @@ class PublishedView extends GetView<ProfilePublicController> {
                 }),
               )
             : CommonWidgets.dataNotFound());
+  }
+
+  String getIcons(String available) {
+    switch (available) {
+      case "Yes":
+        return IconConstants.icTruck;
+      case "No":
+        return IconConstants.icPersonMoney;
+      default:
+        return IconConstants.icTruck;
+    }
+  }
+
+  String productIconStatus(String available) {
+    switch (available) {
+      case "sold":
+        return IconConstants.icPaid;
+      case "reserved":
+        return IconConstants.icReserve;
+      case "paid":
+        return IconConstants.icPaid;
+      case "process":
+        return IconConstants.icMoneyReceived;
+      default:
+        return IconConstants.icMoneyReceived;
+    }
   }
 }
 
@@ -633,7 +702,7 @@ class InfoView extends GetView<ProfilePublicController> {
             ListTile(
               contentPadding: EdgeInsets.zero,
               leading: CommonWidgets.appIcons(
-                assetName: IconConstants.icPhone,
+                assetName: IconConstants.icCall,
                 height: 40.px,
                 width: 40.px,
                 borderRadius: 20.px,
@@ -656,7 +725,7 @@ class InfoView extends GetView<ProfilePublicController> {
             ListTile(
               contentPadding: EdgeInsets.zero,
               leading: CommonWidgets.appIcons(
-                assetName: IconConstants.icPhone,
+                assetName: IconConstants.icWhatsApp,
                 height: 40.px,
                 width: 40.px,
                 borderRadius: 20.px,
@@ -713,11 +782,27 @@ class InfoView extends GetView<ProfilePublicController> {
               fontSize: 14.px, color: Theme.of(context).primaryColor),
         ),
         SizedBox(height: 10.px),
-        CommonWidgets.appIcons(
-          assetName: 'assets/un_used_images/map.png',
-          height: 100.px,
+        Container(
+          height: 150.px,
           width: double.infinity,
-          borderRadius: 8.px,
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.px)),
+          clipBehavior: Clip.hardEdge,
+          child: GoogleMap(
+            mapType: MapType.normal,
+            zoomGesturesEnabled: false,
+            tiltGesturesEnabled: false,
+            onCameraMove: (CameraPosition cameraPosition) {
+              print(cameraPosition.zoom);
+            },
+            minMaxZoomPreference: MinMaxZoomPreference(13, 17),
+            initialCameraPosition: CameraPosition(
+              target: LatLng(controller.lat.value, controller.lon.value),
+              zoom: 14.4746,
+            ),
+            onMapCreated: (GoogleMapController googlecontroller) {
+              controller.mapController.complete(googlecontroller);
+            },
+          ),
         ),
         SizedBox(height: 20.px),
       ],

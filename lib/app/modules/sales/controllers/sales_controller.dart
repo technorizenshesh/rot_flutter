@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:rot_application/app/data/apis/api_models/get_product_delivery_model.dart';
 import 'package:rot_application/app/routes/app_pages.dart';
 
-import '../../../../common/common_methods.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/apis/api_models/get_profile_public_products_model.dart';
@@ -26,40 +25,32 @@ class SalesController extends GetxController
   List<GetProductDeliveryData> pendingProductList = [];
   List<GetProductDeliveryData> completeProductList = [];
   final showProgressBar = true.obs;
-  List listOfCards = [
-    {
-      'title': 'electric kettle',
-      'price': '${CommonMethods.cur}29.00',
-      'subTitle': 'Via del corso Rome 305, 98168 Villaggio..',
-      'icon1': IconConstants.icMoneyReceived,
-      'icon2': IconConstants.icTruck,
-      'image': 'assets/un_used_images/image1.png',
-    },
-    {
-      'title': 'boAt Rockerz 551 ANC...',
-      'price': '${CommonMethods.cur}20.00',
-      'subTitle': 'Via del corso Rome 305, 98168 Villaggio..',
-      'icon1': IconConstants.icSaving,
-      'icon2': IconConstants.icTruck,
-      'image': 'assets/un_used_images/image2.png',
-    },
-    {
-      'title': 'Badminton',
-      'price': '${CommonMethods.cur}05.00',
-      'subTitle': 'Rua dos Ingleses, 355 - Bela Vista 01327-000',
-      'icon1': IconConstants.icHands,
-      'icon2': IconConstants.icTruck,
-      'image': 'assets/un_used_images/image3.png',
-    },
-    {
-      'title': 'Canon D7500 DSLR Camera Body',
-      'price': '${CommonMethods.cur}449.00',
-      'subTitle': 'Via del corso Rome 305, 98168 Villaggio..',
-      'icon1': IconConstants.icHands,
-      'icon2': IconConstants.icTruck,
-      'image': 'assets/un_used_images/image4.png',
-    },
-  ];
+
+  String getIcons(String available) {
+    switch (available) {
+      case "Yes":
+        return IconConstants.icTruck;
+      case "No":
+        return IconConstants.icPersonMoney;
+      default:
+        return IconConstants.icTruck;
+    }
+  }
+
+  String productIconStatus(String available) {
+    switch (available) {
+      case "sold":
+        return IconConstants.icPaid;
+      case "reserved":
+        return IconConstants.icReserve;
+      case "paid":
+        return IconConstants.icPaid;
+      case "process":
+        return IconConstants.icMoneyReceived;
+      default:
+        return IconConstants.icMoneyReceived;
+    }
+  }
 
   @override
   void onInit() async {

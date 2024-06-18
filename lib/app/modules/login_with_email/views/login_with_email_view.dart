@@ -152,7 +152,7 @@ class LoginWithEmailView extends GetView<LoginWithEmailController> {
                         CommonWidgets.commonElevatedButton(
                           buttonColor:
                               Theme.of(context).scaffoldBackgroundColor,
-                          onPressed: () => controller.clickOnLoginButton(),
+                          onPressed: () => controller.clickOnGoogleButton(),
                           childText: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

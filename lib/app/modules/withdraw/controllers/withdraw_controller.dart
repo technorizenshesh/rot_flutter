@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rot_application/app/data/apis/api_constants/api_key_constants.dart';
 
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
@@ -8,11 +9,18 @@ import '../../../data/constants/image_constants.dart';
 import '../../../data/constants/string_constants.dart';
 
 class WithdrawController extends GetxController {
+  TextEditingController amountController = TextEditingController();
   final count = 0.obs;
-
+  final withdrawCurrency = 'USD'.obs;
+  final availableBalance = '0'.obs;
+  final totalPayMoney = '0'.obs;
+  final totalFee = '0'.obs;
+  Map<String, String?> parameter = Get.parameters;
   @override
   void onInit() {
     super.onInit();
+    withdrawCurrency.value = parameter[ApiKeyConstants.currency] ?? 'USD';
+    availableBalance.value = parameter[ApiKeyConstants.wallet] ?? '0';
   }
 
   @override
@@ -26,6 +34,13 @@ class WithdrawController extends GetxController {
   }
 
   void increment() => count.value++;
+  void changeSendMoney(String value) {
+    totalFee.value = ((double.parse(value)) * 0.12).toStringAsFixed(3);
+    totalPayMoney.value =
+        (((double.parse(value)) * 0.12) + ((double.parse(value))))
+            .toStringAsFixed(3);
+    increment();
+  }
 
   clickOnTransferToBank() {
     showDialog(

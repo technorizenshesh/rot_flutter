@@ -48,6 +48,12 @@ class GetProfilePublicData {
   String? createdAt;
   String? wallet;
   String? reviewCount;
+  String? loginWith;
+  String? subcriptionDate;
+  String? whatsappCountryCode;
+  String? productCount;
+  String? productDeliveryCount;
+  String? productSoldCount;
 
   GetProfilePublicData(
       {this.id,
@@ -72,7 +78,13 @@ class GetProfilePublicData {
       this.updatedAt,
       this.createdAt,
       this.wallet,
-      this.reviewCount});
+      this.reviewCount,
+      this.loginWith,
+      this.subcriptionDate,
+      this.whatsappCountryCode,
+      this.productCount,
+      this.productDeliveryCount,
+      this.productSoldCount});
 
   GetProfilePublicData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -98,6 +110,12 @@ class GetProfilePublicData {
     createdAt = json['created_at'];
     wallet = json['wallet'];
     reviewCount = json['review_count'];
+    loginWith = json['login_with'];
+    subcriptionDate = json['subcription_date'];
+    whatsappCountryCode = json['whatsapp_countryCode'];
+    productCount = json['product_count'];
+    productDeliveryCount = json['product_delivery_count'];
+    productSoldCount = json['product_sold_count'];
   }
 
   Map<String, dynamic> toJson() {
@@ -125,6 +143,12 @@ class GetProfilePublicData {
     data['created_at'] = createdAt;
     data['wallet'] = wallet;
     data['review_count'] = reviewCount;
+    data['login_with'] = loginWith;
+    data['subcription_date'] = subcriptionDate;
+    data['whatsapp_countryCode'] = whatsappCountryCode;
+    data['product_count'] = productCount;
+    data['product_delivery_count'] = productDeliveryCount;
+    data['product_sold_count'] = productSoldCount;
     return data;
   }
 }

@@ -1,10 +1,11 @@
+import 'package:currency_symbols/currency_symbols.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../data/apis/api_models/get_card_list_model.dart';
+import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 import '../controllers/recharge_controller.dart';
 
@@ -38,31 +39,6 @@ class RechargeView extends GetView<RechargeController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Text.rich(
-                    //   TextSpan(children: [
-                    //     TextSpan(
-                    //       text: CommonMethods.cur,
-                    //       style: Theme.of(context)
-                    //           .textTheme
-                    //           .displayMedium
-                    //           ?.copyWith(
-                    //             fontSize: 14.px,
-                    //             color: Theme.of(context).primaryColor,
-                    //           ),
-                    //     ),
-                    //     TextSpan(
-                    //       text: '0',
-                    //       style: Theme.of(context)
-                    //           .textTheme
-                    //           .displayMedium
-                    //           ?.copyWith(
-                    //             fontSize: 60.px,
-                    //             color: Theme.of(context).primaryColor,
-                    //           ),
-                    //     ),
-                    //
-                    //   ]),
-                    // ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -70,7 +46,7 @@ class RechargeView extends GetView<RechargeController> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 25),
                           child: Text(
-                            CommonMethods.cur,
+                            cSymbol(controller.currencyName.value),
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium
@@ -84,7 +60,7 @@ class RechargeView extends GetView<RechargeController> {
                           width: 5.px,
                         ),
                         SizedBox(
-                            width: 80.px,
+                            width: 120.px,
                             child: TextFormField(
                               controller: controller.amountController,
                               style: Theme.of(context)
@@ -199,6 +175,30 @@ class RechargeView extends GetView<RechargeController> {
                           height: 150.px, child: CommonWidgets.dataNotFound())),
             ),
             SizedBox(height: 12.px),
+            ListTile(
+              onTap: () {
+                controller.clickOnQrCodeButton();
+              },
+              contentPadding: EdgeInsets.symmetric(vertical: 5.px),
+              leading: CommonWidgets.appIcons(
+                  assetName: IconConstants.icBarCode,
+                  height: 40.px,
+                  width: 40.px,
+                  fit: BoxFit.fill),
+              title: Text(
+                StringConstants.fromQrCode,
+                style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                      fontSize: 14.px,
+                    ),
+              ),
+              trailing: Text(
+                StringConstants.open,
+                style: Theme.of(context)
+                    .textTheme
+                    .displayMedium
+                    ?.copyWith(fontSize: 14.px, color: Colors.teal),
+              ),
+            ),
           ],
         ),
       ),

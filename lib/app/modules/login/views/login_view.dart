@@ -67,10 +67,12 @@ class LoginView extends GetView<LoginController> {
                           title: StringConstants.phoneNumber.tr,
                           controller: controller.phoneController,
                           isCard: controller.icPhone.value,
+                          keyboardType: TextInputType.number,
                           hintText: StringConstants.enterYourPhoneNumber.tr,
                           horizontalPadding: 0,
                           prefixIconHorizontal: 8,
                           prefixIcon: CommonWidgets.countryCodePicker(
+                            initialSelection: controller.countryCode.value,
                             onChanged: (value) =>
                                 controller.clickOnCountryCode(value: value),
                           ),

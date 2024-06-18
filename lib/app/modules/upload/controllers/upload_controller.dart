@@ -15,15 +15,18 @@ import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/apis/api_models/get_country_model.dart';
 import '../../../data/apis/api_models/get_hash_tag_model.dart';
+import '../../../data/apis/api_models/get_place_by_zipcode_model.dart';
 import '../../../data/apis/api_models/get_product_status_model.dart';
 import '../../../data/apis/api_models/get_sub_category_model.dart';
+import '../../../data/apis/api_models/user_model.dart';
 import '../../../data/constants/string_constants.dart';
 import '../../../routes/app_pages.dart';
 import '../../nav_bar/controllers/nav_bar_controller.dart';
 
 class UploadController extends GetxController {
   final count = 0.obs;
-
+  final lat = '22.7196'.obs;
+  final lon = '75.8577'.obs;
   final switchValue = false.obs;
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
@@ -33,6 +36,10 @@ class UploadController extends GetxController {
   TextEditingController productStatusController = TextEditingController();
   TextEditingController hashTagController = TextEditingController();
   TextEditingController priceController = TextEditingController();
+  TextEditingController lengthController = TextEditingController();
+  TextEditingController widthController = TextEditingController();
+  TextEditingController heightController = TextEditingController();
+  TextEditingController weightController = TextEditingController();
   List list = [
     StringConstants.sell.tr,
     StringConstants.buy.tr,
@@ -43,6 +50,7 @@ class UploadController extends GetxController {
 
   final selectedValue = StringConstants.sell.tr.obs;
   final inAsyncCall = false.obs;
+  final completeRegistration = true.obs;
   List<CountryData> countryData = [];
   GetCategoryModel? getCategoryModel;
   List<Data> data = [];
@@ -52,7 +60,12 @@ class UploadController extends GetxController {
   final cityId = ''.obs;
   final currencyId = ''.obs;
   final countryId = ''.obs;
+  final countryCode = 'IN'.obs;
   final stateId = ''.obs;
+  final lengthDim = 'cm'.obs;
+  final widthDim = 'cm'.obs;
+  final heightDim = 'cm'.obs;
+  final weightDim = 'gm'.obs;
   String hashTagId = '';
   String productStatusId = '';
   String userId = '';
@@ -66,6 +79,8 @@ class UploadController extends GetxController {
 
   List<CurrencyData> currencyData = [];
   List<File?> imageList = [null, null, null, null, null];
+  List<String> volumeDimensionList = ['cm', 'inch', 'foot'];
+  List<String> weightDimensionList = ['gm', 'kg', 'tonne'];
 
   @override
   Future<void> onInit() async {
@@ -92,9 +107,33 @@ class UploadController extends GetxController {
   }
 
   clickOnPostAddButton() async {
-    inAsyncCall.value = true;
-    await postAddApi();
-    inAsyncCall.value = false;
+    if (imageList.isNotEmpty &&
+        titleController.text.isNotEmpty &&
+        descriptionController.text.isNotEmpty &&
+        categoryId.isNotEmpty &&
+        productLocationController.text.isNotEmpty &&
+        productStatusController.text.isNotEmpty &&
+        zipCodeController.text.isNotEmpty &&
+        hashTagController.text.isNotEmpty &&
+        priceController.text.isNotEmpty &&
+        weightController.text.isNotEmpty) {
+      if (zipCodeController.text.length >= 4) {
+        if (completeRegistration.value) {
+          inAsyncCall.value = true;
+          await postAddApi();
+          inAsyncCall.value = false;
+        } else {
+          CommonWidgets.showMyToastMessage(
+              'Please complete your profile first..');
+          await Get.toNamed(Routes.PROFILE_DETAIL);
+          getProfileApi();
+        }
+      } else {
+        CommonWidgets.showMyToastMessage('Enter correct zipcode.');
+      }
+    } else {
+      CommonWidgets.showMyToastMessage('Enter product all details.');
+    }
   }
 
   clickOnProductsStatus() async {
@@ -129,6 +168,7 @@ class UploadController extends GetxController {
     await getCategoryApi();
     await getCountryApi();
     await getCurrencyApi();
+    getProfileApi();
   }
 
   Future<void> getCurrencyApi() async {
@@ -164,6 +204,7 @@ class UploadController extends GetxController {
         stateData.clear();
         cityData.clear();
         countryId.value = element.id ?? '';
+        countryCode.value = element.sortname ?? 'IN';
         increment();
         await getStateApi();
       }
@@ -236,6 +277,23 @@ class UploadController extends GetxController {
     }
   }
 
+  onChangeDimensions(int index, String value) {
+    switch (index) {
+      case 0:
+        lengthDim.value = value;
+        break;
+      case 1:
+        weightDim.value = value;
+        break;
+      case 2:
+        heightDim.value = value;
+        break;
+      case 3:
+        weightDim.value = value;
+        break;
+    }
+  }
+
   onChangedCurrencyField({String? value}) {
     currencyData.forEach((element) async {
       if (element.currencyName.toString() == value) {
@@ -246,14 +304,6 @@ class UploadController extends GetxController {
   }
 
   Future getImage(int i) async {
-    /*  final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      print("Image :-${pickedFile.path}");
-      imageList[i] = File(pickedFile.path);
-    } else {
-      print('No image selected.');
-    } */
     imageList[i] = await getImagePicker(Get.context!);
     increment();
   }
@@ -273,15 +323,21 @@ class UploadController extends GetxController {
         ApiKeyConstants.categoryId: categoryId.value.toString(),
         ApiKeyConstants.productLocation:
             productLocationController.text.toString(),
-        ApiKeyConstants.productLat: '',
-        ApiKeyConstants.productLon: '',
+        ApiKeyConstants.productLat: lat.value.toString(),
+        ApiKeyConstants.productLon: lon.value.toString(),
         ApiKeyConstants.country: countryId.value.toString(),
         ApiKeyConstants.zipCode: zipCodeController.text.toString(),
         ApiKeyConstants.brandId: '',
         ApiKeyConstants.productStatusId: productStatusId,
         ApiKeyConstants.hashtagId: hashTagId,
         ApiKeyConstants.price: priceController.text.toString(),
-        ApiKeyConstants.currencyId: currencyId.value.toString()
+        ApiKeyConstants.currencyId: currencyId.value.toString(),
+        ApiKeyConstants.countryCode: countryCode.value.toString(),
+        ApiKeyConstants.weight: weightController.text.toString(),
+        ApiKeyConstants.weightDim: weightDim.value.toString(),
+        ApiKeyConstants.productVolume:
+            '${lengthController.text} ${lengthDim.value} x ${widthController.text} ${widthDim.value}'
+                'x ${heightController.text} ${heightDim.value}',
       };
       print("addProductBodyParams:-$postAddParameters");
       http.Response? response = await ApiMethods.addProductApi(
@@ -295,6 +351,41 @@ class UploadController extends GetxController {
       }
     } catch (e) {
       print("Error:-${e.toString()}");
+    }
+  }
+
+  Future<void> getPlaceFromApi() async {
+    GetPlacesByZipcodeModel? getPlacesByZipcodeModel =
+        await ApiMethods.getPlaceByZipCodeApi(
+            countryCode: countryCode.value, zipcode: zipCodeController.text);
+    if (getPlacesByZipcodeModel != null &&
+        getPlacesByZipcodeModel.places != null &&
+        getPlacesByZipcodeModel.places!.isNotEmpty) {
+      lat.value =
+          getPlacesByZipcodeModel.places![0].latitude.toString() ?? '22.7196';
+      lon.value =
+          getPlacesByZipcodeModel.places![0].longitude.toString() ?? '75.8577';
+      print("Successfully.....");
+    }
+  }
+
+  Future<void> getProfileApi() async {
+    queryParameters = {
+      ApiKeyConstants.userId: userId,
+    };
+    UserModel? userModel =
+        await ApiMethods.getProfile(queryParameters: queryParameters);
+    if (userModel != null && userModel.status == '1') {
+      if (userModel.userData!.email!.isNotEmpty &&
+          userModel.userData!.mobile!.isNotEmpty &&
+          userModel.userData!.countryCode!.isNotEmpty &&
+          userModel.userData!.userName!.isNotEmpty) {
+        completeRegistration.value = true;
+      } else {
+        completeRegistration.value = false;
+      }
+    } else {
+      completeRegistration.value = false;
     }
   }
 }

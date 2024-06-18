@@ -1,12 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/common_methods.dart';
+import '../../../../common/common_pickImage.dart';
+import '../../../../common/common_widgets.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/apis/api_models/get_favorite_product_model.dart';
+import '../../../data/apis/api_models/get_friends_model.dart';
 import '../../../data/apis/api_models/get_like_users_model.dart';
+import '../../../data/apis/api_models/get_simple_model.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 import '../../../routes/app_pages.dart';
@@ -28,6 +33,7 @@ class FavoritesController extends GetxController
   String userId = '';
   List<GetFavoriteProductData> getFavoriteProductList = [];
   List<GetLikeUsersData> getLikeUserList = [];
+  List<GetFriendsData> friendList = [];
   List listOfCards = [
     {
       'title': 'electric kettle',
@@ -78,6 +84,7 @@ class FavoritesController extends GetxController
   Future<void> getAllApi() async {
     await getFavoriteProductApi();
     await getLikeUsersApi();
+    getMyFriendList();
   }
 
   @override
@@ -132,6 +139,112 @@ class FavoritesController extends GetxController
         getLikeUsersModel.data != null &&
         getLikeUsersModel.data!.isNotEmpty) {
       getLikeUserList = getLikeUsersModel.data ?? [];
+    }
+  }
+
+  Future<void> getMyFriendList() async {
+    try {
+      Map<String, dynamic> getFriendsParameters = {
+        ApiKeyConstants.userId: userId,
+        ApiKeyConstants.status: 'All'
+      };
+      print("bodyParam:-$getFriendsParameters");
+      GetFriendsModel? getFriendsModel =
+          await ApiMethods.getFriendsApi(bodyParams: getFriendsParameters);
+      if (getFriendsModel != null && getFriendsModel.status == '1') {
+        friendList = getFriendsModel.data!;
+      } else {
+        CommonWidgets.showMyToastMessage('Friends are not presents ...');
+      }
+    } catch (e) {
+      print('Error:- ${e.toString()}');
+      CommonWidgets.showMyToastMessage('Friends are not presents ...');
+    }
+  }
+
+  showAlertBox(String requestId) {
+    void showAlertDialog() {
+      showDialog(
+        context: Get.context!,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return MyAlertDialog(
+            actions: [
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                child: Text(
+                  'Accept',
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        fontSize: 10,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                ),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  acceptRejectFriendRequest(requestId, 'Accept');
+                },
+              ),
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                child: Text(
+                  'Reject',
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        fontSize: 10,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                ),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  acceptRejectFriendRequest(requestId, 'Reject');
+                },
+              ),
+            ],
+            title: Text(
+              'Friend Request',
+              style: Theme.of(context)
+                  .textTheme
+                  .displayMedium
+                  ?.copyWith(fontSize: 18),
+            ),
+            content: Text(
+              'you have invitation  for friend request.',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall
+                  ?.copyWith(fontSize: 14),
+            ),
+          );
+        },
+      );
+    }
+  }
+
+  Future<void> acceptRejectFriendRequest(
+      String requestId, String status) async {
+    try {
+      Map<String, dynamic> addFriendRequestParameters = {
+        ApiKeyConstants.userId: userId,
+        ApiKeyConstants.requestId: requestId,
+        ApiKeyConstants.status: status
+      };
+      print("bodyParam:-$addFriendRequestParameters");
+      inAsyncCall.value = true;
+      SimpleResponseModel? simpleResponseModel =
+          await ApiMethods.acceptRejectFriendRequestApi(
+              bodyParams: addFriendRequestParameters);
+      if (simpleResponseModel != null && simpleResponseModel.status == 1) {
+        inAsyncCall.value = false;
+        CommonWidgets.showMyToastMessage(simpleResponseModel.messages ?? '');
+        getMyFriendList();
+        increment();
+      } else {
+        inAsyncCall.value = false;
+        CommonWidgets.showMyToastMessage(simpleResponseModel!.messages ?? '');
+      }
+    } catch (e) {
+      inAsyncCall.value = false;
+      print('Error:- ${e.toString()}');
+      CommonWidgets.showMyToastMessage('Failed to update request ...');
     }
   }
 }

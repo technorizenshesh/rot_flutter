@@ -90,6 +90,20 @@ abstract class Routes {
   static const PUBLIC_USER_PRODUCT_DETAILS = _Paths.PUBLIC_USER_PRODUCT_DETAILS;
   static const PURCHASE_SUBSCRIPTION = _Paths.PURCHASE_SUBSCRIPTION;
   static const SEND_MONEY = _Paths.SEND_MONEY;
+  static const SELL_MONEY_REVIEW = _Paths.SELL_MONEY_REVIEW;
+  static const SCAN_QR_CODE = _Paths.SCAN_QR_CODE;
+  static const PAY = _Paths.PAY;
+  static const ACCOUNT_VERIFICATION_TYPE = _Paths.ACCOUNT_VERIFICATION_TYPE;
+  static const ACCOUNT_VERIFICATION_OTP = _Paths.ACCOUNT_VERIFICATION_OTP;
+  static const ROT_PROTECTION = _Paths.ROT_PROTECTION;
+  static const WISH = _Paths.WISH;
+  static const SET_PRODUCT_LOCATION = _Paths.SET_PRODUCT_LOCATION;
+  static const UPLOAD_HOBBIES_LEISURE = _Paths.UPLOAD_HOBBIES_LEISURE;
+  static const UPLOAD_REAL_ESTATE = _Paths.UPLOAD_REAL_ESTATE;
+  static const UPLOAD_COIN_BACKNOTES = _Paths.UPLOAD_COIN_BACKNOTES;
+  static const PRODUCTS_ACCORDING_CATEGORY = _Paths.PRODUCTS_ACCORDING_CATEGORY;
+  static const HOBBIES_PRODUCT_DETAILS = _Paths.HOBBIES_PRODUCT_DETAILS;
+  static const SHIPMENT_REQUEST = _Paths.SHIPMENT_REQUEST;
 }
 
 abstract class _Paths {
@@ -179,4 +193,18 @@ abstract class _Paths {
   static const PUBLIC_USER_PRODUCT_DETAILS = '/public-user-product-details';
   static const PURCHASE_SUBSCRIPTION = '/purchase-subscription';
   static const SEND_MONEY = '/send-money';
+  static const SELL_MONEY_REVIEW = '/sell-money-review';
+  static const SCAN_QR_CODE = '/scan-qr-code';
+  static const PAY = '/pay';
+  static const ACCOUNT_VERIFICATION_TYPE = '/account-verification-type';
+  static const ACCOUNT_VERIFICATION_OTP = '/account-verification-otp';
+  static const ROT_PROTECTION = '/rot-protection';
+  static const WISH = '/wish';
+  static const SET_PRODUCT_LOCATION = '/set-product-location';
+  static const UPLOAD_HOBBIES_LEISURE = '/upload-hobbies-leisure';
+  static const UPLOAD_REAL_ESTATE = '/upload-real-estate';
+  static const UPLOAD_COIN_BACKNOTES = '/upload-coin-backnotes';
+  static const PRODUCTS_ACCORDING_CATEGORY = '/products-according-category';
+  static const HOBBIES_PRODUCT_DETAILS = '/hobbies-product-details';
+  static const SHIPMENT_REQUEST = '/shipment-request';
 }
