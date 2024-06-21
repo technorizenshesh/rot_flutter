@@ -863,6 +863,22 @@ class ApiMethods {
     return null;
   }
 
+  /// Edit Product api .....
+  static Future<http.Response?> editProductApi({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: queryParameters,
+      url: ApiUrlConstants.endPointOfUpdateProduct,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      return response;
+    }
+    return null;
+  }
+
   /// Get product User
   static Future<GetProductDeliveryModel?> getProductUser({
     required Map<String, dynamic> queryParameters,

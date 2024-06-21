@@ -119,7 +119,7 @@ class InWindView extends GetView<SalesController> {
                                     image: controller.inWindProductList[index]
                                             .productImage!.isNotEmpty
                                         ? controller.inWindProductList[index]
-                                                .productImage![index].image ??
+                                                .productImage! ??
                                             ''
                                         : '',
                                     width: 180.px,

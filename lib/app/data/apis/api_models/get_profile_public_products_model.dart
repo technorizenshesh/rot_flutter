@@ -63,7 +63,7 @@ class ProfilePublicProductsData {
   String? modelName;
   String? shipping;
   String? partNumber;
-  List<ProductImage>? productImage;
+  String? productImage;
 
   ProfilePublicProductsData(
       {this.id,
@@ -139,12 +139,7 @@ class ProfilePublicProductsData {
     modelName = json['model_name'];
     shipping = json['shipping'];
     partNumber = json['part_number'];
-    if (json['product_image'] != null) {
-      productImage = <ProductImage>[];
-      json['product_image'].forEach((v) {
-        productImage!.add(ProductImage.fromJson(v));
-      });
-    }
+    productImage = json['product_image'];
   }
 
   Map<String, dynamic> toJson() {
@@ -184,34 +179,7 @@ class ProfilePublicProductsData {
     data['model_name'] = modelName;
     data['shipping'] = shipping;
     data['part_number'] = partNumber;
-    if (productImage != null) {
-      data['product_image'] = productImage!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class ProductImage {
-  String? id;
-  String? productId;
-  String? image;
-  String? dateTime;
-
-  ProductImage({this.id, this.productId, this.image, this.dateTime});
-
-  ProductImage.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    productId = json['product_id'];
-    image = json['image'];
-    dateTime = json['date_time'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['product_id'] = productId;
-    data['image'] = image;
-    data['date_time'] = dateTime;
+    data['product_image'] = productImage;
     return data;
   }
 }

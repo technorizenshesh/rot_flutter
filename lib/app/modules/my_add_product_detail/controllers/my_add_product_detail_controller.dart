@@ -202,4 +202,139 @@ class MyAddProductDetailController extends GetxController {
       },
     );
   }
+
+  openEditProductScreen(String categoryId) {
+    print('Category id:-$categoryId');
+    switch (categoryId) {
+      case '1':
+
+        /// For Car....
+        Get.toNamed(Routes.EDIT_CAR_PRODUCT, arguments: getProductDetailsModel);
+        break;
+      case '2':
+        {
+          /// For Motorcycle....
+          Get.toNamed(Routes.EDIT_CAR_PRODUCT,
+              arguments: getProductDetailsModel);
+        }
+        break;
+      case '3':
+        {
+          /// For Real and estate....
+          Get.toNamed(Routes.EDIT_REAL_ESTATE,
+              arguments: getProductDetailsModel);
+        }
+        break;
+      case '7':
+        {
+          /// For Computer....
+          Get.toNamed(Routes.EDIT_CAR_PRODUCT,
+              arguments: getProductDetailsModel);
+        }
+        break;
+      case '8':
+        {
+          /// For Phone....
+          Get.toNamed(Routes.EDIT_CAR_PRODUCT,
+              arguments: getProductDetailsModel);
+        }
+        break;
+      case '9':
+        {
+          /// For Baby....
+          Get.toNamed(Routes.EDIT_CAR_PRODUCT,
+              arguments: getProductDetailsModel);
+        }
+        break;
+      case '10':
+        {
+          /// For Game....
+          Get.toNamed(Routes.EDIT_CAR_PRODUCT,
+              arguments: getProductDetailsModel);
+        }
+        break;
+      case '11':
+        {
+          /// For Fation....
+          Get.toNamed(Routes.EDIT_CAR_PRODUCT,
+              arguments: getProductDetailsModel);
+        }
+        break;
+      case '14':
+        {
+          /// For Agriculture and pets....
+          Get.toNamed(Routes.EDIT_HOBBIES, arguments: getProductDetailsModel);
+        }
+        break;
+      case '16':
+        {
+          /// For Training And Books....
+          Get.toNamed(Routes.EDIT_HOBBIES, arguments: getProductDetailsModel);
+        }
+        break;
+      case '17':
+        {
+          /// For Image and Sound....
+          Get.toNamed(Routes.EDIT_HOBBIES, arguments: getProductDetailsModel);
+        }
+        break;
+      case '18':
+        {
+          /// For Sport and nautical....
+          Get.toNamed(Routes.EDIT_CAR_PRODUCT,
+              arguments: getProductDetailsModel);
+        }
+      case '19':
+        {
+          /// For Electronic....
+          Get.toNamed(Routes.EDIT_CAR_PRODUCT,
+              arguments: getProductDetailsModel);
+        }
+      case '21':
+        {
+          /// For Engine and accessories....
+          Get.toNamed(Routes.EDIT_CAR_PRODUCT,
+              arguments: getProductDetailsModel);
+        }
+      case '22':
+        {
+          /// For Home and garden....
+          Get.toNamed(Routes.EDIT_CAR_PRODUCT,
+              arguments: getProductDetailsModel);
+        }
+      case '20':
+        {
+          /// For Hobbies and Ieisure....
+          Get.toNamed(Routes.EDIT_HOBBIES, arguments: getProductDetailsModel);
+        }
+        break;
+      case '23':
+        {
+          /// For Collecting....
+          Get.toNamed(Routes.EDIT_COIN_PRODUCT,
+              arguments: getProductDetailsModel);
+        }
+        break;
+      case '29':
+        {
+          /// For Employment....
+          Get.toNamed(Routes.EDIT_HOBBIES, arguments: getProductDetailsModel);
+        }
+        break;
+      case '30':
+        {
+          /// For Services....
+          Get.toNamed(Routes.EDIT_HOBBIES, arguments: getProductDetailsModel);
+        }
+        break;
+
+      default:
+        {
+          print('By default.....');
+          Get.toNamed(Routes.EDIT_CAR_PRODUCT,
+              arguments: getProductDetailsModel);
+        }
+        break;
+    }
+  }
 }

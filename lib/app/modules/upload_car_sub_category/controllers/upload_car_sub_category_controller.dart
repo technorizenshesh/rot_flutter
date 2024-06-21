@@ -433,8 +433,10 @@ class UploadCarSubCategoryController extends GetxController {
       if (response != null) {
         CommonWidgets.showMyToastMessage('Add post successfully complete ...');
         areChangeProducts.value = true;
-        //selectedIndex.value = 0;
-        //Get.offNamedUntil(Routes.NAV_BAR, (route) => false);
+        selectedIndex.value = 0;
+        Get.offNamed(
+          Routes.NAV_BAR,
+        );
       } else {
         CommonWidgets.showMyToastMessage('Add Post failed ...');
       }

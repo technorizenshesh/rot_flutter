@@ -104,6 +104,10 @@ abstract class Routes {
   static const PRODUCTS_ACCORDING_CATEGORY = _Paths.PRODUCTS_ACCORDING_CATEGORY;
   static const HOBBIES_PRODUCT_DETAILS = _Paths.HOBBIES_PRODUCT_DETAILS;
   static const SHIPMENT_REQUEST = _Paths.SHIPMENT_REQUEST;
+  static const EDIT_CAR_PRODUCT = _Paths.EDIT_CAR_PRODUCT;
+  static const EDIT_COIN_PRODUCT = _Paths.EDIT_COIN_PRODUCT;
+  static const EDIT_REAL_ESTATE = _Paths.EDIT_REAL_ESTATE;
+  static const EDIT_HOBBIES = _Paths.EDIT_HOBBIES;
 }
 
 abstract class _Paths {
@@ -207,4 +211,8 @@ abstract class _Paths {
   static const PRODUCTS_ACCORDING_CATEGORY = '/products-according-category';
   static const HOBBIES_PRODUCT_DETAILS = '/hobbies-product-details';
   static const SHIPMENT_REQUEST = '/shipment-request';
+  static const EDIT_CAR_PRODUCT = '/edit-car-product';
+  static const EDIT_COIN_PRODUCT = '/edit-coin-product';
+  static const EDIT_REAL_ESTATE = '/edit-real-estate';
+  static const EDIT_HOBBIES = '/edit-hobbies';
 }

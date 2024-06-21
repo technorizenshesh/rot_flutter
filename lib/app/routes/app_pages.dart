@@ -54,6 +54,14 @@ import '../modules/delivery_summary/bindings/delivery_summary_binding.dart';
 import '../modules/delivery_summary/views/delivery_summary_view.dart';
 import '../modules/edit_address/bindings/edit_address_binding.dart';
 import '../modules/edit_address/views/edit_address_view.dart';
+import '../modules/edit_car_product/bindings/edit_car_product_binding.dart';
+import '../modules/edit_car_product/views/edit_car_product_view.dart';
+import '../modules/edit_coin_product/bindings/edit_coin_product_binding.dart';
+import '../modules/edit_coin_product/views/edit_coin_product_view.dart';
+import '../modules/edit_hobbies/bindings/edit_hobbies_binding.dart';
+import '../modules/edit_hobbies/views/edit_hobbies_view.dart';
+import '../modules/edit_real_estate/bindings/edit_real_estate_binding.dart';
+import '../modules/edit_real_estate/views/edit_real_estate_view.dart';
 import '../modules/favorites/bindings/favorites_binding.dart';
 import '../modules/favorites/views/favorites_view.dart';
 import '../modules/general_setting/bindings/general_setting_binding.dart';
@@ -673,6 +681,26 @@ class AppPages {
       name: _Paths.SHIPMENT_REQUEST,
       page: () => const ShipmentRequestView(),
       binding: ShipmentRequestBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_CAR_PRODUCT,
+      page: () => const EditCarProductView(),
+      binding: EditCarProductBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_COIN_PRODUCT,
+      page: () => const EditCoinProductView(),
+      binding: EditCoinProductBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_REAL_ESTATE,
+      page: () => const EditRealEstateView(),
+      binding: EditRealEstateBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_HOBBIES,
+      page: () => const EditHobbiesView(),
+      binding: EditHobbiesBinding(),
     ),
   ];
 }

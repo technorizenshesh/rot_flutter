@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rot_application/app/data/apis/api_models/get_product_delivery_model.dart';
 import 'package:rot_application/app/routes/app_pages.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
@@ -12,6 +13,7 @@ import '../../../data/constants/string_constants.dart';
 class SalesController extends GetxController
     with GetSingleTickerProviderStateMixin {
   final count = 0.obs;
+  String userId = '';
 
   late TabController tabController;
   final tabs = [
@@ -20,7 +22,6 @@ class SalesController extends GetxController
     Tab(text: StringConstants.finished.tr),
   ];
   Map<String, dynamic> getPublishedProductQueryParams = {};
-  Map<String, String?> parameters = Get.parameters;
   List<ProfilePublicProductsData> inWindProductList = [];
   List<GetProductDeliveryData> pendingProductList = [];
   List<GetProductDeliveryData> completeProductList = [];
@@ -55,6 +56,8 @@ class SalesController extends GetxController
   @override
   void onInit() async {
     tabController = TabController(length: 3, vsync: this);
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    userId = sp.getString(ApiKeyConstants.userId) ?? '';
     super.onInit();
     await getPublishedProductApi();
     showProgressBar.value = false;
@@ -77,7 +80,7 @@ class SalesController extends GetxController
 
   clickOnCard({required String productId}) {
     Map<String, String> data = {
-      ApiKeyConstants.userId: parameters[ApiKeyConstants.userId]!,
+      ApiKeyConstants.userId: userId,
       ApiKeyConstants.productId: productId
     };
     Get.toNamed(Routes.MY_ADD_PRODUCT_DETAIL, parameters: data);
@@ -85,7 +88,7 @@ class SalesController extends GetxController
 
   Future<void> getPublishedProductApi() async {
     getPublishedProductQueryParams = {
-      ApiKeyConstants.userId: parameters[ApiKeyConstants.userId],
+      ApiKeyConstants.userId: userId,
     };
     print("get published product param:- $getPublishedProductQueryParams");
     ProfilePublicProductsModel? profilePublicProductsModel =
@@ -100,7 +103,7 @@ class SalesController extends GetxController
 
   Future<void> getPendingProductApi() async {
     Map<String, dynamic> getQueryParameters = {
-      ApiKeyConstants.productUserId: parameters[ApiKeyConstants.userId],
+      ApiKeyConstants.productUserId: userId,
       ApiKeyConstants.status: 'Pending'
     };
     GetProductDeliveryModel? getProductDeliveryModel =
@@ -116,7 +119,7 @@ class SalesController extends GetxController
 
   Future<void> getCompleteProductApi() async {
     Map<String, dynamic> getQueryParameters = {
-      ApiKeyConstants.productUserId: parameters[ApiKeyConstants.userId],
+      ApiKeyConstants.productUserId: userId,
       ApiKeyConstants.status: 'Complete'
     };
     GetProductDeliveryModel? getProductDeliveryModel =

@@ -59,6 +59,7 @@ class ApiUrlConstants {
   static const String endPointOfGetMyPurchasedSubscription =
       '/rot/api/get_my_purcharge';
   static const String endPointOfAddProduct = '${baseUrl}add_product';
+  static const String endPointOfUpdateProduct = '${baseUrl}update_product';
   static const String endPointOfBuyProductDelivery =
       '/rot/api/product_delivery';
   static const String endPointOfGetProductDelivery =

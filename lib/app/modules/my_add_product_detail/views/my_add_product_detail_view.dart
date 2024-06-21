@@ -150,7 +150,15 @@ class MyAddProductDetailView extends GetView<MyAddProductDetailController> {
                                           title: StringConstants.edit,
                                           content:
                                               'Do you want to edit this post?',
-                                          onPressedYes: () {});
+                                          onPressedYes: () {
+                                            Get.back();
+                                            controller.openEditProductScreen(
+                                                controller
+                                                        .getProductDetailsModel!
+                                                        .data!
+                                                        .categoryId ??
+                                                    '');
+                                          });
                                     },
                                     child: Container(
                                       height: 34,
