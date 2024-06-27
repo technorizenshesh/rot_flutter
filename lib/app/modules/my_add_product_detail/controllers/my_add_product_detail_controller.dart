@@ -111,6 +111,8 @@ class MyAddProductDetailController extends GetxController {
         queryParameters: deleteQueryParameters);
     if (model != null && model.status == '1') {
       CommonWidgets.showMyToastMessage('Product successfully deleted.');
+      Get.back();
+      Get.back();
     } else {
       CommonWidgets.showMyToastMessage('Failed.....');
     }

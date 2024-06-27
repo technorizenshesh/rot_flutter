@@ -64,11 +64,11 @@ class HomeView extends GetView<HomeController> {
                           ),
                         ),
                         const Spacer(),
-                        CommonWidgets.appIcons(
+                        /* CommonWidgets.appIcons(
                             assetName: IconConstants.icCart,
                             height: 28.px,
                             width: 28.px,
-                            borderRadius: 24.px),
+                            borderRadius: 24.px),*/
                         SizedBox(width: 10.px),
                         (controller.userData != null &&
                                 controller.userData!.image != null &&
@@ -402,7 +402,9 @@ class HomeView extends GetView<HomeController> {
                     if (controller.data.isNotEmpty) SizedBox(height: 20.px),
                     if (controller.data.isNotEmpty)
                       CommonWidgets.commonElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          controller.clickOnPlaceAdButton();
+                        },
                         childText: Text(
                           StringConstants.placeAnAdHere.tr,
                           style: Theme.of(context)

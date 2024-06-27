@@ -1,51 +1,28 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:rot_application/app/data/apis/api_models/get_all_product_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
-import '../../../data/apis/api_models/get_banner_model.dart';
-import '../../../data/apis/api_models/get_category_model.dart';
-import '../../../data/apis/api_models/user_model.dart';
-import '../../../data/constants/icons_constant.dart';
-import '../../../data/constants/string_constants.dart';
+import '../../../data/apis/api_models/get_all_product_model.dart';
 import '../../../routes/app_pages.dart';
-import '../../nav_bar/controllers/nav_bar_controller.dart';
 
-class HomeController extends GetxController {
+class ProductsAccordingCategoryController extends GetxController {
   final count = 0.obs;
   final cardIndex = 0.obs;
+  final inAsyncCall = true.obs;
 
-  List list = [
-    {'title': 'Fashion', 'icon': IconConstants.icFashion},
-    {'title': 'Electronics', 'icon': IconConstants.icComputerAndElectronic},
-    {'title': 'Sports', 'icon': IconConstants.icSports},
-    {'title': 'Furniture', 'icon': IconConstants.icFurniture},
-  ];
-
-  final inAsyncCall = false.obs;
-
-  List<Data> data = [];
-  Map<String, String> parameters = {};
-  Map<String, String> queryParameters = {};
-  List<BannerData> bannerData = [];
   String userId = '';
-
-  UserData? userData;
-  TextEditingController searchController = TextEditingController();
 
   GetAllProductModel? getAllProductModel;
 
   List<AllProductData> allProductData = [];
-  List<AllProductData> searchResult = [];
+  Map<String, String?> parameters = Get.parameters;
 
   @override
   Future<void> onInit() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     userId = sp.getString(ApiKeyConstants.userId) ?? '';
     super.onInit();
-    inAsyncCall.value = true;
     await onInitWork();
     inAsyncCall.value = false;
   }
@@ -62,100 +39,32 @@ class HomeController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnPlaceAdButton() {
-    Get.toNamed(Routes.WISH);
-  }
-
   clickOnCard({required int index}) {
     Map<String, String> parametersPass = {
       ApiKeyConstants.productId: allProductData[index].id ?? '',
       ApiKeyConstants.otherUserId: allProductData[index].userId ?? ''
     };
-    // Get.toNamed(Routes.PRODUCT_DETAIL, parameters: parametersPass);
+    //Get.toNamed(Routes.PRODUCT_DETAIL, parameters: parametersPass);
     openProductUploadPage(
         parametersPass, allProductData[index].categoryId ?? '');
   }
 
-  seeAll() {
-    Map<String, String> data = {ApiKeyConstants.type: 'ForSee'};
-    Get.toNamed(Routes.CATEGORIES, parameters: data);
-  }
-
-  clickOnSearchTextField() {
-    Get.toNamed(Routes.SEARCH);
-  }
-
   Future<void> onInitWork() async {
-    await getBannerApi();
-    await getCategoryApi();
-    await getProfileApi();
-    await getAllProductApi();
+    await getCategoryProductsApi();
   }
 
-  Future<void> getProfileApi() async {
-    queryParameters = {
+  Future<void> getCategoryProductsApi() async {
+    Map<String, String> queryParameters = {
       ApiKeyConstants.userId: userId,
+      ApiKeyConstants.categoryId: parameters[ApiKeyConstants.categoryId] ?? '',
     };
-    UserModel? userModel =
-        await ApiMethods.getProfile(queryParameters: queryParameters);
-    if (userModel != null) {
-      userData = userModel.userData;
-      increment();
-    }
-  }
-
-  Future<void> getAllProductApi() async {
-    getAllProductModel =
-        await ApiMethods.getAllProduct(queryParameters: queryParameters);
+    getAllProductModel = await ApiMethods.getCategoryProductList(
+        queryParameters: queryParameters);
     if (getAllProductModel != null &&
         getAllProductModel!.data != null &&
         getAllProductModel!.data!.isNotEmpty) {
       allProductData = getAllProductModel!.data ?? [];
-      areChangeProducts.value = false;
     }
-  }
-
-  Future<void> getBannerApi() async {
-    GetBannerModel? getBannerModel = await ApiMethods.getBanner();
-    if (getBannerModel != null &&
-        getBannerModel.data != null &&
-        getBannerModel.data!.isNotEmpty) {
-      bannerData = getBannerModel.data ?? [];
-    }
-  }
-
-  Future<void> getCategoryApi() async {
-    GetCategoryModel? getCategoryModel = await ApiMethods.getCategory();
-    if (getCategoryModel != null &&
-        getCategoryModel.data != null &&
-        getCategoryModel.data!.isNotEmpty) {
-      data = getCategoryModel.data ?? [];
-    }
-  }
-
-  clickOnCategoryCard({required int index}) {
-    parameters = {
-      StringConstants.title: data[index].categoryName ?? '',
-      ApiKeyConstants.categoryId: data[index].id ?? '',
-      ApiKeyConstants.categoryName: data[index].categoryName ?? '',
-      ApiKeyConstants.type: 'ForSee'
-    };
-    Get.toNamed(Routes.PRODUCTS_ACCORDING_CATEGORY, parameters: parameters);
-  }
-
-  searchMethod({required String value}) {
-    searchResult.clear();
-    if (searchController.text.isEmpty) {
-      increment();
-      return;
-    }
-    allProductData.forEach((res) {
-      if (res.productName!
-          .toUpperCase()
-          .contains(searchController.text.toUpperCase())) {
-        searchResult.add(res);
-      }
-    });
     increment();
   }
 
@@ -273,6 +182,7 @@ class HomeController extends GetxController {
         break;
 
       default:
+        // Get.toNamed(Routes.SUB_CATEGORY_PRODUCTS, arguments: data);
         Get.toNamed(Routes.PRODUCT_DETAIL, parameters: data);
         break;
     }
