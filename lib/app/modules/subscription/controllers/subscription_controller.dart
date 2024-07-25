@@ -100,7 +100,7 @@ class SubscriptionController extends GetxController {
       };
       await Get.toNamed(Routes.PURCHASE_SUBSCRIPTION,
           parameters: data, arguments: subscriptionList[index]);
-      getMyPurchasedSubscription();
+      await getMyPurchasedSubscription();
       increment();
     }
   }

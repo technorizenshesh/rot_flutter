@@ -91,4 +91,6 @@ class ApiKeyConstants {
   static const String publicPhone = 'public_phone';
   static const String shipping = 'shipping';
   static const String partNumber = 'part_number';
+  static const String deviceName = 'device_name';
+  static const String deviceId = 'device_id';
 }

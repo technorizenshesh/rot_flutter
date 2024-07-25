@@ -546,6 +546,7 @@ class StringConstants {
   static const String chatWithProvider = 'Chat With Provider';
   static const String addYourLocation = 'Add Your Location First Please';
   static const String shippingRequest = 'Shipping Request';
+  static const String changeWallet = 'Change Wallet';
   static const String shipmentAreNotPresentAtYourAddress =
       'Shipment are not present at your address';
 }

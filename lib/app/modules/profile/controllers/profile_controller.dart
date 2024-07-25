@@ -110,7 +110,6 @@ class ProfileController extends GetxController {
     await sharedPreferences.setString(ApiKeyConstants.token, '');
     sharedPreferences.clear();
     selectedIndex.value = 0;
-    Get.delete<NavBarController>();
     Get.offAllNamed(Routes.GET_START);
   }
 

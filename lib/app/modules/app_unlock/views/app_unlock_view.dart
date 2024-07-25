@@ -14,37 +14,40 @@ class AppUnlockView extends GetView<AppUnlockController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonWidgets.appBar(title: StringConstants.appUnlock.tr),
-      body: Column(
-        children: [
-          SizedBox(height: 20.px),
-          ListTile(
-            trailing: CupertinoSwitch(
-              value: controller.switchValue.value,
-              activeColor: Theme.of(context).primaryColor,
-              onChanged: (bool? value) {
-                controller.switchValue.value = value ?? false;
-              },
-            ),
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  StringConstants.unlockingTheApp.tr,
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayMedium
-                      ?.copyWith(fontSize: 14.px),
-                ),
-                SizedBox(height: 8.px),
-                Text(
-                  StringConstants.youUseTouchId.tr,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
+      body: Obx(() {
+        controller.count.value;
+        return Column(
+          children: [
+            SizedBox(height: 20.px),
+            ListTile(
+              trailing: CupertinoSwitch(
+                value: controller.switchValue.value,
+                activeColor: Theme.of(context).primaryColor,
+                onChanged: (bool? value) {
+                  controller.switchValue.value = value ?? false;
+                },
+              ),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    StringConstants.unlockingTheApp.tr,
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(fontSize: 14.px),
+                  ),
+                  SizedBox(height: 8.px),
+                  Text(
+                    StringConstants.youUseTouchId.tr,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ],
+              ),
+            )
+          ],
+        );
+      }),
     );
   }
 }

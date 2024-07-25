@@ -57,6 +57,7 @@ class DeliveryController extends GetxController {
   final userCountry = ''.obs;
   final userLat = ''.obs;
   final userLon = ''.obs;
+  final companyName = ''.obs;
   final deliveryTypeCourier = true.obs;
   int deliveryTypeCourierIndex = -1;
   String userId = '';
@@ -152,15 +153,16 @@ class DeliveryController extends GetxController {
       Map<String, dynamic> getShippingChargeParameters = {
         ApiKeyConstants.countryCode: userCountryCode.toString(),
         ApiKeyConstants.zipCode: userZipCode.value.toString(),
-        ApiKeyConstants.kg: productDetailsModel.data!.weight!.isNotEmpty
-            ? productDetailsModel.data!.weight.toString()
-            : '2',
+        ApiKeyConstants.kg: productDetailsModel.data!.weightDim == 'gm'
+            ? '${(double.parse(productDetailsModel.data!.weight ?? '2000')) / 1000}'
+            : productDetailsModel.data!.weight ?? '2',
       };
       print("bodyParam:-$getShippingChargeParameters");
       getShippingChargeModel = await ApiMethods.getShippingChargeApi(
           queryParameters: getShippingChargeParameters);
       if (getShippingChargeModel != null &&
           getShippingChargeModel!.status == '1') {
+        companyName.value = getShippingChargeModel!.data![0].companyName ?? '';
         setCharge(getShippingChargeModel!);
         presentShipment.value = true;
         increment();

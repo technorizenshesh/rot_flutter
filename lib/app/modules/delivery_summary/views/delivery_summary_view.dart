@@ -372,15 +372,16 @@ class DeliverySummaryView extends GetView<DeliverySummaryController> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        controller.productDetailsModel.data!.productName ?? '',
+                        controller.productDetailsModel.data!.title ?? '',
                         style: Theme.of(context)
                             .textTheme
                             .headlineMedium
-                            ?.copyWith(fontSize: 18.px),
+                            ?.copyWith(
+                                fontSize: 14.px, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 10.px),
                       Text(
-                        'Colour: Made Blue',
+                        'Colour: ${controller.productDetailsModel.data!.color ?? ''}',
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       SizedBox(height: 10.px),
@@ -399,19 +400,6 @@ class DeliverySummaryView extends GetView<DeliverySummaryController> {
                             ),
                           ),
                           SizedBox(width: 10.px),
-                          /* Flexible(
-                          child: Text(
-                            '${CommonMethods.cur}465.00',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium
-                                ?.copyWith(
-                                  decoration: TextDecoration.lineThrough,
-                                  decorationColor:
-                                      Theme.of(context).colorScheme.onSecondary,
-                                ),
-                          ),
-                        ), */
                         ],
                       ),
                     ],

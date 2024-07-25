@@ -224,7 +224,9 @@ class PublicUserProductDetailsController extends GetxController {
       Map<String, dynamic> getShippingChargeParameters = {
         ApiKeyConstants.countryCode: userCountryCode.value,
         ApiKeyConstants.zipCode: userZipCode.value,
-        ApiKeyConstants.kg: data!.weight ?? '1',
+        ApiKeyConstants.kg: data!.weightDim == 'gm'
+            ? '${(double.parse(data!.weight ?? '2000')) / 1000}'
+            : data!.weight ?? '2',
       };
       print("bodyParam:-$getShippingChargeParameters");
       getShippingChargeModel = await ApiMethods.getShippingChargeApi(

@@ -1,3 +1,4 @@
+import 'package:currency_symbols/currency_symbols.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -343,77 +344,32 @@ class PurchaseSubscriptionView extends GetView<PurchaseSubscriptionController> {
         ],
       );
     } else if (2 == index && controller.upValue.value == index) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 10.px),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 1,
-                child: Text(
-                  StringConstants.youPay,
-                  style: Theme.of(Get.context!)
-                      .textTheme
-                      .displayMedium
-                      ?.copyWith(fontSize: 14.px),
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 10.px),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Text(
+                    StringConstants.youPay,
+                    style: Theme.of(Get.context!)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(fontSize: 14.px),
+                  ),
                 ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Text.rich(
-                  textAlign: TextAlign.center,
-                  TextSpan(children: [
-                    TextSpan(
-                      text: CommonMethods.cur,
-                      style: Theme.of(Get.context!)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(
-                            fontSize: 14.px,
-                            color: Theme.of(Get.context!).primaryColor,
-                          ),
-                    ),
-                    TextSpan(
-                      text: controller.subscriptionData.amount,
-                      style: Theme.of(Get.context!)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(
-                            fontSize: 50.px,
-                            color: Theme.of(Get.context!).primaryColor,
-                          ),
-                    ),
-                  ]),
-                ),
-              ),
-              const Expanded(child: SizedBox()),
-            ],
-          ),
-          SizedBox(height: 10.px),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 2,
-                child: Text(
-                  StringConstants.available,
-                  style: Theme.of(Get.context!)
-                      .textTheme
-                      .displayMedium
-                      ?.copyWith(fontSize: 14.px),
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 10.px),
-                      child: Text(
-                        CommonMethods.cur,
+                Expanded(
+                  flex: 3,
+                  child: Text.rich(
+                    textAlign: TextAlign.center,
+                    TextSpan(children: [
+                      TextSpan(
+                        text: CommonMethods.cur,
                         style: Theme.of(Get.context!)
                             .textTheme
                             .displayMedium
@@ -422,28 +378,99 @@ class PurchaseSubscriptionView extends GetView<PurchaseSubscriptionController> {
                               color: Theme.of(Get.context!).primaryColor,
                             ),
                       ),
-                    ),
-                    Obx(
-                      () => Text(
-                        controller.walletAmount.toString(),
-                        overflow: TextOverflow.ellipsis,
+                      TextSpan(
+                        text: controller.subscriptionData.amount,
                         style: Theme.of(Get.context!)
                             .textTheme
                             .displayMedium
                             ?.copyWith(
-                              fontSize: 50.px,
+                              fontSize: 40.px,
                               color: Theme.of(Get.context!).primaryColor,
                             ),
                       ),
-                    )
-                  ],
+                    ]),
+                  ),
                 ),
-              ),
-              const Expanded(child: SizedBox()),
-            ],
-          ),
-          SizedBox(height: 5.px)
-        ],
+                const Expanded(child: SizedBox()),
+              ],
+            ),
+            SizedBox(height: 10.px),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 100.px,
+                  child: Text(
+                    StringConstants.available,
+                    style: Theme.of(Get.context!)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(fontSize: 14.px),
+                  ),
+                ),
+                Expanded(
+                    child: Obx(() => Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 10.px),
+                              child: Text(
+                                cSymbol(controller.currencyName.value),
+                                style: Theme.of(Get.context!)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(
+                                      fontSize: 14.px,
+                                      color:
+                                          Theme.of(Get.context!).primaryColor,
+                                    ),
+                              ),
+                            ),
+                            Text(
+                              controller.walletAmount.toString(),
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(Get.context!)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                    fontSize: 40.px,
+                                    color: Theme.of(Get.context!).primaryColor,
+                                  ),
+                            )
+                          ],
+                        ))),
+              ],
+            ),
+            SizedBox(height: 5.px),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  StringConstants.changeWallet,
+                  style: Theme.of(Get.context!)
+                      .textTheme
+                      .displayMedium
+                      ?.copyWith(fontSize: 14.px),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    controller.clickOnEditWallet();
+                  },
+                  child: Text(
+                    StringConstants.toEdit,
+                    style: Theme.of(Get.context!)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(fontSize: 14.px, color: Colors.teal),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 5.px),
+          ],
+        ),
       );
     } else {
       return SizedBox(height: 8.px);

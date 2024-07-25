@@ -95,6 +95,7 @@ class ApiUrlConstants {
   static const String endPointOfGetSubscription = '${baseUrl}get_subscription';
   static const String endPointOfAddAddress = '${baseUrl}add_address';
   static const String endPointOfGetMyAddress = '/rot/api/get_address';
+  static const String endPointOfGetLocation = '/rot/api/getlocation';
   static const String endPointOfGetAllProductCountry =
       '/rot/api/get_all_product_country';
   static const String endPointOfLocalInternationAccount =
@@ -108,6 +109,7 @@ class ApiUrlConstants {
   static const String endPointOfFriendRequestAcceptReject =
       '${baseUrl}friend_request_accept_reject';
   static const String endPointOfGetMyFriendList = '/rot/api/my_friend_list';
+  static const String endPointOfGetLoginDetails = '/rot/api/login_details';
   static const String endPointOfAddShipmentContactRequest =
       '${baseUrl}add_shipment_contact_request';
   static const String endPointOfAddReportProduct =

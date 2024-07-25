@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:rot_application/app/data/apis/api_models/get_account_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_add_wallet_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_admin_address_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_brand_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_card_list_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_chat_model.dart';
@@ -46,6 +47,7 @@ import '../api_models/get_delete_product_model.dart';
 import '../api_models/get_exist_email_phone_model.dart';
 import '../api_models/get_favorite_product_model.dart';
 import '../api_models/get_hash_tag_model.dart';
+import '../api_models/get_linked_device_model.dart';
 import '../api_models/get_product_details_model.dart';
 import '../api_models/get_product_model.dart';
 import '../api_models/get_product_status_model.dart';
@@ -1370,6 +1372,25 @@ class ApiMethods {
     return null;
   }
 
+  /// Get Place by using zipcode and country code Model .....
+  static Future<AdminAddressModel?> getPlaceByCountryCodeAndZipCode({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    AdminAddressModel? adminAddressModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: bodyParams,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetLocation,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      adminAddressModel = AdminAddressModel.fromJson(jsonDecode(response.body));
+      return adminAddressModel;
+    }
+    return null;
+  }
+
   /// Add My Address  Model .....
   static Future<SimpleResponseModel?> addAddressApi({
     void Function(int)? checkResponse,
@@ -1512,6 +1533,25 @@ class ApiMethods {
     );
     if (response != null) {
       return response;
+    }
+    return null;
+  }
+
+  /// Get LinkedDevice List  Model .....
+  static Future<LinkedDeviceModel?> getLinkedDeviceApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    LinkedDeviceModel? linkedDeviceModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: bodyParams,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetLoginDetails,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      linkedDeviceModel = LinkedDeviceModel.fromJson(jsonDecode(response.body));
+      return linkedDeviceModel;
     }
     return null;
   }

@@ -1,16 +1,20 @@
 import 'dart:convert';
 
+import 'package:currency_symbols/currency_symbols.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/common_widgets.dart';
+import '../../../../common/text_styles.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/apis/api_models/get_card_list_model.dart';
 import '../../../data/apis/api_models/get_subscription_model.dart';
 import '../../../data/apis/api_models/get_token_model.dart';
+import '../../../data/apis/api_models/get_wallet_list_model.dart';
 import '../../../data/apis/api_models/user_model.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
@@ -21,10 +25,13 @@ class PurchaseSubscriptionController extends GetxController {
   final upValue = 0.obs;
   final selectedCard = 0.obs;
   final walletAmount = '0'.obs;
+  final walletId = ''.obs;
+  final currencyName = 'USD'.obs;
   final cardDataPresent = false.obs;
   final buttonLoading = false.obs;
   GetSubscriptionData subscriptionData = Get.arguments;
   List<CardListData> cardList = [];
+  List<GetWalletListData> myWalletList = [];
   String userId = '';
 
   ///TODO Pay for friend
@@ -119,6 +126,7 @@ class PurchaseSubscriptionController extends GetxController {
     SharedPreferences sp = await SharedPreferences.getInstance();
     userId = sp.getString(ApiKeyConstants.userId) ?? '';
     getMyCardList(userId);
+    getWalletListApi();
     Map<String, String> queryParameters = {
       ApiKeyConstants.userId: userId,
     };
@@ -149,6 +157,88 @@ class PurchaseSubscriptionController extends GetxController {
       print('Error:- ${e.toString()}');
       CommonWidgets.showMyToastMessage('Card are not added till now ...');
     }
+  }
+
+  Future<void> getWalletListApi() async {
+    Map<String, String> queryParameters = {
+      ApiKeyConstants.userId: userId,
+    };
+    GetWalletListModel? getWalletListModel =
+        await ApiMethods.getMyWalletListApi(queryParameters: queryParameters);
+    if (getWalletListModel != null &&
+        getWalletListModel.status == "1" &&
+        getWalletListModel.data!.isNotEmpty) {
+      myWalletList = getWalletListModel.data!;
+      walletId.value = myWalletList[0].id ?? '';
+      walletAmount.value = myWalletList[0].amount ?? '';
+      currencyName.value = myWalletList[0].name ?? '';
+    }
+  }
+
+  clickOnEditWallet() {
+    showModalBottomSheet(
+      context: Get.context!,
+      constraints: BoxConstraints(maxHeight: 600.px, minHeight: 300.px),
+      builder: (BuildContext context) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 20.px,
+            ),
+            Text(
+              StringConstants.availableWallets,
+              style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                    color: Theme.of(context).primaryColor,
+                    fontSize: 16.px,
+                  ),
+            ),
+            ListView.builder(
+              itemCount: myWalletList.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.all(10.px),
+              itemBuilder: (context, index) {
+                GetWalletListData item = myWalletList[index];
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    onTap: () {
+                      String amount =
+                          double.parse(item.amount ?? '0.0').toStringAsFixed(2);
+                      walletAmount.value = amount;
+                      walletId.value = item.id ?? '0';
+                      currencyName.value = item.name ?? 'USD';
+                      Get.back();
+                      increment();
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.px),
+                      side: BorderSide(
+                          color: Theme.of(context).primaryColor, width: 1.px),
+                    ),
+                    leading: CommonWidgets.appIcons(
+                        assetName: IconConstants.icWalletPayment),
+                    title: Text(
+                      item.name ?? '',
+                      style: MTextThemeStyle.titleMedium(
+                        color: Colors.black87,
+                      ),
+                    ),
+                    trailing: Text(
+                      '${cSymbol(item.name ?? 'USD')} ${item.amount}',
+                      style: MTextThemeStyle.titleMedium(
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<void> getTokenForPurchaseSubscription() async {
@@ -222,6 +312,7 @@ class PurchaseSubscriptionController extends GetxController {
     try {
       Map<String, dynamic> purchaseQueryParameters = {
         ApiKeyConstants.userId: userId,
+        ApiKeyConstants.walletId: walletId.value,
         ApiKeyConstants.subscriptionId: subscriptionData.id,
         ApiKeyConstants.subscriptionName: subscriptionData.name,
         ApiKeyConstants.paymentType: 'Wallet',

@@ -23,87 +23,86 @@ class FavoritesView extends GetView<FavoritesController> {
           initialIndex: 1,
           length: 4,
           child: Scaffold(
-            body: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.px),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 20.px),
-                  Text(
-                    StringConstants.favorites.tr,
-                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                        fontSize: 24.px, color: Theme.of(context).primaryColor),
-                  ),
-                  SizedBox(height: 30.px),
-                  CommonWidgets.commonTextField(
-                    hintText: StringConstants.search.tr,
-                    borderRadius: 24.px,
-                    prefixIcon: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CommonWidgets.appIcons(
-                          assetName: IconConstants.icSearch,
-                          height: 20.px,
-                          width: 20.px,
-                        ),
-                      ],
-                    ),
-                    suffixIcon: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CommonWidgets.appIcons(
-                          assetName: IconConstants.icCameraNavBar,
-                          height: 40.px,
-                          width: 40.px,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 20.px),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSecondary
-                          .withOpacity(.1.px),
-                      borderRadius: BorderRadius.circular(8.px),
-                    ),
-                    child: TabBar(
-                      onTap: (value) {
-                        controller.increment();
-                      },
-                      splashBorderRadius: BorderRadius.circular(8.px),
-                      controller: controller.tabController,
-                      indicator: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.px),
-                        color: Theme.of(context).primaryColor,
+              body: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.px),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 20.px),
+                Text(
+                  StringConstants.favorites.tr,
+                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                      fontSize: 24.px, color: Theme.of(context).primaryColor),
+                ),
+                SizedBox(height: 30.px),
+                CommonWidgets.commonTextField(
+                  hintText: StringConstants.search.tr,
+                  borderRadius: 24.px,
+                  prefixIcon: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CommonWidgets.appIcons(
+                        assetName: IconConstants.icSearch,
+                        height: 20.px,
+                        width: 20.px,
                       ),
-                      labelColor: Theme.of(context).scaffoldBackgroundColor,
-                      unselectedLabelColor:
-                          Theme.of(context).textTheme.displayMedium?.color,
-                      tabs: controller.tabs,
-                      labelStyle:
-                          Theme.of(context).textTheme.displayMedium?.copyWith(
-                                fontSize: 14.px,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                      indicatorSize:
-                          TabBarIndicatorSize.tab, // Set indicatorSize to tab
-                    ),
+                    ],
                   ),
-                  SizedBox(height: 20.px),
-                  Obx(() {
-                    controller.inAsyncCall.value;
-                    return controller.inAsyncCall.value
-                        ? const Center(child: CircularProgressIndicator())
-                        : Expanded(child: screens());
-                  }),
-                ],
-              ),
+                  suffixIcon: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CommonWidgets.appIcons(
+                        assetName: IconConstants.icCameraNavBar,
+                        height: 40.px,
+                        width: 40.px,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20.px),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSecondary
+                        .withOpacity(.1.px),
+                    borderRadius: BorderRadius.circular(8.px),
+                  ),
+                  child: TabBar(
+                    onTap: (value) {
+                      controller.increment();
+                    },
+                    splashBorderRadius: BorderRadius.circular(8.px),
+                    controller: controller.tabController,
+                    indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.px),
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    labelColor: Theme.of(context).scaffoldBackgroundColor,
+                    unselectedLabelColor:
+                        Theme.of(context).textTheme.displayMedium?.color,
+                    tabs: controller.tabs,
+                    labelStyle:
+                        Theme.of(context).textTheme.displayMedium?.copyWith(
+                              fontSize: 14.px,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                    indicatorSize:
+                        TabBarIndicatorSize.tab, // Set indicatorSize to tab
+                  ),
+                ),
+                SizedBox(height: 20.px),
+                Obx(() {
+                  controller.inAsyncCall.value;
+                  return controller.inAsyncCall.value
+                      ? const Center(child: CircularProgressIndicator())
+                      : Expanded(child: screens());
+                }),
+              ],
             ),
-          ),
+          )),
         ),
       );
     });
@@ -209,7 +208,7 @@ class ProductsView extends GetView<FavoritesController> {
                                 ),
                                 SizedBox(height: 5.px),
                                 Text(
-                                  item.product!.title!,
+                                  item.product!.title ?? '',
                                   maxLines: 1,
                                   style: Theme.of(context)
                                       .textTheme
@@ -217,13 +216,6 @@ class ProductsView extends GetView<FavoritesController> {
                                       ?.copyWith(
                                         fontSize: 14.px,
                                       ),
-                                ),
-                                SizedBox(height: 5.px),
-                                Text(
-                                  item.product!.productName!,
-                                  maxLines: 2,
-                                  style:
-                                      Theme.of(context).textTheme.titleMedium,
                                 ),
                                 SizedBox(height: 5.px),
                                 Text(

@@ -39,6 +39,7 @@ class GetShippingChargeData {
   String? expressFreight;
   String? expressFreightMidday;
   String? dateTime;
+  String? companyName;
 
   GetShippingChargeData(
       {this.id,
@@ -51,7 +52,8 @@ class GetShippingChargeData {
       this.expedited,
       this.expressFreight,
       this.expressFreightMidday,
-      this.dateTime});
+      this.dateTime,
+      this.companyName});
 
   GetShippingChargeData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -65,6 +67,7 @@ class GetShippingChargeData {
     expressFreight = json['express_freight'];
     expressFreightMidday = json['express_freight_midday'];
     dateTime = json['date_time'];
+    companyName = json['company_name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -80,6 +83,7 @@ class GetShippingChargeData {
     data['express_freight'] = expressFreight;
     data['express_freight_midday'] = expressFreightMidday;
     data['date_time'] = dateTime;
+    data['company_name'] = companyName;
     return data;
   }
 }

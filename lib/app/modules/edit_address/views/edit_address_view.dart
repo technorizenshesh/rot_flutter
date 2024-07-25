@@ -30,32 +30,36 @@ class EditAddressView extends GetView<EditAddressController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CommonWidgets.commonTextFieldForLoginSignUP(
-                        focusNode: controller.focusCountry,
-                        title: StringConstants.country.tr,
-                        controller: controller.countryController,
-                        isCard: controller.isCountry.value,
-                        readOnly: true,
-                        hintText: StringConstants.enterCountry.tr,
-                        suffixIcon: GestureDetector(
+                          focusNode: controller.focusCountry,
+                          title: StringConstants.country.tr,
+                          controller: controller.countryController,
+                          isCard: controller.isCountry.value,
+                          readOnly: true,
+                          hintText: StringConstants.enterCountry.tr,
+                          suffixIcon: InkWell(
+                            onTap: () {
+                              //controller.showMyCurrencyPicker();
+                              print("Press...");
+                              controller.showBottomSheetForCountry();
+                            },
+                            child: Icon(
+                              Icons.keyboard_arrow_down,
+                              size: 25.px,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          prefixIcon: ClipRRect(
+                            borderRadius: BorderRadius.circular(25.px),
+                            child: CountryFlag.fromCountryCode(
+                              controller.countryCode.value,
+                              height: 50.px,
+                              width: 50.px,
+                              borderRadius: 3,
+                            ),
+                          ),
                           onTap: () {
-                            controller.showMyCurrencyPicker();
-                          },
-                          child: Icon(
-                            Icons.keyboard_arrow_down,
-                            size: 25.px,
-                            color: Colors.black87,
-                          ),
-                        ),
-                        prefixIcon: ClipRRect(
-                          borderRadius: BorderRadius.circular(25.px),
-                          child: CountryFlag.fromCountryCode(
-                            controller.countryCode.value,
-                            height: 50.px,
-                            width: 50.px,
-                            borderRadius: 3,
-                          ),
-                        ),
-                      ),
+                            controller.showBottomSheetForCountry();
+                          }),
                       SizedBox(height: 14.px),
                       CommonWidgets.commonTextFieldForLoginSignUP(
                           focusNode: controller.focusZipCode,
@@ -66,7 +70,8 @@ class EditAddressView extends GetView<EditAddressController> {
                           hintText: StringConstants.enterZipCode.tr,
                           onChanged: (String? value) {
                             if (value!.length >= 4) {
-                              controller.getPlaceFromApi();
+                              //controller.getPlaceFromApi();
+                              controller.getAdminLocationApi();
                             }
                           }),
                       SizedBox(height: 14.px),

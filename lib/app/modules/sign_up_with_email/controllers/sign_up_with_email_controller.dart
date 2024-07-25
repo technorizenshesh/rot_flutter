@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/common_widgets.dart';
+import '../../../../common/deviceInfo.dart';
 import '../../../../common/login_with_google.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
@@ -123,6 +124,10 @@ class SignUpWithEmailController extends GetxController {
         ApiKeyConstants.email: user.email,
         ApiKeyConstants.userName: user.displayName,
         ApiKeyConstants.type: ApiKeyConstants.google,
+        ApiKeyConstants.deviceName:
+            await DeviceInfo().getDeviceInfo(Get.context!),
+        ApiKeyConstants.deviceId:
+            await DeviceInfo().getDeviceUnique(Get.context!),
       };
       UserModel? userModel =
           await ApiMethods.loginWithGoogle(bodyParams: bodyParams);

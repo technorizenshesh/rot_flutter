@@ -50,6 +50,8 @@ dependencies:
   path_provider: ^2.1.3
   #country_name picker...provider:
   country_picker: ^2.0.26
+  #device info...
+  device_info_plus: ^9.1.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0

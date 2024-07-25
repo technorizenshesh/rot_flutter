@@ -33,13 +33,15 @@ class DeliveryView extends GetView<DeliveryController> {
                             .primaryColor, // Set the inactive color here
                       ),
                       child: ListTile(
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: 10.px, vertical: 0.px),
                         subtitle: Text(
                           controller.list[index]['subtitle'],
                           style: Theme.of(Get.context!)
                               .textTheme
                               .titleMedium
                               ?.copyWith(
-                                fontSize: 15.px,
+                                fontSize: 13.px,
                               ),
                         ),
                         title: Text(
@@ -92,6 +94,14 @@ class DeliveryView extends GetView<DeliveryController> {
                           ),
                 ),
               ),
+              if (controller.companyName.value.isNotEmpty)
+                Text(
+                  'Courier Company: ${controller.companyName.value}',
+                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                        color: Theme.of(context).primaryColor,
+                        fontSize: 12.px,
+                      ),
+                ),
               controller.presentShipment.value
                   ? Expanded(
                       child: ListView.builder(
@@ -195,43 +205,6 @@ class DeliveryView extends GetView<DeliveryController> {
                           color: Colors.teal,
                         ),
                       ),
-                      /*     child: Theme(
-                        data: ThemeData(
-                          unselectedWidgetColor: Theme.of(Get.context!)
-                              .primaryColor, // Set the inactive color here
-                        ),
-                        child: ListTile(
-                          subtitle: Text(
-                            'not fixed delivery period',
-                            style: Theme.of(Get.context!)
-                                .textTheme
-                                .titleMedium
-                                ?.copyWith(
-                                  fontSize: 12.px,
-                                ),
-                          ),
-                          title: Text(
-                            '0 €',
-                            style: Theme.of(Get.context!)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
-                                  fontSize: 14.px,
-                                ),
-                          ),
-                          leading: CommonWidgets.appIcons(
-                              assetName: IconConstants.icLocation),
-                          trailing: Radio(
-                            value: '0',
-                            groupValue: controller.selectedDeliveryValue.value,
-                            activeColor: Theme.of(context).primaryColor,
-                            onChanged: (value) {
-                              controller.selectedDeliveryValue.value = '0';
-                              controller.increment();
-                            },
-                          ),
-                        ),
-                      ),*/
                     ),
               Padding(
                 padding: EdgeInsets.all(16.px),
@@ -256,16 +229,16 @@ class DeliveryView extends GetView<DeliveryController> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          controller.productDetailsModel.data!.productName ??
-                              '',
+                          controller.productDetailsModel.data!.title ?? '',
                           style: Theme.of(context)
                               .textTheme
                               .headlineMedium
-                              ?.copyWith(fontSize: 18.px),
+                              ?.copyWith(
+                                  fontSize: 14.px, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: 10.px),
                         Text(
-                          'Colour: Made Blue',
+                          'Colour: ${controller.productDetailsModel.data!.color ?? ''}',
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         SizedBox(height: 10.px),

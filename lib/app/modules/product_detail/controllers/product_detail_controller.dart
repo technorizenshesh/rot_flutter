@@ -37,6 +37,7 @@ class ProductDetailController extends GetxController {
   final deliveryTime = 'Delivery in 3-7 business days'.obs;
   final cardIndex = 0.obs;
   final myAddress = ''.obs;
+  final companyName = ''.obs;
   String productId = '';
   String userId = '';
   String otherUserId = '';
@@ -247,7 +248,9 @@ class ProductDetailController extends GetxController {
       Map<String, dynamic> getShippingChargeParameters = {
         ApiKeyConstants.countryCode: userCountryCode.value,
         ApiKeyConstants.zipCode: userZipCode.value,
-        ApiKeyConstants.kg: data!.weight!.isNotEmpty ? data!.weight : '2',
+        ApiKeyConstants.kg: data!.weightDim == 'gm'
+            ? '${(double.parse(data!.weight ?? '2000')) / 1000}'
+            : data!.weight ?? '2',
       };
       print("bodyParam:-$getShippingChargeParameters");
       getShippingChargeModel = await ApiMethods.getShippingChargeApi(
@@ -255,6 +258,7 @@ class ProductDetailController extends GetxController {
       if (getShippingChargeModel != null &&
           getShippingChargeModel!.status == '1') {
         presentShipment.value = true;
+        companyName.value = getShippingChargeModel!.data![0].companyName ?? '';
         setCharge(getShippingChargeModel!);
       } else {
         presentShipment.value = false;
@@ -352,6 +356,13 @@ class ProductDetailController extends GetxController {
               style: Theme.of(context).textTheme.displayMedium?.copyWith(
                     color: Theme.of(context).primaryColor,
                     fontSize: 16.px,
+                  ),
+            ),
+            Text(
+              'Courier Company: ${companyName.value}',
+              style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                    color: Theme.of(context).primaryColor,
+                    fontSize: 12.px,
                   ),
             ),
             ListView.builder(
