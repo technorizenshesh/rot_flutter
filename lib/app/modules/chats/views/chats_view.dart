@@ -102,7 +102,7 @@ class ChatsView extends GetView<ChatsController> {
                     : Expanded(
                         child: screens(),
                       );
-              })
+              }),
             ],
           ),
         ),
@@ -134,23 +134,26 @@ class MessageView extends GetView<ChatsController> {
                   controller.getConversationList[index];
               return Card(
                 elevation: .2.px,
+                margin: EdgeInsets.zero,
                 child: ListTile(
-                  onTap: () => controller.clickOnMessageTile(index),
+                  onTap: () => controller.checkUserType(index),
                   // contentPadding: EdgeInsets.zero,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.px)),
                   leading: CommonWidgets.imageView(
-                    image: item.image ?? '',
+                    image: item.productImage ?? '',
                     height: 60.px,
                     width: 60.px,
                     radius: 30.px,
                   ),
                   title: Text(
-                    item.userName ?? '',
+                    item.productName ?? '',
                     style: Theme.of(context)
                         .textTheme
                         .displayMedium
-                        ?.copyWith(fontSize: 20.px),
+                        ?.copyWith(fontSize: 18.px),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   subtitle: Text(
                     item.lastMessage ?? '',
@@ -160,37 +163,38 @@ class MessageView extends GetView<ChatsController> {
                   ),
                   trailing: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
                         item.date ?? '',
                         style:
                             Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontSize: 14.px,
+                                  fontSize: 12.px,
                                 ),
                       ),
                       SizedBox(height: 8.px),
-                      Container(
-                        height: 24.px,
-                        width: 24.px,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                          borderRadius: BorderRadius.circular(12.px),
-                        ),
-                        child: Center(
-                          child: Text(
-                            '2',
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
-                                  fontSize: 14.px,
-                                  color:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                ),
+                      if (item.noOfMessage.toString() != '0')
+                        Container(
+                          height: 24.px,
+                          width: 24.px,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.circular(12.px),
                           ),
-                        ),
-                      )
+                          child: Center(
+                            child: Text(
+                              item.noOfMessage.toString(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                    fontSize: 14.px,
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                  ),
+                            ),
+                          ),
+                        )
                     ],
                   ),
                 ),

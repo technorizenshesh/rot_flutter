@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rot_application/app/data/apis/api_constants/api_key_constants.dart';
 
 import '../../../../common/common_widgets.dart';
+import '../../../data/apis/api_models/get_collaborator_permission_model.dart';
 import '../../../data/constants/string_constants.dart';
 import '../controllers/invite_collaborator_choose_a_role_confirm_controller.dart';
 
@@ -38,7 +40,7 @@ class InviteCollaboratorChooseARoleConfirmView
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Administrator | 6 Permissions',
+                            '${controller.parameters[ApiKeyConstants.role]} | ${controller.permissionCount.value} Permissions',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium
@@ -60,7 +62,7 @@ class InviteCollaboratorChooseARoleConfirmView
                       ),
                       if (controller.upValue.value) SizedBox(height: 10.px),
                       if (controller.upValue.value)
-                        Column(
+                        /*   Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
@@ -127,7 +129,49 @@ class InviteCollaboratorChooseARoleConfirmView
                                   ?.copyWith(fontSize: 14.px),
                             ),
                           ],
-                        ),
+                        ),*/
+                        controller.showLoading.value
+                            ? const Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.teal,
+                                ),
+                              )
+                            : ListView.builder(
+                                itemCount: controller.permissionList.length,
+                                shrinkWrap: true,
+                                padding: EdgeInsets.zero,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  CollaboratorPermissionData item =
+                                      controller.permissionList[index];
+                                  return Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        width: 35.px,
+                                        child: Checkbox(
+                                          side: BorderSide(
+                                              color: Colors.teal, width: 1.px),
+                                          value: item.status ?? false,
+                                          onChanged: (value) {
+                                            controller.changeStatus(index);
+                                          },
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          item.permission ?? '',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium
+                                              ?.copyWith(fontSize: 14.px),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                })
                     ],
                   ),
                 ),

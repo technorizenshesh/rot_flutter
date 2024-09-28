@@ -24,7 +24,7 @@ class AppUnlockView extends GetView<AppUnlockController> {
                 value: controller.switchValue.value,
                 activeColor: Theme.of(context).primaryColor,
                 onChanged: (bool? value) {
-                  controller.switchValue.value = value ?? false;
+                  controller.changeValue();
                 },
               ),
               title: Column(

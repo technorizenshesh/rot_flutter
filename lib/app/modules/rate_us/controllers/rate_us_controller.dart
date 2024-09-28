@@ -48,6 +48,7 @@ class RateUsController extends GetxController {
           await ApiMethods.addReview(queryParameters: addReviewQueryParam);
       if (simpleResponseModel!.status == 1) {
         CommonWidgets.showMyToastMessage('Thanks for add your review...');
+        Get.back();
       } else {
         CommonWidgets.showMyToastMessage('Failed add your review...');
       }

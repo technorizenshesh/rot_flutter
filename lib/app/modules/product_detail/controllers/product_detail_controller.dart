@@ -10,7 +10,9 @@ import 'package:rot_application/app/data/apis/api_constants/api_key_constants.da
 import 'package:rot_application/app/data/apis/api_models/get_product_details_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../common/check_permission.dart';
 import '../../../../common/common_widgets.dart';
+import '../../../../common/local_data.dart';
 import '../../../../common/text_styles.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/apis/api_models/get_my_address_model.dart';
@@ -88,6 +90,21 @@ class ProductDetailController extends GetxController {
     Get.back();
   }
 
+  bool productReservedOrNot(String available) {
+    switch (available) {
+      case "sold":
+        return true;
+      case "reserved":
+        return true;
+      case "paid":
+        return true;
+      case "process":
+        return false;
+      default:
+        return false;
+    }
+  }
+
   clickOnPickPoint() {
     Map<String, String> data = {
       'lat': userLat.value,
@@ -108,9 +125,27 @@ class ProductDetailController extends GetxController {
       'userImage': getProfilePublicData!.image ?? '',
       'userAmount': getProductDetailsModel!.data!.price ?? '',
       'otherUserId': otherUserId,
-      'userId': userId
+      'userId': userId,
+      'request_id': getProductDetailsModel!.data!.id ?? '',
+      'product_status':
+          getProductDetailsModel!.data!.userId == userId ? 'Yes' : 'No',
     };
     Get.toNamed(Routes.CHAT_DETAIL, parameters: detailForChat);
+  }
+
+  checkUserType() async {
+    bool youAreUser = LocalData.userType;
+    if (youAreUser) {
+      clickOnBuyButton();
+    } else {
+      bool result = await CheckScreenPermission.checkPermission('4', '21');
+      if (result) {
+        clickOnBuyButton();
+      } else {
+        CommonWidgets.showMyToastMessage(
+            StringConstants.thisScreenIsNotAllowedByTheSeller.tr);
+      }
+    }
   }
 
   clickOnBuyButton() {
@@ -118,22 +153,27 @@ class ProductDetailController extends GetxController {
       CommonWidgets.showMyToastMessage(
           'You can not buy products because this product is your own ...');
     } else {
-      if (presentUserAddress.value) {
-        Map<String, String> data = {
-          'my_address': myAddress.value,
-          'lat': userLat.value,
-          'lon': userLon.value,
-          'country': userCountry.value,
-          'country_code': userCountryCode.value,
-          'zip_code': userZipCode.value,
-          'userName': getProfilePublicData!.userName ?? '',
-          'userImage': getProfilePublicData!.image ?? '',
-        };
-        Get.toNamed(Routes.DELIVERY,
-            arguments: getProductDetailsModel, parameters: data);
+      if (productReservedOrNot(data!.availableAt ?? '')) {
+        CommonWidgets.showMyToastMessage(
+            'You can not buy products because this product is reserved or already sold please contact to seller ...');
       } else {
-        CommonWidgets.showMyToastMessage('Please select your address first');
-        clickOnMyAddress();
+        if (presentUserAddress.value) {
+          Map<String, String> data = {
+            'my_address': myAddress.value,
+            'lat': userLat.value,
+            'lon': userLon.value,
+            'country': userCountry.value,
+            'country_code': userCountryCode.value,
+            'zip_code': userZipCode.value,
+            'userName': getProfilePublicData!.userName ?? '',
+            'userImage': getProfilePublicData!.image ?? '',
+          };
+          Get.toNamed(Routes.DELIVERY,
+              arguments: getProductDetailsModel, parameters: data);
+        } else {
+          CommonWidgets.showMyToastMessage('Please select your address first');
+          clickOnMyAddress();
+        }
       }
     }
   }
@@ -249,7 +289,7 @@ class ProductDetailController extends GetxController {
         ApiKeyConstants.countryCode: userCountryCode.value,
         ApiKeyConstants.zipCode: userZipCode.value,
         ApiKeyConstants.kg: data!.weightDim == 'gm'
-            ? '${(double.parse(data!.weight ?? '2000')) / 1000}'
+            ? '${(double.parse(data!.weight != '' ? data!.weight ?? '2000' : '2000')) / 1000}'
             : data!.weight ?? '2',
       };
       print("bodyParam:-$getShippingChargeParameters");

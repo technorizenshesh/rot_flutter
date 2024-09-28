@@ -17,7 +17,8 @@ class ChatDetailView extends GetView<ChatDetailController> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      bottomNavigationBar: Container(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Container(
           height: 80,
           padding: EdgeInsets.all(10.px),
           child: Obx(() {
@@ -171,70 +172,76 @@ class ChatDetailView extends GetView<ChatDetailController> {
             padding: EdgeInsets.symmetric(horizontal: 16.px),
             child: Column(
               children: [
-                Row(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.px),
-                        border: Border.all(
-                          color: Theme.of(context).primaryColor,
-                          width: 2.px,
+                if (controller.productStatus == 'Yes')
+                  Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.px),
+                          border: Border.all(
+                            color: Theme.of(context).primaryColor,
+                            width: 2.px,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(10.px),
+                          child: Row(mainAxisSize: MainAxisSize.min, children: [
+                            CommonWidgets.appIcons(
+                              assetName: IconConstants.icGetPaidInPerson,
+                              height: 16.px,
+                              width: 16.px,
+                              borderRadius: 0.px,
+                            ),
+                            SizedBox(width: 10.px),
+                            Text(
+                              StringConstants.getPaid.tr,
+                              maxLines: 2,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(fontSize: 14.px),
+                            ),
+                          ]),
                         ),
                       ),
-                      child: Padding(
-                        padding: EdgeInsets.all(10.px),
-                        child: Row(mainAxisSize: MainAxisSize.min, children: [
-                          CommonWidgets.appIcons(
-                            assetName: IconConstants.icGetPaidInPerson,
-                            height: 16.px,
-                            width: 16.px,
-                            borderRadius: 0.px,
+                      SizedBox(width: 10.px),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.px),
+                          border: Border.all(
+                            color: Theme.of(context).primaryColor,
+                            width: 2.px,
                           ),
-                          SizedBox(width: 10.px),
-                          Text(
-                            StringConstants.getPaid.tr,
-                            maxLines: 2,
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(fontSize: 14.px),
-                          ),
-                        ]),
-                      ),
-                    ),
-                    SizedBox(width: 10.px),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.px),
-                        border: Border.all(
-                          color: Theme.of(context).primaryColor,
-                          width: 2.px,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(10.px),
+                          child: Row(mainAxisSize: MainAxisSize.min, children: [
+                            GestureDetector(
+                              onTap: () {
+                                controller.clickOnEditPrice();
+                              },
+                              child: CommonWidgets.appIcons(
+                                assetName: IconConstants.icEditPrice,
+                                height: 16.px,
+                                width: 16.px,
+                                borderRadius: 0.px,
+                              ),
+                            ),
+                            SizedBox(width: 10.px),
+                            Text(
+                              StringConstants.editPrice.tr,
+                              maxLines: 2,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(fontSize: 14.px),
+                            ),
+                          ]),
                         ),
                       ),
-                      child: Padding(
-                        padding: EdgeInsets.all(10.px),
-                        child: Row(mainAxisSize: MainAxisSize.min, children: [
-                          CommonWidgets.appIcons(
-                            assetName: IconConstants.icEditPrice,
-                            height: 16.px,
-                            width: 16.px,
-                            borderRadius: 0.px,
-                          ),
-                          SizedBox(width: 10.px),
-                          Text(
-                            StringConstants.editPrice.tr,
-                            maxLines: 2,
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(fontSize: 14.px),
-                          ),
-                        ]),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20.px),
+                    ],
+                  ),
+                if (controller.productStatus == 'Yes') SizedBox(height: 20.px),
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.px),
@@ -275,14 +282,14 @@ class ChatDetailView extends GetView<ChatDetailController> {
           ),
           SingleChildScrollView(child: Obx(() {
             controller.count.value;
-            return shoChat();
+            return showChat();
           }))
         ]),
       ),
     );
   }
 
-  Widget shoChat() {
+  Widget showChat() {
     return controller.chatResultList.isNotEmpty
         ? ListView.builder(
             padding: EdgeInsets.zero,
@@ -315,6 +322,31 @@ class ChatDetailView extends GetView<ChatDetailController> {
                         item.chatMessage ?? '',
                         style: const TextStyle(color: Colors.black),
                       ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      if (item.type == 'Order')
+                        GestureDetector(
+                          onTap: () {
+                            controller.clickOnView(index);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 15.px, vertical: 5.px),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20.px),
+                                color: item.senderId == controller.userId
+                                    ? Colors.teal
+                                    : Colors.grey.withOpacity(0.7)),
+                            child: Text(
+                              'View',
+                              style: TextStyle(
+                                  fontSize: 16.px,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ),
+                        ),
                       const SizedBox(
                         height: 5,
                       ),

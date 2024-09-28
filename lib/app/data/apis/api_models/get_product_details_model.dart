@@ -58,6 +58,7 @@ class Data {
   String? modelName;
   String? shipping;
   String? partNumber;
+  String? productExpiryDate;
   String? productLikeUnlike;
   int? productLikeUnlikeCount;
   List<ProductImage>? productImage;
@@ -98,6 +99,7 @@ class Data {
       this.modelName,
       this.shipping,
       this.partNumber,
+      this.productExpiryDate,
       this.productLikeUnlike,
       this.productLikeUnlikeCount,
       this.productImage});
@@ -138,6 +140,7 @@ class Data {
     modelName = json['model_name'];
     shipping = json['shipping'];
     partNumber = json['part_number'];
+    productExpiryDate = json['product_expiry_date'];
     productLikeUnlike = json['product_like_unlike'];
     productLikeUnlikeCount = json['product_like_unlike_count'];
     if (json['product_image'] != null) {
@@ -185,6 +188,7 @@ class Data {
     data['model_name'] = modelName;
     data['shipping'] = shipping;
     data['part_number'] = partNumber;
+    data['product_expiry_date'] = productExpiryDate;
     data['product_like_unlike'] = productLikeUnlike;
     data['product_like_unlike_count'] = productLikeUnlikeCount;
     if (productImage != null) {

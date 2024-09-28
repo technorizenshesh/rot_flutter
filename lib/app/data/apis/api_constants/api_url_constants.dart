@@ -110,8 +110,29 @@ class ApiUrlConstants {
       '${baseUrl}friend_request_accept_reject';
   static const String endPointOfGetMyFriendList = '/rot/api/my_friend_list';
   static const String endPointOfGetLoginDetails = '/rot/api/login_details';
+  static const String endPointOfGetNotificationSetting =
+      '/rot/api/get_notification_setting';
+  static const String endPointOfGetCollaboratorPermission =
+      '/rot/api/get_collaborators_permission';
+  static const String endPointOfSaveNotificationSetting =
+      '${baseUrl}save_notification_setting';
   static const String endPointOfAddShipmentContactRequest =
       '${baseUrl}add_shipment_contact_request';
   static const String endPointOfAddReportProduct =
       '${baseUrl}add_report_product';
+  static const String endPointOfProductExpiryDate =
+      '${baseUrl}product_expiry_date';
+
+  static const String endPointOfSendCollaboratorInvite =
+      '${baseUrl}send_collaborators_invite';
+
+  static const String endPointOfGetCollaboratorsInvite =
+      '/rot/api/get_collaborators_invite';
+  static const String endPointOfDeleteCollaboratorsInvite =
+      '/rot/api/delete_collaborators_invite';
+  static const String endPointOfResendCollaboratorsInvite =
+      '/rot/api/resend_collaborators_invite';
+
+  static const String endPointOfAcceptRejectOrder =
+      '${baseUrl}accept_reject_order';
 }

@@ -106,7 +106,10 @@ class PublicUserProductDetailsController extends GetxController {
       'userImage': parameters['userImage'] ?? '',
       'userAmount': getProductDetailsModel!.data!.price ?? '',
       'otherUserId': otherUserId,
-      'userId': userId
+      'userId': userId,
+      'request_id': getProductDetailsModel!.data!.id ?? '',
+      'product_status':
+          getProductDetailsModel!.data!.userId == userId ? 'Yes' : 'No',
     };
     Get.toNamed(Routes.CHAT_DETAIL, parameters: detailForChat);
   }

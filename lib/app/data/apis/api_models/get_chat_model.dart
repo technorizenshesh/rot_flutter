@@ -44,6 +44,10 @@ class ChatResult {
   String? clearChat;
   String? status;
   String? date;
+  String? type;
+  String? orderId;
+  String? chatStatus;
+  String? productDeliveryStatus;
   String? result;
   SenderDetail? senderDetail;
   ReceiverDetail? receiverDetail;
@@ -65,6 +69,10 @@ class ChatResult {
       this.clearChat,
       this.status,
       this.date,
+      this.type,
+      this.orderId,
+      this.chatStatus,
+      this.productDeliveryStatus,
       this.result,
       this.senderDetail,
       this.receiverDetail});
@@ -85,6 +93,10 @@ class ChatResult {
     contact = json['contact'];
     clearChat = json['clear_chat'];
     status = json['status'];
+    type = json['type'];
+    orderId = json['order_id'];
+    chatStatus = json['chat_status'];
+    productDeliveryStatus = json['product_delivery_status'];
     date = json['date'];
     result = json['result'];
     senderDetail = json['sender_detail'] != null

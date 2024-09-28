@@ -140,6 +140,8 @@ class ProfileDetailController extends GetxController
         emailController.text = userData!.email ?? '';
         phoneController.text = userData!.mobile ?? '';
         whatsAppController.text = userData!.whatsappNumber ?? '';
+        countryCode.value = userData!.countryCode ?? 'IN';
+        whatsAppCountryCode.value = userData!.whatsappCountryCode ?? 'IN';
       }
       increment();
     }
@@ -151,6 +153,7 @@ class ProfileDetailController extends GetxController
     } else {
       whatsAppCountryCode.value = value.code.toString();
     }
+    print('Code' + value.code.toString());
   }
 
   clickOnSubmitButton() async {

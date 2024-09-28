@@ -128,6 +128,7 @@ class ProfilePublicController extends GetxController
           await ApiMethods.getReview(queryParameters: getReviewQueryParam);
       if (reviewModel!.status == '1' && reviewModel.data!.isNotEmpty) {
         reviewList = reviewModel.data!;
+        increment();
       }
     } catch (e) {
       print("Error:- ${e.toString()}");

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rot_application/app/data/apis/api_models/get_product_delivery_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_simple_model.dart';
 import 'package:rot_application/app/routes/app_pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../common/common_widgets.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/apis/api_models/get_profile_public_products_model.dart';
@@ -78,6 +80,17 @@ class SalesController extends GetxController
 
   void increment() => count.value++;
 
+  void clickOnAcceptRejectButton(String type, int index) {
+    CommonWidgets.showAlertDialog(
+      title: type,
+      content: 'Are you sure you want to $type order ?',
+      onPressedYes: () {
+        Get.back();
+        callAcceptRejectApi(index, type);
+      },
+    );
+  }
+
   clickOnCard({required String productId}) {
     Map<String, String> data = {
       ApiKeyConstants.userId: userId,
@@ -130,6 +143,24 @@ class SalesController extends GetxController
       completeProductList = getProductDeliveryModel.data!;
     } else {
       print("Failed.....");
+    }
+  }
+
+  Future<void> callAcceptRejectApi(int index, String type) async {
+    Map<String, dynamic> getQueryParameters = {
+      ApiKeyConstants.userId: userId,
+      ApiKeyConstants.productId: pendingProductList[index].productId,
+      ApiKeyConstants.orderId: pendingProductList[index].id,
+      ApiKeyConstants.type: type == 'Reject' ? 'Reject' : 'Processing'
+    };
+    SimpleResponseModel? simpleResponseModel =
+        await ApiMethods.acceptRejectApi(bodyParams: getQueryParameters);
+
+    if (simpleResponseModel != null && simpleResponseModel.status == 1) {
+      CommonWidgets.showMyToastMessage('Successfully update order status...');
+      Get.back();
+    } else {
+      CommonWidgets.showMyToastMessage(simpleResponseModel!.messages ?? '');
     }
   }
 }

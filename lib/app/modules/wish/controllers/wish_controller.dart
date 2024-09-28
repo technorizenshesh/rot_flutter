@@ -1,6 +1,9 @@
 import 'package:get/get.dart';
 import 'package:rot_application/app/data/apis/api_models/get_wish_category_model.dart';
 
+import '../../../../common/check_permission.dart';
+import '../../../../common/common_widgets.dart';
+import '../../../../common/local_data.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/constants/string_constants.dart';
@@ -32,6 +35,21 @@ class WishController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  checkUserType({required int index}) async {
+    bool youAreUser = LocalData.userType;
+    if (youAreUser) {
+      clickOnCard(index: index);
+    } else {
+      bool result = await CheckScreenPermission.checkPermission('2', '19');
+      if (result) {
+        clickOnCard(index: index);
+      } else {
+        CommonWidgets.showMyToastMessage(
+            StringConstants.thisScreenIsNotAllowedByTheSeller.tr);
+      }
+    }
+  }
 
   clickOnCard({required int index}) {
     if (index == 0 || index == 1 || index == 2) {

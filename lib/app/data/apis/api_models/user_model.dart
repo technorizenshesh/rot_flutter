@@ -50,7 +50,12 @@ class UserData {
   String? createdAt;
   String? wallet;
   String? reviewCount;
-  String? subscriptionDate;
+  String? loginWith;
+  String? subcriptionDate;
+  String? whatsappCountryCode;
+  String? mainUserId;
+  String? inviteId;
+  List<CollaboratorsPermission>? collaboratorsPermission;
 
   UserData(
       {this.id,
@@ -76,7 +81,12 @@ class UserData {
       this.createdAt,
       this.wallet,
       this.reviewCount,
-      this.subscriptionDate});
+      this.loginWith,
+      this.subcriptionDate,
+      this.whatsappCountryCode,
+      this.mainUserId,
+      this.inviteId,
+      this.collaboratorsPermission});
 
   UserData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -102,7 +112,17 @@ class UserData {
     createdAt = json['created_at'];
     wallet = json['wallet'];
     reviewCount = json['review_count'];
-    subscriptionDate = json['subcription_date'];
+    loginWith = json['login_with'];
+    subcriptionDate = json['subcription_date'];
+    whatsappCountryCode = json['whatsapp_countryCode'];
+    mainUserId = json['main_user_id'];
+    inviteId = json['invite_id'];
+    if (json['collaborators_permission'] != null) {
+      collaboratorsPermission = <CollaboratorsPermission>[];
+      json['collaborators_permission'].forEach((v) {
+        collaboratorsPermission!.add(CollaboratorsPermission.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -130,7 +150,40 @@ class UserData {
     data['created_at'] = createdAt;
     data['wallet'] = wallet;
     data['review_count'] = reviewCount;
-    data['subcription_date'] = subscriptionDate;
+    data['login_with'] = loginWith;
+    data['subcription_date'] = subcriptionDate;
+    data['whatsapp_countryCode'] = whatsappCountryCode;
+    data['main_user_id'] = mainUserId;
+    data['invite_id'] = inviteId;
+    if (collaboratorsPermission != null) {
+      data['collaborators_permission'] =
+          collaboratorsPermission!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class CollaboratorsPermission {
+  String? id;
+  String? type;
+  String? permission;
+  String? dateTime;
+
+  CollaboratorsPermission({this.id, this.type, this.permission, this.dateTime});
+
+  CollaboratorsPermission.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    type = json['type'];
+    permission = json['permission'];
+    dateTime = json['date_time'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['type'] = type;
+    data['permission'] = permission;
+    data['date_time'] = dateTime;
     return data;
   }
 }

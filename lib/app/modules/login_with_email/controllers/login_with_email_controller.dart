@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rot_application/common/local_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/common_widgets.dart';
@@ -94,7 +97,20 @@ class LoginWithEmailController extends GetxController {
           userModel.userData!.id!.isNotEmpty) {
         SharedPreferences sp = await SharedPreferences.getInstance();
         sp.setString(ApiKeyConstants.token, userModel.token!);
-        sp.setString(ApiKeyConstants.userId, userModel.userData!.id!);
+        if (userModel.userData!.type == 'User') {
+          sp.setString(ApiKeyConstants.userId, userModel.userData!.id!);
+          sp.setString(
+              ApiKeyConstants.secondUId, userModel.userData!.mainUserId!);
+        } else {
+          sp.setString(ApiKeyConstants.userId, userModel.userData!.mainUserId!);
+          sp.setString(ApiKeyConstants.secondUId, userModel.userData!.id!);
+          sp.setString(ApiKeyConstants.type,
+              userModel.userData!.type ?? 'Administrator');
+          LocalData.setUserType(false);
+          String userdataString = jsonEncode(userModel.userData);
+          sp.setString('User_data', userdataString);
+          print('User_data:- $userdataString');
+        }
         Get.toNamed(Routes.NAV_BAR);
       }
       inAsyncCall.value = false;

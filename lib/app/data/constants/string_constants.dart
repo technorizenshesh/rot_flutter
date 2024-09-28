@@ -547,6 +547,10 @@ class StringConstants {
   static const String addYourLocation = 'Add Your Location First Please';
   static const String shippingRequest = 'Shipping Request';
   static const String changeWallet = 'Change Wallet';
+  static const String viewRolePermission = 'View Role & Permissions';
   static const String shipmentAreNotPresentAtYourAddress =
       'Shipment are not present at your address';
+  static const String thisScreenIsNotAllowedByTheSeller =
+      'This screen is not allowed by the seller';
+  static const String reject = 'Reject';
 }

@@ -58,6 +58,17 @@ class MyAddProductDetailController extends GetxController {
 
   void increment() => count.value++;
 
+  bool checkProductExpired(String createDate) {
+    try {
+      final DateTime expiryDate = DateTime.parse(createDate);
+      final DateTime now = DateTime.now();
+      final bool isExpired = now.isAfter(expiryDate);
+      return isExpired;
+    } catch (e) {
+      return false;
+    }
+  }
+
   clickOnBackIcon() {
     Get.back();
   }
@@ -337,6 +348,20 @@ class MyAddProductDetailController extends GetxController {
               arguments: getProductDetailsModel);
         }
         break;
+    }
+  }
+
+  Future<void> extendExpirationDate() async {
+    Map<String, String> extendDateQueryParameters = {
+      ApiKeyConstants.productId: productId,
+    };
+    print("queryParameters $extendDateQueryParameters");
+    http.Response? response = await ApiMethods.extendExpirationDateApi(
+        queryParameters: extendDateQueryParameters);
+    if (response != null) {
+      Get.back();
+    } else {
+      CommonWidgets.showMyToastMessage('Failed.....');
     }
   }
 }

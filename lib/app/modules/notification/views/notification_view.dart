@@ -12,11 +12,29 @@ class NotificationView extends GetView<NotificationController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CommonWidgets.appBar(title: StringConstants.notification),
-      body: Obx(() {
-        controller.count.value;
-        return ListView(
+    return Obx(() {
+      controller.count.value;
+      return Scaffold(
+        appBar: CommonWidgets.appBar(title: StringConstants.notification),
+        bottomNavigationBar: CommonWidgets.commonElevatedButton(
+            onPressed: () {
+              controller.saveNotificationSettingApi();
+            },
+            childText: controller.btnLoading.value
+                ? const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                  )
+                : Text(
+                    StringConstants.submit,
+                    style: Theme.of(Get.context!)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(fontSize: 18.px, color: Colors.white),
+                  ),
+            buttonMargin: EdgeInsets.all(10.px)),
+        body: ListView(
           children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.px),
@@ -102,9 +120,9 @@ class NotificationView extends GetView<NotificationController> {
               ),
             ),
           ],
-        );
-      }),
-    );
+        ),
+      );
+    });
   }
 
   Widget title({required String title}) {

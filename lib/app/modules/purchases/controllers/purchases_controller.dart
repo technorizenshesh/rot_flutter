@@ -6,6 +6,7 @@ import 'package:rot_application/app/data/apis/api_models/get_product_delivery_mo
 import '../../../../common/common_widgets.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/get_simple_model.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 
@@ -46,14 +47,101 @@ class PurchasesController extends GetxController
   }
 
   void increment() => count.value++;
-  changeShowLoading(bool value) {
+
+  bool isDateWithinFiveDays(String givenDate) {
+    DateTime parsedGivenDate = DateTime.parse(givenDate);
+
+    DateTime currentDate = DateTime.now();
+
+    Duration difference = currentDate.difference(parsedGivenDate);
+    return difference.inDays.abs() < 5;
+  }
+
+  void changeShowLoading(bool value) {
     showLoading.value = value;
+  }
+
+  void clickOnIReceived(int index) {
+    CommonWidgets.showAlertDialog(
+      title: 'Order Received',
+      content: 'Are you sure you received order ?',
+      onPressedYes: () {
+        Get.back();
+        callAcceptReceivedOrderApi(
+          index,
+        );
+      },
+    );
+  }
+
+  void clickOnCancel(int index) {
+    CommonWidgets.showAlertDialog(
+      title: 'Order Cancel',
+      content: 'Are you sure you want to cancel order?',
+      onPressedYes: () {
+        Get.back();
+        callAcceptReceivedOrderApi(
+          index,
+        );
+      },
+    );
+  }
+
+  void clickOnReturn(int index) {
+    CommonWidgets.showAlertDialog(
+      title: 'Return Order ',
+      content: 'Are you sure you want to return order?',
+      onPressedYes: () {
+        Get.back();
+        callReturnOrderApi(
+          index,
+        );
+      },
+    );
+  }
+
+  Future<void> callAcceptReceivedOrderApi(int index) async {
+    Map<String, dynamic> getQueryParameters = {
+      ApiKeyConstants.userId: userId,
+      ApiKeyConstants.productId: pendingDeliveryList[index].productId,
+      ApiKeyConstants.orderId: pendingDeliveryList[index].id,
+      ApiKeyConstants.type: 'Cancel'
+    };
+    SimpleResponseModel? simpleResponseModel =
+        await ApiMethods.acceptRejectApi(bodyParams: getQueryParameters);
+
+    if (simpleResponseModel != null && simpleResponseModel.status == 1) {
+      CommonWidgets.showMyToastMessage('Successfully order delivered ....');
+      Get.back();
+    } else {
+      CommonWidgets.showMyToastMessage(simpleResponseModel!.messages ?? '');
+    }
+  }
+
+  Future<void> callReturnOrderApi(int index) async {
+    Map<String, dynamic> getQueryParameters = {
+      ApiKeyConstants.userId: userId,
+      ApiKeyConstants.productId: completeDeliveryList[index].productId,
+      ApiKeyConstants.orderId: completeDeliveryList[index].id,
+      ApiKeyConstants.type: 'Return'
+    };
+    SimpleResponseModel? simpleResponseModel =
+        await ApiMethods.acceptRejectApi(bodyParams: getQueryParameters);
+
+    if (simpleResponseModel != null && simpleResponseModel.status == 1) {
+      CommonWidgets.showMyToastMessage('Successfully order delivered ....');
+      Get.back();
+    } else {
+      CommonWidgets.showMyToastMessage(simpleResponseModel!.messages ?? '');
+    }
   }
 
   clickOnOngoing(int index) {
     showModalBottomSheet(
       context: Get.context!,
-      builder: (context) => Padding(
+      isScrollControlled: true,
+      builder: (context) => Container(
+        height: MediaQuery.of(Get.context!).size.height - 150.px,
         padding: EdgeInsets.symmetric(horizontal: 16.px),
         child: Column(
           children: [

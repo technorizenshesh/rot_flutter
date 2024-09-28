@@ -154,7 +154,7 @@ class DeliveryController extends GetxController {
         ApiKeyConstants.countryCode: userCountryCode.toString(),
         ApiKeyConstants.zipCode: userZipCode.value.toString(),
         ApiKeyConstants.kg: productDetailsModel.data!.weightDim == 'gm'
-            ? '${(double.parse(productDetailsModel.data!.weight ?? '2000')) / 1000}'
+            ? '${(double.parse(productDetailsModel.data!.weight != '' ? productDetailsModel.data!.weight ?? '2000' : '2000')) / 1000}'
             : productDetailsModel.data!.weight ?? '2',
       };
       print("bodyParam:-$getShippingChargeParameters");
@@ -322,10 +322,13 @@ class DeliveryController extends GetxController {
   clickOnChat() {
     Map<String, String> detailForChat = {
       'userName': parameters['userName'] ?? '',
-      'userImage': parameters['userImage'] ?? '',
+      'userImage': productDetailsModel.data!.productImage![0].image ?? '',
       'userAmount': productDetailsModel.data!.price ?? '',
       'otherUserId': productDetailsModel.data!.userId ?? '',
-      'userId': userId
+      'userId': userId,
+      'request_id': productDetailsModel!.data!.id ?? '',
+      'product_status':
+          productDetailsModel.data!.userId == userId ? 'Yes' : 'No',
     };
     Get.toNamed(Routes.CHAT_DETAIL, parameters: detailForChat);
   }

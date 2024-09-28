@@ -16,6 +16,7 @@ class ApiKeyConstants {
   static const String message = 'message';
   static const String otp = 'otp';
   static const String userId = 'user_id';
+  static const String secondUId = 'second_uid';
   static const String productUserId = 'product_user_id';
   static const String categoryId = 'category_id';
   static const String categoryName = 'category_name';
@@ -93,4 +94,8 @@ class ApiKeyConstants {
   static const String partNumber = 'part_number';
   static const String deviceName = 'device_name';
   static const String deviceId = 'device_id';
+  static const String role = 'role';
+  static const String permission = 'permission';
+  static const String inviteId = 'invite_id';
+  static const String orderId = 'order_id';
 }

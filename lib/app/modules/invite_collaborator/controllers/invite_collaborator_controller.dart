@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rot_application/app/data/apis/api_constants/api_key_constants.dart';
+import 'package:rot_application/common/common_widgets.dart';
 
 import '../../../routes/app_pages.dart';
 
@@ -29,7 +31,12 @@ class InviteCollaboratorController extends GetxController {
   void increment() => count.value++;
 
   clickOnContinueButton() {
-    Get.toNamed(Routes.INVITE_COLLABORATOR_CHOOSE_A_ROLE);
+    if (emailController.text.isNotEmpty) {
+      Map<String, String> data = {ApiKeyConstants.email: emailController.text};
+      Get.toNamed(Routes.INVITE_COLLABORATOR_CHOOSE_A_ROLE, parameters: data);
+    } else {
+      CommonWidgets.showMyToastMessage('Please enter email id ....');
+    }
   }
 
   clickOnGoBackButton() {}

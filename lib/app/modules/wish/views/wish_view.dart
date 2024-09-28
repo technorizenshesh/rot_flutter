@@ -35,7 +35,7 @@ class WishView extends GetView<WishController> {
                                       3.4.px,
                                   child: InkWell(
                                     onTap: () =>
-                                        controller.clickOnCard(index: index),
+                                        controller.checkUserType(index: index),
                                     borderRadius: BorderRadius.circular(8.px),
                                     child: Container(
                                       // height: 100.px,

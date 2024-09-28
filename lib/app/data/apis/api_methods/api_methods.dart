@@ -8,6 +8,7 @@ import 'package:rot_application/app/data/apis/api_models/get_admin_address_model
 import 'package:rot_application/app/data/apis/api_models/get_brand_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_card_list_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_chat_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_collaborators_invited_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_conversation_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_engine_type_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_friends_model.dart';
@@ -39,6 +40,7 @@ import '../api_models/get_buy_product_model.dart';
 import '../api_models/get_category_model.dart';
 import '../api_models/get_check_qrcode_model.dart';
 import '../api_models/get_city_model.dart';
+import '../api_models/get_collaborator_permission_model.dart';
 import '../api_models/get_country_model.dart';
 import '../api_models/get_currency_model.dart';
 import '../api_models/get_delete_account_model.dart';
@@ -48,6 +50,7 @@ import '../api_models/get_exist_email_phone_model.dart';
 import '../api_models/get_favorite_product_model.dart';
 import '../api_models/get_hash_tag_model.dart';
 import '../api_models/get_linked_device_model.dart';
+import '../api_models/get_notification_setting_model.dart';
 import '../api_models/get_product_details_model.dart';
 import '../api_models/get_product_model.dart';
 import '../api_models/get_product_status_model.dart';
@@ -1552,6 +1555,179 @@ class ApiMethods {
     if (response != null) {
       linkedDeviceModel = LinkedDeviceModel.fromJson(jsonDecode(response.body));
       return linkedDeviceModel;
+    }
+    return null;
+  }
+
+  /// Save notification data api  .....
+  static Future<NotificationSettingModel?> saveNotificationSettingApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    NotificationSettingModel? notificationSettingModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfSaveNotificationSetting,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      notificationSettingModel =
+          NotificationSettingModel.fromJson(jsonDecode(response.body));
+      return notificationSettingModel;
+    }
+    return null;
+  }
+
+  /// Get notification data api  .....
+  static Future<NotificationSettingModel?> getNotificationSettingApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    NotificationSettingModel? notificationSettingModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: bodyParams,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetNotificationSetting,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      notificationSettingModel =
+          NotificationSettingModel.fromJson(jsonDecode(response.body));
+      return notificationSettingModel;
+    }
+    return null;
+  }
+
+  /// Extend Expiration date api .....
+  static Future<http.Response?> extendExpirationDateApi({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: queryParameters,
+      url: ApiUrlConstants.endPointOfProductExpiryDate,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      return response;
+    }
+    return null;
+  }
+
+  /// Get collaboration permission list data api  .....
+  static Future<CollaboratorPermissionModel?> getCollaborationPermissionApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    CollaboratorPermissionModel? collaboratorPermissionModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: bodyParams,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetCollaboratorPermission,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      collaboratorPermissionModel =
+          CollaboratorPermissionModel.fromJson(jsonDecode(response.body));
+      return collaboratorPermissionModel;
+    }
+    return null;
+  }
+
+  /// send invite collaboration api  .....
+  static Future<SimpleResponseModel?> sendInviteCollaborationApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    SimpleResponseModel? simpleResponseModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfSendCollaboratorInvite,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      simpleResponseModel =
+          SimpleResponseModel.fromJson(jsonDecode(response.body));
+      return simpleResponseModel;
+    }
+    return null;
+  }
+
+  /// Get collaborators invited list data api  .....
+  static Future<CollaboratorsInvitedModel?> getCollaboratorsInvitedListApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    CollaboratorsInvitedModel? collaboratorsInvitedModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: bodyParams,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetCollaboratorsInvite,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      collaboratorsInvitedModel =
+          CollaboratorsInvitedModel.fromJson(jsonDecode(response.body));
+      return collaboratorsInvitedModel;
+    }
+    return null;
+  }
+
+  /// Delete collaborators invite api  .....
+  static Future<SimpleResponseModel?> deleteCollaboratorsInviteApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    SimpleResponseModel? simpleResponseModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: bodyParams,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfDeleteCollaboratorsInvite,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      simpleResponseModel =
+          SimpleResponseModel.fromJson(jsonDecode(response.body));
+      return simpleResponseModel;
+    }
+    return null;
+  }
+
+  /// Resend collaborators invite api  .....
+  static Future<SimpleResponseModel?> resendCollaboratorsInviteApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    SimpleResponseModel? simpleResponseModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: bodyParams,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfResendCollaboratorsInvite,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      simpleResponseModel =
+          SimpleResponseModel.fromJson(jsonDecode(response.body));
+      return simpleResponseModel;
+    }
+    return null;
+  }
+
+  /// Accept Reject order api  .....
+  static Future<SimpleResponseModel?> acceptRejectApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    SimpleResponseModel? simpleResponseModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfAcceptRejectOrder,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      simpleResponseModel =
+          SimpleResponseModel.fromJson(jsonDecode(response.body));
+      return simpleResponseModel;
     }
     return null;
   }

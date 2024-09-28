@@ -91,108 +91,82 @@ class AllView extends GetView<HistoryOfMovementsController> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        SizedBox(height: 10.px),
-        /*      Text(
-          '2024',
-          maxLines: 1,
-          style: Theme.of(context)
-              .textTheme
-              .displayMedium
-              ?.copyWith(fontSize: 26.px),
-        ),
-        SizedBox(height: 2.px),
-        Text(
-          'March',
-          maxLines: 1,
-          style: Theme.of(context)
-              .textTheme
-              .displayMedium
-              ?.copyWith(fontSize: 16.px),
-        ),*/
-        controller.walletHistoryList.isNotEmpty
-            ? ListView.builder(
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
-                itemCount: controller.walletHistoryList.length,
-                itemBuilder: (context, index) {
-                  WalletHistoryData item = controller.walletHistoryList[index];
-                  return Card(
-                    elevation: .2.px,
-                    child: ListTile(
-                      // onTap: () => controller.clickOnMessageTile(),
-                      contentPadding: EdgeInsets.zero,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.px)),
-                      leading: Stack(
-                        alignment: Alignment.bottomRight,
-                        children: [
-                          CommonWidgets.appIcons(
-                              assetName: IconConstants.icGreyCard,
-                              //'assets/un_used_images/image_head _phones.png',
-                              height: 60.px,
-                              width: 60.px,
-                              borderRadius: 14.px,
-                              fit: BoxFit.fill),
-                          item.type == "Wallet"
-                              ? Container(
-                                  height: 24.px,
-                                  width: 24.px,
-                                  margin: EdgeInsets.only(bottom: 5.px),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.circular(12.px)),
-                                  child: Icon(
-                                    Icons.arrow_forward,
-                                    size: 20.px,
-                                    color: Colors.redAccent,
-                                  ),
-                                )
-                              : Container(
-                                  height: 24.px,
-                                  width: 24.px,
-                                  margin: EdgeInsets.only(bottom: 5.px),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.circular(12.px)),
-                                  child: Icon(
-                                    Icons.arrow_back,
-                                    size: 20.px,
-                                    color: Colors.green,
-                                  ),
-                                )
-                        ],
-                      ),
-                      title: Text(
-                        item.type ?? '',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium
-                            ?.copyWith(fontSize: 20.px),
-                      ),
-                      subtitle: Text(
-                        'Recharge ${item.dateTime.toString().substring(0, 10)}',
-                        style:
-                            Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontSize: 14.px,
-                                ),
-                      ),
-                      trailing: Text(
-                        '\$ ${item.amount}',
-                        style:
-                            Theme.of(context).textTheme.displayMedium?.copyWith(
-                                  fontSize: 14.px,
-                                ),
-                      ),
-                    ),
-                  );
-                })
-            : SizedBox(height: 300, child: CommonWidgets.dataNotFound())
-      ],
-    );
+    return controller.walletHistoryList.isNotEmpty
+        ? ListView.builder(
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            itemCount: controller.walletHistoryList.length,
+            itemBuilder: (context, index) {
+              WalletHistoryData item = controller.walletHistoryList[index];
+              return Card(
+                elevation: .2.px,
+                child: ListTile(
+                  // onTap: () => controller.clickOnMessageTile(),
+                  contentPadding: EdgeInsets.zero,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.px)),
+                  leading: Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      CommonWidgets.appIcons(
+                          assetName: IconConstants.icGreyCard,
+                          //'assets/un_used_images/image_head _phones.png',
+                          height: 60.px,
+                          width: 60.px,
+                          borderRadius: 14.px,
+                          fit: BoxFit.fill),
+                      item.type == "Wallet"
+                          ? Container(
+                              height: 24.px,
+                              width: 24.px,
+                              margin: EdgeInsets.only(bottom: 5.px),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(12.px)),
+                              child: Icon(
+                                Icons.arrow_forward,
+                                size: 20.px,
+                                color: Colors.redAccent,
+                              ),
+                            )
+                          : Container(
+                              height: 24.px,
+                              width: 24.px,
+                              margin: EdgeInsets.only(bottom: 5.px),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(12.px)),
+                              child: Icon(
+                                Icons.arrow_back,
+                                size: 20.px,
+                                color: Colors.green,
+                              ),
+                            )
+                    ],
+                  ),
+                  title: Text(
+                    item.type ?? '',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(fontSize: 20.px),
+                  ),
+                  subtitle: Text(
+                    'Recharge ${item.dateTime.toString().substring(0, 10)}',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontSize: 14.px,
+                        ),
+                  ),
+                  trailing: Text(
+                    '\$ ${item.amount}',
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 14.px,
+                        ),
+                  ),
+                ),
+              );
+            })
+        : SizedBox(height: 300, child: CommonWidgets.dataNotFound());
   }
 }
 
@@ -201,108 +175,82 @@ class AppetizerView extends GetView<HistoryOfMovementsController> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        SizedBox(height: 10.px),
-        /*   Text(
-          '2024',
-          maxLines: 1,
-          style: Theme.of(context)
-              .textTheme
-              .displayMedium
-              ?.copyWith(fontSize: 26.px),
-        ),
-        SizedBox(height: 2.px),
-        Text(
-          'March',
-          maxLines: 1,
-          style: Theme.of(context)
-              .textTheme
-              .displayMedium
-              ?.copyWith(fontSize: 16.px),
-        ),*/
-        controller.walletHistoryList.isNotEmpty
-            ? ListView.builder(
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
-                itemCount: controller.walletHistoryList.length,
-                itemBuilder: (context, index) {
-                  WalletHistoryData item = controller.walletHistoryList[index];
-                  return Card(
-                    elevation: .2.px,
-                    child: ListTile(
-                      // onTap: () => controller.clickOnMessageTile(),
-                      contentPadding: EdgeInsets.zero,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.px)),
-                      leading: Stack(
-                        alignment: Alignment.bottomRight,
-                        children: [
-                          CommonWidgets.appIcons(
-                              assetName: IconConstants.icGreyCard,
-                              //'assets/un_used_images/image_head _phones.png',
-                              height: 60.px,
-                              width: 60.px,
-                              borderRadius: 14.px,
-                              fit: BoxFit.fill),
-                          item.type == "Wallet"
-                              ? Container(
-                                  height: 24.px,
-                                  width: 24.px,
-                                  margin: EdgeInsets.only(bottom: 5.px),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.circular(12.px)),
-                                  child: Icon(
-                                    Icons.arrow_forward,
-                                    size: 20.px,
-                                    color: Colors.redAccent,
-                                  ),
-                                )
-                              : Container(
-                                  height: 24.px,
-                                  width: 24.px,
-                                  margin: EdgeInsets.only(bottom: 5.px),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.circular(12.px)),
-                                  child: Icon(
-                                    Icons.arrow_back,
-                                    size: 20.px,
-                                    color: Colors.green,
-                                  ),
-                                )
-                        ],
-                      ),
-                      title: Text(
-                        item.type ?? '',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium
-                            ?.copyWith(fontSize: 20.px),
-                      ),
-                      subtitle: Text(
-                        'Recharge ${item.dateTime.toString().substring(0, 10)}',
-                        style:
-                            Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontSize: 14.px,
-                                ),
-                      ),
-                      trailing: Text(
-                        '\$ ${item.amount}',
-                        style:
-                            Theme.of(context).textTheme.displayMedium?.copyWith(
-                                  fontSize: 14.px,
-                                ),
-                      ),
-                    ),
-                  );
-                })
-            : SizedBox(height: 300.px, child: CommonWidgets.dataNotFound()),
-      ],
-    );
+    return controller.incomingHistoryList.isNotEmpty
+        ? ListView.builder(
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            itemCount: controller.incomingHistoryList.length,
+            itemBuilder: (context, index) {
+              WalletHistoryData item = controller.incomingHistoryList[index];
+              return Card(
+                elevation: .2.px,
+                child: ListTile(
+                  // onTap: () => controller.clickOnMessageTile(),
+                  contentPadding: EdgeInsets.zero,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.px)),
+                  leading: Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      CommonWidgets.appIcons(
+                          assetName: IconConstants.icGreyCard,
+                          //'assets/un_used_images/image_head _phones.png',
+                          height: 60.px,
+                          width: 60.px,
+                          borderRadius: 14.px,
+                          fit: BoxFit.fill),
+                      item.type == "Wallet"
+                          ? Container(
+                              height: 24.px,
+                              width: 24.px,
+                              margin: EdgeInsets.only(bottom: 5.px),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(12.px)),
+                              child: Icon(
+                                Icons.arrow_forward,
+                                size: 20.px,
+                                color: Colors.redAccent,
+                              ),
+                            )
+                          : Container(
+                              height: 24.px,
+                              width: 24.px,
+                              margin: EdgeInsets.only(bottom: 5.px),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(12.px)),
+                              child: Icon(
+                                Icons.arrow_back,
+                                size: 20.px,
+                                color: Colors.green,
+                              ),
+                            )
+                    ],
+                  ),
+                  title: Text(
+                    item.type ?? '',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(fontSize: 20.px),
+                  ),
+                  subtitle: Text(
+                    'Recharge ${item.dateTime.toString().substring(0, 10)}',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontSize: 14.px,
+                        ),
+                  ),
+                  trailing: Text(
+                    '\$ ${item.amount}',
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 14.px,
+                        ),
+                  ),
+                ),
+              );
+            })
+        : SizedBox(height: 300.px, child: CommonWidgets.dataNotFound());
   }
 }
 
@@ -311,93 +259,67 @@ class DeparturesView extends GetView<HistoryOfMovementsController> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-/*        Text(
-          '2024',
-          maxLines: 1,
-          style: Theme.of(context)
-              .textTheme
-              .displayMedium
-              ?.copyWith(fontSize: 26.px),
-        ),
-        SizedBox(height: 2.px),
-        Text(
-          'January',
-          maxLines: 1,
-          style: Theme.of(context)
-              .textTheme
-              .displayMedium
-              ?.copyWith(fontSize: 16.px),
-        ),  */
-        SizedBox(height: 10.px),
-        controller.departureData.value
-            ? ListView.builder(
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
-                itemCount: 2,
-                itemBuilder: (context, index) => Card(
-                  elevation: .2.px,
-                  child: ListTile(
-                    // onTap: () => controller.clickOnMessageTile(),
-                    contentPadding: EdgeInsets.zero,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.px)),
-                    leading: Stack(
-                      alignment: Alignment.bottomRight,
-                      children: [
-                        CommonWidgets.appIcons(
-                          assetName:
-                              'assets/un_used_images/image_head _phones.png',
+    return controller.outGoingHistoryList.isNotEmpty
+        ? ListView.builder(
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            itemCount: controller.outGoingHistoryList.length,
+            itemBuilder: (context, index) {
+              WalletHistoryData item = controller.outGoingHistoryList[index];
+              return Card(
+                elevation: .2.px,
+                child: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.px)),
+                  leading: Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      CommonWidgets.appIcons(
+                          assetName: IconConstants.icGreyCard,
+                          //'assets/un_used_images/image_head _phones.png',
                           height: 60.px,
                           width: 60.px,
                           borderRadius: 14.px,
+                          fit: BoxFit.fill),
+                      Container(
+                        height: 24.px,
+                        width: 24.px,
+                        margin: EdgeInsets.only(bottom: 5.px),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12.px)),
+                        child: Icon(
+                          Icons.arrow_forward,
+                          size: 20.px,
+                          color: Colors.redAccent,
                         ),
-                        Container(
-                          height: 24.px,
-                          width: 24.px,
-                          margin: EdgeInsets.only(bottom: 5.px),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(12.px)),
-                          child: Icon(
-                            Icons.arrow_forward,
-                            size: 20.px,
-                            color: Colors.redAccent,
-                          ),
+                      )
+                    ],
+                  ),
+                  title: Text(
+                    item.type ?? '',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(fontSize: 20.px),
+                  ),
+                  subtitle: Text(
+                    item.dateTime.toString(),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontSize: 14.px,
                         ),
-                      ],
-                    ),
-                    title: Text(
-                      'Recharge',
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(fontSize: 20.px),
-                    ),
-                    subtitle: Text(
-                      'Recharge Jan 10',
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontSize: 14.px,
-                          ),
-                    ),
-                    trailing: Text(
-                      '\$949.00',
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(
-                              fontSize: 14.px,
-                              color: Theme.of(context).colorScheme.error),
-                    ),
+                  ),
+                  trailing: Text(
+                    '\$ ${item.amount}',
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 14.px,
+                        ),
                   ),
                 ),
-              )
-            : SizedBox(
-                height: 300.px,
-                width: 300.px,
-                child: CommonWidgets.dataNotFound()),
-      ],
-    );
+              );
+            })
+        : SizedBox(
+            height: 300.px, width: 300.px, child: CommonWidgets.dataNotFound());
   }
 }

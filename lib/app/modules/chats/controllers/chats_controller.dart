@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 import 'package:rot_application/app/data/apis/api_models/get_notification_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../common/check_permission.dart';
+import '../../../../common/common_widgets.dart';
+import '../../../../common/local_data.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/apis/api_models/get_conversation_model.dart';
@@ -47,13 +50,30 @@ class ChatsController extends GetxController
 
   void increment() => count.value++;
 
+  checkUserType(int index) async {
+    bool youAreUser = LocalData.userType;
+    if (youAreUser) {
+      clickOnMessageTile(index);
+    } else {
+      bool result = await CheckScreenPermission.checkPermission('10', '27');
+      if (result) {
+        clickOnMessageTile(index);
+      } else {
+        CommonWidgets.showMyToastMessage(
+            StringConstants.thisScreenIsNotAllowedByTheSeller.tr);
+      }
+    }
+  }
+
   clickOnMessageTile(int index) {
     Map<String, String> detailForChat = {
       'userName': getConversationList[index].userName ?? '',
-      'userImage': getConversationList[index].image ?? '',
+      'userImage': getConversationList[index].productImage ?? '',
       'userAmount': getConversationList[index].userName ?? '',
       'otherUserId': getConversationList[index].id ?? '',
-      'userId': userId
+      'userId': userId,
+      'request_id': getConversationList[index].productId ?? '',
+      'product_status': getConversationList[index].productStatus ?? 'No',
     };
     Get.toNamed(Routes.CHAT_DETAIL, parameters: detailForChat);
   }

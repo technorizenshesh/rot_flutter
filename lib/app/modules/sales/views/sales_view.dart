@@ -242,52 +242,142 @@ class InProgressView extends GetView<SalesController> {
                         ?.copyWith(fontSize: 16.px),
                   ),
                   SizedBox(height: 4.px),
-                  ListTile(
-                    leading: CommonWidgets.imageView(
-                      image: item.image ?? '',
-                      height: 44.px,
-                      width: 44.px,
-                      radius: 0.px,
-                    ),
-                    title: Text(
-                      item.productName ?? '',
-                      maxLines: 1,
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(fontSize: 14.px),
-                    ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'In progress',
-                          style:
-                              Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    fontSize: 12.px,
+                  Row(
+                    children: [
+                      CommonWidgets.imageView(
+                        image: item.image ?? '',
+                        height: 44.px,
+                        width: 44.px,
+                        radius: 0.px,
+                      ),
+                      Expanded(
+                          child: Column(
+                        children: [
+                          Text(
+                            item.productName ?? '',
+                            maxLines: 1,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(fontSize: 14.px),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'In progress',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(
+                                      fontSize: 12.px,
+                                    ),
+                                maxLines: 1,
+                              ),
+                              SizedBox(height: 2.px),
+                              Text(
+                                'Completed on Dec 14.',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(
+                                      fontSize: 12.px,
+                                    ),
+                                maxLines: 1,
+                              ),
+                            ],
+                          ),
+                        ],
+                      )),
+                      SizedBox(
+                        width: 120.px,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              '${CommonMethods.cur}${item.amount}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                      fontSize: 16.px,
+                                      color: Theme.of(context).primaryColor),
+                            ),
+                            item.status == 'Pending'
+                                ? Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          controller.clickOnAcceptRejectButton(
+                                              StringConstants.reject, index);
+                                        },
+                                        child: Container(
+                                          height: 30.px,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 5.px),
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0.px),
+                                            color: Colors.redAccent,
+                                          ),
+                                          child: Text(
+                                            StringConstants.reject.tr,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium
+                                                ?.copyWith(
+                                                    fontSize: 12.px,
+                                                    color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 5.px),
+                                      GestureDetector(
+                                        onTap: () {
+                                          controller.clickOnAcceptRejectButton(
+                                              StringConstants.accept, index);
+                                        },
+                                        child: Container(
+                                          height: 30.px,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 5.px),
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0.px),
+                                            color: Colors.teal,
+                                          ),
+                                          child: Text(
+                                            StringConstants.accept.tr,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium
+                                                ?.copyWith(
+                                                    fontSize: 12.px,
+                                                    color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : Text(
+                                    '${item.status}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium
+                                        ?.copyWith(
+                                            fontSize: 16.px,
+                                            color:
+                                                Theme.of(context).primaryColor),
                                   ),
-                          maxLines: 1,
+                          ],
                         ),
-                        SizedBox(height: 2.px),
-                        Text(
-                          'Completed on Dec 14.',
-                          style:
-                              Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    fontSize: 12.px,
-                                  ),
-                          maxLines: 1,
-                        ),
-                      ],
-                    ),
-                    trailing: Text(
-                      '${CommonMethods.cur}${item.amount}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(
-                              fontSize: 16.px,
-                              color: Theme.of(context).primaryColor),
-                    ),
+                      )
+                    ],
                   ),
                   SizedBox(height: 10.px),
                   Divider(

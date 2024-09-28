@@ -28,6 +28,7 @@ class ProfilePublicView extends GetView<ProfilePublicController> {
                   CommonWidgets.appBar(title: StringConstants.profilePublic),
               body: Obx(() {
                 controller.inAsyncCall.value;
+                controller.count.value;
                 return controller.inAsyncCall.value
                     ? const Center(
                         child: CircularProgressIndicator(),
@@ -390,7 +391,7 @@ class ProfilePublicView extends GetView<ProfilePublicController> {
                                                 : "0 ${StringConstants.published}"),
                                         Tab(
                                             text:
-                                                "${controller.getProfilePublicData!.reviewCount} ${StringConstants.reviews}"),
+                                                "${controller.reviewList.length} ${StringConstants.reviews}"),
                                         const Tab(
                                             text: "+ ${StringConstants.info}"),
                                       ],
@@ -595,6 +596,7 @@ class ReviewsView extends GetView<ProfilePublicController> {
                 elevation: .2.px,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ListTile(
                       // contentPadding: EdgeInsets.zero,
@@ -638,7 +640,6 @@ class ReviewsView extends GetView<ProfilePublicController> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10.px),
                     Padding(
                       padding: EdgeInsets.all(8.px),
                       child: Text(

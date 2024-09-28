@@ -17,7 +17,8 @@ class InviteCollaboratorChooseARoleView
       appBar: CommonWidgets.appBar(title: StringConstants.inviteCollaborator),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.px),
-        child: ListView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 20.px),
             Text(
@@ -28,37 +29,59 @@ class InviteCollaboratorChooseARoleView
                   ),
             ),
             SizedBox(height: 40.px),
-            ListView.builder(
-              itemCount: 2,
-              shrinkWrap: true,
-              itemBuilder: (context, index) => Column(
-                children: [
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: Text(
-                      StringConstants.chooseARole,
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(fontSize: 18.px),
-                    ),
-                    trailing: Image.asset(
-                      IconConstants.icRightArrow,
-                      height: 24.px,
-                      width: 24.px,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  SizedBox(height: 8.px),
-                  Divider(
-                    height: 2.px,
-                    color: Theme.of(context).colorScheme.onSecondary,
-                    thickness: .2.px,
-                  ),
-                ],
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              onTap: () {
+                controller.role.value = 'Administrator';
+                controller.clickOnCreateNewRoleButton();
+              },
+              title: Text(
+                'Administrator',
+                style: Theme.of(context)
+                    .textTheme
+                    .displayMedium
+                    ?.copyWith(fontSize: 18.px),
+              ),
+              trailing: Image.asset(
+                IconConstants.icRightArrow,
+                height: 24.px,
+                width: 24.px,
+                fit: BoxFit.cover,
               ),
             ),
-            SizedBox(height: 20.px),
+            SizedBox(height: 8.px),
+            Divider(
+              height: 2.px,
+              color: Theme.of(context).colorScheme.onSecondary,
+              thickness: .2.px,
+            ),
+            ListTile(
+              onTap: () {
+                controller.role.value = 'Supervisor';
+                controller.clickOnCreateNewRoleButton();
+              },
+              contentPadding: EdgeInsets.zero,
+              title: Text(
+                'Supervisor',
+                style: Theme.of(context)
+                    .textTheme
+                    .displayMedium
+                    ?.copyWith(fontSize: 18.px),
+              ),
+              trailing: Image.asset(
+                IconConstants.icRightArrow,
+                height: 24.px,
+                width: 24.px,
+                fit: BoxFit.cover,
+              ),
+            ),
+            SizedBox(height: 8.px),
+            Divider(
+              height: 2.px,
+              color: Theme.of(context).colorScheme.onSecondary,
+              thickness: .2.px,
+            ),
+            /*  SizedBox(height: 20.px),
             CommonWidgets.commonElevatedButton(
               onPressed: () => controller.clickOnCreateNewRoleButton(),
               childText: Text(
@@ -68,8 +91,9 @@ class InviteCollaboratorChooseARoleView
                     .headlineSmall
                     ?.copyWith(fontWeight: FontWeight.w700),
               ),
-            ),
-            SizedBox(height: 10.px),
+            ),*/
+            SizedBox(height: 20.px),
+            const Spacer(),
             CommonWidgets.commonElevatedButton(
               onPressed: () => controller.clickOnGoBackButton(),
               buttonColor:

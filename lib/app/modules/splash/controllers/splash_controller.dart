@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:rot_application/common/local_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/apis/api_constants/api_key_constants.dart';
@@ -32,6 +33,11 @@ class SplashController extends GetxController {
     await Future.delayed(const Duration(seconds: 3));
     print("TOKEN:::::::::::${prefs?.getString(ApiKeyConstants.token)}");
     if (prefs?.getString(ApiKeyConstants.token) != null) {
+      if (prefs?.getString(ApiKeyConstants.type) != null) {
+        LocalData.setUserType(false);
+      } else {
+        LocalData.setUserType(true);
+      }
       Get.offAllNamed(Routes.NAV_BAR);
     } else {
       Get.offAndToNamed(Routes.GET_START);

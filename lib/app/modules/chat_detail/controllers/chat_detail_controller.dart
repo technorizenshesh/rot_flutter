@@ -16,6 +16,8 @@ class ChatDetailController extends GetxController {
   String userAmount = '';
   String otherUserId = '';
   String userId = '';
+  String requestId = '';
+  String productStatus = 'No';
   Map<String, String?> parameters = Get.parameters;
   final textMessageLoading = false.obs;
   final messageLoading = true.obs;
@@ -28,6 +30,8 @@ class ChatDetailController extends GetxController {
     userAmount = parameters['userAmount'] ?? '';
     otherUserId = parameters['otherUserId'] ?? '';
     userId = parameters['userId'] ?? '';
+    requestId = parameters['request_id'] ?? '31';
+    productStatus = parameters['product_status'] ?? 'No';
     getChatApi();
   }
 
@@ -42,15 +46,27 @@ class ChatDetailController extends GetxController {
   }
 
   void increment() => count.value++;
+  void clickOnView(int index) {
+    Map<String, String> data = {
+      ApiKeyConstants.userId: chatResultList[index].senderId ?? ''
+    };
+    if (chatResultList[index].productDeliveryStatus == 'false') {
+      Get.toNamed(Routes.PURCHASES, parameters: data);
+    } else {
+      Get.toNamed(Routes.SALES, parameters: data);
+    }
+  }
 
-  clickOnViewButton() {
-    Get.toNamed(Routes.PURCHASES_STATUS);
+  clickOnEditPrice() {
+    Map<String, String> data = {ApiKeyConstants.userId: userId};
+    Get.toNamed(Routes.SALES, parameters: data);
   }
 
   Future<void> getChatApi() async {
     Map<String, dynamic> getChatParameters = {
       ApiKeyConstants.senderId: otherUserId,
-      ApiKeyConstants.receiverId: userId
+      ApiKeyConstants.receiverId: userId,
+      ApiKeyConstants.requestId: requestId,
     };
     GetChatModel? getChatModel =
         await ApiMethods.getChat(bodyParams: getChatParameters);
@@ -68,6 +84,7 @@ class ChatDetailController extends GetxController {
       ApiKeyConstants.senderId: userId,
       ApiKeyConstants.receiverId: otherUserId,
       ApiKeyConstants.chatMessage: text,
+      ApiKeyConstants.requestId: requestId,
     };
     http.Response? response =
         await ApiMethods.insertChat(bodyParams: insertChatParameters);

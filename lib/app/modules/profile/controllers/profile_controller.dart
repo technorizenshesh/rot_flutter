@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:rot_application/app/data/constants/image_constants.dart';
+import 'package:rot_application/common/check_permission.dart';
+import 'package:rot_application/common/local_data.dart';
 import 'package:rot_application/common/login_with_google.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -66,41 +68,119 @@ class ProfileController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnListTile({required int index}) {
+  clickOnListTile({required int index}) async {
     Map<String, String> data = {
       ApiKeyConstants.userId: userId,
       ApiKeyConstants.wallet: userData!.wallet ?? '0'
     };
-    switch (index) {
-      case 0:
-        Get.toNamed(Routes.SALES, parameters: data);
-        break;
-      case 1:
-        Get.toNamed(Routes.PURCHASES, parameters: data);
-        break;
-      case 2:
-        Get.toNamed(Routes.WALLET, parameters: data);
-        break;
-      case 3:
-        Get.toNamed(Routes.SUBSCRIPTION, parameters: data);
-        break;
-      case 4:
-        Get.toNamed(Routes.GENERAL_SETTING);
-        break;
-      case 5:
-        Get.toNamed(Routes.CHANGE_PASSWORD, parameters: data);
-        break;
-      case 6:
-        Get.toNamed(Routes.HELP);
-        break;
-      case 7:
-        Get.toNamed(Routes.MY_QR_CODE, parameters: data);
-        break;
-      case 8:
-        CommonWidgets.showAlertDialog(
-          onPressedYes: () => clickOnYes(),
-        );
-        break;
+    bool youAreUser = LocalData.userType;
+    if (youAreUser) {
+      switch (index) {
+        case 0:
+          Get.toNamed(Routes.SALES, parameters: data);
+          break;
+        case 1:
+          Get.toNamed(Routes.PURCHASES, parameters: data);
+          break;
+        case 2:
+          Get.toNamed(Routes.WALLET, parameters: data);
+          break;
+        case 3:
+          Get.toNamed(Routes.SUBSCRIPTION, parameters: data);
+          break;
+        case 4:
+          Get.toNamed(Routes.GENERAL_SETTING);
+          break;
+        case 5:
+          Get.toNamed(Routes.CHANGE_PASSWORD, parameters: data);
+          break;
+        case 6:
+          Get.toNamed(Routes.HELP);
+          break;
+        case 7:
+          Get.toNamed(Routes.MY_QR_CODE, parameters: data);
+          break;
+        case 8:
+          CommonWidgets.showAlertDialog(
+            onPressedYes: () => clickOnYes(),
+          );
+          break;
+      }
+    } else {
+      switch (index) {
+        case 0:
+          bool result = await CheckScreenPermission.checkPermission('2', '19');
+          print('result:-$result');
+          if (result) {
+            Get.toNamed(Routes.SALES, parameters: data);
+          } else {
+            CommonWidgets.showMyToastMessage(
+                StringConstants.thisScreenIsNotAllowedByTheSeller.tr);
+          }
+
+          break;
+        case 1:
+          bool result = await CheckScreenPermission.checkPermission('4', '21');
+          print('result:-$result');
+          if (result) {
+            Get.toNamed(Routes.PURCHASES, parameters: data);
+          } else {
+            CommonWidgets.showMyToastMessage(
+                StringConstants.thisScreenIsNotAllowedByTheSeller.tr);
+          }
+          break;
+        case 2:
+          bool result = await CheckScreenPermission.checkPermission('14', '31');
+          print('result:-$result');
+          if (result) {
+            Get.toNamed(Routes.WALLET, parameters: data);
+          } else {
+            CommonWidgets.showMyToastMessage(
+                StringConstants.thisScreenIsNotAllowedByTheSeller.tr);
+          }
+          break;
+        case 3:
+          bool result = await CheckScreenPermission.checkPermission('7', '24');
+          print('result:-$result');
+          if (result) {
+            Get.toNamed(Routes.SUBSCRIPTION, parameters: data);
+          } else {
+            CommonWidgets.showMyToastMessage(
+                StringConstants.thisScreenIsNotAllowedByTheSeller.tr);
+          }
+          break;
+        case 4:
+          bool result = await CheckScreenPermission.checkPermission('8', '25');
+          print('result:-$result');
+          if (result) {
+            Get.toNamed(Routes.GENERAL_SETTING, parameters: data);
+          } else {
+            CommonWidgets.showMyToastMessage(
+                StringConstants.thisScreenIsNotAllowedByTheSeller.tr);
+          }
+          break;
+        case 5:
+          bool result = await CheckScreenPermission.checkPermission('9', '26');
+          print('result:-$result');
+          if (result) {
+            Get.toNamed(Routes.CHANGE_PASSWORD, parameters: data);
+          } else {
+            CommonWidgets.showMyToastMessage(
+                StringConstants.thisScreenIsNotAllowedByTheSeller.tr);
+          }
+          break;
+        case 6:
+          Get.toNamed(Routes.HELP);
+          break;
+        case 7:
+          Get.toNamed(Routes.MY_QR_CODE, parameters: data);
+          break;
+        case 8:
+          CommonWidgets.showAlertDialog(
+            onPressedYes: () => clickOnYes(),
+          );
+          break;
+      }
     }
   }
 

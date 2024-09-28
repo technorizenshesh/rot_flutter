@@ -482,6 +482,56 @@ class MyAddProductDetailView extends GetView<MyAddProductDetailController> {
                           SizedBox(height: 20.px),
                           ListTile(
                             onTap: () {
+                              if (controller.checkProductExpired(
+                                  controller.data!.productExpiryDate ?? '')) {
+                                CommonWidgets.showAlertDialog(
+                                    title: StringConstants.expiredProducts,
+                                    content:
+                                        'Do you want to republish product?',
+                                    onPressedYes: () {
+                                      controller.extendExpirationDate();
+                                      Get.back();
+                                    });
+                              } else {
+                                CommonWidgets.showMyToastMessage(
+                                    'Product is activated for sell...');
+                              }
+                            },
+                            leading: CommonWidgets.appIcons(
+                              assetName: IconConstants.icBike,
+                              height: 30.px,
+                              width: 30.px,
+                              fit: BoxFit.fill,
+                              borderRadius: 0.px,
+                            ),
+                            title: Text(
+                              controller.data!.productExpiryDate ?? '',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(fontSize: 14.px),
+                            ),
+                            subtitle: Text(
+                              'Extend Expatriation date',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(fontSize: 16.px),
+                            ),
+                            trailing: Text(
+                              'Edit',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 14.px,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          SizedBox(height: 20.px),
+                          ListTile(
+                            onTap: () {
                               CommonWidgets.showAlertDialog(
                                   title: StringConstants.edit,
                                   content:

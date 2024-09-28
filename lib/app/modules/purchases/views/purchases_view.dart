@@ -121,7 +121,7 @@ class CompletedView extends GetView<PurchasesController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'December',
+                        item.dateTime.toString().substring(0, 10),
                         maxLines: 1,
                         style: Theme.of(context)
                             .textTheme
@@ -170,14 +170,47 @@ class CompletedView extends GetView<PurchasesController> {
                             ),
                           ],
                         ),
-                        trailing: Text(
-                          '${CommonMethods.cur} ${item.amount}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium
-                              ?.copyWith(
-                                  fontSize: 16.px,
-                                  color: Theme.of(context).primaryColor),
+                        trailing: SizedBox(
+                          width: 70.px,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                '${CommonMethods.cur} ${item.amount}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(
+                                        fontSize: 16.px,
+                                        color: Theme.of(context).primaryColor),
+                              ),
+                              if (controller
+                                  .isDateWithinFiveDays(item.dateTime ?? ''))
+                                GestureDetector(
+                                  onTap: () {
+                                    controller.clickOnReturn(index);
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.only(top: 5.px),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10.px, vertical: 8.px),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(5.px),
+                                        color: Colors.redAccent),
+                                    child: Text(
+                                      'Return',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium
+                                          ?.copyWith(
+                                              fontSize: 14.px,
+                                              color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
                         ),
                       ),
                       SizedBox(height: 10.px),
@@ -209,76 +242,138 @@ class OngoingView extends GetView<PurchasesController> {
             itemBuilder: (context, index) {
               GetProductDeliveryData item =
                   controller.pendingDeliveryList[index];
-              return Card(
-                elevation: .2.px,
-                child: Row(
-                  children: [
-                    CommonWidgets.imageView(
-                      image: item.image ?? '',
-                      height: 130.px,
-                      width: 130.px,
-                      radius: 10.px,
-                    ),
-                    SizedBox(width: 10.px),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            item.productName ?? '',
-                            maxLines: 2,
+              return GestureDetector(
+                onTap: () {
+                  controller.clickOnOngoing(index);
+                },
+                child: Card(
+                  elevation: .2.px,
+                  child: Row(
+                    children: [
+                      CommonWidgets.imageView(
+                        image: item.image ?? '',
+                        height: 100.px,
+                        width: 100.px,
+                        radius: 10.px,
+                      ),
+                      SizedBox(width: 10.px),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              item.productName ?? '',
+                              maxLines: 2,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(fontSize: 14.px),
+                            ),
+                            SizedBox(height: 10.px),
+                            Text(
+                              'Colour: Made Blue',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(
+                                    fontSize: 12.px,
+                                  ),
+                              maxLines: 1,
+                            ),
+                            SizedBox(height: 12.px),
+                            Row(
+                              children: [
+                                Flexible(
+                                  child: Text(
+                                    '${CommonMethods.cur}${item.amount}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium
+                                        ?.copyWith(
+                                          fontSize: 14.px,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 10.px),
+                      (item.status == 'Return' || item.status == 'Cancel')
+                          ? Text(
+                              '${item.status} ',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                      fontSize: 16.px, color: Colors.redAccent),
+                            )
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                /* Text(
+                            'Ongoing',
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium
-                                ?.copyWith(fontSize: 14.px),
-                          ),
-                          SizedBox(height: 10.px),
-                          Text(
-                            'Colour: Made Blue',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium
                                 ?.copyWith(
-                                  fontSize: 12.px,
+                                    fontSize: 16.px,
+                                    color: Theme.of(context).primaryColor),
+                          ),*/
+                                GestureDetector(
+                                  onTap: () {
+                                    controller.clickOnCancel(index);
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.only(top: 10.px),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 15.px, vertical: 8.px),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(5.px),
+                                        color: Colors.redAccent),
+                                    child: Text(
+                                      'Cancel',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium
+                                          ?.copyWith(
+                                              fontSize: 14.px,
+                                              color: Colors.white),
+                                    ),
+                                  ),
                                 ),
-                            maxLines: 1,
-                          ),
-                          SizedBox(height: 12.px),
-                          Row(
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  '${CommonMethods.cur}${item.amount}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayMedium
-                                      ?.copyWith(
-                                        fontSize: 14.px,
-                                        color: Theme.of(context).primaryColor,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(width: 10.px),
-                    InkWell(
-                      onTap: () => controller.clickOnOngoing(index),
-                      borderRadius: BorderRadius.circular(10.px),
-                      child: Text(
-                        'Ongoing',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium
-                            ?.copyWith(
-                                fontSize: 16.px,
-                                color: Theme.of(context).primaryColor),
-                      ),
-                    ),
-                  ],
+                                GestureDetector(
+                                  onTap: () {
+                                    controller.clickOnIReceived(index);
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.only(
+                                        top: 10.px, bottom: 10.px),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 15.px, vertical: 8.px),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(5.px),
+                                        color: Colors.teal),
+                                    child: Text(
+                                      'I Received',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium
+                                          ?.copyWith(
+                                              fontSize: 14.px,
+                                              color: Colors.white),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                    ],
+                  ),
                 ),
               );
             })

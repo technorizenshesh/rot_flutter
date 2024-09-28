@@ -13,10 +13,11 @@ class HistoryOfMovementsController extends GetxController
   late TabController tabController;
   final showProgress = true.obs;
   final presentData = true.obs;
-  final departureData = false.obs;
   Map<String, String?> parameters = Get.parameters;
 
   List<WalletHistoryData> walletHistoryList = [];
+  List<WalletHistoryData> incomingHistoryList = [];
+  List<WalletHistoryData> outGoingHistoryList = [];
   final tabs = [
     Tab(text: StringConstants.all.tr),
     Tab(text: StringConstants.appetizer.tr),
@@ -55,6 +56,14 @@ class HistoryOfMovementsController extends GetxController
           walletHistoryModel.status == '1' &&
           walletHistoryModel.data != null) {
         walletHistoryList = walletHistoryModel.data!;
+        for (int i = 0; i < walletHistoryList.length; i++) {
+          if (walletHistoryList[i].type == 'Wallet' ||
+              walletHistoryList[i].type == 'Card') {
+            outGoingHistoryList.add(walletHistoryList[i]);
+          } else {
+            incomingHistoryList.add(walletHistoryList[i]);
+          }
+        }
       } else {
         print('Failed to wallet history....');
       }

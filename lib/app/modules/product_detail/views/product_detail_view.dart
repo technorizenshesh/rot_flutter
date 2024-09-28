@@ -128,6 +128,16 @@ class ProductDetailView extends GetView<ProductDetailController> {
                                     ],
                                   ),
                                 ),
+                                Positioned(
+                                  bottom: 10.px,
+                                  left: 10.px,
+                                  child: CommonWidgets.appIcons(
+                                    assetName: productIconStatus(
+                                        controller.data!.availableAt ?? ''),
+                                    width: 40.px,
+                                    height: 40.px,
+                                  ),
+                                )
                               ],
                             ),
                             Padding(
@@ -810,7 +820,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
 
                           SizedBox(height: 20.px),
                           CommonWidgets.commonElevatedButton(
-                            onPressed: () => controller.clickOnBuyButton(),
+                            onPressed: () => controller.checkUserType(),
                             childText: Text(
                               StringConstants.buy.tr,
                               style: Theme.of(context)
@@ -996,5 +1006,20 @@ class ProductDetailView extends GetView<ProductDetailController> {
     if (categoryId == '23') return StringConstants.diameter;
 
     return StringConstants.kilometers;
+  }
+
+  String productIconStatus(String available) {
+    switch (available) {
+      case "sold":
+        return IconConstants.icPaid;
+      case "reserved":
+        return IconConstants.icReserve;
+      case "paid":
+        return IconConstants.icPaid;
+      case "process":
+        return IconConstants.icMoneyReceived;
+      default:
+        return IconConstants.icMoneyReceived;
+    }
   }
 }
