@@ -154,6 +154,7 @@ class UploadRealEstateController extends GetxController {
             productLocation[ApiKeyConstants.productLocation];
         zipcode.value = productLocation[ApiKeyConstants.zipCode];
         country.value = productLocation[ApiKeyConstants.country];
+        city.value = productLocation[ApiKeyConstants.city];
         countryCode.value = productLocation[ApiKeyConstants.countryCode];
         lat.value = productLocation[ApiKeyConstants.productLat];
         lon.value = productLocation[ApiKeyConstants.productLon];
@@ -227,7 +228,7 @@ class UploadRealEstateController extends GetxController {
         ApiKeyConstants.description: descriptionController.text.toString(),
         ApiKeyConstants.categoryId: parameters[ApiKeyConstants.categoryId],
         ApiKeyConstants.productLocation: switchValue.value
-            ? '${city.value},${country.value}'
+            ? '${city.value},${zipcode.value},${country.value}'
             : productLocationController.text.toString(),
         ApiKeyConstants.productLat: lat.value.toString(),
         ApiKeyConstants.productLon: lon.value.toString(),

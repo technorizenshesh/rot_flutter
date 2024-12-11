@@ -95,15 +95,33 @@ class NavBarView extends GetView<NavBarController> {
       icon: Icons.add,
       leading: Column(
         children: [
-          CommonWidgets.appIcons(
-            assetName: image,
-            color: selectedIndex.value == index
-                ? Theme.of(Get.context!).primaryColor
-                : Theme.of(Get.context!)
-                    .textTheme
-                    .headlineMedium
-                    ?.color
-                    ?.withOpacity(.6),
+          Stack(
+            children: [
+              CommonWidgets.appIcons(
+                assetName: image,
+                color: selectedIndex.value == index
+                    ? Theme.of(Get.context!).primaryColor
+                    : Theme.of(Get.context!)
+                        .textTheme
+                        .headlineMedium
+                        ?.color
+                        ?.withOpacity(.6),
+              ),
+              if (isNotification.value && index == 3)
+                Positioned(
+                    right: 1.5.px,
+                    top: 1.5.px,
+                    child: Container(
+                      height: 6.px,
+                      width: 6.px,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(3.px),
+                        color: isNotification.value
+                            ? Colors.redAccent
+                            : Colors.transparent,
+                      ),
+                    ))
+            ],
           ),
           Text(
             text,

@@ -65,7 +65,7 @@ class UploadController extends GetxController {
   final lengthDim = 'cm'.obs;
   final widthDim = 'cm'.obs;
   final heightDim = 'cm'.obs;
-  final weightDim = 'gm'.obs;
+  final weightDim = 'gr'.obs;
   String hashTagId = '';
   String productStatusId = '';
   String userId = '';
@@ -80,7 +80,7 @@ class UploadController extends GetxController {
   List<CurrencyData> currencyData = [];
   List<File?> imageList = [null, null, null, null, null];
   List<String> volumeDimensionList = ['cm', 'inch', 'foot'];
-  List<String> weightDimensionList = ['gm', 'kg', 'tonne'];
+  List<String> weightDimensionList = ['gr', 'kg', 'ton'];
 
   @override
   Future<void> onInit() async {

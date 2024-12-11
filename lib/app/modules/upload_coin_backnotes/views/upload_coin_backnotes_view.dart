@@ -138,7 +138,8 @@ class UploadCoinBacknotesView extends GetView<UploadCoinBacknotesController> {
                         controller: controller.descriptionController,
                         maxLines: 4),
                     if (controller.parameters[ApiKeyConstants.subCategoryId] ==
-                        '150')
+                            '150' &&
+                        controller.materialList.isNotEmpty)
                       Column(
                         children: [
                           SizedBox(height: 10.px),
@@ -146,8 +147,11 @@ class UploadCoinBacknotesView extends GetView<UploadCoinBacknotesController> {
                             hintText: StringConstants.material.tr,
                             onChanged: (value) =>
                                 controller.onChangedMaterialField(value: value),
-                            items: List.generate(controller.materialList.length,
-                                (index) => controller.materialList[index]),
+                            items: List.generate(
+                                controller.materialList.length,
+                                (index) => controller
+                                    .materialList[index].materialName
+                                    .toString()),
                           ),
                         ],
                       ),

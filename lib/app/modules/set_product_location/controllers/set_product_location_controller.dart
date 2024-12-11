@@ -83,8 +83,8 @@ class SetProductLocationController extends GetxController {
   clickOnSaveButton() async {
     Map<String, dynamic> data = {
       ApiKeyConstants.productLocation:
-          '${streetNameAndNumberController.text},${cityController.text},${zipCodeController.text},'
-              '${stateController.text},${countryController.text},',
+          '${cityController.text},${zipCodeController.text},'
+              '${countryController.text},',
       ApiKeyConstants.productLat: lat.value,
       ApiKeyConstants.productLon: lon.value,
       ApiKeyConstants.countryCode: countryCode.value,

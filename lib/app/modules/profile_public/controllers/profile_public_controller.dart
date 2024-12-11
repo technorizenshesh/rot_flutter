@@ -11,8 +11,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/apis/api_models/get_my_address_model.dart';
+import '../../../data/apis/api_models/get_product_delivery_model.dart';
 import '../../../data/apis/api_models/get_profile_public_model.dart';
-import '../../../data/apis/api_models/get_profile_public_products_model.dart';
 import '../../../data/constants/string_constants.dart';
 
 class ProfilePublicController extends GetxController
@@ -31,7 +31,8 @@ class ProfilePublicController extends GetxController
   ];
   Map<String, String?> parameters = Get.parameters;
   GetProfilePublicData? getProfilePublicData;
-  List<ProfilePublicProductsData> products = [];
+  // List<ProfilePublicProductsData> products = [];
+  List<GetProductDeliveryData> products = [];
   List<ReviewData> reviewList = [];
   final inAsyncCall = false.obs;
   final likeUnlike = false.obs;
@@ -80,10 +81,10 @@ class ProfilePublicController extends GetxController
     Get.toNamed(Routes.RATE_US, parameters: data);
   }
 
-  clickOnCard({required int index}) {
+  void clickOnCard({required int index}) {
     Map<String, String> parameters = {
-      ApiKeyConstants.productId: products[index].id ?? '',
-      ApiKeyConstants.otherUserId: products[index].userId ?? '',
+      ApiKeyConstants.productId: products[index].productId ?? '',
+      ApiKeyConstants.otherUserId: products[index].productUserId ?? '',
       'userName': getProfilePublicData!.userName ?? '',
       'userImage': getProfilePublicData!.image ?? ''
     };
@@ -103,18 +104,36 @@ class ProfilePublicController extends GetxController
     }
   }
 
+  // Future<void> getPublishedProductApi() async {
+  //   getPublishedProductQueryParams = {
+  //     ApiKeyConstants.userId: otherUserId,
+  //     ApiKeyConstants.status: 'Active'
+  //   };
+  //   print("get published product param:- $getPublishedProductQueryParams");
+  //   ProfilePublicProductsModel? profilePublicProductsModel =
+  //       await ApiMethods.getProductByUserId(
+  //           queryParameters: getPublishedProductQueryParams);
+  //   if (profilePublicProductsModel != null &&
+  //       profilePublicProductsModel.data != null &&
+  //       profilePublicProductsModel.data!.isNotEmpty) {
+  //     products = profilePublicProductsModel.data!;
+  //   }
+  // }
   Future<void> getPublishedProductApi() async {
     getPublishedProductQueryParams = {
-      ApiKeyConstants.userId: otherUserId,
+      // ApiKeyConstants.userId: otherUserId,
+      ApiKeyConstants.productUserId: otherUserId,
+      ApiKeyConstants.status: 'Wind'
     };
     print("get published product param:- $getPublishedProductQueryParams");
-    ProfilePublicProductsModel? profilePublicProductsModel =
-        await ApiMethods.getProductByUserId(
+    GetProductDeliveryModel? getProductDeliveryModel =
+        await ApiMethods.getProductUser(
             queryParameters: getPublishedProductQueryParams);
-    if (profilePublicProductsModel != null &&
-        profilePublicProductsModel.data != null &&
-        profilePublicProductsModel.data!.isNotEmpty) {
-      products = profilePublicProductsModel.data!;
+
+    if (getProductDeliveryModel != null &&
+        getProductDeliveryModel.data != null &&
+        getProductDeliveryModel.data!.isNotEmpty) {
+      products = getProductDeliveryModel.data!;
     }
   }
 

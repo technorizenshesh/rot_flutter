@@ -153,7 +153,7 @@ class DeliveryController extends GetxController {
       Map<String, dynamic> getShippingChargeParameters = {
         ApiKeyConstants.countryCode: userCountryCode.toString(),
         ApiKeyConstants.zipCode: userZipCode.value.toString(),
-        ApiKeyConstants.kg: productDetailsModel.data!.weightDim == 'gm'
+        ApiKeyConstants.kg: productDetailsModel.data!.weightDim == 'gr'
             ? '${(double.parse(productDetailsModel.data!.weight != '' ? productDetailsModel.data!.weight ?? '2000' : '2000')) / 1000}'
             : productDetailsModel.data!.weight ?? '2',
       };

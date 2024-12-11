@@ -7,7 +7,7 @@ import 'package:rot_application/app/data/apis/api_models/get_review_model.dart';
 
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
-import '../../../data/apis/api_models/get_profile_public_products_model.dart';
+import '../../../data/apis/api_models/get_product_delivery_model.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 import '../controllers/profile_public_controller.dart';
@@ -133,7 +133,7 @@ class ProfilePublicView extends GetView<ProfilePublicController> {
                                               ],
                                             ),
                                             subtitle: Text(
-                                              '⭐⭐⭐⭐⭐ 5 (${controller.getProfilePublicData!.reviewCount} reviews)',
+                                              '⭐⭐⭐⭐⭐ ${controller.getProfilePublicData?.avgRating} (${controller.getProfilePublicData!.reviewCount} reviews)',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .titleMedium
@@ -444,7 +444,7 @@ class PublishedView extends GetView<ProfilePublicController> {
         child: controller.products.isNotEmpty
             ? Wrap(
                 children: List.generate(controller.products.length, (index) {
-                  ProfilePublicProductsData item = controller.products[index];
+                  GetProductDeliveryData item = controller.products[index];
                   return SizedBox(
                     width: MediaQuery.of(context).size.width / 2.2,
                     height: 280.px,
@@ -461,8 +461,8 @@ class PublishedView extends GetView<ProfilePublicController> {
                                   borderRadius: BorderRadius.circular(8.px),
                                   child: CommonWidgets.imageView(
                                     height: 170.px,
-                                    image: item.productImage!.isNotEmpty
-                                        ? item.productImage ?? ""
+                                    image: item.image!.isNotEmpty
+                                        ? item.image ?? ""
                                         : '',
                                   ),
                                 ),
@@ -473,14 +473,12 @@ class PublishedView extends GetView<ProfilePublicController> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       CommonWidgets.appIcons(
-                                        assetName: productIconStatus(
-                                            item.availableAt ?? ''),
+                                        assetName: productIconStatus('process'),
                                         width: 40.px,
                                         height: 40.px,
                                       ),
                                       CommonWidgets.appIcons(
-                                        assetName:
-                                            getIcons(item.shipping ?? 'Yes'),
+                                        assetName: getIcons('Yes'),
                                         width: 40.px,
                                         height: 40.px,
                                       ),
@@ -500,7 +498,7 @@ class PublishedView extends GetView<ProfilePublicController> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        '${CommonMethods.cur}${item.price}',
+                                        '${CommonMethods.cur}${item.amount}',
                                         maxLines: 1,
                                         style: Theme.of(context)
                                             .textTheme
@@ -519,7 +517,7 @@ class PublishedView extends GetView<ProfilePublicController> {
                                 ),
                                 SizedBox(height: 5.px),
                                 Text(
-                                  item.title!,
+                                  item.productName ?? '',
                                   maxLines: 1,
                                   style: Theme.of(context)
                                       .textTheme
@@ -536,12 +534,12 @@ class PublishedView extends GetView<ProfilePublicController> {
                                       Theme.of(context).textTheme.titleMedium,
                                 ),
                                 SizedBox(height: 5.px),
-                                Text(
-                                  item.productLocation ?? 'Address',
-                                  maxLines: 1,
-                                  style:
-                                      Theme.of(context).textTheme.titleMedium,
-                                ),
+                                // Text(
+                                //   item.productLocation ?? 'Address',
+                                //   maxLines: 1,
+                                //   style:
+                                //       Theme.of(context).textTheme.titleMedium,
+                                // ),
                               ],
                             ),
                           ],

@@ -15,11 +15,28 @@ class LinkedDevicesView extends GetView<LinkedDevicesController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: CommonWidgets.appBar(title: StringConstants.linkedDevices),
-        body: Obx(() {
-          controller.count.value;
-          return ProgressBar(
+    return Obx(() {
+      controller.count.value;
+      return Scaffold(
+          appBar: CommonWidgets.appBar(title: StringConstants.linkedDevices),
+          bottomNavigationBar: controller.linkedDeviceList.isNotEmpty
+              ? CommonWidgets.commonElevatedButton(
+                  onPressed: () {
+                    controller.clickOnUnlink(-1);
+                  },
+                  childText: Text(
+                    StringConstants.unLinkAllDevices,
+                    style: TextStyle(
+                        fontSize: 16.px,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  buttonMargin:
+                      EdgeInsets.symmetric(horizontal: 10.px, vertical: 5.px))
+              : SizedBox(
+                  height: 1.px,
+                ),
+          body: ProgressBar(
               inAsyncCall: controller.inAsyncCall.value,
               child: ListView(
                 children: [
@@ -91,15 +108,49 @@ class LinkedDevicesView extends GetView<LinkedDevicesController> {
                                         maxLines: 1,
                                       ),
                                       SizedBox(height: 2.px),
-                                      Text(
-                                        timeAgo(item.dateTime.toString()),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium
-                                            ?.copyWith(
-                                              fontSize: 12.px,
-                                            ),
-                                        maxLines: 1,
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            timeAgo(item.dateTime.toString()),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium
+                                                ?.copyWith(
+                                                  fontSize: 12.px,
+                                                ),
+                                            maxLines: 1,
+                                          ),
+                                          if (item.token != null &&
+                                              item.token != '')
+                                            GestureDetector(
+                                              onTap: () {
+                                                controller.clickOnUnlink(index);
+                                              },
+                                              child: Container(
+                                                height: 25.px,
+                                                width: 60.px,
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.px),
+                                                    color: Colors.white,
+                                                    border: Border.all(
+                                                        color: Colors.teal,
+                                                        width: 1.px)),
+                                                child: const Text(
+                                                  StringConstants.unLink,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Colors.teal,
+                                                      fontSize: 14),
+                                                ),
+                                              ),
+                                            )
+                                        ],
                                       ),
                                     ],
                                   ),
@@ -129,8 +180,8 @@ class LinkedDevicesView extends GetView<LinkedDevicesController> {
                     ),
                   ),
                 ],
-              ));
-        }));
+              )));
+    });
   }
 
   String timeAgo(String dateTimeString) {

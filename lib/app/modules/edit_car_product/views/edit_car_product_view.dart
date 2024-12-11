@@ -253,13 +253,14 @@ class EditCarProductView extends GetView<EditCarProductController> {
                     SizedBox(
                       height: 10.px,
                     ),
-                    dropDown(
-                      hintText: controller.color.value,
-                      onChanged: (value) =>
-                          controller.onChangedColorField(value: value),
-                      items: List.generate(controller.colorsList.length,
-                          (index) => controller.colorsList[index]),
-                    ),
+                    if (controller.colorsList.isNotEmpty)
+                      dropDown(
+                        hintText: controller.color.value,
+                        onChanged: (value) =>
+                            controller.onChangedColorField(value: value),
+                        items: List.generate(controller.colorsList.length,
+                            (index) => controller.colorsList[index].name ?? ''),
+                      ),
                     SizedBox(height: 10.px),
                     textFormField(
                       hintText: StringConstants.productsStatus.tr,
@@ -476,7 +477,7 @@ class EditCarProductView extends GetView<EditCarProductController> {
                         if (controller.currencyData.isNotEmpty)
                           Expanded(
                             child: dropDown(
-                              hintText: StringConstants.currency.tr,
+                              hintText: controller.currencyName.value,
                               onChanged: (value) =>
                                   controller.onChangedCurrencyField(
                                       value: value, nameType: true),

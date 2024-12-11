@@ -284,9 +284,10 @@ class EditRealEstateView extends GetView<EditRealEstateController> {
                         if (controller.currencyData.isNotEmpty)
                           Expanded(
                             child: dropDown(
-                              hintText: StringConstants.currency.tr,
-                              onChanged: (value) => controller
-                                  .onChangedCurrencyField(value: value),
+                              hintText: controller.currencyName.value,
+                              onChanged: (value) =>
+                                  controller.onChangedCurrencyField(
+                                      value: value, nameType: true),
                               items: List.generate(
                                   controller.currencyData.length,
                                   (index) => controller

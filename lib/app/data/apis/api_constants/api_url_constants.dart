@@ -17,11 +17,14 @@ class ApiUrlConstants {
   static const String endPointOfGetCategory = '${baseUrl}get_category';
   static const String endPointOfGetWishCategory = '${baseUrl}get_wish_category';
   static const String endPointOfGetBrand = '${baseUrl}get_brand';
+  static const String endPointOfGetMaterialList = '${baseUrl}get_material_list';
   static const String endPointOfGetModelByBrand = '/rot/api/get_model';
   static const String endPointOfGetTypeEngines = '${baseUrl}get_type_engines';
   static const String endPointOfGetServiceType = '${baseUrl}get_services';
   static const String endPointOfGetTransmission = '${baseUrl}get_transmission';
   static const String endPointOfGetCurrency = '${baseUrl}get_currency';
+  static const String endPointOfGetColorExterior =
+      '${baseUrl}get_color_exterior';
   static const String endPointOfGetSubCategory = '/rot/api/get_sub_category';
   static const String endPointOfGetProduct = '/rot/api/get_product';
   static const String endPointOfGetAllProduct = '/rot/api/get_all_product';
@@ -53,6 +56,8 @@ class ApiUrlConstants {
   static const String endPointOfUpdateProfile = '${baseUrl}update_profile';
   static const String endPointOfGetConversation = '${baseUrl}get_conversation';
   static const String endPointOfGetChat = '${baseUrl}get_chat';
+  static const String endPointOfNotificationSeen =
+      '${baseUrl}notification_seen';
   static const String endPointOfInsertChat = '${baseUrl}insert_chat';
   static const String endPointOfSubscriptionPurchase =
       '${baseUrl}subcription_purcharge';
@@ -65,6 +70,8 @@ class ApiUrlConstants {
   static const String endPointOfGetProductDelivery =
       '/rot/api/get_product_delivery';
   static const String endPointOfGetProductUser = '/rot/api/get_product_user';
+  static const String endPointOfGetOrderProductDelivery =
+      '/rot/api/get_order_product_delivery';
   static const String endPointOfGetNotification = '/rot/api/get_notification';
   static const String endPointOfAddReview = '/rot/api/add_review';
   static const String endPointOfGetReview = '/rot/api/get_review';
@@ -135,4 +142,7 @@ class ApiUrlConstants {
 
   static const String endPointOfAcceptRejectOrder =
       '${baseUrl}accept_reject_order';
+  static const String endPointOfLogout = '${baseUrl}logout';
+  static const String endPointOfCheckLogoutToken =
+      '${baseUrl}check_logout_token';
 }

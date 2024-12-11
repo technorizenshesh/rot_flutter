@@ -68,7 +68,7 @@ class ProfileDetailController extends GetxController
   UserData? userData;
 
   Map<String, dynamic> bodyParams = {};
-  List<SellsCountrData> countryList = [];
+  List<SellsCountryData> countryList = [];
 
   @override
   Future<void> onInit() async {
@@ -227,7 +227,28 @@ class ProfileDetailController extends GetxController
     if (sellsCountryModel != null &&
         sellsCountryModel.status == '1' &&
         sellsCountryModel.data != null) {
-      countryList = sellsCountryModel.data!;
+      // countryList = sellsCountryModel.data!;
+      for (int i = 0; i < sellsCountryModel.data!.length; i++) {
+        if (sellsCountryModel.data!.length > 1) {
+          print('index......$i');
+          if (i == 0) {
+            countryList.add(sellsCountryModel.data![0]);
+          } else {
+            for (int j = 0; j < countryList.length; j++) {
+              if (countryList[j].countryCode ==
+                  sellsCountryModel.data![i].countryCode) {
+                break;
+              } else {
+                if (i == countryList.length - 1) {
+                  countryList.add(sellsCountryModel.data![i]);
+                }
+              }
+            }
+          }
+        } else {
+          countryList.add(sellsCountryModel.data![0]);
+        }
+      }
     }
     increment();
   }

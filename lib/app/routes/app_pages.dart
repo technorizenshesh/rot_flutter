@@ -192,6 +192,8 @@ import '../modules/upload_hobbies_leisure/bindings/upload_hobbies_leisure_bindin
 import '../modules/upload_hobbies_leisure/views/upload_hobbies_leisure_view.dart';
 import '../modules/upload_real_estate/bindings/upload_real_estate_binding.dart';
 import '../modules/upload_real_estate/views/upload_real_estate_view.dart';
+import '../modules/video_player/bindings/video_player_binding.dart';
+import '../modules/video_player/views/video_player_view.dart';
 import '../modules/wallet/bindings/wallet_binding.dart';
 import '../modules/wallet/views/wallet_view.dart';
 import '../modules/wish/bindings/wish_binding.dart';
@@ -701,6 +703,11 @@ class AppPages {
       name: _Paths.EDIT_HOBBIES,
       page: () => const EditHobbiesView(),
       binding: EditHobbiesBinding(),
+    ),
+    GetPage(
+      name: _Paths.VIDEO_PLAYER,
+      page: () => const VideoPlayerView(),
+      binding: VideoPlayerBinding(),
     ),
   ];
 }

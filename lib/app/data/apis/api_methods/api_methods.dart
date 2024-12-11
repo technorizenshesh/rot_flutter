@@ -9,11 +9,13 @@ import 'package:rot_application/app/data/apis/api_models/get_brand_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_card_list_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_chat_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_collaborators_invited_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_color_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_conversation_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_engine_type_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_friends_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_help_center_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_like_users_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_material_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_model_by_brand_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_my_address_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_my_purchase_subscription_model.dart';
@@ -50,7 +52,9 @@ import '../api_models/get_exist_email_phone_model.dart';
 import '../api_models/get_favorite_product_model.dart';
 import '../api_models/get_hash_tag_model.dart';
 import '../api_models/get_linked_device_model.dart';
+import '../api_models/get_logout_token_model.dart';
 import '../api_models/get_notification_setting_model.dart';
+import '../api_models/get_order_product_delivery_model.dart';
 import '../api_models/get_product_details_model.dart';
 import '../api_models/get_product_model.dart';
 import '../api_models/get_product_status_model.dart';
@@ -263,6 +267,22 @@ class ApiMethods {
     return null;
   }
 
+  /// Get Material list .....
+  static Future<MaterialModel?> getMaterialList({
+    void Function(int)? checkResponse,
+  }) async {
+    MaterialModel? materialModel;
+    http.Response? response = await MyHttp.getMethod(
+      url: ApiUrlConstants.endPointOfGetMaterialList,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      materialModel = MaterialModel.fromJson(jsonDecode(response.body));
+      return materialModel;
+    }
+    return null;
+  }
+
   /// Get Model by Brand id list .....
   static Future<GetModelByBrandModel?> getModelByBrandIdList({
     void Function(int)? checkResponse,
@@ -344,6 +364,22 @@ class ApiMethods {
     );
     if (response != null) {
       getCurrencyModel = GetCurrencyModel.fromJson(jsonDecode(response.body));
+      return getCurrencyModel;
+    }
+    return null;
+  }
+
+  /// Get color api
+  static Future<ColorModel?> getColorApi({
+    void Function(int)? checkResponse,
+  }) async {
+    ColorModel? getCurrencyModel;
+    http.Response? response = await MyHttp.getMethod(
+      url: ApiUrlConstants.endPointOfGetColorExterior,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getCurrencyModel = ColorModel.fromJson(jsonDecode(response.body));
       return getCurrencyModel;
     }
     return null;
@@ -757,19 +793,43 @@ class ApiMethods {
     return null;
   }
 
-  static Future<http.Response?> insertChat({
+  static Future<http.Response?> insertChat(
+      {void Function(int)? checkResponse,
+      Map<String, dynamic>? bodyParams,
+      required File? imageFile}) async {
+    // http.Response? response = await MyHttp.postMethod(
+    //   bodyParams: bodyParams,
+    //   url: ApiUrlConstants.endPointOfInsertChat,
+    //   checkResponse: checkResponse,
+    // );
+    http.Response? response = await MyHttp.multipart(
+      url: ApiUrlConstants.endPointOfInsertChat,
+      image: imageFile,
+      imageKey: 'chat_image',
+      checkResponse: checkResponse,
+      bodyParams: bodyParams,
+    );
+    if (response != null) {
+      return response;
+    }
+    return null;
+  }
+
+  /// Seen All notifications.....
+  static Future<SimpleResponseModel?> seeAllNotificationApi({
     void Function(int)? checkResponse,
     Map<String, dynamic>? bodyParams,
   }) async {
-    //UserModel? userModel;
+    SimpleResponseModel? simpleResponseModel;
     http.Response? response = await MyHttp.postMethod(
       bodyParams: bodyParams,
-      url: ApiUrlConstants.endPointOfInsertChat,
+      url: ApiUrlConstants.endPointOfNotificationSeen,
       checkResponse: checkResponse,
     );
     if (response != null) {
-      //userModel = UserModel.fromJson(jsonDecode(response.body));
-      return response;
+      simpleResponseModel =
+          SimpleResponseModel.fromJson(jsonDecode(response.body));
+      return simpleResponseModel;
     }
     return null;
   }
@@ -901,6 +961,27 @@ class ApiMethods {
       getProductDeliveryModel =
           GetProductDeliveryModel.fromJson(jsonDecode(response.body));
       return getProductDeliveryModel;
+    }
+    return null;
+  }
+
+  /// Get Order product Delivery
+  static Future<OrderProductDeliveryModel?> getOrderProductDelivery({
+    required Map<String, dynamic> queryParameters,
+    void Function(int)? checkResponse,
+  }) async {
+    OrderProductDeliveryModel? orderProductDeliveryModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetOrderProductDelivery,
+      checkResponse: checkResponse,
+    );
+
+    if (response != null) {
+      orderProductDeliveryModel =
+          OrderProductDeliveryModel.fromJson(jsonDecode(response.body));
+      return orderProductDeliveryModel;
     }
     return null;
   }
@@ -1728,6 +1809,42 @@ class ApiMethods {
       simpleResponseModel =
           SimpleResponseModel.fromJson(jsonDecode(response.body));
       return simpleResponseModel;
+    }
+    return null;
+  }
+
+  /// Logout api  .....
+  static Future<LogoutTokenModel?> logoutApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    LogoutTokenModel? logoutTokenModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfLogout,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      logoutTokenModel = LogoutTokenModel.fromJson(jsonDecode(response.body));
+      return logoutTokenModel;
+    }
+    return null;
+  }
+
+  /// CheckTokenExpirationApi  .....
+  static Future<LogoutTokenModel?> checkTokenExpirationApi({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> bodyParams,
+  }) async {
+    LogoutTokenModel? logoutTokenModel;
+    http.Response? response = await MyHttp.postMethod(
+        bodyParams: bodyParams,
+        url: ApiUrlConstants.endPointOfCheckLogoutToken,
+        checkResponse: checkResponse,
+        wantSnackBar: false);
+    if (response != null) {
+      logoutTokenModel = LogoutTokenModel.fromJson(jsonDecode(response.body));
+      return logoutTokenModel;
     }
     return null;
   }

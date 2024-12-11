@@ -1,15 +1,15 @@
-class SellsCountryModel {
-  List<SellsCountryData>? data;
+class OrderProductDeliveryModel {
+  List<OrderProductDeliveryData>? data;
   String? message;
   String? status;
 
-  SellsCountryModel({this.data, this.message, this.status});
+  OrderProductDeliveryModel({this.data, this.message, this.status});
 
-  SellsCountryModel.fromJson(Map<String, dynamic> json) {
+  OrderProductDeliveryModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <SellsCountryData>[];
+      data = <OrderProductDeliveryData>[];
       json['data'].forEach((v) {
-        data!.add(SellsCountryData.fromJson(v));
+        data!.add(OrderProductDeliveryData.fromJson(v));
       });
     }
     message = json['message'];
@@ -27,7 +27,7 @@ class SellsCountryModel {
   }
 }
 
-class SellsCountryData {
+class OrderProductDeliveryData {
   String? id;
   String? productId;
   String? userId;
@@ -42,10 +42,10 @@ class SellsCountryData {
   String? walletId;
   String? returnStatus;
   String? returnDateTime;
-  String? countryCode;
+  String? productName;
   String? image;
 
-  SellsCountryData(
+  OrderProductDeliveryData(
       {this.id,
       this.productId,
       this.userId,
@@ -60,10 +60,10 @@ class SellsCountryData {
       this.walletId,
       this.returnStatus,
       this.returnDateTime,
-      this.countryCode,
+      this.productName,
       this.image});
 
-  SellsCountryData.fromJson(Map<String, dynamic> json) {
+  OrderProductDeliveryData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     productId = json['product_id'];
     userId = json['user_id'];
@@ -78,7 +78,7 @@ class SellsCountryData {
     walletId = json['wallet_id'];
     returnStatus = json['return_status'];
     returnDateTime = json['return_date_time'];
-    countryCode = json['country_code'];
+    productName = json['product_name'];
     image = json['image'];
   }
 
@@ -98,7 +98,7 @@ class SellsCountryData {
     data['wallet_id'] = walletId;
     data['return_status'] = returnStatus;
     data['return_date_time'] = returnDateTime;
-    data['country_code'] = countryCode;
+    data['product_name'] = productName;
     data['image'] = image;
     return data;
   }

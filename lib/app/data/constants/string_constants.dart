@@ -553,4 +553,13 @@ class StringConstants {
   static const String thisScreenIsNotAllowedByTheSeller =
       'This screen is not allowed by the seller';
   static const String reject = 'Reject';
+  static const String relist = 'Relist';
+  static const String link = 'Link';
+  static const String unLink = 'Unlink';
+  static const String unLinkAllDevices = 'Unlink all devices';
+  static const String doYouWantToUnlinkThisDevice =
+      'Do you want to unlink this device ?';
+
+  static const String doYouWantToRelistProduct =
+      'Do you want to relist product ?';
 }

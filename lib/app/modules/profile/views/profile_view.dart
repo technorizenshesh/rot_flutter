@@ -110,7 +110,7 @@ class ProfileView extends GetView<ProfileController> {
                                     ),
                                     SizedBox(height: 4.px),
                                     Text(
-                                      "⭐ ${controller.userData!.reviewCount ?? ''}",
+                                      "⭐ ${controller.userData!.avgRating ?? '0'} (${controller.userData?.reviewCount ?? '0'} reviews)",
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleSmall

@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "576043335304",
     "project_id": "rotnew-7b60c",
-    "storage_bucket": "rotnew-7b60c.appspot.com"
+    "storage_bucket": "rotnew-7b60c.firebasestorage.app"
   },
   "client": [
     {
@@ -37,6 +37,13 @@
             {
               "client_id": "576043335304-04a3d1esf1skt8jb8p53vjiebk2qh5fd.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "576043335304-d7kt759j8ai43ugtv8ahac28cl7j5ikj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.rotApplication"
+              }
             }
           ]
         }

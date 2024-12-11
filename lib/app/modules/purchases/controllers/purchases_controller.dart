@@ -9,6 +9,7 @@ import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/apis/api_models/get_simple_model.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
+import '../../../routes/app_pages.dart';
 
 class PurchasesController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -54,35 +55,31 @@ class PurchasesController extends GetxController
     DateTime currentDate = DateTime.now();
 
     Duration difference = currentDate.difference(parsedGivenDate);
-    return difference.inDays.abs() < 5;
+    return difference.inDays.abs() < 2;
   }
 
   void changeShowLoading(bool value) {
     showLoading.value = value;
   }
 
-  void clickOnIReceived(int index) {
+  void clickOnIReceived(int index, String type) {
     CommonWidgets.showAlertDialog(
       title: 'Order Received',
       content: 'Are you sure you received order ?',
       onPressedYes: () {
         Get.back();
-        callAcceptReceivedOrderApi(
-          index,
-        );
+        callAcceptReceivedOrderApi(index, type);
       },
     );
   }
 
-  void clickOnCancel(int index) {
+  void clickOnCancel(int index, String type) {
     CommonWidgets.showAlertDialog(
       title: 'Order Cancel',
       content: 'Are you sure you want to cancel order?',
       onPressedYes: () {
         Get.back();
-        callAcceptReceivedOrderApi(
-          index,
-        );
+        callAcceptReceivedOrderApi(index, type);
       },
     );
   }
@@ -100,12 +97,26 @@ class PurchasesController extends GetxController
     );
   }
 
-  Future<void> callAcceptReceivedOrderApi(int index) async {
+  void clickOnFeedback(int index) {
+    Map<String, String> detailForChat = {
+      'userName': completeDeliveryList[index].userName ?? '',
+      'userImage': completeDeliveryList[index].image ?? '',
+      'userAmount': completeDeliveryList[index].amount ?? '',
+      'otherUserId': completeDeliveryList[index].productUserId ?? '',
+      'userId': userId,
+      'request_id': completeDeliveryList[index].productId ?? '',
+      'product_status':
+          completeDeliveryList[index].productUserId == userId ? 'Yes' : 'No',
+    };
+    Get.toNamed(Routes.CHAT_DETAIL, parameters: detailForChat);
+  }
+
+  Future<void> callAcceptReceivedOrderApi(int index, String type) async {
     Map<String, dynamic> getQueryParameters = {
       ApiKeyConstants.userId: userId,
       ApiKeyConstants.productId: pendingDeliveryList[index].productId,
       ApiKeyConstants.orderId: pendingDeliveryList[index].id,
-      ApiKeyConstants.type: 'Cancel'
+      ApiKeyConstants.type: type //index==0?'Cancel':'Complete'
     };
     SimpleResponseModel? simpleResponseModel =
         await ApiMethods.acceptRejectApi(bodyParams: getQueryParameters);

@@ -7,6 +7,7 @@ import '../../../../common/common_widgets.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/apis/api_models/get_brand_model.dart';
+import '../../../data/apis/api_models/get_color_model.dart';
 import '../../../data/apis/api_models/get_currency_model.dart';
 import '../../../data/apis/api_models/get_engine_type_model.dart';
 import '../../../data/apis/api_models/get_model_by_brand_model.dart';
@@ -52,6 +53,7 @@ class EditCarProductController extends GetxController {
   final modelId = ''.obs;
   final transmissionId = ''.obs;
   final currencyId = ''.obs;
+  final currencyName = ''.obs;
   final currencySymbol = '\$'.obs;
   final engineTypeId = ''.obs;
   final registrationYear = ''.obs;
@@ -68,7 +70,7 @@ class EditCarProductController extends GetxController {
   final lengthDim = 'cm'.obs;
   final widthDim = 'cm'.obs;
   final heightDim = 'cm'.obs;
-  final weightDim = 'gm'.obs;
+  final weightDim = 'gr'.obs;
   final categoryId = ''.obs;
   Map<String, String?> parameters = Get.parameters;
   // GetStateModel? getStateModel;
@@ -99,37 +101,13 @@ class EditCarProductController extends GetxController {
     '2023',
     '2024'
   ];
-  List<String> colorsList = [
-    'Gray',
-    'Green',
-    'Green',
-    'Blue',
-    'Orange',
-    'Brodgar Silver',
-    'Sepia Metallic',
-    'Yellow',
-    'Black Matte',
-    'Gold Mercury',
-    'Polymimetic Gray',
-    'Cyber Yellow',
-    'Sarigan Quartz',
-    'La Rose Noire',
-    'Black',
-    'Stardust Blue',
-    'Ultra Red',
-    'XP Green',
-    'Notte Black',
-    'Verde Royale',
-    'Bikini',
-    'Sunbeam Orange',
-    'Gotham Gray'
-  ];
+  List<ColorData> colorsList = [];
 
   GetCurrencyModel? getCurrencyModel;
 
   List<CurrencyData> currencyData = [];
   List<String> volumeDimensionList = ['cm', 'inch', 'foot'];
-  List<String> weightDimensionList = ['gm', 'kg', 'tonne'];
+  List<String> weightDimensionList = ['gr', 'kg', 'ton'];
 
   GetProductDetailsModel getProductDetailsModel = Get.arguments;
 
@@ -186,6 +164,7 @@ class EditCarProductController extends GetxController {
     lat.value = getProductDetailsModel.data!.productLat.toString();
     lon.value = getProductDetailsModel.data!.productLon.toString();
     priceController.text = getProductDetailsModel.data!.price.toString();
+    //  onChangedColorField(value: getProductDetailsModel.data!.color.toString());
     onChangedCurrencyField(
         value: getProductDetailsModel.data!.currenyId.toString());
     onChangedBrandField(value: getProductDetailsModel.data!.brandId.toString());
@@ -195,6 +174,7 @@ class EditCarProductController extends GetxController {
       onChangedTransmissionField(
           value: getProductDetailsModel.data!.transmission.toString());
     }
+    increment();
   }
 
   onChangeDimensions(int index, String value) {
@@ -266,6 +246,7 @@ class EditCarProductController extends GetxController {
     SharedPreferences sp = await SharedPreferences.getInstance();
     userId = sp.getString(ApiKeyConstants.userId) ?? '';
     await getBrandApi();
+    await getColorApi();
     await getCurrencyApi();
     if (parameters[ApiKeyConstants.categoryId] == '1' ||
         parameters[ApiKeyConstants.categoryId] == '2') {
@@ -281,6 +262,15 @@ class EditCarProductController extends GetxController {
         getCurrencyModel?.data != null &&
         getCurrencyModel!.data!.isNotEmpty) {
       currencyData = getCurrencyModel!.data ?? [];
+    }
+  }
+
+  Future<void> getColorApi() async {
+    ColorModel? colorModel = await ApiMethods.getColorApi();
+    if (colorModel != null &&
+        colorModel.data != null &&
+        colorModel.data!.isNotEmpty) {
+      colorsList = colorModel.data!;
     }
   }
 
@@ -339,7 +329,11 @@ class EditCarProductController extends GetxController {
   }
 
   onChangedColorField({String? value}) {
-    color.value = value ?? '';
+    colorsList.forEach((element) {
+      if (element.name == value) {
+        color.value = value ?? '';
+      }
+    });
     increment();
   }
 
@@ -397,12 +391,14 @@ class EditCarProductController extends GetxController {
       if (nameType) {
         if (element.currencyName.toString() == value) {
           currencyId.value = element.id ?? '';
+          currencyName.value = element.currencyName ?? '';
           currencySymbol.value = element.currencySymbols ?? '';
           increment();
         }
       } else {
         if (element.id.toString() == value) {
           currencyId.value = element.id ?? '';
+          currencyName.value = element.currencyName ?? '';
           currencySymbol.value = element.currencySymbols ?? '';
           increment();
         }

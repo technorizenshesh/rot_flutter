@@ -2,8 +2,10 @@ class NotificationModel {
   List<NotificationData>? data;
   String? message;
   String? status;
+  int? notificationCount;
 
-  NotificationModel({this.data, this.message, this.status});
+  NotificationModel(
+      {this.data, this.message, this.status, this.notificationCount});
 
   NotificationModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
@@ -14,6 +16,7 @@ class NotificationModel {
     }
     message = json['message'];
     status = json['status'];
+    notificationCount = json['notification_count'];
   }
 
   Map<String, dynamic> toJson() {
@@ -23,6 +26,7 @@ class NotificationModel {
     }
     data['message'] = message;
     data['status'] = status;
+    data['notification_count'] = notificationCount;
     return data;
   }
 }

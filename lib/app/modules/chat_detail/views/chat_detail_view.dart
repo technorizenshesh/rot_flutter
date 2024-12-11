@@ -15,278 +15,329 @@ class ChatDetailView extends GetView<ChatDetailController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-          height: 80,
-          padding: EdgeInsets.all(10.px),
-          child: Obx(() {
-            controller.textMessageLoading.value;
-            return controller.textMessageLoading.value
-                ? Container(
-                    height: 50,
-                    alignment: Alignment.bottomCenter,
-                    child: const CircularProgressIndicator(),
-                  )
-                : TextField(
-                    controller: controller.messageController,
-                    maxLines: 1,
-                    style: Theme.of(Get.context!)
-                        .textTheme
-                        .headlineMedium
-                        ?.copyWith(fontSize: 14.px),
-                    decoration: InputDecoration(
-                      suffixIcon: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              if (controller
-                                  .messageController.text.isNotEmpty) {
-                                controller.textMessageLoading.value = true;
-                                controller.insertChatApi(
-                                    controller.messageController.text);
-                              } else {
-                                CommonWidgets.showMyToastMessage(
-                                    'Please enter message');
-                              }
-                            },
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 8.px, vertical: 2.px),
-                              child: CommonWidgets.appIcons(
-                                assetName: IconConstants.icSend,
-                                height: 50.px,
-                                width: 50.px,
-                                borderRadius: 0.px,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      prefixIcon: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          GestureDetector(
-                            onTap: () {},
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 8.px, vertical: 2.px),
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.attach_file_rounded,
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .displayMedium
-                                      ?.color,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      fillColor: Theme.of(context)
-                          .colorScheme
-                          .onSecondary
-                          .withOpacity(.1.px),
-                      filled: true,
-                      disabledBorder: InputBorder.none,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(24.px),
-                          borderSide: BorderSide.none),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(24.px),
-                          borderSide: BorderSide.none),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(24.px),
-                          borderSide: BorderSide.none),
-                      hintText: StringConstants.typeHere.tr,
-                      hintStyle: Theme.of(Get.context!).textTheme.titleMedium,
-                    ),
-                  );
-          })),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(children: [
-          SizedBox(height: 60.px),
-          Card(
-            elevation: .2.px,
-            child: ListTile(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.px)),
-              leading: GestureDetector(
-                onTap: () {
-                  Get.back();
-                },
-                child: CommonWidgets.appIcons(
-                  assetName: IconConstants.icBack,
-                  height: 34.px,
-                  width: 34.px,
-                  borderRadius: 0.px,
-                ),
-              ),
-              title: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CommonWidgets.imageView(
-                    image: controller.userImage,
-                    height: 40.px,
-                    width: 40.px,
-                    radius: 20.px,
-                  ),
-                  SizedBox(width: 8.px),
-                  Expanded(
-                    child: Column(
+    return Obx(() {
+      controller.count.value;
+      return Scaffold(
+        resizeToAvoidBottomInset: true,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Container(
+            height: controller.selectedFile != null ? 170.px : 85.px,
+            // constraints: BoxConstraints(minHeight: 85.px, maxHeight: 170.px),
+            padding: EdgeInsets.all(10.px),
+            alignment: Alignment.bottomCenter,
+            child: Obx(() {
+              controller.textMessageLoading.value;
+              return controller.textMessageLoading.value
+                  ? Container(
+                      height: 50,
+                      alignment: Alignment.bottomCenter,
+                      child: const CircularProgressIndicator(),
+                    )
+                  : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          '${CommonMethods.cur} ${controller.userAmount}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium
-                              ?.copyWith(fontSize: 20.px),
-                        ),
-                        Text(
-                          controller.userName,
-                          maxLines: 2,
-                          style:
-                              Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    fontSize: 14.px,
+                        if (controller.selectedFile != null)
+                          Stack(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(10.px),
+                                child: Image.file(
+                                  controller.selectedFile!,
+                                  height: 80.px,
+                                  fit: BoxFit.fill,
+                                  width: 80.px,
+                                ),
+                              ),
+                              Positioned(
+                                top: 5.px,
+                                right: 5.px,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    controller.selectedFile = null;
+                                    controller.increment();
+                                  },
+                                  child: Icon(
+                                    Icons.close,
+                                    size: 20.px,
+                                    color: Colors.redAccent,
                                   ),
+                                ),
+                              )
+                            ],
+                          ),
+                        TextField(
+                          controller: controller.messageController,
+                          focusNode: controller.focusNode,
+                          maxLines: 1,
+                          style: Theme.of(Get.context!)
+                              .textTheme
+                              .headlineMedium
+                              ?.copyWith(fontSize: 14.px),
+                          decoration: InputDecoration(
+                            suffixIcon: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    if (controller
+                                        .messageController.text.isNotEmpty) {
+                                      controller.textMessageLoading.value =
+                                          true;
+                                      controller.insertChatApi(
+                                          controller.messageController.text);
+                                    } else {
+                                      CommonWidgets.showMyToastMessage(
+                                          'Please enter message');
+                                    }
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 8.px, vertical: 2.px),
+                                    child: CommonWidgets.appIcons(
+                                      assetName: IconConstants.icSend,
+                                      height: 50.px,
+                                      width: 50.px,
+                                      borderRadius: 0.px,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            prefixIcon: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    controller.getImage();
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 8.px, vertical: 2.px),
+                                    child: Icon(
+                                      Icons.attach_file_rounded,
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium
+                                          ?.color,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            fillColor: Theme.of(context)
+                                .colorScheme
+                                .onSecondary
+                                .withOpacity(.1.px),
+                            filled: true,
+                            disabledBorder: InputBorder.none,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24.px),
+                                borderSide: BorderSide.none),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24.px),
+                                borderSide: BorderSide.none),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24.px),
+                                borderSide: BorderSide.none),
+                            hintText: StringConstants.typeHere.tr,
+                            hintStyle:
+                                Theme.of(Get.context!).textTheme.titleMedium,
+                          ),
                         ),
                       ],
-                    ),
+                    );
+            })),
+        body: SingleChildScrollView(
+          controller: controller.scrollController,
+          scrollDirection: Axis.vertical,
+          child: Column(children: [
+            SizedBox(height: 60.px),
+            Card(
+              elevation: .2.px,
+              child: ListTile(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.px)),
+                leading: GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: CommonWidgets.appIcons(
+                    assetName: IconConstants.icBack,
+                    height: 34.px,
+                    width: 34.px,
+                    borderRadius: 0.px,
                   ),
-                ],
-              ),
-              trailing: Icon(
-                Icons.more_vert_rounded,
-                color: Theme.of(context).primaryColor,
+                ),
+                title: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CommonWidgets.imageView(
+                      image: controller.userImage,
+                      height: 40.px,
+                      width: 40.px,
+                      radius: 20.px,
+                    ),
+                    SizedBox(width: 8.px),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${CommonMethods.cur} ${controller.userAmount}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(fontSize: 20.px),
+                          ),
+                          Text(
+                            controller.userName,
+                            maxLines: 2,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                  fontSize: 14.px,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                trailing: Icon(
+                  Icons.more_vert_rounded,
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
             ),
-          ),
-          SizedBox(height: 20.px),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.px),
-            child: Column(
-              children: [
-                if (controller.productStatus == 'Yes')
-                  Row(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.px),
-                          border: Border.all(
-                            color: Theme.of(context).primaryColor,
-                            width: 2.px,
-                          ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(10.px),
-                          child: Row(mainAxisSize: MainAxisSize.min, children: [
-                            CommonWidgets.appIcons(
-                              assetName: IconConstants.icGetPaidInPerson,
-                              height: 16.px,
-                              width: 16.px,
-                              borderRadius: 0.px,
+            SizedBox(height: 20.px),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.px),
+              child: Column(
+                children: [
+                  if (controller.productStatus == 'Yes')
+                    Row(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.px),
+                            border: Border.all(
+                              color: Theme.of(context).primaryColor,
+                              width: 2.px,
                             ),
-                            SizedBox(width: 10.px),
-                            Text(
-                              StringConstants.getPaid.tr,
-                              maxLines: 2,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayMedium
-                                  ?.copyWith(fontSize: 14.px),
-                            ),
-                          ]),
-                        ),
-                      ),
-                      SizedBox(width: 10.px),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.px),
-                          border: Border.all(
-                            color: Theme.of(context).primaryColor,
-                            width: 2.px,
                           ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(10.px),
-                          child: Row(mainAxisSize: MainAxisSize.min, children: [
-                            GestureDetector(
-                              onTap: () {
-                                controller.clickOnEditPrice();
-                              },
-                              child: CommonWidgets.appIcons(
-                                assetName: IconConstants.icEditPrice,
+                          child: Padding(
+                            padding: EdgeInsets.all(10.px),
+                            child:
+                                Row(mainAxisSize: MainAxisSize.min, children: [
+                              CommonWidgets.appIcons(
+                                assetName: IconConstants.icGetPaidInPerson,
                                 height: 16.px,
                                 width: 16.px,
                                 borderRadius: 0.px,
                               ),
-                            ),
-                            SizedBox(width: 10.px),
-                            Text(
-                              StringConstants.editPrice.tr,
-                              maxLines: 2,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayMedium
-                                  ?.copyWith(fontSize: 14.px),
-                            ),
-                          ]),
-                        ),
-                      ),
-                    ],
-                  ),
-                if (controller.productStatus == 'Yes') SizedBox(height: 20.px),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.px),
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSecondary
-                        .withOpacity(.1.px),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(14.px),
-                    child: Row(mainAxisSize: MainAxisSize.min, children: [
-                      CommonWidgets.appIcons(
-                        assetName: IconConstants.icSecurityReasons,
-                        height: 16.px,
-                        width: 16.px,
-                        borderRadius: 0.px,
-                      ),
-                      SizedBox(width: 14.px),
-                      Text(
-                        StringConstants.forSecurity.tr,
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(
-                                fontSize: 14.px,
-                                color: Theme.of(context)
+                              SizedBox(width: 10.px),
+                              Text(
+                                StringConstants.getPaid.tr,
+                                maxLines: 2,
+                                style: Theme.of(context)
                                     .textTheme
                                     .displayMedium
-                                    ?.color),
-                      ),
-                    ]),
+                                    ?.copyWith(fontSize: 14.px),
+                              ),
+                            ]),
+                          ),
+                        ),
+                        SizedBox(width: 10.px),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.px),
+                            border: Border.all(
+                              color: Theme.of(context).primaryColor,
+                              width: 2.px,
+                            ),
+                          ),
+                          child: GestureDetector(
+                            onTap: () {
+                              controller.clickOnEditPrice();
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.all(10.px),
+                              child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    CommonWidgets.appIcons(
+                                      assetName: IconConstants.icEditPrice,
+                                      height: 16.px,
+                                      width: 16.px,
+                                      borderRadius: 0.px,
+                                    ),
+                                    SizedBox(width: 10.px),
+                                    Text(
+                                      StringConstants.editPrice.tr,
+                                      maxLines: 2,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium
+                                          ?.copyWith(fontSize: 14.px),
+                                    ),
+                                  ]),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  if (controller.productStatus == 'Yes')
+                    SizedBox(height: 20.px),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.px),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSecondary
+                          .withOpacity(.1.px),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(14.px),
+                      child: Row(mainAxisSize: MainAxisSize.min, children: [
+                        CommonWidgets.appIcons(
+                          assetName: IconConstants.icSecurityReasons,
+                          height: 16.px,
+                          width: 16.px,
+                          borderRadius: 0.px,
+                        ),
+                        SizedBox(width: 14.px),
+                        Text(
+                          StringConstants.forSecurity.tr,
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(
+                                  fontSize: 14.px,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.color),
+                        ),
+                      ]),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          SingleChildScrollView(child: Obx(() {
-            controller.count.value;
-            return showChat();
-          }))
-        ]),
-      ),
-    );
+            Obx(() {
+              controller.count.value;
+              return showChat();
+            }),
+            SizedBox(
+              height: 400.px,
+            )
+          ]),
+        ),
+      );
+    });
   }
 
   Widget showChat() {
@@ -318,6 +369,16 @@ class ChatDetailView extends GetView<ChatDetailController> {
                         ? CrossAxisAlignment.start
                         : CrossAxisAlignment.start,
                     children: [
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      if (item.chatImage != null &&
+                          item.chatImage !=
+                              'https://recyclingofthings.com/rot/public/uploads/users/')
+                        CommonWidgets.imageView(
+                            image: item.chatImage ?? '',
+                            width: 80.px,
+                            height: 80.px),
                       Text(
                         item.chatMessage ?? '',
                         style: const TextStyle(color: Colors.black),

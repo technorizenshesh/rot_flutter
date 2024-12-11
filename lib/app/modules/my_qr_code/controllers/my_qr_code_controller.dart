@@ -1,22 +1,26 @@
+import 'dart:async';
 import 'dart:io';
-import 'dart:math';
-import 'dart:typed_data';
+import 'dart:ui' as ui;
 
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rot_application/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:share_plus/share_plus.dart';
+
+import '../../../data/constants/icons_constant.dart';
 
 class MyQrCodeController extends GetxController {
   DateTime startRangDate = DateTime.now();
   DateTime? endRangeDate = DateTime.now();
   List<DateTime?> datesList = [];
-  final chars =
-      'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-  Random rnd = Random();
+  // final chars =
+  //     'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+  // Random rnd = Random();
   final count = 0.obs;
   final qrNumber = ''.obs;
   Uint8List? qrCodeBytes;
@@ -24,7 +28,8 @@ class MyQrCodeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    qrNumber.value = getRandomString(15);
+    qrNumber.value =
+        parameters[ApiKeyConstants.userId] ?? '0'; //getRandomString(15);
     print('Qr Number:- ${qrNumber.value}');
   }
 
@@ -40,13 +45,14 @@ class MyQrCodeController extends GetxController {
 
   void increment() => count.value++;
 
-  changeStartLastDate(DateTime start, DateTime? last) {
-    startRangDate = start;
-    endRangeDate = last;
+  Future<ui.Image> loadOverlayImage() async {
+    final Completer<ui.Image> completer = Completer<ui.Image>();
+    final ByteData byteData = await rootBundle.load(
+      IconConstants.icMyRrCode,
+    );
+    ui.decodeImageFromList(byteData.buffer.asUint8List(), completer.complete);
+    return completer.future;
   }
-
-  String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
-      length, (_) => chars.codeUnitAt(rnd.nextInt(chars.length))));
 
   clickOnShareButton() {
     generateQrCode();

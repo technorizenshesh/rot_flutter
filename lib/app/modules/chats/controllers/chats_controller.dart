@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rot_application/app/data/apis/api_models/get_notification_model.dart';
+import 'package:rot_application/app/data/apis/api_models/get_simple_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/check_permission.dart';
@@ -15,7 +16,10 @@ import '../../../routes/app_pages.dart';
 class ChatsController extends GetxController
     with GetSingleTickerProviderStateMixin {
   final count = 0.obs;
-  late TabController tabController;
+  final totalChatCount = 0.obs;
+  final tabIndex = 0.obs;
+  final totalNotificationCount = 0.obs;
+//  late TabController tabController;
   final tabs = [
     Tab(text: StringConstants.message.tr),
     Tab(text: StringConstants.notification.tr),
@@ -27,7 +31,7 @@ class ChatsController extends GetxController
 
   @override
   void onInit() async {
-    tabController = TabController(length: 2, vsync: this);
+    // tabController = TabController(length: 2, vsync: this);
     super.onInit();
     inAsyncCall.value = true;
     SharedPreferences sp = await SharedPreferences.getInstance();
@@ -44,7 +48,7 @@ class ChatsController extends GetxController
 
   @override
   void onClose() {
-    tabController.dispose();
+    // tabController.dispose();
     super.onClose();
   }
 
@@ -65,7 +69,7 @@ class ChatsController extends GetxController
     }
   }
 
-  clickOnMessageTile(int index) {
+  clickOnMessageTile(int index) async {
     Map<String, String> detailForChat = {
       'userName': getConversationList[index].userName ?? '',
       'userImage': getConversationList[index].productImage ?? '',
@@ -75,10 +79,17 @@ class ChatsController extends GetxController
       'request_id': getConversationList[index].productId ?? '',
       'product_status': getConversationList[index].productStatus ?? 'No',
     };
-    Get.toNamed(Routes.CHAT_DETAIL, parameters: detailForChat);
+    await Get.toNamed(Routes.CHAT_DETAIL, parameters: detailForChat);
+    if (getConversationList[index].noOfMessage != 0) {
+      inAsyncCall.value = true;
+      await getConversationListApi();
+      inAsyncCall.value = false;
+      increment();
+    }
   }
 
   Future<void> getConversationListApi() async {
+    getConversationList.clear();
     Map<String, dynamic> getChatParameters = {
       ApiKeyConstants.receiverId: userId
     };
@@ -88,6 +99,12 @@ class ChatsController extends GetxController
         getConversationModel.result != null &&
         getConversationModel.result!.isNotEmpty) {
       getConversationList = getConversationModel.result!;
+      for (int i = 0; i < getConversationList.length; i++) {
+        if (getConversationList[i].noOfMessage != 0) {
+          totalChatCount.value =
+              totalChatCount.value + (getConversationList[i].noOfMessage ?? 1);
+        }
+      }
     }
   }
 
@@ -99,6 +116,19 @@ class ChatsController extends GetxController
         notificationModel.data != null &&
         notificationModel.data!.isNotEmpty) {
       notificationList = notificationModel.data!;
+      totalNotificationCount.value = notificationModel.notificationCount ?? 0;
+    }
+  }
+
+  Future<void> callingSeeAllNotificationApi() async {
+    getConversationList.clear();
+    Map<String, dynamic> getChatParameters = {ApiKeyConstants.userId: userId};
+    SimpleResponseModel? simpleResponseModel =
+        await ApiMethods.seeAllNotificationApi(bodyParams: getChatParameters);
+    if (simpleResponseModel != null && simpleResponseModel.status != 1) {
+      print('Success.....');
+    } else {
+      print('Failed.....');
     }
   }
 }

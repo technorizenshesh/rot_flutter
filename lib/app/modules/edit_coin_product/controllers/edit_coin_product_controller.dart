@@ -7,6 +7,7 @@ import '../../../../common/common_widgets.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/apis/api_models/get_currency_model.dart';
+import '../../../data/apis/api_models/get_material_model.dart';
 import '../../../data/apis/api_models/get_product_details_model.dart';
 import '../../../data/apis/api_models/get_product_status_model.dart';
 import '../../../data/apis/api_models/get_state_model.dart';
@@ -46,6 +47,7 @@ class EditCoinProductController extends GetxController {
   final inAsyncCall = false.obs;
   final transmissionId = ''.obs;
   final currencyId = ''.obs;
+  final currencyName = ''.obs;
   final currencySymbol = '\$'.obs;
   final engineTypeId = ''.obs;
   final material = ''.obs;
@@ -63,18 +65,18 @@ class EditCoinProductController extends GetxController {
   final lengthDim = 'cm'.obs;
   final widthDim = 'cm'.obs;
   final heightDim = 'cm'.obs;
-  final weightDim = 'gm'.obs;
+  final weightDim = 'gr'.obs;
   Map<String, dynamic> queryParameters = {};
   Map<String, String?> parameters = Get.parameters;
   GetStateModel? getStateModel;
-  List<String> materialList = ['nickel', 'copper', 'gold', 'silver'];
+  //List<String> materialList = ['nickel', 'copper', 'gold', 'silver'];
 
   GetCurrencyModel? getCurrencyModel;
 
   List<CurrencyData> currencyData = [];
   List<String> volumeDimensionList = ['cm', 'inch', 'foot'];
-  List<String> weightDimensionList = ['gm', 'kg', 'tonne'];
-
+  List<String> weightDimensionList = ['gr', 'kg', 'ton'];
+  List<MaterialData> materialList = [];
   @override
   Future<void> onInit() async {
     super.onInit();
@@ -194,6 +196,7 @@ class EditCoinProductController extends GetxController {
     lon.value = getProductDetailsModel.data!.productLon.toString();
     priceController.text = getProductDetailsModel.data!.price.toString();
     categoryController.text = getProductDetailsModel.data!.modelName.toString();
+    countryController.text = getProductDetailsModel.data!.country.toString();
     denominationController.text =
         getProductDetailsModel.data!.typeEngine.toString();
     yearController.text =
@@ -214,6 +217,10 @@ class EditCoinProductController extends GetxController {
 
     onChangedCurrencyField(
         value: getProductDetailsModel.data!.currenyId.toString());
+    material.value = getProductDetailsModel.data!.color.toString();
+
+    increment();
+    // onChangedBrandField(value: getProductDetailsModel.data!.color.toString());
   }
 
   Future<void> getCurrencyApi() async {
@@ -225,17 +232,46 @@ class EditCoinProductController extends GetxController {
     }
   }
 
+  Future<void> getMaterialApi() async {
+    MaterialModel? materialModel = await ApiMethods.getMaterialList();
+    if (materialModel != null &&
+        materialModel?.data != null &&
+        materialModel!.data!.isNotEmpty) {
+      materialList = materialModel.data ?? [];
+    }
+    increment();
+  }
+
   onChangedMaterialField({String? value}) {
     material.value = value ?? '';
     increment();
   }
 
-  onChangedCurrencyField({String? value}) {
-    currencyData.forEach((element) async {
-      if (element.currencyName.toString() == value) {
-        currencyId.value = element.id ?? '';
-        currencySymbol.value = element.currencySymbols ?? '';
+  onChangedBrandField({String? value}) {
+    materialList.forEach((element) async {
+      if (element.materialName.toString() == value) {
+        material.value = element.materialName ?? '';
         increment();
+      }
+    });
+  }
+
+  onChangedCurrencyField({String? value, bool nameType = false}) {
+    currencyData.forEach((element) async {
+      if (nameType) {
+        if (element.currencyName.toString() == value) {
+          currencyId.value = element.id ?? '';
+          currencyName.value = element.currencyName ?? '';
+          currencySymbol.value = element.currencySymbols ?? '';
+          increment();
+        }
+      } else {
+        if (element.id.toString() == value) {
+          currencyId.value = element.id ?? '';
+          currencyName.value = element.currencyName ?? '';
+          currencySymbol.value = element.currencySymbols ?? '';
+          increment();
+        }
       }
     });
   }

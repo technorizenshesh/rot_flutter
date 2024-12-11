@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -543,15 +544,37 @@ class HomeView extends GetView<HomeController> {
                                                             fontSize: 14.px),
                                                   ),
                                                   SizedBox(height: 10.px),
-                                                  Text(
-                                                    controller
-                                                            .searchResult[index]
-                                                            .description ??
-                                                        '',
-                                                    maxLines: 2,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleMedium,
+                                                  Row(
+                                                    children: [
+                                                      Expanded(
+                                                        child: Text(
+                                                          controller
+                                                                  .searchResult[
+                                                                      index]
+                                                                  .description ??
+                                                              '',
+                                                          maxLines: 2,
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .titleMedium,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 30.px,
+                                                        child: CountryFlag
+                                                            .fromCountryCode(
+                                                          controller
+                                                                  .searchResult[
+                                                                      index]
+                                                                  .countryCode ??
+                                                              'IN',
+                                                          height: 20.px,
+                                                          width: 25.px,
+                                                          borderRadius: 3,
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                   SizedBox(height: 10.px),
                                                 ],
@@ -686,16 +709,37 @@ class HomeView extends GetView<HomeController> {
                                                             fontSize: 14.px),
                                                   ),
                                                   SizedBox(height: 10.px),
-                                                  Text(
-                                                    removeHtmlTags(controller
-                                                            .allProductData[
-                                                                index]
-                                                            .description ??
-                                                        ''),
-                                                    maxLines: 2,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleMedium,
+                                                  Row(
+                                                    children: [
+                                                      Expanded(
+                                                        child: Text(
+                                                          removeHtmlTags(controller
+                                                                  .allProductData[
+                                                                      index]
+                                                                  .description ??
+                                                              ''),
+                                                          maxLines: 3,
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .titleMedium,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 25.px,
+                                                        child: CountryFlag
+                                                            .fromCountryCode(
+                                                          controller
+                                                                  .allProductData[
+                                                                      index]
+                                                                  .countryCode ??
+                                                              '',
+                                                          height: 20.px,
+                                                          width: 22.px,
+                                                          borderRadius: 3,
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                   SizedBox(height: 10.px),
                                                 ],

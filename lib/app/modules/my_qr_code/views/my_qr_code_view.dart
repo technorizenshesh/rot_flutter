@@ -1,8 +1,12 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../common/common_widgets.dart';
+import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/constants/string_constants.dart';
 import '../controllers/my_qr_code_controller.dart';
 
@@ -11,6 +15,35 @@ class MyQrCodeView extends GetView<MyQrCodeController> {
 
   @override
   Widget build(BuildContext context) {
+    final FutureBuilder<ui.Image> qrFutureBuilder = FutureBuilder<ui.Image>(
+      future: controller.loadOverlayImage(),
+      builder: (BuildContext ctx, AsyncSnapshot<ui.Image> snapshot) {
+        const double size = 230.0;
+        if (!snapshot.hasData) {
+          return const SizedBox(width: size, height: size);
+        }
+        return CustomPaint(
+          size: const Size.square(size),
+          painter: QrPainter(
+            data: controller.parameters[ApiKeyConstants.userId] ?? '0',
+            version: QrVersions.auto,
+            eyeStyle: const QrEyeStyle(
+              eyeShape: QrEyeShape.square,
+              color: Color(0xff1f1f1f),
+            ),
+            dataModuleStyle: const QrDataModuleStyle(
+              dataModuleShape: QrDataModuleShape.circle,
+              color: Color(0xff1f1f1f),
+            ),
+            // size: 320.0,
+            embeddedImage: snapshot.data,
+            embeddedImageStyle: const QrEmbeddedImageStyle(
+              size: Size.square(20),
+            ),
+          ),
+        );
+      },
+    );
     return Scaffold(
         appBar: CommonWidgets.appBar(title: StringConstants.myQRCode),
         body: Obx(() {
@@ -22,11 +55,17 @@ class MyQrCodeView extends GetView<MyQrCodeController> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(height: 40.px),
-                  Image.asset(
-                    'assets/un_used_images/my_qr_code.png',
-                    height: 250.px,
+                  Container(
                     width: 250.px,
-                    fit: BoxFit.fill,
+                    height: 250.px,
+                    padding: EdgeInsets.all(10.px),
+                    margin: EdgeInsets.all(20.px),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10.px)),
+                        border: Border.all(
+                            color: Colors.teal.withOpacity(0.5), width: 2.px),
+                        color: Colors.white),
+                    child: qrFutureBuilder,
                   ),
                   Text(
                     'QR number :${controller.qrNumber.value}',

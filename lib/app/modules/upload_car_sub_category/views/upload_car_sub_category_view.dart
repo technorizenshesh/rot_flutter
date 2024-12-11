@@ -177,13 +177,14 @@ class UploadCarSubCategoryView extends GetView<UploadCarSubCategoryController> {
                     SizedBox(
                       height: 10.px,
                     ),
-                    dropDown(
-                      hintText: StringConstants.colorExterior.tr,
-                      onChanged: (value) =>
-                          controller.onChangedColorField(value: value),
-                      items: List.generate(controller.colorsList.length,
-                          (index) => controller.colorsList[index]),
-                    ),
+                    if (controller.colorsList.isNotEmpty)
+                      dropDown(
+                        hintText: StringConstants.colorExterior.tr,
+                        onChanged: (value) =>
+                            controller.onChangedColorField(value: value),
+                        items: List.generate(controller.colorsList.length,
+                            (index) => controller.colorsList[index].name ?? ''),
+                      ),
                     SizedBox(height: 10.px),
                     textFormField(
                       hintText: StringConstants.productsStatus.tr,

@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/get_logout_token_model.dart';
 import '../../../data/apis/api_models/user_model.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
@@ -40,6 +41,7 @@ class ProfileController extends GetxController {
   ];
 
   String userId = '';
+  String token = '';
 
   final inAsyncCall = false.obs;
   Map<String, String> queryParameters = {};
@@ -50,6 +52,7 @@ class ProfileController extends GetxController {
   Future<void> onInit() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     userId = sp.getString(ApiKeyConstants.userId) ?? '';
+    token = sp.getString(ApiKeyConstants.token) ?? '';
     super.onInit();
     inAsyncCall.value = true;
     await onInitWork();
@@ -71,7 +74,7 @@ class ProfileController extends GetxController {
   clickOnListTile({required int index}) async {
     Map<String, String> data = {
       ApiKeyConstants.userId: userId,
-      ApiKeyConstants.wallet: userData!.wallet ?? '0'
+      ApiKeyConstants.wallet: userData?.wallet ?? '0'
     };
     bool youAreUser = LocalData.userType;
     if (youAreUser) {
@@ -95,14 +98,15 @@ class ProfileController extends GetxController {
           Get.toNamed(Routes.CHANGE_PASSWORD, parameters: data);
           break;
         case 6:
-          Get.toNamed(Routes.HELP);
+          // Get.toNamed(Routes.HELP);
+          Get.toNamed(Routes.VIDEO_PLAYER, parameters: data);
           break;
         case 7:
           Get.toNamed(Routes.MY_QR_CODE, parameters: data);
           break;
         case 8:
           CommonWidgets.showAlertDialog(
-            onPressedYes: () => clickOnYes(),
+            onPressedYes: () => callingLogoutApi(), //clickOnYes(),
           );
           break;
       }
@@ -177,14 +181,32 @@ class ProfileController extends GetxController {
           break;
         case 8:
           CommonWidgets.showAlertDialog(
-            onPressedYes: () => clickOnYes(),
+            onPressedYes: () => callingLogoutApi(), //clickOnYes(),
           );
           break;
       }
     }
   }
 
-  clickOnYes() async {
+  Future<void> callingLogoutApi() async {
+    Get.back();
+    try {
+      Map<String, dynamic> getQueryParameters = {
+        ApiKeyConstants.userId: userId,
+        ApiKeyConstants.token: token,
+      };
+      LogoutTokenModel? logoutTokenModel =
+          await ApiMethods.logoutApi(bodyParams: getQueryParameters);
+      if (logoutTokenModel != null && logoutTokenModel.status == '1') {
+        print('logout successfully logged out.....');
+      } else {
+        CommonWidgets.showMyToastMessage(
+            'Failed due to ${logoutTokenModel?.message ?? ''}');
+      }
+    } catch (e) {
+      print('Error:---${e.toString()}');
+      CommonWidgets.showMyToastMessage('Something went wrong....');
+    }
     MyGoogleAuthentication.signOut(context: Get.context!);
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString(ApiKeyConstants.token, '');
@@ -192,6 +214,15 @@ class ProfileController extends GetxController {
     selectedIndex.value = 0;
     Get.offAllNamed(Routes.GET_START);
   }
+
+  // clickOnYes() async {
+  //   MyGoogleAuthentication.signOut(context: Get.context!);
+  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //   await sharedPreferences.setString(ApiKeyConstants.token, '');
+  //   sharedPreferences.clear();
+  //   selectedIndex.value = 0;
+  //   Get.offAllNamed(Routes.GET_START);
+  // }
 
   clickOnDetailCard() {
     Get.toNamed(Routes.PROFILE_DETAIL);

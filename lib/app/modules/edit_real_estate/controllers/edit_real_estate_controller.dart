@@ -45,6 +45,7 @@ class EditRealEstateController extends GetxController {
   final bathRoom = ''.obs;
   final parking = ''.obs;
   final currencyId = ''.obs;
+  final currencyName = ''.obs;
   final currencySymbol = '\$'.obs;
   String productStatusId = '';
   String userId = '';
@@ -191,12 +192,22 @@ class EditRealEstateController extends GetxController {
     increment();
   }
 
-  onChangedCurrencyField({String? value}) {
+  onChangedCurrencyField({String? value, bool nameType = false}) {
     currencyData.forEach((element) async {
-      if (element.currencyName.toString() == value) {
-        currencyId.value = element.id ?? '';
-        currencySymbol.value = element.currencySymbols ?? '';
-        increment();
+      if (nameType) {
+        if (element.currencyName.toString() == value) {
+          currencyId.value = element.id ?? '';
+          currencyName.value = element.currencyName ?? '';
+          currencySymbol.value = element.currencySymbols ?? '';
+          increment();
+        }
+      } else {
+        if (element.id.toString() == value) {
+          currencyId.value = element.id ?? '';
+          currencyName.value = element.currencyName ?? '';
+          currencySymbol.value = element.currencySymbols ?? '';
+          increment();
+        }
       }
     });
   }

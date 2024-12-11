@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:rot_application/common/common_methods.dart';
@@ -8,6 +12,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app/routes/app_pages.dart';
 import 'common/language_translate.dart';
+import 'firebase_options.dart';
+
+const AndroidNotificationChannel channel = AndroidNotificationChannel(
+  'high_importance_channel', // id
+  'High Importance Notifications', // title
+  importance: Importance.high,
+);
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print('Handling a background message_id::::::::: ${message.messageId}');
+}
 
 Future<void> main() async {
   await GetStorage.init();
@@ -15,7 +32,66 @@ Future<void> main() async {
   final String savedLanguageCode = prefs.getString('languageCode') ?? 'en';
   final String savedCountryCode = prefs.getString('countryCode') ?? 'US';
   final savedLocale = Locale(savedLanguageCode, savedCountryCode);
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  if (Platform.isAndroid) {
+    print('Push Notification Android background notification start....');
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    InitializationSettings initializationSettings =
+        const InitializationSettings(
+      android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+      iOS: DarwinInitializationSettings(),
+    );
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        /*     onDidReceiveBackgroundNotificationResponse: (details) {
+      print('pressed notification....');
+      print('the notification is selected 12 ${details.payload}');
+    },*/
+        onDidReceiveNotificationResponse: (payload) async {
+      print('pressed notification....');
+      print('the notification is selected 12 ${payload.payload}');
+    });
+
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
+
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+  } else {
+    print('Push Notification Ios background notification start....');
+    final messaging = FirebaseMessaging.instance;
+
+    final settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>()!
+        .requestPermissions(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
+    await messaging.setForegroundNotificationPresentationOptions(
+      alert: true, // Required to display a heads up notification
+      badge: true,
+      sound: true,
+    );
+  }
   WidgetsFlutterBinding.ensureInitialized();
   CommonMethods.unFocsKeyBoard();
   runApp(

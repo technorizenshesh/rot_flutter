@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 import 'package:rot_application/app/data/apis/api_models/get_chat_model.dart';
 import 'package:rot_application/common/common_widgets.dart';
 
@@ -9,6 +12,8 @@ import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../routes/app_pages.dart';
 
 class ChatDetailController extends GetxController {
+  final ScrollController scrollController = ScrollController();
+  FocusNode focusNode = FocusNode();
   TextEditingController messageController = TextEditingController();
   final count = 0.obs;
   String userImage = '';
@@ -22,6 +27,7 @@ class ChatDetailController extends GetxController {
   final textMessageLoading = false.obs;
   final messageLoading = true.obs;
   List<ChatResult> chatResultList = [];
+  File? selectedFile;
   @override
   void onInit() {
     super.onInit();
@@ -33,6 +39,15 @@ class ChatDetailController extends GetxController {
     requestId = parameters['request_id'] ?? '31';
     productStatus = parameters['product_status'] ?? 'No';
     getChatApi();
+    focusNode.addListener(() {
+      if (focusNode.hasFocus) {
+        // Scroll to the top when the keyboard is opened
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          scrollToTop();
+        });
+      }
+    });
+    increment();
   }
 
   @override
@@ -46,6 +61,27 @@ class ChatDetailController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  void scrollToTop() {
+    if (scrollController.hasClients) {
+      scrollController.animateTo(
+        scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    }
+  }
+
+  void scrollToBottom() {
+    if (scrollController.hasClients) {
+      scrollController.animateTo(
+        scrollController.position.minScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    }
+  }
+
   void clickOnView(int index) {
     Map<String, String> data = {
       ApiKeyConstants.userId: chatResultList[index].senderId ?? ''
@@ -74,6 +110,9 @@ class ChatDetailController extends GetxController {
         getChatModel.result != null &&
         getChatModel.result!.isNotEmpty) {
       chatResultList = getChatModel.result!;
+      if (chatResultList[0].productDeliveryStatus == 'true') {
+        productStatus = 'Yes';
+      }
       increment();
     }
     messageLoading.value = false;
@@ -86,15 +125,28 @@ class ChatDetailController extends GetxController {
       ApiKeyConstants.chatMessage: text,
       ApiKeyConstants.requestId: requestId,
     };
-    http.Response? response =
-        await ApiMethods.insertChat(bodyParams: insertChatParameters);
+    http.Response? response = await ApiMethods.insertChat(
+        bodyParams: insertChatParameters, imageFile: selectedFile);
     print("response:-${response!.body.toString()}");
     if (response != null) {
       messageController.text = '';
+      selectedFile = null;
       getChatApi();
     } else {
       CommonWidgets.showMyToastMessage('Send message failed ...');
     }
     textMessageLoading.value = false;
+  }
+
+  Future getImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      print("Image :-${pickedFile.path}");
+      selectedFile = File(pickedFile.path);
+      increment();
+    } else {
+      print('No image selected ...');
+    }
   }
 }

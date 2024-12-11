@@ -119,7 +119,7 @@ class ProfileDetailView extends GetView<ProfileDetailController> {
                                       controller
                                           .userData!.reviewCount!.isNotEmpty)
                                     Text(
-                                      "⭐ ${controller.userData!.reviewCount ?? ''}",
+                                      "⭐ ${controller.userData!.avgRating ?? '0'} (${controller.userData!.reviewCount ?? '0'} reviews)",
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleSmall

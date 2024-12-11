@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:rot_application/app/data/apis/api_models/get_product_delivery_model.dart';
 import 'package:rot_application/app/data/apis/api_models/get_simple_model.dart';
 import 'package:rot_application/app/routes/app_pages.dart';
@@ -8,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
-import '../../../data/apis/api_models/get_profile_public_products_model.dart';
+import '../../../data/apis/api_models/get_order_product_delivery_model.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 
@@ -24,8 +25,9 @@ class SalesController extends GetxController
     Tab(text: StringConstants.finished.tr),
   ];
   Map<String, dynamic> getPublishedProductQueryParams = {};
-  List<ProfilePublicProductsData> inWindProductList = [];
-  List<GetProductDeliveryData> pendingProductList = [];
+//  List<ProfilePublicProductsData> inWindProductList = [];
+  List<GetProductDeliveryData> inWindProductList = [];
+  List<OrderProductDeliveryData> pendingProductList = [];
   List<GetProductDeliveryData> completeProductList = [];
   final showProgressBar = true.obs;
 
@@ -79,6 +81,37 @@ class SalesController extends GetxController
   }
 
   void increment() => count.value++;
+  void clickOnReList(String productId) {
+    CommonWidgets.showAlertDialog(
+      title: StringConstants.relist,
+      content: StringConstants.doYouWantToRelistProduct,
+      onPressedYes: () {
+        Get.back();
+        clickOnRelist(productId);
+      },
+    );
+  }
+
+  Future<void> clickOnRelist(String productId) async {
+    try {
+      Map<String, String> extendDateQueryParameters = {
+        ApiKeyConstants.productId: productId,
+      };
+      showProgressBar.value = true;
+      print("queryParameters $extendDateQueryParameters");
+      http.Response? response = await ApiMethods.extendExpirationDateApi(
+          queryParameters: extendDateQueryParameters);
+      if (response != null) {
+        Get.back();
+      } else {
+        CommonWidgets.showMyToastMessage('Failed.....');
+      }
+    } catch (e) {
+      showProgressBar.value = false;
+      CommonWidgets.showMyToastMessage('Something is wrong...');
+    }
+    showProgressBar.value = false;
+  }
 
   void clickOnAcceptRejectButton(String type, int index) {
     CommonWidgets.showAlertDialog(
@@ -98,19 +131,36 @@ class SalesController extends GetxController
     };
     Get.toNamed(Routes.MY_ADD_PRODUCT_DETAIL, parameters: data);
   }
+  //
+  // Future<void> getPublishedProductApi() async {
+  //   getPublishedProductQueryParams = {
+  //     ApiKeyConstants.userId: userId,
+  //     ApiKeyConstants.status: 'Wind'
+  //   };
+  //   print("get published product param:- $getPublishedProductQueryParams");
+  //   ProfilePublicProductsModel? profilePublicProductsModel =
+  //       await ApiMethods.getProductByUserId(
+  //           queryParameters: getPublishedProductQueryParams);
+  //   if (profilePublicProductsModel != null &&
+  //       profilePublicProductsModel.data != null &&
+  //       profilePublicProductsModel.data!.isNotEmpty) {
+  //     inWindProductList = profilePublicProductsModel.data!;
+  //   }
+  // }
 
   Future<void> getPublishedProductApi() async {
     getPublishedProductQueryParams = {
-      ApiKeyConstants.userId: userId,
+      ApiKeyConstants.productUserId: userId,
+      ApiKeyConstants.status: 'Wind'
     };
     print("get published product param:- $getPublishedProductQueryParams");
-    ProfilePublicProductsModel? profilePublicProductsModel =
-        await ApiMethods.getProductByUserId(
+    GetProductDeliveryModel? getProductDeliveryModel =
+        await ApiMethods.getProductUser(
             queryParameters: getPublishedProductQueryParams);
-    if (profilePublicProductsModel != null &&
-        profilePublicProductsModel.data != null &&
-        profilePublicProductsModel.data!.isNotEmpty) {
-      inWindProductList = profilePublicProductsModel.data!;
+    if (getProductDeliveryModel != null &&
+        getProductDeliveryModel.data != null &&
+        getProductDeliveryModel.data!.isNotEmpty) {
+      inWindProductList = getProductDeliveryModel.data!;
     }
   }
 
@@ -119,12 +169,13 @@ class SalesController extends GetxController
       ApiKeyConstants.productUserId: userId,
       ApiKeyConstants.status: 'Pending'
     };
-    GetProductDeliveryModel? getProductDeliveryModel =
-        await ApiMethods.getProductUser(queryParameters: getQueryParameters);
+    OrderProductDeliveryModel? orderProductDeliveryModel =
+        await ApiMethods.getOrderProductDelivery(
+            queryParameters: getQueryParameters);
 
-    if (getProductDeliveryModel != null &&
-        getProductDeliveryModel.data!.isNotEmpty) {
-      pendingProductList = getProductDeliveryModel.data!;
+    if (orderProductDeliveryModel != null &&
+        orderProductDeliveryModel.data!.isNotEmpty) {
+      pendingProductList = orderProductDeliveryModel.data!;
     } else {
       print("Failed.....");
     }

@@ -154,27 +154,32 @@ class ProductDetailView extends GetView<ProductDetailController> {
                                         borderRadius: 0.px),
                                   ),
                                   const Spacer(),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .scaffoldBackgroundColor,
-                                      borderRadius:
-                                          BorderRadius.circular(25.px),
-                                      border: Border.all(
-                                        color: Theme.of(context).primaryColor,
+                                  GestureDetector(
+                                    onTap: () {
+                                      controller.clickOnShareButton();
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context)
+                                            .scaffoldBackgroundColor,
+                                        borderRadius:
+                                            BorderRadius.circular(25.px),
+                                        border: Border.all(
+                                          color: Theme.of(context).primaryColor,
+                                        ),
                                       ),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(4.px),
-                                      child: CommonWidgets.appIcons(
-                                          assetName: IconConstants.icShare,
-                                          height: 24.px,
-                                          width: 24.px,
-                                          borderRadius: 0.px),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(4.px),
+                                        child: CommonWidgets.appIcons(
+                                            assetName: IconConstants.icShare,
+                                            height: 24.px,
+                                            width: 24.px,
+                                            borderRadius: 0.px),
+                                      ),
                                     ),
                                   ),
                                   SizedBox(width: 10.px),
-                                  Container(
+                                  /*  Container(
                                     decoration: BoxDecoration(
                                       color: Theme.of(context)
                                           .scaffoldBackgroundColor,
@@ -192,7 +197,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
                                           width: 24.px,
                                           borderRadius: 24.px),
                                     ),
-                                  ),
+                                  ),*/
                                 ],
                               ),
                             ),
@@ -393,7 +398,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
                                 ],
                               ),
                               subtitle: Text(
-                                '⭐⭐⭐⭐⭐ 5 (${controller.getProfilePublicData!.reviewCount} reviews)',
+                                '⭐⭐⭐⭐⭐ ${controller.getProfilePublicData?.avgRating} (${controller.getProfilePublicData!.reviewCount} reviews)',
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                             ),
@@ -714,7 +719,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
                                   width: 25.px),
                               Flexible(
                                 child: Text(
-                                  '${controller.getProductDetailsModel!.data!.zipCode ?? ''},${controller.getProductDetailsModel!.data!.productLocation}',
+                                  '${controller.getProductDetailsModel!.data!.productLocation}',
                                   style: Theme.of(context)
                                       .textTheme
                                       .displayMedium

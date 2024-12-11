@@ -13,6 +13,7 @@ import '../../../../common/common_pickImage.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/get_color_model.dart';
 import '../../../data/apis/api_models/get_currency_model.dart';
 import '../../../data/apis/api_models/get_my_address_model.dart';
 import '../../../data/apis/api_models/get_product_status_model.dart';
@@ -75,7 +76,7 @@ class UploadCarSubCategoryController extends GetxController {
   final lengthDim = 'cm'.obs;
   final widthDim = 'cm'.obs;
   final heightDim = 'cm'.obs;
-  final weightDim = 'gm'.obs;
+  final weightDim = 'gr'.obs;
   Map<String, dynamic> queryParameters = {};
   Map<String, String?> parameters = Get.parameters;
   GetStateModel? getStateModel;
@@ -106,38 +107,14 @@ class UploadCarSubCategoryController extends GetxController {
     '2023',
     '2024'
   ];
-  List<String> colorsList = [
-    'Gray',
-    'Green',
-    'Green',
-    'Blue',
-    'Orange',
-    'Brodgar Silver',
-    'Sepia Metallic',
-    'Yellow',
-    'Black Matte',
-    'Gold Mercury',
-    'Polymimetic Gray',
-    'Cyber Yellow',
-    'Sarigan Quartz',
-    'La Rose Noire',
-    'Black',
-    'Stardust Blue',
-    'Ultra Red',
-    'XP Green',
-    'Notte Black',
-    'Verde Royale',
-    'Bikini',
-    'Sunbeam Orange',
-    'Gotham Gray'
-  ];
 
   GetCurrencyModel? getCurrencyModel;
+  List<ColorData> colorsList = [];
 
   List<CurrencyData> currencyData = [];
   List<File?> imageList = [null, null, null, null, null];
   List<String> volumeDimensionList = ['cm', 'inch', 'foot'];
-  List<String> weightDimensionList = ['gm', 'kg', 'tonne'];
+  List<String> weightDimensionList = ['gr', 'kg', 'ton'];
 
   @override
   Future<void> onInit() async {
@@ -237,6 +214,7 @@ class UploadCarSubCategoryController extends GetxController {
         productLocationController.text =
             productLocation[ApiKeyConstants.productLocation];
         zipcode.value = productLocation[ApiKeyConstants.zipCode];
+        city.value = productLocation[ApiKeyConstants.city];
         country.value = productLocation[ApiKeyConstants.country];
         countryCode.value = productLocation[ApiKeyConstants.countryCode];
         lat.value = productLocation[ApiKeyConstants.productLat];
@@ -250,12 +228,22 @@ class UploadCarSubCategoryController extends GetxController {
   Future<void> onInitWork() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     userId = sp.getString(ApiKeyConstants.userId) ?? '';
+    await getColorApi();
     await getBrandApi();
     await getCurrencyApi();
     if (parameters[ApiKeyConstants.categoryId] == '1' ||
         parameters[ApiKeyConstants.categoryId] == '2') {
       await getEngineTypeApi();
       await getTransmissionApi();
+    }
+  }
+
+  Future<void> getColorApi() async {
+    ColorModel? colorModel = await ApiMethods.getColorApi();
+    if (colorModel != null &&
+        colorModel.data != null &&
+        colorModel.data!.isNotEmpty) {
+      colorsList = colorModel.data!;
     }
   }
 
@@ -397,7 +385,7 @@ class UploadCarSubCategoryController extends GetxController {
         ApiKeyConstants.description: descriptionController.text.toString(),
         ApiKeyConstants.categoryId: parameters[ApiKeyConstants.categoryId],
         ApiKeyConstants.productLocation: switchValue.value
-            ? '${city.value},${country.value}'
+            ? '${city.value},${zipcode.value},${country.value}'
             : productLocationController.text.toString(),
         ApiKeyConstants.productLat: lat.value.toString(),
         ApiKeyConstants.productLon: lon.value.toString(),

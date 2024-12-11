@@ -184,31 +184,54 @@ class CompletedView extends GetView<PurchasesController> {
                                         fontSize: 16.px,
                                         color: Theme.of(context).primaryColor),
                               ),
-                              if (controller
-                                  .isDateWithinFiveDays(item.dateTime ?? ''))
-                                GestureDetector(
-                                  onTap: () {
-                                    controller.clickOnReturn(index);
-                                  },
-                                  child: Container(
-                                    margin: EdgeInsets.only(top: 5.px),
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 10.px, vertical: 8.px),
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(5.px),
-                                        color: Colors.redAccent),
-                                    child: Text(
-                                      'Return',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displayMedium
-                                          ?.copyWith(
-                                              fontSize: 14.px,
-                                              color: Colors.white),
+                              controller
+                                      .isDateWithinFiveDays(item.dateTime ?? '')
+                                  ? GestureDetector(
+                                      onTap: () {
+                                        controller.clickOnReturn(index);
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.only(top: 5.px),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10.px, vertical: 8.px),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5.px),
+                                            color: Colors.redAccent),
+                                        child: Text(
+                                          'Return',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displayMedium
+                                              ?.copyWith(
+                                                  fontSize: 14.px,
+                                                  color: Colors.white),
+                                        ),
+                                      ),
+                                    )
+                                  : GestureDetector(
+                                      onTap: () {
+                                        controller.clickOnFeedback(index);
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.only(top: 5.px),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10.px, vertical: 8.px),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5.px),
+                                            color: Colors.green),
+                                        child: Text(
+                                          'Feedback',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displaySmall
+                                              ?.copyWith(
+                                                  fontSize: 10.px,
+                                                  color: Colors.white),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
                             ],
                           ),
                         ),
@@ -325,7 +348,7 @@ class OngoingView extends GetView<PurchasesController> {
                           ),*/
                                 GestureDetector(
                                   onTap: () {
-                                    controller.clickOnCancel(index);
+                                    controller.clickOnCancel(index, 'Cancel');
                                   },
                                   child: Container(
                                     margin: EdgeInsets.only(top: 10.px),
@@ -348,7 +371,8 @@ class OngoingView extends GetView<PurchasesController> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    controller.clickOnIReceived(index);
+                                    controller.clickOnIReceived(
+                                        index, 'Complete');
                                   },
                                   child: Container(
                                     margin: EdgeInsets.only(

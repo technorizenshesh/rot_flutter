@@ -31,6 +31,8 @@ dependencies:
   #firebase...provider:
   firebase_core: ^2.21.0
   firebase_auth: ^4.17.2
+  flutter_local_notifications: ^18.0.0
+  firebase_messaging: ^14.7.15
 
   #google login
   google_sign_in: ^6.1.6
@@ -44,6 +46,7 @@ dependencies:
   currency_symbols: ^0.0.1+2
   #share .....
   share_plus: ^7.2.2
+  screenshot: ^2.5.0
   #Qr code scanner..
   qr_code_scanner: ^1.0.1
   qr_flutter: ^4.1.0
@@ -54,6 +57,13 @@ dependencies:
   device_info_plus: ^9.1.1
   calendar_date_picker2: ^1.1.5
   flutter_pannable_rating_bar: ^2.7.2+1
+  #video_player....
+  video_player: ^2.9.1
+  flutter_drawing_board: ^0.9.5
+  scribble: ^0.10.0+1
+
+
+
 
 dev_dependencies:
   flutter_lints: ^2.0.0

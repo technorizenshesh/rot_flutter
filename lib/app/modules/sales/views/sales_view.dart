@@ -4,6 +4,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
+import '../../../data/apis/api_models/get_order_product_delivery_model.dart';
 import '../../../data/apis/api_models/get_product_delivery_model.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
@@ -117,9 +118,9 @@ class InWindView extends GetView<SalesController> {
                                 borderRadius: BorderRadius.circular(8.px),
                                 child: CommonWidgets.imageView(
                                     image: controller.inWindProductList[index]
-                                            .productImage!.isNotEmpty
+                                            .image!.isNotEmpty
                                         ? controller.inWindProductList[index]
-                                                .productImage! ??
+                                                .image! ??
                                             ''
                                         : '',
                                     width: 180.px,
@@ -132,18 +133,13 @@ class InWindView extends GetView<SalesController> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     CommonWidgets.appIcons(
-                                      assetName: controller.productIconStatus(
-                                          controller.inWindProductList[index]
-                                                  .availableAt ??
-                                              ''),
+                                      assetName: controller
+                                          .productIconStatus('process'),
                                       width: 40.px,
                                       height: 40.px,
                                     ),
                                     CommonWidgets.appIcons(
-                                      assetName: controller.getIcons(controller
-                                              .inWindProductList[index]
-                                              .shipping ??
-                                          'Yes'),
+                                      assetName: controller.getIcons('Yes'),
                                       width: 40.px,
                                       height: 40.px,
                                     ),
@@ -163,8 +159,8 @@ class InWindView extends GetView<SalesController> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      controller
-                                              .inWindProductList[index].price ??
+                                      controller.inWindProductList[index]
+                                              .amount ??
                                           '',
                                       maxLines: 1,
                                       style: Theme.of(context)
@@ -184,7 +180,9 @@ class InWindView extends GetView<SalesController> {
                               ),
                               SizedBox(height: 5.px),
                               Text(
-                                controller.inWindProductList[index].title ?? '',
+                                controller
+                                        .inWindProductList[index].productName ??
+                                    '',
                                 maxLines: 1,
                                 style: Theme.of(context)
                                     .textTheme
@@ -193,15 +191,15 @@ class InWindView extends GetView<SalesController> {
                                       fontSize: 14.px,
                                     ),
                               ),
-                              SizedBox(height: 5.px),
-                              Text(
-                                controller
-                                        .inWindProductList[index].description ??
-                                    '',
-                                maxLines: 2,
-                                style: Theme.of(context).textTheme.titleMedium,
-                                overflow: TextOverflow.ellipsis,
-                              ),
+                              // SizedBox(height: 5.px),
+                              // Text(
+                              //   controller
+                              //           .inWindProductList[index].description ??
+                              //       '',
+                              //   maxLines: 2,
+                              //   style: Theme.of(context).textTheme.titleMedium,
+                              //   overflow: TextOverflow.ellipsis,
+                              // ),
                               SizedBox(height: 5.px),
                             ],
                           ),
@@ -228,7 +226,7 @@ class InProgressView extends GetView<SalesController> {
             physics: const ScrollPhysics(),
             itemCount: controller.pendingProductList.length,
             itemBuilder: (context, index) {
-              GetProductDeliveryData item =
+              OrderProductDeliveryData item =
                   controller.pendingProductList[index];
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -251,43 +249,47 @@ class InProgressView extends GetView<SalesController> {
                         radius: 0.px,
                       ),
                       Expanded(
-                          child: Column(
-                        children: [
-                          Text(
-                            item.productName ?? '',
-                            maxLines: 1,
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(fontSize: 14.px),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'In progress',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium
-                                    ?.copyWith(
-                                      fontSize: 12.px,
-                                    ),
-                                maxLines: 1,
-                              ),
-                              SizedBox(height: 2.px),
-                              Text(
-                                'Completed on Dec 14.',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium
-                                    ?.copyWith(
-                                      fontSize: 12.px,
-                                    ),
-                                maxLines: 1,
-                              ),
-                            ],
-                          ),
-                        ],
+                          child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 3.px, vertical: 1.px),
+                        child: Column(
+                          children: [
+                            Text(
+                              item.productName ?? '',
+                              maxLines: 1,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(fontSize: 14.px),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'In progress',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                        fontSize: 12.px,
+                                      ),
+                                  maxLines: 1,
+                                ),
+                                SizedBox(height: 2.px),
+                                Text(
+                                  '${item.status} on ${item.dateTime.toString().substring(0, 10)}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                        fontSize: 11.px,
+                                      ),
+                                  maxLines: 1,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       )),
                       SizedBox(
                         width: 120.px,
@@ -402,78 +404,112 @@ class FinishedView extends GetView<SalesController> {
     return controller.completeProductList.isNotEmpty
         ? ListView.builder(
             shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
+            //physics: const NeverScrollableScrollPhysics(),
             itemCount: controller.completeProductList.length,
             itemBuilder: (context, index) {
               GetProductDeliveryData item =
                   controller.completeProductList[index];
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    item.dateTime.toString().substring(0, 10),
-                    maxLines: 1,
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayMedium
-                        ?.copyWith(fontSize: 16.px),
-                  ),
-                  SizedBox(height: 4.px),
-                  ListTile(
-                    leading: CommonWidgets.imageView(
-                      image: item.image ?? '',
-                      height: 44.px,
-                      width: 44.px,
-                      radius: 0.px,
-                    ),
-                    title: Text(
-                      item.productName ?? '',
+              return GestureDetector(
+                onTap: () {
+                  controller.clickOnCard(productId: item.id.toString());
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      item.dateTime.toString().substring(0, 10),
                       maxLines: 1,
                       style: Theme.of(context)
                           .textTheme
                           .displayMedium
-                          ?.copyWith(fontSize: 14.px),
+                          ?.copyWith(fontSize: 16.px),
                     ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Shipment',
-                          style:
-                              Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    fontSize: 12.px,
-                                  ),
-                          maxLines: 1,
-                        ),
-                        SizedBox(height: 2.px),
-                        Text(
-                          'Completed on Dec 14.',
-                          style:
-                              Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    fontSize: 12.px,
-                                  ),
-                          maxLines: 1,
-                        ),
-                      ],
+                    SizedBox(height: 4.px),
+                    ListTile(
+                      leading: CommonWidgets.imageView(
+                        image: item.image ?? '',
+                        height: 44.px,
+                        width: 44.px,
+                        radius: 0.px,
+                      ),
+                      title: Text(
+                        item.productName ?? '',
+                        maxLines: 2,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(fontSize: 14.px),
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Shipment',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                  fontSize: 12.px,
+                                ),
+                            maxLines: 1,
+                          ),
+                          SizedBox(height: 2.px),
+                          Text(
+                            '${item.status} on ${item.dateTime.toString().substring(0, 10)}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                  fontSize: 11.px,
+                                ),
+                            maxLines: 1,
+                          ),
+                        ],
+                      ),
+                      trailing: Column(
+                        children: [
+                          Text(
+                            '${CommonMethods.cur}${item.amount}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                    fontSize: 16.px,
+                                    color: Theme.of(context).primaryColor),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              controller.clickOnReList(item.id ?? '');
+                            },
+                            child: Container(
+                              height: 25.px,
+                              width: 60.px,
+                              alignment: Alignment.center,
+                              margin: EdgeInsets.symmetric(vertical: 5.px),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5.px),
+                                  color: Colors.teal),
+                              child: const Text(
+                                StringConstants.relist,
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                    trailing: Text(
-                      '${CommonMethods.cur}${item..amount}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(
-                              fontSize: 16.px,
-                              color: Theme.of(context).primaryColor),
+                    SizedBox(height: 10.px),
+                    Divider(
+                      height: 2.px,
+                      color: Theme.of(context).colorScheme.onSecondary,
+                      thickness: .2.px,
                     ),
-                  ),
-                  SizedBox(height: 10.px),
-                  Divider(
-                    height: 2.px,
-                    color: Theme.of(context).colorScheme.onSecondary,
-                    thickness: .2.px,
-                  ),
-                  SizedBox(height: 10.px),
-                ],
+                    SizedBox(height: 10.px),
+                  ],
+                ),
               );
             },
           )

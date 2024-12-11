@@ -1,7 +1,7 @@
 class GetConversationModel {
   List<GetConversationResult>? result;
   String? message;
-  int? status;
+  var status;
 
   GetConversationModel({this.result, this.message, this.status});
 

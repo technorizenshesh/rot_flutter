@@ -48,6 +48,7 @@ class GetProfilePublicData {
   String? createdAt;
   String? wallet;
   String? reviewCount;
+  String? avgRating;
   String? loginWith;
   String? subcriptionDate;
   String? whatsappCountryCode;
@@ -79,6 +80,7 @@ class GetProfilePublicData {
       this.createdAt,
       this.wallet,
       this.reviewCount,
+      this.avgRating,
       this.loginWith,
       this.subcriptionDate,
       this.whatsappCountryCode,
@@ -110,6 +112,7 @@ class GetProfilePublicData {
     createdAt = json['created_at'];
     wallet = json['wallet'];
     reviewCount = json['review_count'];
+    avgRating = json['avg_rating'];
     loginWith = json['login_with'];
     subcriptionDate = json['subcription_date'];
     whatsappCountryCode = json['whatsapp_countryCode'];
@@ -143,6 +146,7 @@ class GetProfilePublicData {
     data['created_at'] = createdAt;
     data['wallet'] = wallet;
     data['review_count'] = reviewCount;
+    data['avg_rating'] = avgRating;
     data['login_with'] = loginWith;
     data['subcription_date'] = subcriptionDate;
     data['whatsapp_countryCode'] = whatsappCountryCode;

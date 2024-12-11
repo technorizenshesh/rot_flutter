@@ -108,6 +108,7 @@ abstract class Routes {
   static const EDIT_COIN_PRODUCT = _Paths.EDIT_COIN_PRODUCT;
   static const EDIT_REAL_ESTATE = _Paths.EDIT_REAL_ESTATE;
   static const EDIT_HOBBIES = _Paths.EDIT_HOBBIES;
+  static const VIDEO_PLAYER = _Paths.VIDEO_PLAYER;
 }
 
 abstract class _Paths {
@@ -215,4 +216,5 @@ abstract class _Paths {
   static const EDIT_COIN_PRODUCT = '/edit-coin-product';
   static const EDIT_REAL_ESTATE = '/edit-real-estate';
   static const EDIT_HOBBIES = '/edit-hobbies';
+  static const VIDEO_PLAYER = '/video-player';
 }

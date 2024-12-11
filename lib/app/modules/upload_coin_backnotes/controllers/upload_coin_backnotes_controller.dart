@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:rot_application/app/data/apis/api_models/get_material_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/common_pickImage.dart';
@@ -68,18 +69,18 @@ class UploadCoinBacknotesController extends GetxController {
   final lengthDim = 'cm'.obs;
   final widthDim = 'cm'.obs;
   final heightDim = 'cm'.obs;
-  final weightDim = 'gm'.obs;
+  final weightDim = 'gr'.obs;
   Map<String, dynamic> queryParameters = {};
   Map<String, String?> parameters = Get.parameters;
   GetStateModel? getStateModel;
-  List<String> materialList = ['nickel', 'copper', 'gold', 'silver'];
+  List<MaterialData> materialList = [];
 
   GetCurrencyModel? getCurrencyModel;
 
   List<CurrencyData> currencyData = [];
   List<File?> imageList = [null, null, null, null, null];
   List<String> volumeDimensionList = ['cm', 'inch', 'foot'];
-  List<String> weightDimensionList = ['gm', 'kg', 'tonne'];
+  List<String> weightDimensionList = ['gr', 'kg', 'ton'];
 
   @override
   Future<void> onInit() async {
@@ -169,6 +170,7 @@ class UploadCoinBacknotesController extends GetxController {
       if (productStatus != null) {
         productStatusId = productStatus.id.toString();
         productConditionController.text = productStatus.title.toString();
+        print('Product status: ---${productConditionController.text}');
       }
     } catch (e) {
       print("Error:- ${e.toString()}");
@@ -184,6 +186,7 @@ class UploadCoinBacknotesController extends GetxController {
             productLocation[ApiKeyConstants.productLocation];
         zipcode.value = productLocation[ApiKeyConstants.zipCode];
         country.value = productLocation[ApiKeyConstants.country];
+        city.value = productLocation[ApiKeyConstants.city];
         countryCode.value = productLocation[ApiKeyConstants.countryCode];
         lat.value = productLocation[ApiKeyConstants.productLat];
         lon.value = productLocation[ApiKeyConstants.productLon];
@@ -196,6 +199,7 @@ class UploadCoinBacknotesController extends GetxController {
   Future<void> onInitWork() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     userId = sp.getString(ApiKeyConstants.userId) ?? '';
+    getMaterialApi();
     await getCurrencyApi();
   }
 
@@ -206,6 +210,16 @@ class UploadCoinBacknotesController extends GetxController {
         getCurrencyModel!.data!.isNotEmpty) {
       currencyData = getCurrencyModel!.data ?? [];
     }
+  }
+
+  Future<void> getMaterialApi() async {
+    MaterialModel? materialModel = await ApiMethods.getMaterialList();
+    if (materialModel != null &&
+        materialModel?.data != null &&
+        materialModel!.data!.isNotEmpty) {
+      materialList = materialModel.data ?? [];
+    }
+    increment();
   }
 
   onChangedMaterialField({String? value}) {
@@ -247,7 +261,7 @@ class UploadCoinBacknotesController extends GetxController {
         ApiKeyConstants.description: descriptionController.text.toString(),
         ApiKeyConstants.categoryId: parameters[ApiKeyConstants.categoryId],
         ApiKeyConstants.productLocation: switchValue.value
-            ? '${city.value},${country.value}'
+            ? '${city.value},${zipcode.value},${country.value}'
             : productLocationController.text.toString(),
         ApiKeyConstants.productLat: lat.value.toString(),
         ApiKeyConstants.productLon: lon.value.toString(),

@@ -263,9 +263,10 @@ class EditHobbiesView extends GetView<EditHobbiesController> {
                         if (controller.currencyData.isNotEmpty)
                           Expanded(
                             child: dropDown(
-                              hintText: StringConstants.currency,
-                              onChanged: (value) => controller
-                                  .onChangedCurrencyField(value: value),
+                              hintText: controller.currencyName.value,
+                              onChanged: (value) =>
+                                  controller.onChangedCurrencyField(
+                                      value: value, nameType: true),
                               items: List.generate(
                                   controller.currencyData.length,
                                   (index) => controller

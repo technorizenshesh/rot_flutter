@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../common/PushNotificationService.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../../common/deviceInfo.dart';
 import '../../../../common/login_with_google.dart';
@@ -70,7 +71,7 @@ class LoginController extends GetxController {
     Get.toNamed(Routes.LOGIN_WITH_EMAIL);
   }
 
-  clickOnGoogleButton() async {
+  void clickOnGoogleButton() async {
     inAsyncCall.value = true;
     User? user =
         await MyGoogleAuthentication.signInWithGoogle(context: Get.context!);
@@ -96,6 +97,8 @@ class LoginController extends GetxController {
             await DeviceInfo().getDeviceInfo(Get.context!),
         ApiKeyConstants.deviceId:
             await DeviceInfo().getDeviceUnique(Get.context!),
+        ApiKeyConstants.deviceToken:
+            await PushNotificationService.getToken() ?? ''
       };
       UserModel? userModel =
           await ApiMethods.loginWithGoogle(bodyParams: bodyParams);
@@ -140,6 +143,8 @@ class LoginController extends GetxController {
             await DeviceInfo().getDeviceInfo(Get.context!),
         ApiKeyConstants.deviceId:
             await DeviceInfo().getDeviceUnique(Get.context!),
+        ApiKeyConstants.deviceToken:
+            await PushNotificationService.getToken() ?? ''
       };
       UserModel? userModel = await ApiMethods.login(bodyParams: bodyParams);
       if (userModel != null &&

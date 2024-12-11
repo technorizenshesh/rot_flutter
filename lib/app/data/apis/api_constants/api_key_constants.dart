@@ -32,6 +32,7 @@ class ApiKeyConstants {
   static const String productLon = 'product_lon';
   static const String country = 'country';
   static const String zipCode = 'zip_code';
+  static const String city = 'city';
   static const String kg = 'kg';
   static const String brandId = 'brand_id';
   static const String productStatusId = 'product_status_id';
@@ -94,6 +95,7 @@ class ApiKeyConstants {
   static const String partNumber = 'part_number';
   static const String deviceName = 'device_name';
   static const String deviceId = 'device_id';
+  static const String deviceToken = 'device_token';
   static const String role = 'role';
   static const String permission = 'permission';
   static const String inviteId = 'invite_id';

@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rot_application/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:rot_application/app/data/apis/api_models/get_product_details_model.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/check_permission.dart';
@@ -288,7 +289,7 @@ class ProductDetailController extends GetxController {
       Map<String, dynamic> getShippingChargeParameters = {
         ApiKeyConstants.countryCode: userCountryCode.value,
         ApiKeyConstants.zipCode: userZipCode.value,
-        ApiKeyConstants.kg: data!.weightDim == 'gm'
+        ApiKeyConstants.kg: data!.weightDim == 'gr'
             ? '${(double.parse(data!.weight != '' ? data!.weight ?? '2000' : '2000')) / 1000}'
             : data!.weight ?? '2',
       };
@@ -449,5 +450,29 @@ class ProductDetailController extends GetxController {
         );
       },
     );
+  }
+
+  Future<void> clickOnShareButton() async {
+    /* increment();
+    screenshotController.capture().then((Uint8List? image) async {
+      if (image != null) {
+        final directory = await getTemporaryDirectory();
+        final imagePath =
+            await File('${directory.path}/screenshot.png').create();
+
+        // Save the screenshot as a file
+        await imagePath.writeAsBytes(image);
+
+        // Share the file
+        await Share.shareFiles([imagePath.path],
+            text: 'Here is my screenshot!');
+      }
+    }).catchError((onError) {
+      print('Error:-${onError}');
+    });*/
+    await Share.share(' Name:${getProductDetailsModel?.data?.title}\n'
+        ' Price:${getProductDetailsModel?.data?.price}\n'
+        ' Image:${getProductDetailsModel?.data?.productImage?[0].image}\n'
+        ' Install App:.......App still not live');
   }
 }

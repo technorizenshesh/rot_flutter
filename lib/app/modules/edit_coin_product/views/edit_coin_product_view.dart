@@ -217,16 +217,20 @@ class EditCoinProductView extends GetView<EditCoinProductController> {
                         controller: controller.descriptionController,
                         maxLines: 4),
                     if (controller.parameters[ApiKeyConstants.subCategoryId] ==
-                        '150')
+                            '150' &&
+                        controller.materialList.isNotEmpty)
                       Column(
                         children: [
                           SizedBox(height: 10.px),
                           dropDown(
-                            hintText: StringConstants.material.tr,
+                            hintText: controller.material.value,
                             onChanged: (value) =>
                                 controller.onChangedMaterialField(value: value),
-                            items: List.generate(controller.materialList.length,
-                                (index) => controller.materialList[index]),
+                            items: List.generate(
+                                controller.materialList.length,
+                                (index) => controller
+                                    .materialList[index].materialName
+                                    .toString()),
                           ),
                         ],
                       ),
@@ -427,9 +431,10 @@ class EditCoinProductView extends GetView<EditCoinProductController> {
                         if (controller.currencyData.isNotEmpty)
                           Expanded(
                             child: dropDown(
-                              hintText: StringConstants.currency.tr,
-                              onChanged: (value) => controller
-                                  .onChangedCurrencyField(value: value),
+                              hintText: controller.currencyName.value,
+                              onChanged: (value) =>
+                                  controller.onChangedCurrencyField(
+                                      value: value, nameType: true),
                               items: List.generate(
                                   controller.currencyData.length,
                                   (index) => controller

@@ -33,9 +33,15 @@ class LinkedDeviceData {
   String? deviceId;
   String? deviceName;
   String? dateTime;
+  String? token;
 
   LinkedDeviceData(
-      {this.id, this.userId, this.deviceId, this.deviceName, this.dateTime});
+      {this.id,
+      this.userId,
+      this.deviceId,
+      this.deviceName,
+      this.dateTime,
+      this.token});
 
   LinkedDeviceData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -43,6 +49,7 @@ class LinkedDeviceData {
     deviceId = json['device_id'];
     deviceName = json['device_name'];
     dateTime = json['date_time'];
+    token = json['token'];
   }
 
   Map<String, dynamic> toJson() {
@@ -52,6 +59,7 @@ class LinkedDeviceData {
     data['device_id'] = deviceId;
     data['device_name'] = deviceName;
     data['date_time'] = dateTime;
+    data['token'] = token;
     return data;
   }
 }
